@@ -6,11 +6,16 @@ import re
 import time
 import datetime
 from stdlib_list import stdlib_list
+import os
+import math
 
 libs = stdlib_list(str(sys.version_info[0]) + "." + str(sys.version_info[1]))
 
 api_addr = "api.github.com"
-token = '9efd098dd8f3212923799f762f900eeb558335e7'
+token = os.getenv('git_token')
+if not token:
+    print ("no authorization for git api. set git_token env")
+    time.sleep(3)
 action = "search"
 target = "repositories"
 sort = "stars"
@@ -25,12 +30,36 @@ full_url = ("https://{0}/{1}/{2}?q={3}&sort={4}".format(api_addr, action,
 #print (full_url)
 res['query_url'] = full_url
 
-r = requests.get("https://{0}/{1}/{2}?q={3}&sort={4}".format(api_addr, action,
-    target, query, sort), headers=headers)
-list_of_repo = (json.loads(r.text))
+page = 1
+per_page = 100
 
+def get_repos(loop=True):
+    url = (
+    "https://{0}/{1}/{2}?q={3}&sort={4}&page={5}&per_page={6}".format(api_addr,
+            action, target, query, sort, page, per_page))
+    print url
+    r = requests.get(url, headers=headers)
+    if (r.status_code != 200 and r.headers['X-RateLimit-Remaining'] == '0' and
+            loop):
+        time.sleep(60)
+        return get_repos(False)
+    list_of_repo = (json.loads(r.text))
+    return list_of_repo
+
+list_of_repo = get_repos()
+pages = int(math.ceil(list_of_repo['total_count']/per_page))
+if list_of_repo['total_count'] > per_page:
+    while page <= pages:
+        page += 1
+        res = get_repos()
+        list_of_repo['items'] = list_of_repo['items'] + res['items']
+
+
+#pprint(list_of_repo)
 res['total_count'] = list_of_repo['total_count']
 res['items'] = {}
+#print len(list_of_repo['items'])
+#sys.exit()
 for i in list_of_repo['items']:
     #pprint (i)
     # u'url': u'https://api.github.com/repos/linanqiu/word2vec-sentiments',
