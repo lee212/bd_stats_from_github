@@ -60,9 +60,11 @@ res['total_count'] = list_of_repo['total_count']
 res['items'] = {}
 #print len(list_of_repo['items'])
 #sys.exit()
+cnt=0
 for i in list_of_repo['items']:
     #pprint (i)
     # u'url': u'https://api.github.com/repos/linanqiu/word2vec-sentiments',
+    cnt+=1
     m = re.search("(.*)repos/(.*)",i['url'])
     if m:
         repo = m.group(2)
@@ -114,11 +116,13 @@ for i in list_of_repo['items']:
                     # import x, [y, z]
                     if not isinstance(package, tuple):
                         package = package[:package.find("\\n")]
+                        package = package[:package.find("#")]
                         package_names = package_names + package.split(',')
                     # from x import y
                     else:
                         tmp = list(package)
                         tmp[1] = tmp[1][:tmp[1].find('\\n')]
+                        tmp[1] = tmp[1][:tmp[1].find('#')]
                         package = tuple(tmp)
                         package_names.append(package[0]) 
                     packages_cleaned.append(package)
