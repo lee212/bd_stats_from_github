@@ -1,0 +1,21 @@
+title:
+  NIST Spatial Big Data/Spatial Statistics/Geographic Information Systems
+keywords:
+  - spatial big data
+  - spatial statistics
+  - geographic
+  - geospatial
+  - gis
+  - gps
+  - uber ride
+  - uber gps
+tools:
+  - hadoop
+  - spark
+  - gis-tools
+  - mahout
+  - mllib
+  - d3
+  - tableau
+algoritms:
+  -

@@ -1,0 +1,20 @@
+title:
+  NIST Live Twitter Analysis
+keywords:
+  - sentiment
+  - 'text analysis'
+  - 'opinion analysis'
+  - 'sentiment analysis'
+  - 'text mining'
+  - 'twitter sentiment'
+  - 'opinion mining'
+  - 'nlp twitter'
+tools:
+  - storm
+  - hbase
+  - tableau
+  - d3
+  - nltk
+  - alchemy
+algoritms:
+  - sentiment

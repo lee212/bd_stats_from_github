@@ -1,0 +1,21 @@
+title:
+  NIST Data Warehousing and Data Mining
+keywords:
+  - warehousing
+  - data mining
+  - knowledge discovery
+  - census
+tools:
+  - hadoop
+  - spark
+  - hbase
+  - mongodb
+  - hive
+  - pig
+  - mahout
+  - lucene/solr
+  - mllib
+  - d3
+  - tableau
+algoritms:
+  -

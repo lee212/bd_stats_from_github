@@ -1,0 +1,17 @@
+title:
+  NIST Big data Analytics for Healthcare Data/Health Informatics
+keywords:
+  - healthcare
+  - medicare and medicaid services
+  - medicare
+  - health informatics
+tools:
+  - hadoop
+  - spark
+  - hbase
+  - mahout
+  - lucene/solr
+  - mllib
+  - d3
+  - tableau
+algoritms:
