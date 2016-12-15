@@ -9,7 +9,7 @@ from stdlib_list import stdlib_list
 import os
 import math
 import yaml
-from . import utils
+import utils
 
 class surveyGitHub(object):
 
@@ -37,7 +37,7 @@ class surveyGitHub(object):
     def check_git_token(self, conf=None):
         if not conf:
             conf = self.conf
-        if not conf['token']:
+        if not conf['git_token']:
             print ("no authorization for git api. set git_token in configuration")
             time.sleep(3)
             return False
@@ -45,7 +45,7 @@ class surveyGitHub(object):
 
     def request_api(self, url, loop=True):
         conf = self.conf
-        headers = {'Authorization': 'token ' + conf['token']}
+        headers = {'Authorization': 'token ' + conf['git_token']}
         if conf['debugging'] in [ 'INFO', 'DEBUG']:
             print(url)
         r = requests.get(url, headers=headers)
@@ -61,7 +61,7 @@ class surveyGitHub(object):
     def get_total_pages(self, searched_data=None):
         if not searched_data:
             searched_data = self.raw_data
-        pages = int(math.ceil(searched_data['total_count']/conf['per_page']))
+        pages = int(math.ceil(searched_data['total_count'] * 1.0 /self.conf['per_page']))
         return pages
 
     def generate_repo_url(self, page=1):
@@ -76,6 +76,7 @@ class surveyGitHub(object):
         repo_url = self.generate_repo_url()
         list_of_repo_first_slice = self.request_api(repo_url)
 
+        result = self.result
         result['created_at'] = str(datetime.datetime.now())
         result['query_url'] = repo_url
         result['items'] = list_of_repo_first_slice['items']
