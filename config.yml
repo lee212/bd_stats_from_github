@@ -1,0 +1,34 @@
+---
+
+git_token: 287cc7b9d80a9a8e21f8bdf19b9eecca3e89afd7
+api_addr: https://api.github.com
+sort: stars
+
+languages:
+  - python
+  - java
+  - scala
+  - javascript
+  - ruby
+  - c#
+  - R
+
+Recent:
+  ">=2016-01-01"
+
+Popularity:
+  "stars>49"
+  
+Quality:
+  - "pushed:>=2016-01-01"
+  - "contributors:>=3"
+  - "issues:>1"
+  
+per_page:
+  100
+
+debugging:
+  ERROR
+  # DEBUG
+  # INFO
+  # WARNING
