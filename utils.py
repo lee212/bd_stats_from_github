@@ -4,3 +4,7 @@ import sys
 def check_stdlibs(module_name):
     libs = stdlib_list(str(sys.version_info[0]) + "." + str(sys.version_info[1]))
     return (module_name in libs)
+
+def mean(n):
+    return float(sum(n)) / max(len(n), 1)
+

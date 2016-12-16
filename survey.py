@@ -10,6 +10,7 @@ import os
 import math
 import yaml
 import utils
+import urllib
 
 class surveyGitHub(object):
 
@@ -18,7 +19,7 @@ class surveyGitHub(object):
 
     action = "search"
     target = "repositories"
-    query=sys.argv[1]
+    query = ""
 
     result = {}
     result['items'] = {}
@@ -28,6 +29,14 @@ class surveyGitHub(object):
     def __init__(self):
         self.conf = self.get_conf()
         self.check_git_token()
+
+    def set_query(self, string):
+        self.query = string
+
+    def load_inputs(self, yaml_path):
+        with open(yaml_path, "r") as inputs:
+            inputs = yaml.load(inputs)
+        self.inputs = inputs
 
     def get_conf(self):
         with open(self.conf_file, 'r') as config_file:
@@ -68,8 +77,41 @@ class surveyGitHub(object):
         conf = self.conf
         repo_url = (
                 "{0}/{1}/{2}?q={3}&sort={4}&page={5}&per_page={6}".format(conf['api_addr'],
-                self.action, self.target, self.query, conf['sort'], page, conf['per_page']))
+                    self.action, self.target, self.query, conf['sort'], page,
+                    conf['per_page']))
         return repo_url
+
+    def language_preference(self):
+        res = {}
+        stat = { 'all' : [] }
+        for keyword in self.inputs['keywords']:
+            self.query = urllib.quote_plus(keyword)
+            url1 = self.generate_repo_url()
+            ret1 = self.request_api(url1)
+            try:
+                res[keyword]['count'] = ret1['total_count']
+            except KeyError as e:
+                res[keyword] = { 'count' : ret1['total_count'] }
+
+            for lang in self.conf['languages']:
+                self.query = (urllib.quote_plus(keyword) + "+language:" +
+                urllib.quote_plus(lang))
+                url2 = self.generate_repo_url()
+                ret2 = self.request_api(url2)
+                res[keyword][lang] = ret2['total_count']
+                try:
+                    res[lang]['all'].append(ret2['total_count'] * 1.0 /
+                            ret1['total_count'])
+                except KeyError as e:
+                    res[lang] = {}
+                    res[lang]['all'] = [(ret2['total_count'] * 1.0 /
+                        ret1['total_count'])]
+            stat['all'].append(ret1['total_count'])
+        for lang in self.conf['languages']:
+            res[lang]['avg'] = utils.mean(res[lang]['all'])
+        stat['avg'] = utils.mean(stat['all'])
+
+        return res.update(stat)
 
     def run_survey(self):
 
@@ -185,4 +227,8 @@ class surveyGitHub(object):
 
 
 packages = surveyGitHub()
-packages.run_survey()
+#packages.set_query(sys.argv[1])
+#packages.run_survey()
+packages.load_inputs(sys.argv[1])
+ret = packages.language_preference()
+pprint (ret)
