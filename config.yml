@@ -12,9 +12,10 @@ languages:
   - ruby
   - c#
   - R
+  - Jupyter Notebook
 
 Recent:
-  ">=2016-01-01"
+  "created:>=2016-01-01"
 
 Popularity:
   "stars>49"
@@ -28,7 +29,7 @@ per_page:
   100
 
 debugging:
-  ERROR
-  # DEBUG
+  # ERROR
+  DEBUG
   # INFO
   # WARNING

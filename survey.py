@@ -81,6 +81,80 @@ class surveyGitHub(object):
                     conf['per_page']))
         return repo_url
 
+    def recent_activities(self):
+        res = { 'items' : {} }
+        res['created_at'] = str(datetime.datetime.now())
+        stat = { "all": [] }
+        cnt = 0
+        for keyword in self.inputs['keywords']:
+            self.query = urllib.quote_plus(keyword)
+            self.query += "+" + self.conf['Recent']
+            url1 = self.generate_repo_url()
+            ret1 = self.request_api(url1)
+            res[keyword] = { 'count' : ret1['total_count'],
+                    'items': ret1['items'] }
+            stat['all'].append(ret1['total_count'])
+            for item in ret1['items']:
+                if item['full_name'] in res['items'].keys():
+                    cnt += 1
+                res['items'][item['full_name']] = item
+        stat['avg'] = utils.mean(stat['all'])
+        res.update(stat)
+        return res
+
+    def retrieve_py_modules(self, repos):
+        res = {'all':[]}
+        for k,v in repos.iteritems():
+            repo = v['full_name']
+            target = "code"
+            lang = "Python"
+            query = "import+in:file+language:{0}+repo:{1}".format(lang, repo)
+            url = ("{0}/{1}/{2}?q={3}".format(self.conf['api_addr'],
+                self.action, target, query))
+            codes_searched = self.request_api(url)
+            res[repo] = set()
+            for code in codes_searched['items']:
+                contents = self.get_file_contents(code)
+                packages = self.get_module_names(contents)
+                res[repo].update(packages)
+        return res
+
+    def get_file_contents(self, item):
+
+        c_url = item['repository']['contents_url']
+        contents_url = c_url.replace('/{+path}', item['path'])
+        contents = self.request_api(contents_url)
+        try:
+            decoded_contents = contents['content'].decode('base64')
+            return decoded_contents
+        except KeyError as e:
+            return []
+
+    def get_module_names(self, content):
+        package1 = re.findall("import (.*)$", contents, re.M)
+        package2 = re.findall("from (.*) import .*$", contents, re.M)
+
+        packages = package1 + package2
+        package_names = []
+        for package in packages:
+            # import x, [y, z]
+            if not isinstance(package, tuple):
+
+                is_comment = package.find("#")
+                if is_comment > 0:
+                    package = package[:is_comment]
+                package_names += package.split(',')
+        tmp = []
+        for package in package_names:
+            module_name_only = package.split('.')[0]
+            module_name_only = module_name_only.split(" as ")[0]
+            module_name_only = module_name_only.strip()
+            if not utils.check_stdlibs(module_name_only):
+                tmp.append(module_name_only)
+
+        package_names = set(tmp)
+        return package_names
+ 
     def language_preference(self):
         res = {}
         stat = { 'all' : [] }
@@ -111,7 +185,8 @@ class surveyGitHub(object):
             res[lang]['avg'] = utils.mean(res[lang]['all'])
         stat['avg'] = utils.mean(stat['all'])
 
-        return res.update(stat)
+        res.update(stat)
+        return res
 
     def run_survey(self):
 
@@ -230,5 +305,9 @@ packages = surveyGitHub()
 #packages.set_query(sys.argv[1])
 #packages.run_survey()
 packages.load_inputs(sys.argv[1])
-ret = packages.language_preference()
-pprint (ret)
+#ret = packages.language_preference()
+#pprint (ret)
+ret = packages.recent_activities()
+#pprint(ret)
+ret2 = packages.retrieve_py_modules(ret['items'])
+pprint(ret2)
