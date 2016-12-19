@@ -26,6 +26,13 @@ class surveyGitHub(object):
     result['page'] = 1
     result['pages'] = 1
 
+    res = { 'merged': 
+            { 'total_count': 0,
+                'items' : {} },
+            'keyword': {},
+            'created_at' : str(datetime.datetime.now())
+            }
+
     def __init__(self):
         self.conf = self.get_conf()
         self.check_git_token()
@@ -82,43 +89,48 @@ class surveyGitHub(object):
         return repo_url
 
     def recent_activities(self):
-        res = { 'items' : {} }
-        res['created_at'] = str(datetime.datetime.now())
-        stat = { "all": [] }
+
+        res = self.res
+        
         cnt = 0
+        # multiple keywords for search item
         for keyword in self.inputs['keywords']:
             self.query = urllib.quote_plus(keyword)
+            # date query from config.yml
             self.query += "+" + self.conf['Recent']
             url1 = self.generate_repo_url()
             ret1 = self.request_api(url1)
-            res[keyword] = { 'count' : ret1['total_count'],
+            res['keyword'][keyword] = { 'total_count' : ret1['total_count'],
                     'items': ret1['items'] }
-            stat['all'].append(ret1['total_count'])
+
             for item in ret1['items']:
-                if item['full_name'] in res['items'].keys():
+                # count duplicate
+                if item['full_name'] in res['merged']['items'].keys():
                     cnt += 1
-                res['items'][item['full_name']] = item
-        stat['avg'] = utils.mean(stat['all'])
-        res.update(stat)
+                res['merged']['items'][item['full_name']] = item
         return res
 
-    def retrieve_py_modules(self, repos):
-        res = {'all':[]}
-        for k,v in repos.iteritems():
-            repo = v['full_name']
+    def retrieve_py_modules(self, items):
+        """ Find 'import *' keywords in python files """
+
+        repos = items['merged']['items']
+        for full_name, item in repos.iteritems():
+            if not item:
+                continue
+            repo = item['full_name']
             target = "code"
             lang = "Python"
             query = "import+in:file+language:{0}+repo:{1}".format(lang, repo)
             url = ("{0}/{1}/{2}?q={3}".format(self.conf['api_addr'],
                 self.action, target, query))
             codes_searched = self.request_api(url)
-            res[repo] = set()
+            repos[repo]['packages'] = set()
             for code in codes_searched['items']:
                 contents = self.get_file_contents(code)
                 packages = self.get_module_names(contents)
-                res[repo].update(packages)
-            res[repo] = list(res[repo])
-        return res
+                repos[repo]['packages'].update(packages)
+            repos[repo]['packages'] = list(repos[repo])
+        return items
 
     def get_file_contents(self, item):
 
@@ -301,14 +313,15 @@ class surveyGitHub(object):
         with open(name, 'w') as outfile:
             json.dump(data, outfile, indent=4, sort_keys=True)
 
-
-packages = surveyGitHub()
-#packages.set_query(sys.argv[1])
-#packages.run_survey()
-packages.load_inputs(sys.argv[1])
-#ret = packages.language_preference()
-#pprint (ret)
-ret = packages.recent_activities()
-#pprint(ret)
-ret2 = packages.retrieve_py_modules(ret['items'])
-packages.save_file(ret2)
+if __name__ == "__main__":
+    packages = surveyGitHub()
+    #packages.set_query(sys.argv[1])
+    #packages.run_survey()
+    packages.load_inputs(sys.argv[1])
+    #ret = packages.language_preference()
+    #pprint (ret)
+    ret = packages.recent_activities()
+    #pprint(ret)
+    packages.save_file(ret)
+    ret2 = packages.retrieve_py_modules(ret)
+    packages.save_file(ret2)
