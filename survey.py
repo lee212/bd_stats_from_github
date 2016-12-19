@@ -117,6 +117,7 @@ class surveyGitHub(object):
                 contents = self.get_file_contents(code)
                 packages = self.get_module_names(contents)
                 res[repo].update(packages)
+            res[repo] = list(res[repo])
         return res
 
     def get_file_contents(self, item):
@@ -130,7 +131,7 @@ class surveyGitHub(object):
         except KeyError as e:
             return []
 
-    def get_module_names(self, content):
+    def get_module_names(self, contents):
         package1 = re.findall("import (.*)$", contents, re.M)
         package2 = re.findall("from (.*) import .*$", contents, re.M)
 
@@ -310,4 +311,4 @@ packages.load_inputs(sys.argv[1])
 ret = packages.recent_activities()
 #pprint(ret)
 ret2 = packages.retrieve_py_modules(ret['items'])
-pprint(ret2)
+packages.save_file(ret2)
