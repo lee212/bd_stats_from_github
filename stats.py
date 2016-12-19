@@ -1,75 +1,86 @@
 import json
 import sys
 from pprint import pprint
-import operator
 import datetime
-import collections
+from collections import Counter
+import utils
 
-filename=sys.argv[1]
-with open(filename, 'r') as datafile:
-    res = json.load(datafile)
+class Statistics(object):
 
-packages = {}
-num_packages = []
+    packages = Counter()
+    packages_cnt = 0
+    raw_data = None
 
-recent = [ 30, 60, 90, 180, 365 ]
-new = {}
+    recent_days = [ 30, 60, 90, 180, 365 ]
+    packages_recent = {}
 
-def check_date(source, val):
-    orig = datetime.datetime.strptime(source, '%Y-%m-%dT%H:%M:%SZ')
-    check = datetime.datetime.now() + datetime.timedelta(-1 * val)
-    return orig >= check
+    def __init__(self):
+        for day in self.recent_days:
+            day = str(day)
+            self.packages_recent[day] = { 'total': 0,
+                    'average': 0,
+                    'package_count': [],
+                    'packages': [],
+                    'top20': [] }
 
-for k,v in res['items'].iteritems():
-    if not 'packages' in v:
-        continue
+    def read_file(self, name):
+        with open(name, 'r') as datafile:
+            data = json.load(datafile)
+            self.raw_data = data
+            return data
 
-    num_packages.append(len(v['packages']))
-    for i in v['packages']:
-        try:
-            packages[i] += 1
-        except KeyError:
-            packages[i] = 1
+    def is_in_timeframe(self, date_n_time, days):
+        orig = datetime.datetime.strptime(date_n_time, '%Y-%m-%dT%H:%M:%SZ')
+        check = datetime.datetime.now() + datetime.timedelta(-1 * days)
+        return orig >= check
 
-    # last 30, 60, 90 , 180, 365 days
-    for j in recent:
-        if check_date(v['created_at'], j):
-            try:
-                new[str(j)]['count'] += 1
-                new[str(j)]['packages'] += v['packages']
-            except:
-                new[str(j)] = { 'count' : 1,
-                                'packages' : v['packages'] }
+    def pick_close_day(self, date_n_time, days_list=None):
+        if not days_list:
+            days_list = self.recent_days
+        orig = datetime.datetime.strptime(date_n_time, '%Y-%m-%dT%H:%M:%SZ')
+        diff = datetime.datetime.now() - orig
+        return min(days_list, key=lambda x:abs(x - diff.days))
 
-def sort_dict(val):
-    val_sorted = sorted(val.items(), key=operator.itemgetter(1),
-        reverse=True)
-    return val_sorted
+    def count_package_occurrences(self, data=None):
+        if not data:
+            data = self.raw_data
+        packages = []
+        for k, v in data['items'].iteritems():
+            if not 'packages' in v:
+                continue
+            packages += v['packages']
 
+        c = Counter(packages)
+        self.packages_cnt = sum(c.values())
+        self.packages = c
+        return c.most_common()
 
-for j in recent:
-    pack = new[str(j)]['packages']
-    pack_sorted = sort_dict(dict(collections.Counter(pack)))
-    new[str(j)]['packages'] = pack_sorted
-    new[str(j)]['packages'] = pack_sorted[:10]
+    def trends(self, data=None):
+        return self.count_package_occurrences_over_days(data)
 
-packages_sorted = sorted(packages.items(), key=operator.itemgetter(1),
-        reverse=True)
+    def count_package_occurrences_over_days(self, data=None):
+        if not data:
+            data = self.raw_data
 
-def mean(n):
-    return float(sum(n)) / max(len(n), 1)
+        for k, v in data['items'].iteritems():
+            if not 'packages' in v:
+                continue
+            day = str(self.pick_close_day(v['created_at']))
+            self.packages_recent[day]['packages'] += v['packages']
+            self.packages_recent[day]['package_count'].append(len(v['packages']))
 
-popular_packages_over_50 = [ x for x in packages_sorted if (x[1] /
-    float(len(packages_sorted))) > 0.5 ]
+        for day, val in self.packages_recent.iteritems():
+            c = Counter(self.packages_recent[day]['packages'])
+            self.packages_recent[day]['total'] = sum(c.values())
+            self.packages_recent[day]['average'] = \
+            utils.mean(self.packages_recent[day]['package_count'])
+            self.packages_recent[day]['top20'] = c.most_common(20)
 
-res = { 'total': len(packages_sorted),
-        'average': mean(num_packages),
-        'min': min(num_packages),
-        'max': max(num_packages),
-        'over50%': popular_packages_over_50}
+        return self.packages_recent
 
-pprint (packages_sorted)
+stat = Statistics()
+data = stat.read_file(sys.argv[1])
+res = stat.count_package_occurrences(data)
 pprint (res)
-pprint (new)
-
-
+res2 = stat.count_package_occurrences_over_days()
+pprint(res2)
