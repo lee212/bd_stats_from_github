@@ -44,10 +44,16 @@ class Statistics(object):
     def count_package_occurrences(self, data=None):
         if not data:
             data = self.raw_data
+
+        # for combined list of multiple keywords search
+        if 'merged' in data:
+            data = data['merged']
+
         packages = []
-        for k, v in data['items'].iteritems():
+        for repo_name, v in data['items'].iteritems():
             if not 'packages' in v:
                 continue
+            # create a large list to include all packages
             packages += v['packages']
 
         c = Counter(packages)
@@ -61,6 +67,10 @@ class Statistics(object):
     def count_package_occurrences_over_days(self, data=None):
         if not data:
             data = self.raw_data
+
+        # for combined list of multiple keywords search
+        if 'merged' in data:
+            data = data['merged']
 
         for k, v in data['items'].iteritems():
             if not 'packages' in v:
@@ -81,6 +91,6 @@ class Statistics(object):
 stat = Statistics()
 data = stat.read_file(sys.argv[1])
 res = stat.count_package_occurrences(data)
-pprint (res)
+utils.save_json_to_file(res, 'count_packages')
 res2 = stat.count_package_occurrences_over_days()
-pprint(res2)
+utils.save_json_to_file(res2, 'count_packages_timeframe')

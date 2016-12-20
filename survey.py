@@ -17,6 +17,7 @@ class surveyGitHub(object):
     conf_file = "config.yml"
     raw_data = {}
 
+    name = ""
     action = "search"
     target = "repositories"
     query = ""
@@ -44,6 +45,10 @@ class surveyGitHub(object):
         with open(yaml_path, "r") as inputs:
             inputs = yaml.load(inputs)
         self.inputs = inputs
+        try:
+            self.name = os.path.basename(yaml_path).split('.')[0]
+        except:
+            pass
 
     def get_conf(self):
         with open(self.conf_file, 'r') as config_file:
@@ -119,22 +124,24 @@ class surveyGitHub(object):
         """ Find 'import *' keywords in python files """
 
         repos = items['merged']['items']
-        for full_name, item in repos.iteritems():
+        for repo_full_name, item in repos.iteritems():
             if not item:
                 continue
-            repo = item['full_name']
             target = "code"
             lang = "Python"
-            query = "import+in:file+language:{0}+repo:{1}".format(lang, repo)
+            query = "import+in:file+language:{0}+repo:{1}".format(lang,
+                    repo_full_name)
             url = ("{0}/{1}/{2}?q={3}".format(self.conf['api_addr'],
                 self.action, target, query))
             codes_searched = self.request_api(url)
-            repos[repo]['packages'] = set()
+            repos[repo_full_name]['packages'] = set()
             for code in codes_searched['items']:
                 contents = self.get_file_contents(code)
                 packages = self.get_module_names(contents)
-                repos[repo]['packages'].update(packages)
-            repos[repo]['packages'] = list(repos[repo])
+                repos[repo_full_name]['packages'].update(packages)
+            repos[repo_full_name]['packages'] = \
+                    list(repos[repo_full_name]['packages'])
+
         return items
 
     def get_file_contents(self, item):
@@ -312,7 +319,7 @@ class surveyGitHub(object):
     def save_file(self, data=None):
         if not data:
             data = self.result
-        name = (self.query.split("+")[0] + "." + time.strftime("%Y%m%d-%H%M%S")
+        name = (self.name + "." + time.strftime("%Y%m%d-%H%M%S")
                 + ".yml")
 
         with open(name, 'w') as outfile:
