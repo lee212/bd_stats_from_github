@@ -54,10 +54,15 @@ class surveyGitHub(object):
         if not conf:
             conf = self.conf
         if not conf['git_token']:
-            print ("no authorization for git api. set git_token in configuration")
-            time.sleep(3)
-            return False
+            token = self.get_git_token_env()
+            if not token:
+                print ("no authorization for git api. set git_token")
+                return False
+            self.conf['git_token'] = token
         return True
+
+    def get_git_token_env(self):
+        return os.getenv('git_token')
 
     def request_api(self, url, loop=True):
         conf = self.conf
