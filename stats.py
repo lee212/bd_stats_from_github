@@ -4,8 +4,11 @@ from pprint import pprint
 import datetime
 from collections import Counter
 import utils
+import os
 
 class Statistics(object):
+
+    name = ""
 
     packages = Counter()
     packages_cnt = 0
@@ -24,6 +27,11 @@ class Statistics(object):
                     'top20': [] }
 
     def read_file(self, name):
+
+        try: 
+            self.name = os.path.basename(name).split('.')[0]
+        except:
+            pass
         with open(name, 'r') as datafile:
             data = json.load(datafile)
             self.raw_data = data
@@ -91,6 +99,6 @@ class Statistics(object):
 stat = Statistics()
 data = stat.read_file(sys.argv[1])
 res = stat.count_package_occurrences(data)
-utils.save_json_to_file(res, 'count_packages')
+utils.save_json_to_file(res, stat.name + '.count_packages')
 res2 = stat.count_package_occurrences_over_days()
-utils.save_json_to_file(res2, 'count_packages_timeframe')
+utils.save_json_to_file(res2, stat.name + '.count_packages_timeframe')
