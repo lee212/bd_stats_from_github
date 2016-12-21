@@ -34,7 +34,7 @@ class searchRepo(object):
                 },
             }
 
-    recent = result
+    recent = result.copy()
 
     def __init__(self):
         self.conf = self.get_conf()
@@ -57,9 +57,12 @@ class searchRepo(object):
             self.name = ""
 
     def init_search_keywords(self):
+        """ Create dict data in search_keywords in case of not existing """
         for keyword in self.inputs['keywords']:
-            self.result['search_keywords'][keyword] = {}
-            self.recent['search_keywords'][keyword] = {}
+            if not keyword in self.result['search_keywords']:
+                self.result['search_keywords'][keyword] = {}
+            if not keyword in self.recent['search_keywords']:
+                self.recent['search_keywords'][keyword] = {}
 
     def get_conf(self):
         """Read yaml config file"""
@@ -141,13 +144,11 @@ class searchRepo(object):
             self.query = urllib.quote_plus(keyword)
             # date query from config.yml
             self.query += "+" + self.conf['Recent']
-            url1 = self.get_api_url()
-            ret1 = self.request_api(url1)
-            search_keywords[keyword] = { 
-                    'total_count' : ret1['total_count'],
-                    'items': ret1['items'],
-                    'query': self.query
-                    }
+            url = self.get_api_url()
+            ret = self.request_api(url)
+            search_keywords[keyword]['total_count'] = ret['total_count']
+            search_keywords[keyword]['items'] = ret['items']
+            search_keywords[keyword]['query'] = self.query
 
             for item in ret1['items']:
                 # count duplicate
@@ -248,12 +249,10 @@ class searchRepo(object):
             url = self.get_api_url()
             ret = self.request_api(url)
 
-            search_keywords[keyword] = { 
-                    'total_count' : ret['total_count'],
-                    'items': ret['items'],
-                    'query': self.query,
-                    'language_in': {}
-                    }
+            search_keywords[keyword]['total_count'] = ret['total_count']
+            search_keywords[keyword]['items'] = ret['items']
+            search_keywords[keyword]['query'] = self.query
+            search_keywords[keyword]['language_in'] = {}
 
             for lang in self.conf['languages']:
                 self.query = urllib.quote_plus(keyword)
@@ -377,8 +376,10 @@ class searchRepo(object):
     def save_file(self, data=None):
         """ Store json to yaml """
         if not data:
-            data = self.result.copy()
-            data.update({'recent': self.recent})
+            data = { 
+                    'result': self.result,
+                    'recent': self.recent
+                    }
         name = (self.name + "." + time.strftime("%Y%m%d-%H%M%S")
                 + ".yml")
 
@@ -389,7 +390,6 @@ if __name__ == "__main__":
     packages = searchRepo()
     packages.get_inputs(sys.argv[1])
     ret = packages.language_popularity()
-    #pprint(ret)
     ret = packages.recent_activities()
     ret2 = packages.retrieve_py_modules(ret)
     packages.save_file()
