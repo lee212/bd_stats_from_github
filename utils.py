@@ -3,6 +3,7 @@ import sys
 import operator
 import time
 import json
+import yaml
 
 def check_stdlibs(module_name):
     libs = stdlib_list(str(sys.version_info[0]) + "." + str(sys.version_info[1]))
@@ -22,3 +23,10 @@ def save_json_to_file(data, filename):
             + ".yml")
     with open(name, 'w') as outfile:
         json.dump(data, outfile, indent=4, sort_keys=True)
+
+def yaml_load(filename):
+    with open(filename, 'r') as ifile:
+        loaded = yaml.load(ifile)
+        return loaded
+    return None
+

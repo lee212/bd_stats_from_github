@@ -8,11 +8,10 @@ import datetime
 from stdlib_list import stdlib_list
 import os
 import math
-import yaml
 import utils
 import urllib
 
-class surveyGitHub(object):
+class searchRepo(object):
 
     conf_file = "config.yml"
     raw_data = {}
@@ -22,17 +21,20 @@ class surveyGitHub(object):
     target = "repositories"
     query = ""
 
-    result = {}
-    result['items'] = {}
-    result['page'] = 1
-    result['pages'] = 1
-
-    res = { 'merged': 
-            { 'total_count': 0,
-                'items' : {} },
-            'keyword': {},
-            'created_at' : str(datetime.datetime.now())
+    result = { 
+            'searched_at' : str(datetime.datetime.now()),
+            'merged_items': { 
+                'total_count': 0, 
+                'items' : {},
+                'language_in': { 
+                    'all': {},
+                    },
+                }, 
+            'search_keywords': {
+                },
             }
+
+    recent = result
 
     def __init__(self):
         self.conf = self.get_conf()
@@ -41,19 +43,27 @@ class surveyGitHub(object):
     def set_query(self, string):
         self.query = string
 
-    def load_inputs(self, yaml_path):
-        with open(yaml_path, "r") as inputs:
-            inputs = yaml.load(inputs)
-        self.inputs = inputs
+    def get_inputs(self, yaml_path):
+        """Read yaml input file"""
+        self.inputs = utils.yaml_load(yaml_path)
+        self.set_name(yaml_path)
+        self.init_search_keywords()
+
+    def set_name(self, filepath):
+        """Set a name for search from an input filename"""
         try:
-            self.name = os.path.basename(yaml_path).split('.')[0]
+            self.name = os.path.basename(filepath).split('.')[0]
         except:
-            pass
+            self.name = ""
+
+    def init_search_keywords(self):
+        for keyword in self.inputs['keywords']:
+            self.result['search_keywords'][keyword] = {}
+            self.recent['search_keywords'][keyword] = {}
 
     def get_conf(self):
-        with open(self.conf_file, 'r') as config_file:
-            conf = yaml.load(config_file)
-        return conf
+        """Read yaml config file"""
+        return utils.yaml_load(self.conf_file)
 
     def check_git_token(self, conf=None):
         if not conf:
@@ -69,14 +79,24 @@ class surveyGitHub(object):
     def get_git_token_env(self):
         return os.getenv('git_token')
 
-    def request_api(self, url, loop=True):
+    def request_api(self, url, recursive=True):
+        """Call github api
+
+        Args:
+            url (str): git api url to request
+            recursive (bool): boolean to call again itself
+
+        Returns:
+            dict: https response data from requests.get()
+
+        """
         conf = self.conf
         headers = {'Authorization': 'token ' + conf['git_token']}
         if conf['debugging'] in [ 'INFO', 'DEBUG']:
             print(url)
         r = requests.get(url, headers=headers)
         if (r.status_code != 200 and r.headers['X-RateLimit-Remaining'] == '0' and
-                loop):
+                recursive):
             if conf['debugging'] in [ 'DEBUG', 'WARNING']:
                 print(r)
             time.sleep(60)
@@ -84,13 +104,8 @@ class surveyGitHub(object):
         data = (json.loads(r.text))
         return data
 
-    def get_total_pages(self, searched_data=None):
-        if not searched_data:
-            searched_data = self.raw_data
-        pages = int(math.ceil(searched_data['total_count'] * 1.0 /self.conf['per_page']))
-        return pages
-
-    def generate_repo_url(self, page=1):
+    def get_api_url(self, page=1):
+        """Return github api url based on settings"""
         conf = self.conf
         repo_url = (
                 "{0}/{1}/{2}?q={3}&sort={4}&page={5}&per_page={6}".format(conf['api_addr'],
@@ -98,32 +113,55 @@ class surveyGitHub(object):
                     conf['per_page']))
         return repo_url
 
-    def recent_activities(self):
+    def get_total_pages(self, searched_data=None):
+        """ Return total number of pages from 'per_page' config value and
+        'total_count' searched value
 
-        res = self.res
+        Args:
+            searched_data (dict): contains 'total_count' in its dict key and value
+
+        Returns:
+            int: number of pages based on the total_count and per_page
+
+        """
+        if not searched_data:
+            searched_data = self.raw_data
+        pages = int(math.ceil(searched_data['total_count'] * 1.0 /self.conf['per_page']))
+        return pages
+
+    def recent_activities(self):
+        """Search recent activities"""
+
+        search_keywords = self.recent['search_keywords']
+        merged_items = self.recent['merged_items']['items']
         
-        cnt = 0
+        duplicate = 0
         # multiple keywords for search item
         for keyword in self.inputs['keywords']:
             self.query = urllib.quote_plus(keyword)
             # date query from config.yml
             self.query += "+" + self.conf['Recent']
-            url1 = self.generate_repo_url()
+            url1 = self.get_api_url()
             ret1 = self.request_api(url1)
-            res['keyword'][keyword] = { 'total_count' : ret1['total_count'],
-                    'items': ret1['items'] }
+            search_keywords[keyword] = { 
+                    'total_count' : ret1['total_count'],
+                    'items': ret1['items'],
+                    'query': self.query
+                    }
 
             for item in ret1['items']:
                 # count duplicate
-                if item['full_name'] in res['merged']['items'].keys():
-                    cnt += 1
-                res['merged']['items'][item['full_name']] = item
-        return res
+                if item['full_name'] in merged_items.keys():
+                    duplicate += 1
+
+                # create a unique data with key: value
+                merged_items[item['full_name']] = item
+        return self.recent
 
     def retrieve_py_modules(self, items):
         """ Find 'import *' keywords in python files """
 
-        repos = items['merged']['items']
+        repos = items['merged_items']['items']
         for repo_full_name, item in repos.iteritems():
             if not item:
                 continue
@@ -145,6 +183,15 @@ class surveyGitHub(object):
         return items
 
     def get_file_contents(self, item):
+        """Retrieve file contents from github API
+        
+        Args:
+            item (dict): searched item
+
+        Returns:
+            str: decoded file contents from github api
+            
+        """
 
         c_url = item['repository']['contents_url']
         contents_url = c_url.replace('/{+path}', item['path'])
@@ -153,9 +200,18 @@ class surveyGitHub(object):
             decoded_contents = contents['content'].decode('base64')
             return decoded_contents
         except KeyError as e:
-            return []
+            return ""
 
     def get_module_names(self, contents):
+        """ Collect top module names from strings 
+        
+        Args:
+            contents (str): file contents
+
+        Returns:
+            set: set of package names
+
+        """
         package1 = re.findall("import (.*)$", contents, re.M)
         package2 = re.findall("from (.*) import .*$", contents, re.M)
 
@@ -180,55 +236,56 @@ class surveyGitHub(object):
         package_names = set(tmp)
         return package_names
  
-    def language_preference(self):
-        res = {}
-        stat = { 'all' : [] }
+    def language_popularity(self):
+        """ Count a number of repositories per language written in """
+
+        # count repositories per language with search keywords
+        search_keywords = self.result['search_keywords']
+
+        # search api runs: x (keywords) * (y (languages) + 1) times
         for keyword in self.inputs['keywords']:
             self.query = urllib.quote_plus(keyword)
-            url1 = self.generate_repo_url()
-            ret1 = self.request_api(url1)
-            try:
-                res[keyword]['count'] = ret1['total_count']
-            except KeyError as e:
-                res[keyword] = { 'count' : ret1['total_count'] }
+            url = self.get_api_url()
+            ret = self.request_api(url)
+
+            search_keywords[keyword] = { 
+                    'total_count' : ret['total_count'],
+                    'items': ret['items'],
+                    'query': self.query,
+                    'language_in': {}
+                    }
 
             for lang in self.conf['languages']:
-                self.query = (urllib.quote_plus(keyword) + "+language:" +
-                urllib.quote_plus(lang))
-                url2 = self.generate_repo_url()
-                ret2 = self.request_api(url2)
-                res[keyword][lang] = ret2['total_count']
-                try:
-                    res[lang]['all'].append(ret2['total_count'] * 1.0 /
-                            ret1['total_count'])
-                except KeyError as e:
-                    res[lang] = {}
-                    res[lang]['all'] = [(ret2['total_count'] * 1.0 /
-                        ret1['total_count'])]
-            stat['all'].append(ret1['total_count'])
-        for lang in self.conf['languages']:
-            res[lang]['avg'] = utils.mean(res[lang]['all'])
-        stat['avg'] = utils.mean(stat['all'])
+                self.query = urllib.quote_plus(keyword)
+                self.query += ("+language:" + urllib.quote_plus(lang))
+                url = self.get_api_url()
+                ret = self.request_api(url)
+                language_in = search_keywords[keyword]['language_in']
+                language_in[lang] = {}
+                language_in[lang]['total_count'] = ret['total_count'] 
+                language_in[lang]['items'] = ret['items']
+                language_in[lang]['query'] = self.query
+        return search_keywords
 
-        res.update(stat)
-        return res
+    def run_search(self, query):
+        """Obsolete function"""
+        """run search from a direct single query string"""
 
-    def run_survey(self):
-
-        repo_url = self.generate_repo_url()
+        self.query = query
+        repo_url = self.get_api_url()
         list_of_repo_first_slice = self.request_api(repo_url)
 
         result = self.result
-        result['created_at'] = str(datetime.datetime.now())
-        result['query_url'] = repo_url
-        result['items'] = list_of_repo_first_slice['items']
         result['total_count'] = list_of_repo_first_slice['total_count']
-        result['pages'] = self.get_total_pages(list_of_repo_first_slice)
-        result = self.get_all_items(result, repo_url)
+        result['items'] = list_of_repo_first_slice['items']
+        result['query'] = self.query
+        result = self.get_all_items(result)
         result_packages = self.get_python_packages_from_ipynb(result)
         self.save_file(result_packages)
+        return True
 
     def get_python_packages_from_ipynb(self, data):
+        """no guarantee working"""
 
         cnt=0
         res = {}
@@ -303,22 +360,25 @@ class surveyGitHub(object):
                         list(package_names))))
         return res
 
-    # github api returns up to 100 items
-    # this function collects rest of items
-    def get_all_items(self, result, repo_url):
-        if result['total_count'] > self.conf['per_page']:
+    def get_all_items(self, data):
+        """ Search all items over page limits (100) """
+        if data['total_count'] > self.conf['per_page']:
         # Be careful with this option because the search size increases as a number of
         # pages is increased
-            while result['page'] <= result['pages']:
-                result['page'] += 1
-                repo_url = self.generate_repo_url(result['page'])
+            page = 1
+            pages = self.get_total_pages(data)
+            while page <= pages:
+                page += 1
+                repo_url = self.get_api_url(page=page)
                 ret = self.request_api(repo_url)
-                result['items'] = result['items'] + ret['items']
-        return result
+                data['items'] += ret['items']
+        return data
 
     def save_file(self, data=None):
+        """ Store json to yaml """
         if not data:
-            data = self.result
+            data = self.result.copy()
+            data.update({'recent': self.recent})
         name = (self.name + "." + time.strftime("%Y%m%d-%H%M%S")
                 + ".yml")
 
@@ -326,14 +386,10 @@ class surveyGitHub(object):
             json.dump(data, outfile, indent=4, sort_keys=True)
 
 if __name__ == "__main__":
-    packages = surveyGitHub()
-    #packages.set_query(sys.argv[1])
-    #packages.run_survey()
-    packages.load_inputs(sys.argv[1])
-    #ret = packages.language_preference()
-    #pprint (ret)
-    ret = packages.recent_activities()
+    packages = searchRepo()
+    packages.get_inputs(sys.argv[1])
+    ret = packages.language_popularity()
     #pprint(ret)
-    packages.save_file(ret)
+    ret = packages.recent_activities()
     ret2 = packages.retrieve_py_modules(ret)
-    packages.save_file(ret2)
+    packages.save_file()

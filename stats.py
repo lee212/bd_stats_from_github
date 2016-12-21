@@ -20,11 +20,13 @@ class Statistics(object):
     def __init__(self):
         for day in self.recent_days:
             day = str(day)
-            self.packages_recent[day] = { 'total': 0,
+            self.packages_recent[day] = { 
+                    'total': 0,
                     'average': 0,
                     'package_count': [],
                     'packages': [],
-                    'top20': [] }
+                    'top20': [] 
+                    }
 
     def read_file(self, name):
 
@@ -96,6 +98,21 @@ class Statistics(object):
 
         return self.packages_recent
 
+    def language_distributions(self):
+                try:
+                    res['merged']['languages']['all'][lang].append(ret2['total_count'] * 1.0 /
+                            ret1['total_count'])
+                except KeyError as e:
+                    res['merged']['languages']['all'][lang] = []
+                    res['merged']['languages']['all'][lang] = [(ret2['total_count'] * 1.0 /
+                        ret1['total_count'])]
+            stat['all'].append(ret1['total_count'])
+        for lang in self.conf['languages']:
+            res[lang]['avg'] = utils.mean(res[lang]['all'])
+        stat['avg'] = utils.mean(stat['all'])
+
+        res.update(stat)
+    
 stat = Statistics()
 data = stat.read_file(sys.argv[1])
 res = stat.count_package_occurrences(data)
