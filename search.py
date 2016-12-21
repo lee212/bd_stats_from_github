@@ -150,7 +150,7 @@ class searchRepo(object):
             search_keywords[keyword]['items'] = ret['items']
             search_keywords[keyword]['query'] = self.query
 
-            for item in ret1['items']:
+            for item in ret['items']:
                 # count duplicate
                 if item['full_name'] in merged_items.keys():
                     duplicate += 1
