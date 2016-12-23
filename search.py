@@ -132,7 +132,7 @@ class searchRepo(object):
         pages = int(math.ceil(searched_data['total_count'] * 1.0 /self.conf['per_page']))
         return pages
 
-    def search_with_date(self):
+    def search_with_recent_date(self):
         """Search recent activities"""
 
         search_keywords = self.recent['search_keywords']
@@ -241,13 +241,18 @@ class searchRepo(object):
 
         # count repositories per language with search keywords
         search_keywords = self.result['search_keywords']
-        merged_items = self.result['merged_items']['language_in']
+        merged_items = self.result['merged_items']
+        merged_language = self.result['merged_items']['language_in']
 
         # search api runs: x (keywords) * (y (languages) + 1) times
         for keyword in self.inputs['keywords']:
             self.query = urllib.quote_plus(keyword)
             url = self.get_api_url()
             ret = self.request_api(url)
+
+            for item in ret['items']:
+                merged_items['items'][item['full_name']] = item
+            merged_items['total_count'] = len(merged_items['items'])
 
             search_keywords[keyword]['total_count'] = ret['total_count']
             search_keywords[keyword]['items'] = ret['items']
@@ -268,12 +273,15 @@ class searchRepo(object):
                 for item in ret['items']:
                     # create a unique data with key: value
                     try:
-                        merged_items[opt]['items'][item['full_name']] = item
+                        merged_language[opt]['items'][item['full_name']] = item
                     except KeyError as e:
-                        merged_items[opt] = { 
+                        merged_language[opt] = { 
                                 'total_count': 0,
                                 'items': {}
                                 }
+                if opt in merged_language:
+                    merged_language[opt]['total_count'] = \
+                    len(merged_language[opt]['items'])
 
         return search_keywords
 
@@ -401,6 +409,6 @@ if __name__ == "__main__":
     packages = searchRepo()
     packages.get_inputs(sys.argv[1])
     ret = packages.search_with_language()
-    ret = packages.search_with_date()
+    ret = packages.search_with_recent_date()
     ret2 = packages.retrieve_py_modules(ret)
     packages.save_file()

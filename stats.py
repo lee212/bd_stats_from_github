@@ -29,7 +29,7 @@ class Statistics(object):
 
     result = {
             'packages': copy.deepcopy(package),
-            'packages_recent_days': {}
+            'packages_recent_days': {},
             'languages': {}
             }
 
@@ -161,6 +161,8 @@ class Statistics(object):
                 self.result['languages'][lang]['percentage'] = \
                         items['total_count'] * 1.0 / mdata['total_count']
             except KeyError as e:
+                if not 'total_count' in items:
+                    continue
                 self.result['languages'][lang] = {
                         'total_count' : items['total_count'],
                         'percentage' : (items['total_count'] * 1.0 /
@@ -185,7 +187,8 @@ class Statistics(object):
     
 stat = Statistics()
 data = stat.read_file(sys.argv[1])
-stat.language_distribution()
+res = stat.language_distribution()
+pprint(res)
 stat.recent_changes()
 res = stat.count_package_occurrences(data)
 res2 = stat.count_package_occurrences_over_days()
