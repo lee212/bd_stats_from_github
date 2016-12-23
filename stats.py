@@ -5,46 +5,77 @@ import datetime
 from collections import Counter
 import utils
 import os
+import copy
 
 class Statistics(object):
 
     name = ""
-
-    packages = Counter()
-    packages_cnt = 0
     raw_data = None
+    top_ranks = 20
 
     recent_days = [ 30, 60, 90, 180, 365 ]
-    packages_recent = {}
+    package = {
+            'total_count': 0,
+            'average': 0.0,
+            'numbers': [],
+            'list': [],
+            'most_common': []
+            }
+
+    language = { 
+            'total_count': 0,
+            'percentage': 0.0
+            }
+
+    result = {
+            'packages': copy.deepcopy(package),
+            'packages_recent_days': {}
+            'languages': {}
+            }
+
 
     def __init__(self):
+        self.init_package_recent_days()
+
+    def init_package_recent_days(self):
+        """Create package dictionary per day defined in recent_days"""
         for day in self.recent_days:
-            day = str(day)
-            self.packages_recent[day] = { 
-                    'total': 0,
-                    'average': 0,
-                    'package_count': [],
-                    'packages': [],
-                    'top20': [] 
-                    }
+            self.result['packages_recent_days'][str(day)] = \
+            copy.deepcopy(self.package)
 
     def read_file(self, name):
-
-        try: 
-            self.name = os.path.basename(name).split('.')[0]
-        except:
-            pass
+        """Read yaml file and set name from the filename"""
         with open(name, 'r') as datafile:
             data = json.load(datafile)
             self.raw_data = data
+            self.set_name(name)
             return data
 
-    def is_in_timeframe(self, date_n_time, days):
+    def set_name(self, filepath):
+        """Read a name from file"""
+        try: 
+            self.name = os.path.basename(filepath).split('.')[0]
+            return self.name
+        except:
+            return None
+
+    def is_in_timeframe(self, date_n_time, day):
+        """Return true or false after comparing whether date_n_time is in day"""
         orig = datetime.datetime.strptime(date_n_time, '%Y-%m-%dT%H:%M:%SZ')
-        check = datetime.datetime.now() + datetime.timedelta(-1 * days)
+        check = datetime.datetime.now() + datetime.timedelta(-1 * day)
         return orig >= check
 
     def pick_close_day(self, date_n_time, days_list=None):
+        """Return a close time window from input date
+
+        Args:
+            date_n_time (str): YYYY-MM-DDThh:mm:ssZ
+            days_list (list): time window in days
+
+        Returns:
+            int: close day from the list
+        """
+
         if not days_list:
             days_list = self.recent_days
         orig = datetime.datetime.strptime(date_n_time, '%Y-%m-%dT%H:%M:%SZ')
@@ -52,23 +83,33 @@ class Statistics(object):
         return min(days_list, key=lambda x:abs(x - diff.days))
 
     def count_package_occurrences(self, data=None):
+        """Return occurrences of packages"""
+
         if not data:
             data = self.raw_data
 
         # for combined list of multiple keywords search
-        if 'merged' in data:
-            data = data['merged']
+        try:
+            data = data['result']['merged_items']
+        except KeyError as e:
+            return None
 
         packages = []
+        numbers = []
         for repo_name, v in data['items'].iteritems():
             if not 'packages' in v:
                 continue
             # create a large list to include all packages
             packages += v['packages']
+            numbers.append(len(v['packages']))
+
 
         c = Counter(packages)
-        self.packages_cnt = sum(c.values())
-        self.packages = c
+        self.result['packages']['total_count'] = sum(c.values())
+        self.result['packages']['list'] = list(c)
+        self.result['packages']['numbers'] = numbers
+        self.result['packages']['average'] = utils.mean(numbers)
+        self.result['packages']['most_common'] = c.most_common(self.top_ranks)
         return c.most_common()
 
     def trends(self, data=None):
@@ -79,43 +120,73 @@ class Statistics(object):
             data = self.raw_data
 
         # for combined list of multiple keywords search
-        if 'merged' in data:
-            data = data['merged']
+        try:
+            data = data['result']['merged_items']
+        except KeyError as e:
+            return None
 
+        packages_recent_days = self.result['packages_recent_days']
         for k, v in data['items'].iteritems():
             if not 'packages' in v:
                 continue
-            day = str(self.pick_close_day(v['created_at']))
-            self.packages_recent[day]['packages'] += v['packages']
-            self.packages_recent[day]['package_count'].append(len(v['packages']))
+            for day in self.recent_days:
+                if not self.is_in_timeframe(v['created_at'], day):
+                    continue
+                #day = str(self.pick_close_day(v['created_at']))
+                day = str(day)
+                packages_recent_days[day]['list'] += v['packages']
+                packages_recent_days[day]['numbers'].append(len(v['packages']))
 
-        for day, val in self.packages_recent.iteritems():
-            c = Counter(self.packages_recent[day]['packages'])
-            self.packages_recent[day]['total'] = sum(c.values())
-            self.packages_recent[day]['average'] = \
-            utils.mean(self.packages_recent[day]['package_count'])
-            self.packages_recent[day]['top20'] = c.most_common(20)
+        for day, v in packages_recent_days.iteritems():
+            c = Counter(v['list'])
+            v['total_count'] = sum(c.values())
+            v['average'] = utils.mean(v['numbers'])
+            v['most_common'] = c.most_common(self.top_ranks)
 
-        return self.packages_recent
+        return packages_recent_days
 
-    def language_distributions(self):
-                try:
-                    res['merged']['languages']['all'][lang].append(ret2['total_count'] * 1.0 /
-                            ret1['total_count'])
-                except KeyError as e:
-                    res['merged']['languages']['all'][lang] = []
-                    res['merged']['languages']['all'][lang] = [(ret2['total_count'] * 1.0 /
-                        ret1['total_count'])]
-            stat['all'].append(ret1['total_count'])
-        for lang in self.conf['languages']:
-            res[lang]['avg'] = utils.mean(res[lang]['all'])
-        stat['avg'] = utils.mean(stat['all'])
+    def language_distribution(self):
+        data = self.raw_data
 
-        res.update(stat)
+        try:
+            mdata = data['result']['merged_items']
+            data = data['result']['merged_items']['language_in']
+        except KeyError as e:
+            return None
+
+        for lang, items in data.iteritems():
+            try:
+                self.result['languages'][lang]['total_count'] = \
+                        items['total_count']
+                self.result['languages'][lang]['percentage'] = \
+                        items['total_count'] * 1.0 / mdata['total_count']
+            except KeyError as e:
+                self.result['languages'][lang] = {
+                        'total_count' : items['total_count'],
+                        'percentage' : (items['total_count'] * 1.0 /
+                            mdata['total_count'])
+                        }
+        return self.result['languages']
+
+    def recent_activities(self):
+        data = self.raw_data
+
+        try:
+            data = data['recent']['merged_items']
+        except KeyError as e:
+            return none
+
+
+
+    def save_file(self, data=None):
+        """ Store json to yaml """
+        name = (self.name + ".stats")
+        utils.save_json_to_file(self.result, name)
     
 stat = Statistics()
 data = stat.read_file(sys.argv[1])
+stat.language_distribution()
+stat.recent_changes()
 res = stat.count_package_occurrences(data)
-utils.save_json_to_file(res, stat.name + '.count_packages')
 res2 = stat.count_package_occurrences_over_days()
-utils.save_json_to_file(res2, stat.name + '.count_packages_timeframe')
+stat.save_file()

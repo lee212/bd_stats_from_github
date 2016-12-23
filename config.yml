@@ -4,7 +4,7 @@ git_token:
 api_addr: https://api.github.com
 sort: stars
 
-languages:
+language:
   - python
   - java
   - scala

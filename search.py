@@ -10,6 +10,7 @@ import os
 import math
 import utils
 import urllib
+import copy
 
 class searchRepo(object):
 
@@ -34,7 +35,7 @@ class searchRepo(object):
                 },
             }
 
-    recent = result.copy()
+    recent = copy.deepcopy(result)
 
     def __init__(self):
         self.conf = self.get_conf()
@@ -109,11 +110,10 @@ class searchRepo(object):
 
     def get_api_url(self, page=1):
         """Return github api url based on settings"""
-        conf = self.conf
         repo_url = (
-                "{0}/{1}/{2}?q={3}&sort={4}&page={5}&per_page={6}".format(conf['api_addr'],
-                    self.action, self.target, self.query, conf['sort'], page,
-                    conf['per_page']))
+                "{0}/{1}/{2}?q={3}&sort={4}&page={5}&per_page={6}".format(
+                    self.conf['api_addr'], self.action, self.target, self.query,
+                    self.conf['sort'], page, self.conf['per_page']))
         return repo_url
 
     def get_total_pages(self, searched_data=None):
@@ -132,7 +132,7 @@ class searchRepo(object):
         pages = int(math.ceil(searched_data['total_count'] * 1.0 /self.conf['per_page']))
         return pages
 
-    def recent_activities(self):
+    def search_with_date(self):
         """Search recent activities"""
 
         search_keywords = self.recent['search_keywords']
@@ -159,7 +159,7 @@ class searchRepo(object):
                 merged_items[item['full_name']] = item
         return self.recent
 
-    def retrieve_py_modules(self, items):
+    def retrieve_py_modules(self, items, language="Python"):
         """ Find 'import *' keywords in python files """
 
         repos = items['merged_items']['items']
@@ -167,8 +167,7 @@ class searchRepo(object):
             if not item:
                 continue
             target = "code"
-            lang = "Python"
-            query = "import+in:file+language:{0}+repo:{1}".format(lang,
+            query = "import+in:file+language:{0}+repo:{1}".format(language,
                     repo_full_name)
             url = ("{0}/{1}/{2}?q={3}".format(self.conf['api_addr'],
                 self.action, target, query))
@@ -237,11 +236,12 @@ class searchRepo(object):
         package_names = set(tmp)
         return package_names
  
-    def language_popularity(self):
+    def search_with_language(self, option='language'):
         """ Count a number of repositories per language written in """
 
         # count repositories per language with search keywords
         search_keywords = self.result['search_keywords']
+        merged_items = self.result['merged_items']['language_in']
 
         # search api runs: x (keywords) * (y (languages) + 1) times
         for keyword in self.inputs['keywords']:
@@ -254,16 +254,27 @@ class searchRepo(object):
             search_keywords[keyword]['query'] = self.query
             search_keywords[keyword]['language_in'] = {}
 
-            for lang in self.conf['languages']:
+            for opt in self.conf[option]:
                 self.query = urllib.quote_plus(keyword)
-                self.query += ("+language:" + urllib.quote_plus(lang))
+                self.query += ("+{0}:".format(option) + urllib.quote_plus(opt))
                 url = self.get_api_url()
                 ret = self.request_api(url)
                 language_in = search_keywords[keyword]['language_in']
-                language_in[lang] = {}
-                language_in[lang]['total_count'] = ret['total_count'] 
-                language_in[lang]['items'] = ret['items']
-                language_in[lang]['query'] = self.query
+                language_in[opt] = {}
+                language_in[opt]['total_count'] = ret['total_count'] 
+                language_in[opt]['items'] = ret['items']
+                language_in[opt]['query'] = self.query
+
+                for item in ret['items']:
+                    # create a unique data with key: value
+                    try:
+                        merged_items[opt]['items'][item['full_name']] = item
+                    except KeyError as e:
+                        merged_items[opt] = { 
+                                'total_count': 0,
+                                'items': {}
+                                }
+
         return search_keywords
 
     def run_search(self, query):
@@ -389,7 +400,7 @@ class searchRepo(object):
 if __name__ == "__main__":
     packages = searchRepo()
     packages.get_inputs(sys.argv[1])
-    ret = packages.language_popularity()
-    ret = packages.recent_activities()
+    ret = packages.search_with_language()
+    ret = packages.search_with_date()
     ret2 = packages.retrieve_py_modules(ret)
     packages.save_file()
