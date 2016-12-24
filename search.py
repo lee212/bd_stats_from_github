@@ -157,6 +157,7 @@ class searchRepo(object):
 
                 # create a unique data with key: value
                 merged_items[item['full_name']] = item
+            merged_items['total_count'] = len(merged_items['items'])
         return self.recent
 
     def retrieve_py_modules(self, items, language="Python"):
