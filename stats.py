@@ -12,6 +12,7 @@ class Statistics(object):
     name = ""
     raw_data = None
     top_ranks = 20
+    sort_by = "stargazers_count" # | 'watchers_count', 'forks_count'
 
     recent_days = [ 30, 60, 90, 180, 365 ]
     package = {
@@ -27,10 +28,22 @@ class Statistics(object):
             'percentage': 0.0
             }
 
+    example = { 
+            'full_name': "",
+            'description': "",
+            'language': "",
+            'created_at': "",
+            'pushed_at': "",
+            'forks_count': 0,
+            'watchers_count': 0,
+            'stargazers_count': 0,
+            }
+
     result = {
             'packages': copy.deepcopy(package),
             'packages_recent_days': {},
-            'languages': {}
+            'languages': {},
+            'examples': []
             }
 
 
@@ -170,7 +183,7 @@ class Statistics(object):
                         }
         return self.result['languages']
 
-    def recent_activities(self):
+    def recent_activities(self, order='descending'):
         data = self.raw_data
 
         try:
@@ -178,7 +191,20 @@ class Statistics(object):
         except KeyError as e:
             return none
 
+        order = True if order == 'descending' else False
 
+        sorted_data = sorted(data['items'].items(), 
+                key=lambda x: x[1][self.sort_by], reverse=order)
+
+        for item in sorted_data:
+            name = item[0]
+            value = item[1]
+            example = copy.deepcopy(self.example)
+            for k, v in example.iteritems():
+                example[k] = value[k]
+            self.result['examples'].append(example)
+
+        return self.result['examples']
 
     def save_file(self, data=None):
         """ Store json to yaml """
@@ -189,7 +215,8 @@ stat = Statistics()
 data = stat.read_file(sys.argv[1])
 res = stat.language_distribution()
 pprint(res)
-stat.recent_changes()
+res2 = stat.recent_activities()
+pprint(res2[:10])
 res = stat.count_package_occurrences(data)
 res2 = stat.count_package_occurrences_over_days()
 stat.save_file()
