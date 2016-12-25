@@ -22,10 +22,12 @@ class searchRepo(object):
     target = "repositories"
     query = ""
 
+    # merged_items is created to provide a unique list
+    # but data structure is slightly different
     result = { 
             'searched_at' : str(datetime.datetime.now()),
             'merged_items': { 
-                'total_count': 0, 
+                'actual_count': 0, 
                 'items' : {},
                 'language_in': { 
                     'all': {},
@@ -253,7 +255,13 @@ class searchRepo(object):
 
             for item in ret['items']:
                 merged_items['items'][item['full_name']] = item
-            merged_items['total_count'] = len(merged_items['items'])
+            # actual_count: number of saved items in yaml
+            # total_count: number of searched items from github api
+            # e.g. 4138 total_count is returned from github api but
+            # 100 actual_count is stored in yaml because git api has
+            # a return item limit 100
+
+            merged_items['actual_count'] = len(merged_items['items'])
 
             search_keywords[keyword]['total_count'] = ret['total_count']
             search_keywords[keyword]['items'] = ret['items']
@@ -277,11 +285,11 @@ class searchRepo(object):
                         merged_language[opt]['items'][item['full_name']] = item
                     except KeyError as e:
                         merged_language[opt] = { 
-                                'total_count': 0,
+                                'actual_count': 0,
                                 'items': {}
                                 }
                 if opt in merged_language:
-                    merged_language[opt]['total_count'] = \
+                    merged_language[opt]['actual_count'] = \
                     len(merged_language[opt]['items'])
 
         return search_keywords
