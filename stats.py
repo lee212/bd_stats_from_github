@@ -160,31 +160,31 @@ class Statistics(object):
 
     def language_distribution(self):
         data = self.raw_data
+        result = self.result['languages']
 
         try:
-            mdata = data['result']['merged_items']
+            sdata = data['result']['search_keywords']
             data = data['result']['merged_items']['language_in']
         except KeyError as e:
             return None
 
-        for lang, items in data.iteritems():
-            try:
-                self.result['languages'][lang]['total_count'] = \
-                        items['total_count']
-                self.result['languages'][lang]['percentage'] = \
-                        items['total_count'] * 1.0 / mdata['total_count']
-            except KeyError as e:
-                if not 'total_count' in items:
-                    continue
-                self.result['languages'][lang] = {
-                        'total_count' : items['total_count'],
-                        'percentage' : (items['total_count'] * 1.0 /
-                            mdata['total_count'])
-                        }
-        return self.result['languages']
+        for kw, val in sdata.iteritems():
+            for lang, val2 in val['language_in'].iteritems():
+                percent_for_lang = (val2['total_count'] * 1.0 /
+                val['total_count'])
+                try:
+                    result[lang]['percentage'] = \
+                    utils.mean([result[lang]['percentage'], percent_for_lang])
+                except KeyError as e:
+                    result[lang] = { 'percentage': percent_for_lang }
+                #print kw, lang, val2['total_count'], val['total_count']
+        return result
 
-    def recent_activities(self, order='descending'):
+    def recent_activities(self, n=None, order='descending'):
         data = self.raw_data
+
+        if not n:
+            n = self.top_ranks
 
         try:
             data = data['recent']['merged_items']
