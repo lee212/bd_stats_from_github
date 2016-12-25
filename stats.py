@@ -28,6 +28,7 @@ class Statistics(object):
             'percentage': 0.0
             }
 
+    # TODO: list contributors
     example = { 
             'full_name': "",
             'description': "",
@@ -95,7 +96,7 @@ class Statistics(object):
         diff = datetime.datetime.now() - orig
         return min(days_list, key=lambda x:abs(x - diff.days))
 
-    def count_package_occurrences(self, data=None):
+    def count_package_occurrences(self, data=None, where="recent", n=None):
         """Return occurrences of packages"""
 
         if not data:
@@ -103,9 +104,12 @@ class Statistics(object):
 
         # for combined list of multiple keywords search
         try:
-            data = data['result']['merged_items']
+            data = data[where]['merged_items']
         except KeyError as e:
             return None
+
+        if not n:
+            n = self.top_ranks
 
         packages = []
         numbers = []
@@ -116,27 +120,30 @@ class Statistics(object):
             packages += v['packages']
             numbers.append(len(v['packages']))
 
-
         c = Counter(packages)
         self.result['packages']['total_count'] = sum(c.values())
         self.result['packages']['list'] = list(c)
         self.result['packages']['numbers'] = numbers
         self.result['packages']['average'] = utils.mean(numbers)
         self.result['packages']['most_common'] = c.most_common(self.top_ranks)
-        return c.most_common()
+        return c.most_common(n)
 
     def trends(self, data=None):
         return self.count_package_occurrences_over_days(data)
 
-    def count_package_occurrences_over_days(self, data=None):
+    def count_package_occurrences_over_days(self, data=None, where="recent",
+            n=None):
         if not data:
             data = self.raw_data
 
         # for combined list of multiple keywords search
         try:
-            data = data['result']['merged_items']
+            data = data[where]['merged_items']
         except KeyError as e:
             return None
+
+        if not n:
+            n = self.top_ranks
 
         packages_recent_days = self.result['packages_recent_days']
         for k, v in data['items'].iteritems():
@@ -154,7 +161,7 @@ class Statistics(object):
             c = Counter(v['list'])
             v['total_count'] = sum(c.values())
             v['average'] = utils.mean(v['numbers'])
-            v['most_common'] = c.most_common(self.top_ranks)
+            v['most_common'] = c.most_common(n)
 
         return packages_recent_days
 
@@ -217,6 +224,13 @@ res = stat.language_distribution()
 pprint(res)
 res2 = stat.recent_activities()
 pprint(res2[:10])
-res = stat.count_package_occurrences(data)
+res = stat.count_package_occurrences()
+pprint(res)
+
+# To discover new projects, filter repos with active one from statistics
+# https://developer.github.com/v3/repos/statistics/
 res2 = stat.count_package_occurrences_over_days()
+for k,v in res2.iteritems():
+    print k, v['average']
+    pprint(v['most_common'])
 stat.save_file()
