@@ -14,7 +14,6 @@ class Statistics(object):
     top_ranks = 20
     sort_by = "stargazers_count" # | 'watchers_count', 'forks_count'
 
-    recent_days = [ 30, 60, 90, 180, 365 ]
     package = {
             'total_count': 0,
             'average': 0.0,
@@ -42,19 +41,21 @@ class Statistics(object):
 
     result = {
             'packages': copy.deepcopy(package),
-            'packages_recent_days': {},
             'languages': {},
             'examples': []
             }
 
+    recent_days = [ 30, 60, 90, 180, 365 ]
+    recent = copy.deepcopy(result)
 
     def __init__(self):
         self.init_package_recent_days()
 
     def init_package_recent_days(self):
         """Create package dictionary per day defined in recent_days"""
+        self.recent['packages_in_days'] = {}
         for day in self.recent_days:
-            self.result['packages_recent_days'][str(day)] = \
+            self.recent['packages_in_days'][str(day)] = \
             copy.deepcopy(self.package)
 
     def read_file(self, name):
@@ -145,7 +146,7 @@ class Statistics(object):
         if not n:
             n = self.top_ranks
 
-        packages_recent_days = self.result['packages_recent_days']
+        packages_recent_days = self.recent['packages_in_days']
         for k, v in data['items'].iteritems():
             if not 'packages' in v:
                 continue
@@ -165,13 +166,35 @@ class Statistics(object):
 
         return packages_recent_days
 
-    def language_distribution(self):
+    def language_distribution_from_all(self, order='descending'):
+        data = self.language_distribution(False)
+        order = True if order == 'descending' else False
+        sorted_data = sorted(data.items(), key=lambda x: x[1]['percentage'],
+                reverse=order)
+        return sorted_data
+
+    def language_distribution_from_recent(self, order='descending'):
+        """TBD - language distribuion is not collected for recent days in
+        current search.py"""
+        data = self.language_distribution()
+        order = True if order == 'descending' else False
+        sorted_data = sorted(data.items(), key=lambda x: x[1]['percentage'],
+                reverse=order)
+        return sorted_data
+
+    def language_distribution(self, is_recent=True):
         data = self.raw_data
-        result = self.result['languages']
+
+        if is_recent == True:
+            period = 'recent'
+            result = self.recent['languages']
+        else:
+            period = 'result'
+            result = self.result['languages']
 
         try:
-            sdata = data['result']['search_keywords']
-            data = data['result']['merged_items']['language_in']
+            sdata = data[period]['search_keywords']
+            data = data[period]['merged_items']['language_in']
         except KeyError as e:
             return None
 
@@ -187,14 +210,27 @@ class Statistics(object):
                 #print kw, lang, val2['total_count'], val['total_count']
         return result
 
-    def recent_activities(self, n=None, order='descending'):
+    def examples_from_all_activities(self, n=None, order='descending'):
+        return self.get_examples_over_period(n, order, False)
+
+    def examples_from_recent_activities(self, n=None, order='descending'):
+        return self.get_examples_over_period(n, order)
+
+    def get_examples_over_period(self, n=None, order='descending', is_recent=True):
         data = self.raw_data
+
+        if is_recent == True:
+            period = 'recent' 
+            result = self.recent['examples']
+        else:
+            period = 'result'
+            result = self.result['examples']
 
         if not n:
             n = self.top_ranks
 
         try:
-            data = data['recent']['merged_items']
+            data = data[period]['merged_items']
         except KeyError as e:
             return none
 
@@ -203,34 +239,44 @@ class Statistics(object):
         sorted_data = sorted(data['items'].items(), 
                 key=lambda x: x[1][self.sort_by], reverse=order)
 
+        cnt = 0
         for item in sorted_data:
+            if cnt > n:
+                break
             name = item[0]
             value = item[1]
             example = copy.deepcopy(self.example)
             for k, v in example.iteritems():
                 example[k] = value[k]
-            self.result['examples'].append(example)
+            result.append(example)
+            cnt += 1
 
-        return self.result['examples']
+        return result
 
     def save_file(self, data=None):
         """ Store json to yaml """
         name = (self.name + ".stats")
-        utils.save_json_to_file(self.result, name)
+        data = { 
+                "result": self.result,
+                "recent": self.recent 
+                }
+        utils.save_json_to_file(data, name)
     
 stat = Statistics()
 data = stat.read_file(sys.argv[1])
-res = stat.language_distribution()
-pprint(res)
-res2 = stat.recent_activities()
-pprint(res2[:10])
+res = stat.language_distribution_from_all()
+#print(res)
+res2 = stat.examples_from_all_activities()
+#print(res2[:10])
+res2 = stat.examples_from_recent_activities()
+#pprint(res2[:10])
 res = stat.count_package_occurrences()
-pprint(res)
+#pprint(res)
 
 # To discover new projects, filter repos with active one from statistics
 # https://developer.github.com/v3/repos/statistics/
 res2 = stat.count_package_occurrences_over_days()
-for k,v in res2.iteritems():
-    print k, v['average']
-    pprint(v['most_common'])
+#for k,v in res2.iteritems():
+#    print k, v['average']
+#    pprint(v['most_common'])
 stat.save_file()
