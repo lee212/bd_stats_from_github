@@ -420,5 +420,14 @@ if __name__ == "__main__":
     ret = packages.search_with_language()
     ret = packages.search_with_recent_date()
     ret2 = packages.retrieve_py_modules(ret)
-    # packages.retrieve_readme_with_tool_names
+    # IDEAs
+    # * packages.retrieve_readme_with_tool_names
+    # * packages.number_of_recently_updated_repositories 
+    # codition:
+    # - last 24 hours
+    # - > 1 star|fork|watch
+    # goals:
+    # - to see language preference
+    # - to see activities of the keyword
     packages.save_file()
+
