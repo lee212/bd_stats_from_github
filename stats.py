@@ -123,16 +123,16 @@ class Statistics(object):
 
         c = Counter(packages)
         self.result['packages']['total_count'] = sum(c.values())
-        self.result['packages']['list'] = list(c)
-        self.result['packages']['numbers'] = numbers
+        #self.result['packages']['list'] = list(c)
+        #self.result['packages']['numbers'] = numbers
         self.result['packages']['average'] = utils.mean(numbers)
         self.result['packages']['most_common'] = c.most_common(self.top_ranks)
         return c.most_common(n)
 
     def trends(self, data=None):
-        return self.count_package_occurrences_over_days(data)
+        return self.count_package_occurrences_in_days(data)
 
-    def count_package_occurrences_over_days(self, data=None, where="recent",
+    def count_package_occurrences_in_days(self, data=None, where="recent",
             n=None):
         if not data:
             data = self.raw_data
@@ -163,6 +163,9 @@ class Statistics(object):
             v['total_count'] = sum(c.values())
             v['average'] = utils.mean(v['numbers'])
             v['most_common'] = c.most_common(n)
+            # not to store in files for the following items
+            v['list'] = []
+            v['numbers'] = []
 
         return packages_recent_days
 
@@ -275,7 +278,7 @@ res = stat.count_package_occurrences()
 
 # To discover new projects, filter repos with active one from statistics
 # https://developer.github.com/v3/repos/statistics/
-res2 = stat.count_package_occurrences_over_days()
+res2 = stat.count_package_occurrences_in_days()
 #for k,v in res2.iteritems():
 #    print k, v['average']
 #    pprint(v['most_common'])
