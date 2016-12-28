@@ -1,0 +1,14 @@
+title:
+  NIST Fingerprint Matching
+keywords:
+  - fingerprint matching
+  - fingerprint recognition
+tools:
+  - hadoop
+  - spark
+  - hbase
+  - drill
+  - scala
+algoritms:
+  - MINDTCT
+  - BOZORTH3

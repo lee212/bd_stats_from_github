@@ -1,0 +1,16 @@
+title:
+  NIST Human and Face Detection using INRIA Person Dataset
+keywords:
+  - face detection
+  - face recognition
+  - human detection
+  - pedestrian
+  - person detection
+tools:
+  - opencv
+  - spark
+  - mesos
+algoritms:
+  - Haar Cascades
+  - HOG
+  - Histograms of Oriented Gradients
