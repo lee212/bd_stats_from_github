@@ -3,6 +3,8 @@ title:
 keywords:
   - fingerprint matching
   - fingerprint recognition
+  - fingerprint verification
+  - biometric fingerprint
 tools:
   - hadoop
   - spark

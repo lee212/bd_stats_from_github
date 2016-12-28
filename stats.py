@@ -23,8 +23,10 @@ class Statistics(object):
             }
 
     language = { 
-            'total_count': 0,
-            'percentage': 0.0
+            'counts': [],
+            'total_counts': [],
+            'percentage': 0.0,
+            'keywords': []
             }
 
     # TODO: list contributors
@@ -65,6 +67,8 @@ class Statistics(object):
             self.raw_data = data
             self.set_name(name)
             return data
+
+        return None
 
     def set_name(self, filepath):
         """Read a name from file"""
@@ -202,14 +206,17 @@ class Statistics(object):
             return None
 
         for kw, val in sdata.iteritems():
+            tc_for_kw = val['total_count']
             for lang, val2 in val['language_in'].iteritems():
-                percent_for_lang = (val2['total_count'] * 1.0 /
-                val['total_count'])
-                try:
-                    result[lang]['percentage'] = \
-                    utils.mean([result[lang]['percentage'], percent_for_lang])
-                except KeyError as e:
-                    result[lang] = { 'percentage': percent_for_lang }
+                tc_for_lang = val2['total_count']
+                percent_for_lang = (tc_for_lang * 1.0 / tc_for_kw)
+                if not lang in result:
+                    result[lang] = copy.deepcopy(self.language)
+                result[lang]['counts'].append(tc_for_lang)
+                result[lang]['total_counts'].append(tc_for_kw)
+                result[lang]['keywords'].append(kw)
+                result[lang]['percentage'] = \
+                        utils.mean([result[lang]['percentage'], percent_for_lang])
                 #print kw, lang, val2['total_count'], val['total_count']
         return result
 

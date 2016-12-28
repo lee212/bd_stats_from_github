@@ -138,7 +138,7 @@ class searchRepo(object):
         """Search recent activities"""
 
         search_keywords = self.recent['search_keywords']
-        merged_items = self.recent['merged_items']['items']
+        merged_items = self.recent['merged_items']
         
         duplicate = 0
         # multiple keywords for search item
@@ -154,11 +154,11 @@ class searchRepo(object):
 
             for item in ret['items']:
                 # count duplicate
-                if item['full_name'] in merged_items.keys():
+                if item['full_name'] in merged_items['items'].keys():
                     duplicate += 1
 
                 # create a unique data with key: value
-                merged_items[item['full_name']] = item
+                merged_items['items'][item['full_name']] = item
             merged_items['total_count'] = len(merged_items['items'])
         return self.recent
 
