@@ -9,6 +9,8 @@ keywords:
   - gps
   - uber ride
   - uber gps
+  - openstreetmap
+  - Neo4j Spatial
 tools:
   - hadoop
   - spark
