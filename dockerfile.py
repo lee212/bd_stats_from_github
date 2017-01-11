@@ -16,14 +16,15 @@ class searchDockerfile(searchRepo):
         self.conf = self.get_conf()
         self.check_git_token()
 
-    def search(self):
+    def search(self, page=1):
         self.result = {} # RESET
         self.target = "code"
         # search code size limit: 384kb
         # ref: https://developer.github.com/v3/search/#search-code
         self.query = "from+in:file+language:Dockerfile+size:>383"
-        url = self.get_api_url()
+        url = self.get_api_url(page)
         ret = self.request_api(url)
+        self.raw_data = ret
         for item in ret['items']:
 
             contents = self.get_file_contents(item)
@@ -39,6 +40,18 @@ class searchDockerfile(searchRepo):
                     instructions
 
         return self.result
+
+    def search_all(self):
+        res = self.search()
+        if self.raw_data['total_count'] > self.conf['per_page']:
+            page = 1
+            pages = self.get_total_pages(self.raw_data)
+            while page <= pages:
+                page += 1
+                temp = self.search(page)
+                res.update(temp)
+        self.result = res
+        return res
 
     def read_dockerfile(self, content):
         instructions = {
@@ -73,5 +86,5 @@ class searchDockerfile(searchRepo):
 if __name__ == "__main__":
     dockerfiles = searchDockerfile()
     dockerfiles.get_inputs(sys.argv[1])
-    res = dockerfiles.search()
+    res = dockerfiles.search_all()
     dockerfiles.save_file()
