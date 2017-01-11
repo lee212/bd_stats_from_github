@@ -22,6 +22,10 @@ class searchRepo(object):
     target = "repositories"
     query = ""
 
+    retry = 6
+    timeout = 60 # double each failure
+    failed = 0
+
     # merged_items is created to provide a unique list
     # but data structure is slightly different
     result = { 
@@ -105,10 +109,25 @@ class searchRepo(object):
                 recursive):
             if conf['debugging'] in [ 'DEBUG', 'WARNING']:
                 print(r)
-            time.sleep(60)
-            return self.request_api(url, False)
+            time.sleep(self.timeout())
+            self.api_failed()
+            return self.request_api(url, self.is_retry())
+        else:
+            self.reset_retry()
         data = (json.loads(r.text))
         return data
+
+    def timeout(self):
+        return self.timeout * (self.failed + 1)
+
+    def is_retry(self):
+        return True if self.failed <= self.retry else False
+
+    def api_failed(self):
+        self.failed += 1
+
+    def reset_retry(self):
+        self.failed = 0
 
     def get_api_url(self, page=1):
         """Return github api url based on settings"""
