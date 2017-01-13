@@ -8,7 +8,6 @@ import sys
 import os
 from pprint import pprint
 from search import searchRepo
-from dockerfile_parse import DockerfileParser
 
 class searchDockerfile(searchRepo):
 
@@ -25,7 +24,7 @@ class searchDockerfile(searchRepo):
             'owner'
             ]
        
-    def __init(self):
+    def __init__(self):
         self.conf = self.get_conf()
         self.check_git_token()
 
@@ -65,7 +64,7 @@ class searchDockerfile(searchRepo):
                 page += 1
                 temp = self.search(page)
                 res.update(temp)
-                if self.search_api_limit < page * self.conf['per_page']:
+                if self.search_api_limit <= page * self.conf['per_page']:
                     break
         self.result = res
         return res
@@ -97,7 +96,7 @@ class searchDockerfile(searchRepo):
         for inst in instructions.keys():
             res = re.findall(inst + " (.*)", content)
             if res:
-                instructions[inst] = res
+                instructions[inst] = [x.strip() for x in res]
         return instructions
 
     def get_repo(self):

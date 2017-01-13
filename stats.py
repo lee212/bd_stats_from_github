@@ -6,6 +6,7 @@ from collections import Counter
 import utils
 import os
 import copy
+from docker_official_images import dockerOfficialImages
 
 class Statistics(object):
 
@@ -41,10 +42,27 @@ class Statistics(object):
             'stargazers_count': 0,
             }
 
+    dockerfile = {
+            'total_counts': 0,
+            'baseimages': [],
+            'baseos': [],
+            'packages': [],
+            }
+
+    base_os = {
+            'ubuntu':{ 'version': {}, 'total_count':0 },
+            'centos':{ 'version': {}, 'total_count':0 },
+            'fedora':{ 'version': {}, 'total_count':0 },
+            'debian':{ 'version': {}, 'total_count':0 },
+            'alpine':{ 'version': {}, 'total_count':0 },
+            'busybox':{ 'version': {}, 'total_count':0 },
+            }
+
     result = {
             'packages': copy.deepcopy(package),
             'languages': {},
-            'examples': []
+            'examples': [],
+            'dockerfiles': copy.deepcopy(dockerfile),
             }
 
     recent_days = [ 30, 60, 90, 180, 365 ]
@@ -173,6 +191,43 @@ class Statistics(object):
 
         return packages_recent_days
 
+    def baseimage_dockerfile(self, n=None):
+        data = self.raw_data['result']
+        baseimage = []
+
+        if not n:
+            n = self.top_ranks
+
+        for k,v in data.iteritems():
+            repo_name = k
+            dockerfiles = v['dockerfile']
+            for k1, v1 in dockerfiles.iteritems():
+                filepath = k1
+                baseimage += v1['FROM']
+
+        c = Counter(baseimage)
+        self.result['dockerfiles']['baseimages'] = c.most_common(n)
+        self.result['dockerfiles']['total_counts'] = len(data)
+        baseos = self.get_baseimage_os(c.most_common())
+        self.result['dockerfiles']['baseos'] = baseos
+        return c
+
+    def get_baseimage_os(self, image_list):
+        for i in image_list:
+            name = i[0]
+            count = i[1]
+            try:
+                os_name, os_version = name.split(":")
+            except ValueError as e:
+                os_name = name
+                os_version = "default"
+
+            if os_name in self.base_os:
+                self.base_os[os_name]['version'][os_version] = count
+                self.base_os[os_name]['total_count'] += count
+
+        return self.base_os
+
     def language_distribution_from_all(self, order='descending'):
         data = self.language_distribution(False)
         order = True if order == 'descending' else False
@@ -271,22 +326,29 @@ class Statistics(object):
                 "recent": self.recent 
                 }
         utils.save_json_to_file(data, name)
-    
-stat = Statistics()
-data = stat.read_file(sys.argv[1])
-res = stat.language_distribution_from_all()
-#print(res)
-res2 = stat.examples_from_all_activities()
-#print(res2[:10])
-res2 = stat.examples_from_recent_activities()
-#pprint(res2[:10])
-res = stat.count_package_occurrences()
-#pprint(res)
+   
+if __name__ == "__main__":
 
-# To discover new projects, filter repos with active one from statistics
-# https://developer.github.com/v3/repos/statistics/
-res2 = stat.count_package_occurrences_in_days()
-#for k,v in res2.iteritems():
-#    print k, v['average']
-#    pprint(v['most_common'])
-stat.save_file()
+    stat = Statistics()
+    data = stat.read_file(sys.argv[2])
+    if sys.argv[1] == "ks" or sys.argv[1] == "keyword_search":
+        res = stat.language_distribution_from_all()
+        #print(res)
+        res2 = stat.examples_from_all_activities()
+        #print(res2[:10])
+        res2 = stat.examples_from_recent_activities()
+        #pprint(res2[:10])
+        res = stat.count_package_occurrences()
+        #pprint(res)
+
+        # To discover new projects, filter repos with active one from statistics
+        # https://developer.github.com/v3/repos/statistics/
+        res2 = stat.count_package_occurrences_in_days()
+        #for k,v in res2.iteritems():
+        #    print k, v['average']
+        #    pprint(v['most_common'])
+        stat.save_file()
+    elif sys.argv[1] == "df" or sys.argv[1] == "dockerfile":
+        c = stat.baseimage_dockerfile()
+        stat.save_file()
+
