@@ -43,6 +43,8 @@ class searchRepo(object):
 
     recent = copy.deepcopy(result)
 
+    language_list = "435_languages.txt"
+
     def __init__(self):
         self.conf = self.get_conf()
         self.check_git_token()
@@ -109,7 +111,7 @@ class searchRepo(object):
                 recursive):
             if conf['debugging'] in [ 'DEBUG', 'WARNING']:
                 print(r)
-            time.sleep(self.timeout())
+            time.sleep(self.time_out())
             self.api_failed()
             return self.request_api(url, self.is_retry())
         else:
@@ -117,7 +119,7 @@ class searchRepo(object):
         data = (json.loads(r.text))
         return data
 
-    def timeout(self):
+    def time_out(self):
         return self.timeout * (self.failed + 1)
 
     def is_retry(self):
@@ -313,6 +315,31 @@ class searchRepo(object):
 
         return search_keywords
 
+    def count_language_distribution(self):
+        res = {}
+        all_langs = self.read_language_list()
+        for keyword in self.inputs['keywords']:
+            res[keyword] = { 
+                    'total_count': 0,
+                    'language_count': {}
+                    }
+            self.query = urllib.quote_plus(keyword)
+            url = self.get_api_url()
+            ret = self.request_api(url)
+            res[keyword]['total_count'] = ret['total_count']
+            for lang in all_langs:
+                self.query = urllib.quote_plus(keyword)
+                self.query += ("+language:{0}".format(urllib.quote_plus(lang)))
+                url = self.get_api_url()
+                ret = self.request_api(url)
+                res[keyword]['language_count'][lang] = ret['total_count']
+        self.result = res
+
+    def read_language_list(self):
+        with open(self.language_list, "r") as f:
+            lines = f.read().splitlines()
+        return lines
+
     def run_search(self, query):
         """Obsolete function"""
         """run search from a direct single query string"""
@@ -436,6 +463,8 @@ class searchRepo(object):
 if __name__ == "__main__":
     packages = searchRepo()
     packages.get_inputs(sys.argv[1])
+    ret = packages.count_language_distribution()
+    sys.exit()
     ret = packages.search_with_language()
     ret = packages.search_with_recent_date()
     ret2 = packages.retrieve_py_modules(ret)
