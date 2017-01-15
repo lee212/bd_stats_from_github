@@ -6,11 +6,13 @@
 import re
 import sys
 import os
+import urllib
 from pprint import pprint
 from search import searchRepo
 
 class searchDockerfile(searchRepo):
 
+    default_search = "language:Dockerfile"
     search_api_limit = 1000
 
     repo_info_tokeep = [
@@ -35,7 +37,12 @@ class searchDockerfile(searchRepo):
         # ref: https://developer.github.com/v3/search/#search-code
         #self.query = "from+in:file+language:Dockerfile+size:>383"
         for keyword in self.inputs['keywords']:
-            self.query = keyword
+            if keyword.find(self.default_search) > 0:
+                self.query = keyword
+            else:
+                self.query = urllib.quote_plus(keyword) + "+" + \
+                        self.default_search
+
             url = self.get_api_url(page)
             ret = self.request_api(url)
             self.raw_data = ret
