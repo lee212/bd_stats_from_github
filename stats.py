@@ -318,6 +318,36 @@ class Statistics(object):
 
         return result
 
+    def language_count(self):
+        data = self.raw_data
+
+        keywords = data['result']
+        summary = {
+                'language_percentage': {},
+                'total_count':0
+                }
+        l_sum = summary['language_percentage']
+        for keyword, value in keywords.iteritems():
+            c = Counter(value['language_count'])
+            tmp = dict (c.most_common(15))
+            t_cnt = sum(c.values())
+            summary['total_count'] = utils.mean([t_cnt, summary['total_count']])
+
+            for k, v in tmp.iteritems():
+                perc =  v * 1.0 / t_cnt
+                if k in l_sum:
+                    l_sum[k] = utils.mean([l_sum[k], perc])
+                else:
+                    l_sum[k] = perc
+
+        c3 = Counter(l_sum)
+        summary['language_percentage'] = c3.most_common()
+        self.result = summary
+            # total coverage over 90% is expected
+            #c2 = Counter(tmp)
+            #par = (sum(c2.values()))
+            #print par*1.0/sum(c.values())
+
     def save_file(self, data=None):
         """ Store json to yaml """
         name = (self.name + ".stats")
@@ -350,5 +380,8 @@ if __name__ == "__main__":
         stat.save_file()
     elif sys.argv[1] == "df" or sys.argv[1] == "dockerfile":
         c = stat.baseimage_dockerfile()
+        stat.save_file()
+    elif sys.argv[1] == 'lc' or sys.argv[1] == 'language_count':
+        c = stat.language_count()
         stat.save_file()
 
