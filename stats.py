@@ -324,15 +324,19 @@ class Statistics(object):
         keywords = data['result']
         summary = {
                 'language_percentage': {},
-                'total_count':0
+                'total_count':  {
+                    'average':0,
+                    'all': []
+                    }
                 }
         l_sum = summary['language_percentage']
         for keyword, value in keywords.iteritems():
             c = Counter(value['language_count'])
             tmp = dict (c.most_common(15))
             t_cnt = sum(c.values())
-            summary['total_count'] = utils.mean([t_cnt, summary['total_count']])
-
+            summary['total_count']['all'].append(t_cnt)
+            summary['total_count']['average'] = \
+                    utils.mean([t_cnt, summary['total_count']['average']])
             for k, v in tmp.iteritems():
                 perc =  v * 1.0 / t_cnt
                 if k in l_sum:
