@@ -329,7 +329,8 @@ class searchRepo(object):
             res[keyword]['total_count'] = ret['total_count']
             for lang in all_langs:
                 self.query = urllib.quote_plus(keyword)
-                self.query += ("+language:{0}".format(urllib.quote_plus(lang)))
+                self.query += \
+                ("+language:\"{0}\"".format(urllib.quote_plus(lang))) 
                 url = self.get_api_url()
                 ret = self.request_api(url)
                 res[keyword]['language_count'][lang] = ret['total_count']
@@ -464,10 +465,9 @@ if __name__ == "__main__":
     packages = searchRepo()
     packages.get_inputs(sys.argv[1])
     ret = packages.count_language_distribution()
-    sys.exit()
-    ret = packages.search_with_language()
-    ret = packages.search_with_recent_date()
-    ret2 = packages.retrieve_py_modules(ret)
+    ##ret = packages.search_with_language()
+    ##ret = packages.search_with_recent_date()
+    ##ret2 = packages.retrieve_py_modules(ret)
     # IDEAs
     # * packages.retrieve_readme_with_tool_names
     # * packages.number_of_recently_updated_repositories 

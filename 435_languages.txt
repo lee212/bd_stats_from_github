@@ -66,7 +66,7 @@ Brightscript
 Bro
 C-ObjDump
 C2hs Haskell
-Cap&#39;n Proto
+Cap'n Proto
 CartoCSS
 Ceylon
 Chapel
@@ -338,7 +338,7 @@ REALbasic
 Rebol
 Red
 Redcode
-Ren&#39;Py
+Ren'Py
 RenderScript
 reStructuredText
 REXX
