@@ -1,0 +1,35 @@
+---
+
+access_token: 
+api_addr: https://gitlab.com/api/v3
+sort: stars
+
+language:
+  - python
+  - java
+  - scala
+  - javascript
+  - ruby
+  - c#
+  - R
+  - Jupyter Notebook
+
+Recent:
+  "created:>=2016-01-01"
+
+Popularity:
+  "stars>49"
+  
+Quality:
+  - "pushed:>=2016-01-01"
+  - "contributors:>=3"
+  - "issues:>1"
+  
+per_page:
+  100
+
+debugging:
+  # ERROR
+  DEBUG
+  # INFO
+  # WARNING

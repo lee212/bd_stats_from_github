@@ -81,10 +81,10 @@ class searchRepo(object):
         if not conf:
             conf = self.conf
         token = None
-        if not conf['git_token']:
+        if 'git_token' in conf and not conf['git_token']:
             token = self.get_env('git_token')
             self.conf['git_token'] = token
-        if not token and not conf['access_token']:
+        if 'access_token' in conf and not conf['access_token']:
             token = self.get_env('access_token')
             self.conf['access_token'] = token
         if not token:
@@ -107,10 +107,10 @@ class searchRepo(object):
 
         """
         conf = self.conf
-        if conf['git_token']:
+        if 'git_token' in conf:
             headers = {'Authorization': 'token ' + conf['git_token']}
-        elif conf['access_token']:
-            headers = {'PRIVATE-TOKEN' + conf['access_token']}
+        elif 'access_token' in conf:
+            headers = {'PRIVATE-TOKEN': conf['access_token']}
         if conf['debugging'] in [ 'INFO', 'DEBUG']:
             print(url)
         r = requests.get(url, headers=headers)
@@ -140,10 +140,16 @@ class searchRepo(object):
 
     def get_api_url(self, page=1):
         """Return github api url based on settings"""
-        repo_url = (
-                "{0}/{1}/{2}?q={3}&sort={4}&page={5}&per_page={6}".format(
-                    self.conf['api_addr'], self.action, self.target, self.query,
-                    self.conf['sort'], page, self.conf['per_page']))
+        q = ""
+        if self.query:
+            q = "?q={0}".format(self.query)
+        if q:
+            q += ("&sort={0}&page={1}&per_page={2}".format(self.conf['sort'],
+                page, self.conf['per_page']))
+        if self.special_query:
+            q = self.special_query
+        repo_url = ("{0}/{1}/{2}{3}".format(self.conf['api_addr'], self.action,
+            self.target, q))
         return repo_url
 
     def get_total_pages(self, searched_data=None):
