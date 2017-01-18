@@ -476,7 +476,7 @@ class searchRepo(object):
                     'recent': self.recent
                     }
         name = (self.name + "." + time.strftime("%Y%m%d-%H%M%S")
-                + ".yml")
+                + ".json")
 
         with open(name, 'w') as outfile:
             json.dump(data, outfile, indent=4, sort_keys=True)
