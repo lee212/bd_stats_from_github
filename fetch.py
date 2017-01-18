@@ -13,6 +13,7 @@ class fetchRepo(searchRepo):
         self.query = None
         url = self.get_api_url()
         res = self.request_api(url)
+        c = Counter()
         for item in res:
             unique = item['path_with_namespace']
             self.target=item['id']
@@ -26,10 +27,15 @@ class fetchRepo(searchRepo):
             result[unique] = {
                     'packages': packages,
                     'readme': readme,
-                    'extensions': ext
+                    'extensions': ext.most_common()
                     }
-        self.result = result
-        return result
+            c += Counter(packages)
+        self.result = {
+                'items': result,
+                'total_count': len(res),
+                'total_packages': c.most_common()
+                }
+        return self.result 
 
     def get_py_packages(self, data):
         res = []
