@@ -3,10 +3,11 @@ from search import searchRepo
 from collections import Counter
 
 class fetchRepo(searchRepo):
+
     conf_file = "config.gitlab.yml"
     special_query = ""
 
-    def fetch(self):
+    def fetch_all(self):
         result = {}
         self.action = "projects"
         self.target = ""
@@ -14,25 +15,39 @@ class fetchRepo(searchRepo):
         url = self.get_api_url()
         res = self.request_api(url)
         c = Counter()
-        for item in res:
-            unique = item['path_with_namespace']
-            self.target=item['id']
-            self.special_query = "/repository/tree?recursive=True"
-            url = self.get_api_url()
+
+        page = 1
+        total_pages = int(self.raw_response.headers['X-Total-Pages'])
+        while page <= total_pages:
+            for item in res:
+                unique = item['path_with_namespace']
+                self.target=item['id']
+                self.special_query = "/repository/tree?recursive=True"
+                url1 = self.get_api_url()
+                try:
+                    res1 = self.request_api(url1)
+                    ext = self.count_extension(res1)
+                    req = self.read_requirements(res1)
+                    packages = self.get_py_packages(req)
+                    readme = self.find_readme_rst(res1)
+                except:
+                    continue
+                result[unique] = {
+                        'packages': packages,
+                        'readme': readme,
+                        'extensions': ext.most_common()
+                        }
+                c += Counter(packages)
+            page += 1
+            self.action = "projects"
+            self.target = ""
+            self.query = None
+            self.special_query = ""
+            url = self.get_api_url(page)
             res = self.request_api(url)
-            ext = self.count_extension(res)
-            req = self.read_requirements(res)
-            packages = self.get_py_packages(req)
-            readme = self.find_readme_rst(res)
-            result[unique] = {
-                    'packages': packages,
-                    'readme': readme,
-                    'extensions': ext.most_common()
-                    }
-            c += Counter(packages)
         self.result = {
                 'items': result,
-                'total_count': len(res),
+                'total_count': len(result),
                 'total_packages': c.most_common()
                 }
         return self.result 
@@ -87,5 +102,5 @@ class fetchRepo(searchRepo):
 if __name__ == "__main__":
     stat = fetchRepo()
     stat.name="fall16"
-    res = stat.fetch()
+    res = stat.fetch_all()
     stat.save_file()

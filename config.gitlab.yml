@@ -2,7 +2,7 @@
 
 access_token: 
 api_addr: https://gitlab.com/api/v3
-sort: stars
+sort: desc
 
 language:
   - python

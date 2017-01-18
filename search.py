@@ -16,6 +16,7 @@ class searchRepo(object):
 
     conf_file = "config.yml"
     raw_data = {}
+    raw_response = None
 
     name = ""
     action = "search"
@@ -114,8 +115,9 @@ class searchRepo(object):
         if conf['debugging'] in [ 'INFO', 'DEBUG']:
             print(url)
         r = requests.get(url, headers=headers)
-        if (r.status_code != 200 and r.headers['X-RateLimit-Remaining'] == '0' and
-                recursive):
+        self.raw_response = r
+        if (r.status_code != 200 and 'X-RateLimit-Remaining' in r.headers and
+                r.headers['X-RateLimit-Remaining'] == '0' and recursive):
             if conf['debugging'] in [ 'DEBUG', 'WARNING']:
                 print(r)
             time.sleep(self.time_out())
@@ -140,12 +142,17 @@ class searchRepo(object):
 
     def get_api_url(self, page=1):
         """Return github api url based on settings"""
-        q = ""
+        q = [] 
         if self.query:
-            q = "?q={0}".format(self.query)
+            q.append("q={0}".format(self.query))
+        if self.conf['sort']:
+            q.append("sort={0}".format(self.conf['sort']))
+        if page:
+            q.append("page={0}".format(page))
+        if self.conf['per_page']:
+            q.append("per_page={0}".format(self.conf['per_page']))
         if q:
-            q += ("&sort={0}&page={1}&per_page={2}".format(self.conf['sort'],
-                page, self.conf['per_page']))
+            q = "?" + ("&".join(q))
         if self.special_query:
             q = self.special_query
         repo_url = ("{0}/{1}/{2}{3}".format(self.conf['api_addr'], self.action,
