@@ -47,7 +47,7 @@ class searchRepo(object):
 
     def __init__(self):
         self.conf = self.get_conf()
-        self.check_git_token()
+        self.check_authentication()
 
     def set_query(self, string):
         self.query = string
@@ -77,19 +77,23 @@ class searchRepo(object):
         """Read yaml config file"""
         return utils.yaml_load(self.conf_file)
 
-    def check_git_token(self, conf=None):
+    def check_authentication(self, conf=None):
         if not conf:
             conf = self.conf
+        token = None
         if not conf['git_token']:
-            token = self.get_git_token_env()
-            if not token:
-                print ("no authorization for git api. set git_token")
-                return False
+            token = self.get_env('git_token')
             self.conf['git_token'] = token
+        if not token and not conf['access_token']:
+            token = self.get_env('access_token')
+            self.conf['access_token'] = token
+        if not token:
+            print ("no authorization for git api. set authentication")
+            return False
         return True
 
-    def get_git_token_env(self):
-        return os.getenv('git_token')
+    def get_env(self, name='git_token'):
+        return os.getenv(name)
 
     def request_api(self, url, recursive=True):
         """Call github api
@@ -103,7 +107,10 @@ class searchRepo(object):
 
         """
         conf = self.conf
-        headers = {'Authorization': 'token ' + conf['git_token']}
+        if conf['git_token']:
+            headers = {'Authorization': 'token ' + conf['git_token']}
+        elif conf['access_token']:
+            headers = {'PRIVATE-TOKEN' + conf['access_token']}
         if conf['debugging'] in [ 'INFO', 'DEBUG']:
             print(url)
         r = requests.get(url, headers=headers)
