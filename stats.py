@@ -11,6 +11,7 @@ from docker_official_images import dockerOfficialImages
 class Statistics(object):
 
     name = ""
+    task = ""
     raw_data = None
     top_ranks = 20
     sort_by = "stargazers_count" # | 'watchers_count', 'forks_count'
@@ -67,6 +68,8 @@ class Statistics(object):
 
     recent_days = [ 30, 60, 90, 180, 365 ]
     recent = copy.deepcopy(result)
+
+    rpms = [ 'yum', 'apt-get' ]
 
     def __init__(self):
         self.init_package_recent_days()
@@ -190,6 +193,61 @@ class Statistics(object):
             v['numbers'] = []
 
         return packages_recent_days
+
+    def get_rpms(self):
+        return self.docker_run()
+
+    def docker_run(self):
+        data = self.raw_data['result']
+        packages = []
+
+        for k,v in data.iteritems():
+            repo_name = k
+            dockerfiles = v['dockerfile']
+            for k1, v1 in dockerfiles.iteritems():
+                filepath = k1
+                packages += self.get_package_names(v1['RUN'])
+        c = Counter(packages)
+        self.result['dockerfiles']['packages'] = c
+        return c
+
+    def get_package_names(self, cmd_list, sub_cmd="install"):
+        """Return package management items given sub commands"""
+
+        names = []
+        cmds = self.parse_commands(cmd_list)
+        for name in self.rpms:
+            if name in cmds:
+                values = cmds[name]
+                for value in values:
+                    value = self.remove_options(value)
+                    if value[0] == sub_cmd:
+                        names += value[1:]
+        return names
+
+    def remove_options(self, params):
+        """ remove elements start with '-' """
+        options = []
+        for param in params:
+            if param[:1] == "-":
+                options.append(param)
+        for option in options:
+            params.remove(option)
+        return params
+
+    def parse_commands(self, cmd_list):
+        cmds = {}
+        for cmd in cmd_list:
+            tmp = cmd.split("&&")
+            for j in tmp:
+                tmp2 = j.split()
+                main_cmd = tmp2[0]
+                params = tmp2[1:]
+                if main_cmd in cmds:
+                    cmds[main_cmd].append(params)
+                else:
+                    cmds[main_cmd] = [params]
+        return cmds
 
     def baseimage_dockerfile(self, n=None):
         data = self.raw_data['result']
@@ -364,7 +422,8 @@ class Statistics(object):
 if __name__ == "__main__":
 
     stat = Statistics()
-    data = stat.read_file(sys.argv[2])
+    if len(sys.argv) == 3:
+        data = stat.read_file(sys.argv[2])
     if sys.argv[1] == "ks" or sys.argv[1] == "keyword_search":
         res = stat.language_distribution_from_all()
         #print(res)
@@ -388,4 +447,9 @@ if __name__ == "__main__":
     elif sys.argv[1] == 'lc' or sys.argv[1] == 'language_count':
         c = stat.language_count()
         stat.save_file()
+    elif sys.argv[1] == "rpmsid" or sys.argv[1] == 'packages_in_dockerfile':
+        stat.task = 'packages_in_dockerfile'
+        c = stat.get_rpms()
+        stat.save_file()
+        
 
