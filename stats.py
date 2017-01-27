@@ -207,6 +207,11 @@ class Statistics(object):
             for k1, v1 in dockerfiles.iteritems():
                 filepath = k1
                 packages += self.get_package_names(v1['RUN'])
+
+        # noise
+        packages = filter(lambda a: a != "#", packages)
+        packages = filter(lambda a: a != "\\", packages)
+
         c = Counter(packages)
         self.result['dockerfiles']['packages'] = c
         return c
@@ -223,6 +228,7 @@ class Statistics(object):
                     value = self.remove_options(value)
                     if value[0] == sub_cmd:
                         names += value[1:]
+       
         return names
 
     def remove_options(self, params):
@@ -412,7 +418,8 @@ class Statistics(object):
 
     def save_file(self, data=None):
         """ Store json to yaml """
-        name = (self.name + ".stats")
+        task = "." + self.task if self.task != "" else ""
+        name = (self.name + ".stats" + task)
         data = { 
                 "result": self.result,
                 "recent": self.recent 
