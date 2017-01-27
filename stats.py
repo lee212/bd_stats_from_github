@@ -211,6 +211,7 @@ class Statistics(object):
         # noise
         packages = filter(lambda a: a != "#", packages)
         packages = filter(lambda a: a != "\\", packages)
+        packages = filter(lambda a: a.find("$") == -1, packages)
 
         c = Counter(packages)
         self.result['dockerfiles']['packages'] = c
