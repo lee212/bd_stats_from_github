@@ -1,0 +1,115 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": {
+                "bc": 1, 
+                "build-essential": 1, 
+                "cmake": 1, 
+                "curl": 2, 
+                "default-jdk": 1, 
+                "g++": 2, 
+                "gcc": 1, 
+                "gfortran": 1, 
+                "git": 1, 
+                "libboost-all-dev": 1, 
+                "libffi-dev": 2, 
+                "libgflags-dev": 1, 
+                "libgoogle-glog-dev": 1, 
+                "libleveldb-dev": 1, 
+                "libpq-dev": 1, 
+                "libprotobuf-dev": 1, 
+                "libsnappy-dev": 1, 
+                "libssl-dev": 1, 
+                "libtiff5-dev": 1, 
+                "libzmq3-dev": 1, 
+                "make": 1, 
+                "nano": 1, 
+                "nodejs": 1, 
+                "pkg-config": 1, 
+                "postgresql-9.4": 1, 
+                "postgresql-client-9.4": 1, 
+                "postgresql-contrib-9.4": 1, 
+                "protobuf-compiler": 1, 
+                "python-dev": 1, 
+                "python-pip": 1, 
+                "python-software-properties": 1, 
+                "python2.7": 1, 
+                "python2.7-dev": 1, 
+                "python3.5": 1, 
+                "python3.5-dev": 1, 
+                "software-properties-common": 3, 
+                "tar": 1, 
+                "unzip": 3, 
+                "vim": 1, 
+                "wget": 1, 
+                "zlib1g-dev": 1
+            }, 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }
+    }
+}
