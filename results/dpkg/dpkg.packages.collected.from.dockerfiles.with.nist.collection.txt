@@ -1,0 +1,26 @@
+git &  fast, scalable, distributed revision control system & perl-modules, liberror-perl, libpcre3, libcurl3-gnutls, git-man, zlib1g, libc6, libexpat1 &  22508 (28991) &  optional \\ \hline
+wget &  retrieves files from the web & libssl1.0.0, libidn11, libpcre3, zlib1g, libc6, libuuid1 &  680 (15439) &  important \\ \hline
+build-essential &  Informational list of build-essential packages & dpkg-dev, libc6-dev, gcc, g++, make &  20 (14464) &  optional \\ \hline
+curl &  command line tool for transferring data with URL syntax & libcurl3-gnutls, zlib1g, libc6 &  312 (11459) &  optional \\ \hline
+unzip &  De-archiver for .zip files & libbz2-1.0, libc6 &  519 (10876) &  optional \\ \hline
+python-dev &  header files and a static library for Python (default) & python, python2.7-dev, libpython-dev &  45 (1024) &  optional \\ \hline
+autoconf &  automatic configure script builder & m4, debianutils, perl &  1890 (17956) &  optional \\ \hline
+software-properties-common &  manage the repositories that you install software from (common) & python3-dbus, python-apt-common, python3-software-properties, gir1.2-glib-2.0, ca-certificates, python3:any, python3-gi, python3 &  184 (3125) &  optional \\ \hline
+python &  interactive high-level object-oriented language (default version) & libpython-stdlib, python2.7 &  680 (384) &  standard \\ \hline
+make &  utility for directing compilation & libc6 &  352 (10767) &  standard \\ \hline
+automake &  Tool for generating GNU Standards-compliant Makefiles & autoconf, autotools-dev &  1484 (2074) &  optional \\ \hline
+vim &  Vi IMproved - enhanced vi editor & vim-runtime, libtinfo5, libpython2.7, libselinux1, libgpm2, libacl1, libc6, vim-common &  2388 (41686) &  optional \\ \hline
+zlib1g-dev &  compression library - development & libc6-dev, zlib1g &  416 (12516) &  optional \\ \hline
+apt-utils &  package management related utility programs & libgcc1, libapt-inst1.7, libstdc++6, apt, libdb5.3, libc6, libapt-pkg4.16 &  688 (21070) &  important \\ \hline
+g++ &  GNU C++ compiler & cpp, gcc, g++-5, gcc-5 &  16 (51922) &  optional \\ \hline
+binutils &  GNU assembler, linker and binary utilities & zlib1g, libc6 &  12728 (10924) &  optional \\ \hline
+nano &  small, friendly text editor inspired by Pico & libncursesw5, libtinfo5, libc6 &  680 (11625) &  important \\ \hline
+gcc &  GNU C compiler & cpp, gcc-5 &  44 (22199) &  optional \\ \hline
+python-numpy &  Numerical Python adds a fast array facility to the Python language & python, python2.7:any, libblas3, liblapack3, libc6 &  8667 (17873) &  optional \\ \hline
+nodejs &  evented I/O for V8 javascript & libssl1.0.0, libc6, libstdc++6, zlib1g, libv8-3.14.5, libc-ares2 &  3043 (20625) &  extra \\ \hline
+pkg-config &  manage compile and link flags for libraries & libglib2.0-0, dpkg-dev, libc6 &  140 (17322) &  optional \\ \hline
+libfreetype6-dev &  FreeType 2 font engine, development files & libc6-dev, zlib1g-dev, libpng-dev, libfreetype6 &  3586 (13665) &  optional \\ \hline
+ca-certificates &  Common CA certificates & debconf, openssl &  485 (1497) &  optional \\ \hline
+python-imaging &  Python Imaging Library compatibility layer & python-pil, python:any &  45 (1248) &  optional \\ \hline
+3337
+0.809409649386
