@@ -9,8 +9,10 @@ import os
 import urllib
 from pprint import pprint
 from search import searchRepo
+import utils
 
-class searchDockerfile(searchRepo):
+class searchDockerfileInCode(searchRepo):
+    """This searches dockerfiles from 'code', not repositories"""
 
     default_search = "language:Dockerfile"
     search_api_limit = 1000
@@ -26,10 +28,6 @@ class searchDockerfile(searchRepo):
             'owner'
             ]
        
-    def __init__(self):
-        self.conf = self.get_conf()
-        self.check_git_token()
-
     def search(self, page=1):
         self.result = {} # RESET
         self.target = "code"
@@ -130,9 +128,16 @@ class searchDockerfile(searchRepo):
             readme = self.request_api(url)
             self.result[k]['readme'] = readme
 
+    def get_repo_names_as_inputs(self, func):
+        #self.inputs = utils.yaml_load(yaml_path)
+        repo_names = eval("self.inputs" + func)
+        self.inputs['keywords'] = [ "repo:" + x for x in repo_names ]
+
 if __name__ == "__main__":
-    dockerfiles = searchDockerfile()
+    dockerfiles = searchDockerfileInCode()
     dockerfiles.get_inputs(sys.argv[1])
+    if sys.argv[2] == "from_repo":
+        dockerfiles.get_repo_names_as_inputs("['result']['merged_items']['items'].keys()")
     res = dockerfiles.search_all()
     dockerfiles.get_repo()
     dockerfiles.get_readme()

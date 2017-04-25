@@ -22,6 +22,7 @@ class searchRepo(object):
     action = "search"
     target = "repositories"
     query = ""
+    special_query = "" # override query, if defined
 
     retry = 6
     timeout = 60 # double each failure
@@ -68,6 +69,8 @@ class searchRepo(object):
 
     def init_search_keywords(self):
         """ Create dict data in search_keywords in case of not existing """
+        if not 'keywords' in self.inputs:
+            self.inputs['keywords'] = []
         for keyword in self.inputs['keywords']:
             if not keyword in self.result['search_keywords']:
                 self.result['search_keywords'][keyword] = {}
@@ -361,6 +364,33 @@ class searchRepo(object):
             lines = f.read().splitlines()
         return lines
 
+    def search_repo(self):
+        """NEED TO MERGE to search_with_recent_date()"""
+
+        search_keywords = self.result['search_keywords']
+        merged_items = self.result['merged_items']
+        
+        duplicate = 0
+        # multiple keywords for search item
+        for keyword in self.inputs['keywords']:
+            self.query = urllib.quote_plus(keyword)
+            url = self.get_api_url()
+            ret = self.request_api(url)
+            search_keywords[keyword]['total_count'] = ret['total_count']
+            search_keywords[keyword]['items'] = ret['items']
+            search_keywords[keyword]['query'] = self.query
+
+            for item in ret['items']:
+                # count duplicate
+                if item['full_name'] in merged_items['items'].keys():
+                    duplicate += 1
+
+                # create a unique data with key: value
+                merged_items['items'][item['full_name']] = item
+            merged_items['total_count'] = len(merged_items['items'])
+        
+        return merged_items
+
     def run_search(self, query):
         """Obsolete function"""
         """run search from a direct single query string"""
@@ -484,7 +514,8 @@ class searchRepo(object):
 if __name__ == "__main__":
     packages = searchRepo()
     packages.get_inputs(sys.argv[1])
-    ret = packages.count_language_distribution()
+    packages.search_repo()
+    #ret = packages.count_language_distribution()
     ##ret = packages.search_with_language()
     ##ret = packages.search_with_recent_date()
     ##ret2 = packages.retrieve_py_modules(ret)
