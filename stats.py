@@ -194,10 +194,10 @@ class Statistics(object):
 
         return packages_recent_days
 
-    def get_rpms(self):
-        return self.docker_run()
+    def get_rpm_packages(self):
+        return self.run_cmd_in_dockerfile()
 
-    def docker_run(self):
+    def run_cmd_in_dockerfile(self):
         data = self.raw_data['result']
         packages = []
 
@@ -248,6 +248,8 @@ class Statistics(object):
             tmp = cmd.split("&&")
             for j in tmp:
                 tmp2 = j.split()
+                if len(tmp2) < 2:
+                    continue
                 main_cmd = tmp2[0]
                 params = tmp2[1:]
                 if main_cmd in cmds:
@@ -457,7 +459,7 @@ if __name__ == "__main__":
         stat.save_file()
     elif sys.argv[1] == "rpmsid" or sys.argv[1] == 'packages_in_dockerfile':
         stat.task = 'packages_in_dockerfile'
-        c = stat.get_rpms()
+        c = stat.get_rpm_packages()
         stat.save_file()
         
 

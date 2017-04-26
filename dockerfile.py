@@ -133,6 +133,11 @@ class searchDockerfileInCode(searchRepo):
         repo_names = eval("self.inputs" + func)
         self.inputs['keywords'] = [ "repo:" + x for x in repo_names ]
 
+    def is_official_image(self, name):
+
+        url = "//api.github.com/repos/docker-library/official-images/contents/library"
+        return
+
 if __name__ == "__main__":
     dockerfiles = searchDockerfileInCode()
     dockerfiles.get_inputs(sys.argv[1])
