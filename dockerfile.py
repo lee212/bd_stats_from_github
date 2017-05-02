@@ -48,6 +48,11 @@ class searchDockerfileInCode(searchRepo):
                 repo_name = item['repository']['full_name']
                 filepath = item['path']
                 contents = self.get_file_contents(item)
+                #tmp=repo_name.replace("/","_")
+                #with open(tmp, 'w') as file:
+                #        file.write(contents)
+                #continue
+                store_file(full_name, contents)
                 instructions = self.read_dockerfile(contents)
                 key = os.path.abspath("/" + repo_name + "/" + filepath)
                 file_path = os.path.abspath("/" + filepath)
@@ -138,6 +143,12 @@ class searchDockerfileInCode(searchRepo):
         url = "//api.github.com/repos/docker-library/official-images/contents/library"
         return
 
+    def update_name(self, name=None):
+        """name is used to store a file"""
+        if not name:
+            name = ".dockerfile"
+        self.name = self.name + name
+
 if __name__ == "__main__":
     dockerfiles = searchDockerfileInCode()
     dockerfiles.get_inputs(sys.argv[1])
@@ -146,4 +157,5 @@ if __name__ == "__main__":
     res = dockerfiles.search_all()
     dockerfiles.get_repo()
     dockerfiles.get_readme()
+    dockerfiles.update_name()
     dockerfiles.save_file()

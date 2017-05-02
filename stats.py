@@ -452,6 +452,7 @@ if __name__ == "__main__":
         #    pprint(v['most_common'])
         stat.save_file()
     elif sys.argv[1] == "df" or sys.argv[1] == "dockerfile":
+        stat.task = "base_image"
         c = stat.baseimage_dockerfile()
         stat.save_file()
     elif sys.argv[1] == 'lc' or sys.argv[1] == 'language_count':
