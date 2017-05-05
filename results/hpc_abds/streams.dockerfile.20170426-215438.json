@@ -1,0 +1,1736 @@
+{
+    "recent": {
+        "merged_items": {
+            "actual_count": 0, 
+            "items": {}, 
+            "language_in": {
+                "all": {}
+            }
+        }, 
+        "search_keywords": {}, 
+        "searched_at": "2017-04-26 21:41:09.458186"
+    }, 
+    "result": {
+        "Stratio/sparta": {
+            "dockerfile": {
+                "/docker/localDocker/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        ". /"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/docker-entrypoint.sh\"]"
+                    ], 
+                    "ENV": [
+                        "JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64"
+                    ], 
+                    "EXPOSE": [
+                        "9090"
+                    ], 
+                    "FROM": [
+                        "qa.stratio.com/stratio/spark-krb-dispatcher-support:2.1.0"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update -y && apt-get upgrade -y && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/docker/mesos-with-spark-mesosphere/Dockerfile": {
+                    "ADD": [
+                        "http://tools.stratio.com/mesos/mesos-0.22.1/stratio-mesos_0.22.1_amd64.deb ."
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        "docker-entrypoint.sh /docker-entrypoint.sh", 
+                        "stratio-mesos.deb /stratio-mesos.deb"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[ \"/docker-entrypoint.sh\" ]"
+                    ], 
+                    "ENV": [
+                        "SPARK_HOME=/opt/spark/dist"
+                    ], 
+                    "EXPOSE": [
+                        "5050 7070 8081 7077"
+                    ], 
+                    "FROM": [
+                        "qa.stratio.com/stratio/spark-krb-dispatcher-support:2.1.0"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Sparta Team \"sparta@stratio.com\""
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update -y && apt-get install -y curl wget vim jq libsvn1 libcurl4-nss-dev default-jre-headless docker && rm -r /usr/lib/libmesos.so && dpkg -i /stratio-mesos.deb \\", 
+                        "chmod a+x /docker-entrypoint.sh"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/"
+                    ]
+                }, 
+                "/docker/spark-executor-dcos/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "SPARK_HOME=/opt/spark/dist"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "qa.stratio.com/stratio/spark-krb-dispatcher-support:2.1.0"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Sparta Team \"sparta@stratio.com\""
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update -y && apt-get upgrade -y && apt-get install -y curl wget vim jq libsvn1 libcurl4-nss-dev default-jre-headless && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/opt/spark/dist"
+                    ]
+                }, 
+                "/docker/spark-executor-dev/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        "libmesos.so /opt/mesosphere/lib/libmesos.so", 
+                        "core-site.xml /etc/sds/hadoop/conf/core-site.xml"
+                    ], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "HADOOP_CONF_DIR /etc/sds/hadoop/conf", 
+                        "HADOOP_USER_NAME root", 
+                        "MESOS_NATIVE_JAVA_LIBRARY /opt/mesosphere/lib/libmesos.so"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "qa.stratio.com/stratio/spark-krb-dispatcher-support:2.1.0"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Sparta Team \"sparta@stratio.com\""
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "mkdir -p /opt/mesosphere/lib", 
+                        "apt-get update -y && apt-get upgrade -y && apt-get install -y curl wget vim jq libsvn1 libcurl4-nss-dev default-jre-headless && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/opt/spark/dist"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/Stratio/sparta/git/blobs/de01a3354b168a516f77b124c5f875bd561e5480", 
+                    "html": "https://github.com/Stratio/sparta/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/Stratio/sparta/contents/README.md?ref=master"
+                }, 
+                "content": "DQpBYm91dCBbU3RyYXRpbyBTcGFydGFdKGh0dHA6Ly93d3cuc3RyYXRpby5j\nb20vc3BhcnRhKQ0KPT09PT09PT09PT09DQoNCkF0IFN0cmF0aW8sIHdlIGhh\ndmUgaW1wbGVtZW50ZWQgc2V2ZXJhbCByZWFsLXRpbWUgYW5hbHl0aWNzIHBy\nb2plY3RzIGJhc2VkIG9uIEFwYWNoZSBTcGFyaywgS2Fma2EsIEZsdW1lLCBD\nYXNzYW5kcmEsIEVsYXN0aWNTZWFyY2ggb3IgTW9uZ29EQi4NClRoZXNlIHRl\nY2hub2xvZ2llcyB3ZXJlIGFsd2F5cyBhIHBlcmZlY3QgZml0LCBidXQgc29v\nbiB3ZSBmb3VuZCBvdXJzZWx2ZXMgd3JpdGluZyB0aGUgc2FtZSBwaWVjZXMg\nb2YgaW50ZWdyYXRpb24gY29kZSBvdmVyIGFuZCBvdmVyIGFnYWluLg0KU3Ry\nYXRpbyBTcGFydGEgaXMgdGhlIGVhc2llc3Qgd2F5IHRvIG1ha2UgdXNlIG9m\nIHRoZSBBcGFjaGUgU3BhcmsgU3RyZWFtaW5nIHRlY2hub2xvZ3kgYW5kIGFs\nbCBpdHMgZWNvc3lzdGVtLg0KQ2hvb3NlIHlvdXIgaW5wdXQsIG9wZXJhdGlv\nbnMgYW5kIG91dHB1dHMsIGFuZCBzdGFydCBleHRyYWN0aW5nIGluc2lnaHRz\nIG91dCBvZiB5b3VyIGRhdGEgaW4gcmVhbC10aW1lLg0KDQo8aW1nIHNyYz0i\nLi9pbWFnZXMvU3RyYXRhS2liYW5hLmpwZyIgd2lkdGg9IjYwMCIgaGVpZ2h0\nPSIzMDAiIGFsdD0iU3RyYXRhIFR3aXR0ZXIgQW5hbHl0aWNzIHdpdGggS2li\nYW5hIi8+DQoNCk1haW4gRmVhdHVyZXMNCj09PT09PT09PT09PQ0KDQotIFB1\ncmUgU3BhcmsNCi0gTm8gbmVlZCBvZiBjb2RpbmcsIG9ubHkgZGVjbGFyYXRp\ndmUgYW5hbHl0aWNhbCB3b3JrZmxvd3MNCi0gRGF0YSBjb250aW51b3VzbHkg\nc3RyZWFtZWQgaW4gJiBwcm9jZXNzZWQgaW4gbmVhciByZWFsLXRpbWUNCi0g\nUmVhZHkgdG8gdXNlIG91dC1vZi10aGUtYm94DQotIFBsdWcgJiBwbGF5OiBm\nbGV4aWJsZSB3b3JrZmxvd3MgKGlucHV0cywgb3V0cHV0cywgdHJhbnNmb3Jt\nYXRpb25zLCBldGPigKYpDQotIEhpZ2ggcGVyZm9ybWFuY2UgYW5kIEZhdWx0\nIFRvbGVyYW5jZQ0KLSBTY2FsYWJsZSBhbmQgSGlnaCBBdmFpbGFiaWxpdHkN\nCi0gQmlnIERhdGEgT0xBUCBvbiByZWFsLXRpbWUgdG8gc21hbGwgZGF0YQ0K\nLSBFVExzDQotIFRyaWdnZXJzIG92ZXIgc3RyZWFtaW5nIGRhdGENCi0gU3Bh\ncmsgU1FMIGxhbmd1YWdlIHdpdGggc3RyZWFtaW5nIGFuZCBiYXRjaCBkYXRh\nDQotIEtlcmJlcm9zIGFuZCBDQVMgY29tcGF0aWJsZQ0KDQo8aW1nIHNyYz0i\nLi9pbWFnZXMvbWFpbkZlYXR1cmVzLmpwZyIgIGFsdD0iTWFpbiBGZWF0dXJl\ncyIvPg0KDQpBcmNoaXRlY3R1cmUNCj09PT09PT09PT09PQ0KDQpTZW5kIG9u\nZSB3b3JrZmxvdyBhcyBhIEpTT04gdG8gU3BhcnRhIEFQSSBhbmQgZXhlY3V0\nZSBpbiBvbmUgU3BhcmsgQ2x1c3RlciB5b3VyIG93biByZWFsLXRpbWUgcGx1\nZ2lucw0KIVtBcmNoaXRlY3R1cmVdKC4vaW1hZ2VzL2FyY2hpdGVjdHVyZS5q\ncGcpDQoNClNwYXJ0YSBhcyBhIEpvYiBNYW5hZ2VyDQotLS0tLS0tLS0tLS0N\nCg0KU2VuZCBtb3JlIHRoYW4gb25lIFN0cmVhbWluZyBKb2IgaW4gdGhlIFNw\nYXJrIENsdXN0ZXIgYW5kIG1hbmFnZSB0aGVtIHdpdGggYSBzaW1wbGUgVUkN\nCg0KPGltZyBzcmM9Ii4vaW1hZ2VzL2pvYk1hbmFnZXIuanBnIiBhbHQ9Ikpv\nYiBNYW5hZ2VyIi8+DQoNClJ1biB3b3JrZmxvd3Mgb3ZlciBNZXNvcywgWWFy\nbiBvciBTcGFya1N0YW5kQWxvbmUNCg0KPGltZyBzcmM9Ii4vaW1hZ2VzL2Fy\nY2hpdGVjdHVyZUpvYnMuanBnIiBhbHQ9IkpvYiBNYW5hZ2VyIEFyY2hpdGVj\ndHVyZSIvPg0KDQpTcGFydGEgYXMgYSBTREsNCi0tLS0tLS0tLS0tLQ0KDQpN\nb2R1bGFyIGNvbXBvbmVudHMgZXh0ZW5zaWJsZSB3aXRoIHNpbXBsZSBTREsN\nCi0gWW91IGNhbiBleHRlbmQgc2V2ZXJhbCBwb2ludHMgb2YgdGhlIHBsYXRm\nb3JtIHRvIGZ1bGZpbGwgeW91ciBuZWVkcywgc3VjaCBhcyBhZGRpbmcgbmV3\nIGlucHV0cywgb3V0cHV0cywgb3BlcmF0b3JzLCB0cmFuc2Zvcm1hdGlvbnMu\nDQotIEFkZCBuZXcgZnVuY3Rpb25zIHRvIEtpdGUgU0RLIGluIG9yZGVyIHRv\nIGV4dGVuZCB0aGUgZGF0YSBjbGVhbmluZywgZW5yaWNobWVudCBhbmQgbm9y\nbWFsaXphdGlvbiBjYXBhYmlsaXRpZXMuDQohW0FyY2hpdGVjdHVyZSBEZXRh\naWxdKC4vaW1hZ2VzL2FyY2hpdGVjdHVyZURldGFpbC5qcGcpDQoNCkNvbXBv\nbmVudHMNCj09PT09PT09DQoNCk9uIGVhY2ggd29ya2Zsb3cgbXVsdGlwbGUg\nY29tcG9uZW50cyBjYW4gYmUgZGVmaW5lZCwgYnV0IG5vdyBhbGwgaGF2ZSB0\naGUgZm9sbG93aW5nIGFyY2hpdGVjdHVyZQ0KIVt3b3JrZmxvd10oLi9pbWFn\nZXMvd29ya2Zsb3cuanBnKQ0KIVtDb21wb25lbnRzXSguL2ltYWdlcy9jb21w\nb25lbnRzLmpwZykNCg0KQ29yZSBjb21wb25lbnRzDQotLS0tLS0tLS0tLS0N\nCg0KU2V2ZXJhbCBwbHVnaW5zIGFyZSBiZWVuIGltcGxlbWVudGVkIGJ5IFN0\ncmF0aW8gU3BhcnRhIHRlYW0NCiFbTWFpbiBwbHVnaW5zXSguL2ltYWdlcy9w\nbHVnaW5zLmpwZykNCg0KVHJpZ2dlciBjb21wb25lbnQNCi0tLS0tLS0tLS0t\nLQ0KDQpXaXRoIFNwYXJ0YSBpcyBwb3NzaWJsZSB0byBleGVjdXRlIHF1ZXJp\nZXMgb3ZlciB0aGUgc3RyZWFtaW5nIGRhdGEsIGV4ZWN1dGUgRVRMLCBhZ2dy\nZWdhdGlvbnMgYW5kIFNpbXBsZSBFdmVudCANClByb2Nlc3NpbmcgbWl4aW5n\nIHN0cmVhbWluZyBkYXRhIHdpdGggYmF0Y2ggZGF0YSBvbiB0aGUgdHJpZ2dl\nciBwcm9jZXNzLiANCiFbdHJpZ2dlcnNdKC4vaW1hZ2VzL3RyaWdnZXJzLmpw\nZykNCg0KQWdncmVnYXRpb24gY29tcG9uZW50DQotLS0tLS0tLS0tLS0NCg0K\nVGhlIGFnZ3JlZ2F0aW9uIHByb2Nlc3MgaW4gU3BhcnRhIGlzIHZlcnkgcG93\nZXJmdWwgYmVjYXVzZSBpcyBwb3NzaWJsZSB0byBnZW5lcmF0ZSBlZmZpY2ll\nbnQgT0xBUCBwcm9jZXNzZXMgd2l0aCANCnN0cmVhbWluZyBkYXRhDQohW09M\nQVBdKC4vaW1hZ2VzL09MQVBpbnRlZ3JhdGlvbi5qcGcpDQoNCkFkdmFuY2Vk\nIGZlYXR1cmUgYXJlIGJlZW4gaW1wbGVtZW50ZWQgaW4gb3JkZXIgdG8gb3B0\naW1pemUgdGhlIHN0YXRlZnVsIG9wZXJhdGlvbnMgb3ZlciBTcGFyayBTdHJl\nYW1pbmcNCiFbQWdncmVnYXRpb25zXSguL2ltYWdlcy9hZ2dyZWdhdGlvbi5q\ncGcpDQoNCklucHV0cw0KLS0tLS0tLS0tLS0tDQoNCi0gVHdpdHRlcg0KLSBL\nYWZrYQ0KLSBGbHVtZQ0KLSBSYWJiaXRNUQ0KLSBTb2NrZXQNCi0gV2ViU29j\na2V0DQotIEhERlMvUzMNCg0KT3V0cHV0cw0KLS0tLS0tLS0tLS0tDQoNCi0g\nTW9uZ29EQg0KLSBDYXNzYW5kcmENCi0gRWxhc3RpY1NlYXJjaA0KLSBSZWRp\ncw0KLSBKREJDDQotIENTVg0KLSBQYXJxdWV0DQotIEh0dHANCi0gS2Fma2EN\nCi0gSERGUy9TMw0KLSBIdHRwIFJlc3QNCi0gQXZybw0KDQohW091dHB1dHNd\nKC4vaW1hZ2VzL291dHB1dHMucG5nKQ0KDQpLZXkgdGVjaG5vbG9naWVzDQo9\nPT09PT09PQ0KDQotIFtTcGFyayBTdHJlYW1pbmcgJiBTcGFya10gIChodHRw\nOi8vc3BhcmsuYXBhY2hlLm9yZykNCi0gW1NwYXJrU1FMXSAoaHR0cHM6Ly9z\ncGFyay5hcGFjaGUub3JnL3NxbCkNCi0gW0Fra2FdIChodHRwOi8vYWtrYS5p\nbykNCi0gW01vbmdvREJdIChodHRwOi8vd3d3Lm1vbmdvZGIub3JnLykNCi0g\nW0FwYWNoZSBDYXNzYW5kcmFdIChodHRwOi8vY2Fzc2FuZHJhLmFwYWNoZS5v\ncmcpDQotIFtFbGFzdGljU2VhcmNoXSAoaHR0cHM6Ly93d3cuZWxhc3RpYy5j\nbykNCi0gW1JlZGlzXSAoaHR0cDovL3JlZGlzLmlvKQ0KLSBbQXBhY2hlIFBh\ncnF1ZXRdIChodHRwOi8vcGFycXVldC5hcGFjaGUub3JnLykNCi0gW0hERlNd\nIChodHRwOi8vaGFkb29wLmFwYWNoZS5vcmcvZG9jcy9yMS4yLjEvaGRmc19k\nZXNpZ24uaHRtbCkNCi0gW0FwYWNoZSBLYWZrYV0gKGh0dHA6Ly9rYWZrYS5h\ncGFjaGUub3JnKQ0KLSBbQXBhY2hlIEZsdW1lXSAoaHR0cHM6Ly9mbHVtZS5h\ncGFjaGUub3JnLykNCi0gW1JhYmJpdE1RXSAoaHR0cHM6Ly93d3cucmFiYml0\nbXEuY29tLykNCi0gW1NwcmF5XSAoaHR0cDovL3NwcmF5LmlvLykNCi0gW0tp\ndGVTREsgKG1vcnBobGluZXMpXSAoaHR0cDovL2tpdGVzZGsub3JnL2RvY3Mv\nY3VycmVudCkNCi0gW0FwYWNoZSBBdnJvXSAoaHR0cHM6Ly9hdnJvLmFwYWNo\nZS5vcmcvKQ0KDQpBZHZhbnRhZ2VzDQo9PT09PT09PQ0KDQpTcGFydGEgcHJv\ndmlkZSBzZXZlcmFsIGFkdmFudGFnZXMgdG8gZmluYWwgVXNlcnMNCiFbQWR2\nYW50YWdlc10oLi9pbWFnZXMvZmVhdHVyZXMuanBnKQ0KDQpCdWlsZA0KPT09\nPT09PT0NCg0KWW91IGNhbiBnZW5lcmF0ZSBycG0gYW5kIGRlYiBwYWNrYWdl\ncyBieSBydW5uaW5nOg0KDQpgbXZuIGNsZWFuIHBhY2thZ2UgLVBwYWNrYWdl\nYA0KDQoqKk5vdGU6KiogeW91IG5lZWQgdG8gaGF2ZSBpbnN0YWxsZWQgdGhl\nIGZvbGxvd2luZyBwcm9ncmFtcyBpbiBvcmRlciB0byBidWlsZCB0aGVzZSBw\nYWNrYWdlczoNCg0KSW4gYSBkZWJpYW4gZGlzdHJpYnV0aW9uOg0KDQogIC0g\nZmFrZXJvb3QNCiAgLSBkcGtnLWRldg0KICAtIHJwbQ0KICANCkluIGEgY2Vu\ndE9TIGRpc3RyaWJ1dGlvbjoNCg0KICAtIGZha2Vyb290DQogIC0gZHBrZy1k\nZXYNCiAgLSBycG1kZXZ0b29scw0KDQpEb2N1bWVudGF0aW9uDQo9PT09PT09\nPQ0KDQotIFtTdHJhdGlvIFNwYXJ0YV0oaHR0cHM6Ly9zdHJhdGlvLmF0bGFz\nc2lhbi5uZXQvd2lraS9zcGFjZXMvU1BBUlRBMXgxeDIpDQoNCkxpY2Vuc2UN\nCj09PT09PT09DQoNCkxpY2Vuc2VkIHRvIFNUUkFUSU8gKEMpIHVuZGVyIG9u\nZSBvciBtb3JlIGNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4NClNl\nZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aCB0aGlzIHdvcmsg\nZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24NCnJlZ2FyZGluZyBjb3B5cmln\naHQgb3duZXJzaGlwLiAgVGhlIFNUUkFUSU8gKEMpIGxpY2Vuc2VzIHRoaXMg\nZmlsZQ0KdG8geW91IHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lv\nbiAyLjAgKHRoZQ0KIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMg\nZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZQ0Kd2l0aCB0aGUgTGljZW5zZS4g\nIFlvdSBtYXkgb2J0YWluIGEgY29weSBvZiB0aGUgTGljZW5zZSBhdA0KDQog\nIGh0dHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNFTlNFLTIuMA0K\nDQpVbmxlc3MgcmVxdWlyZWQgYnkgYXBwbGljYWJsZSBsYXcgb3IgYWdyZWVk\nIHRvIGluIHdyaXRpbmcsDQpzb2Z0d2FyZSBkaXN0cmlidXRlZCB1bmRlciB0\naGUgTGljZW5zZSBpcyBkaXN0cmlidXRlZCBvbiBhbg0KIkFTIElTIiBCQVNJ\nUywgV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZDQpL\nSU5ELCBlaXRoZXIgZXhwcmVzcyBvciBpbXBsaWVkLiAgU2VlIHRoZSBMaWNl\nbnNlIGZvciB0aGUNCnNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJt\naXNzaW9ucyBhbmQgbGltaXRhdGlvbnMNCnVuZGVyIHRoZSBMaWNlbnNlLg0K\n", 
+                "download_url": "https://raw.githubusercontent.com/Stratio/sparta/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/Stratio/sparta/git/blobs/de01a3354b168a516f77b124c5f875bd561e5480", 
+                "html_url": "https://github.com/Stratio/sparta/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "de01a3354b168a516f77b124c5f875bd561e5480", 
+                "size": 5445, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/Stratio/sparta/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-02-04T08:04:40Z", 
+                "language": "Scala", 
+                "owner": {
+                    "avatar_url": "https://avatars3.githubusercontent.com/u/5228027?v=3", 
+                    "events_url": "https://api.github.com/users/Stratio/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/Stratio/followers", 
+                    "following_url": "https://api.github.com/users/Stratio/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/Stratio/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/Stratio", 
+                    "id": 5228027, 
+                    "login": "Stratio", 
+                    "organizations_url": "https://api.github.com/users/Stratio/orgs", 
+                    "received_events_url": "https://api.github.com/users/Stratio/received_events", 
+                    "repos_url": "https://api.github.com/users/Stratio/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/Stratio/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/Stratio/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/Stratio"
+                }, 
+                "pushed_at": "2017-04-26T13:38:08Z", 
+                "stargazers_count": 326, 
+                "updated_at": "2017-04-25T09:59:41Z", 
+                "watchers_count": 326
+            }
+        }, 
+        "atlassian/themis": {
+            "dockerfile": {
+                "/Dockerfile": {
+                    "ADD": [
+                        "requirements.txt /opt/code/themis/requirements.txt", 
+                        "bin /opt/code/themis/bin", 
+                        "themis /opt/code/themis/themis", 
+                        "themis.config.json /opt/code/themis/themis.config.json", 
+                        "themis.resources.json /opt/code/themis/themis.resources.json"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [
+                        "[\"themis\"]"
+                    ], 
+                    "ENV": [
+                        "PYTHONPATH /opt/code/themis", 
+                        "USER docker", 
+                        "AWS_DEFAULT_REGION us-east-1"
+                    ], 
+                    "EXPOSE": [
+                        "8080"
+                    ], 
+                    "FROM": [
+                        "python:2"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Waldemar Hummer (whummer@atlassian.com)"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "mkdir -p /opt/code/themis", 
+                        "apt-get update && apt-get install -y gcc git make npm && apt-get clean", 
+                        "pip install themis-autoscaler", 
+                        "pip install -r requirements.txt", 
+                        "rm -f /usr/local/bin/themis && ln -s /opt/code/themis/bin/themis /usr/local/bin/themis", 
+                        "chmod 777 /opt/code/themis/"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [
+                        "24624336", 
+                        "docker"
+                    ], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/opt/code/themis/"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/atlassian/themis/git/blobs/861816dcafcd87e70a7b53ced134e8107bc18472", 
+                    "html": "https://github.com/atlassian/themis/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/atlassian/themis/contents/README.md?ref=master"
+                }, 
+                "content": "WyFbQnVpbGQgU3RhdHVzXShodHRwczovL3RyYXZpcy1jaS5vcmcvYXRsYXNz\naWFuL3RoZW1pcy5wbmcpXShodHRwczovL3RyYXZpcy1jaS5vcmcvYXRsYXNz\naWFuL3RoZW1pcykKWyFbQ292ZXJhZ2UgU3RhdHVzXShodHRwczovL2NvdmVy\nYWxscy5pby9yZXBvcy9naXRodWIvYXRsYXNzaWFuL3RoZW1pcy9iYWRnZS5z\ndmc/YnJhbmNoPW1hc3RlcildKGh0dHBzOi8vY292ZXJhbGxzLmlvL2dpdGh1\nYi9hdGxhc3NpYW4vdGhlbWlzP2JyYW5jaD1tYXN0ZXIpClshW1B5UEkgVmVy\nc2lvbl0oaHR0cHM6Ly9iYWRnZS5mdXJ5LmlvL3B5L3RoZW1pcy1hdXRvc2Nh\nbGVyLnN2ZyldKGh0dHBzOi8vYmFkZ2UuZnVyeS5pby9weS90aGVtaXMtYXV0\nb3NjYWxlcikKWyFbUHlQSSBMaWNlbnNlXShodHRwczovL2ltZy5zaGllbGRz\nLmlvL3B5cGkvbC90aGVtaXMtYXV0b3NjYWxlci5zdmcpXShodHRwczovL2lt\nZy5zaGllbGRzLmlvL3B5cGkvbC90aGVtaXMtYXV0b3NjYWxlci5zdmcpClsh\nW0NvZGUgQ2xpbWF0ZV0oaHR0cHM6Ly9jb2RlY2xpbWF0ZS5jb20vZ2l0aHVi\nL2F0bGFzc2lhbi90aGVtaXMvYmFkZ2VzL2dwYS5zdmcpXShodHRwczovL2Nv\nZGVjbGltYXRlLmNvbS9naXRodWIvYXRsYXNzaWFuL3RoZW1pcykKCiMgVGhl\nbWlzIC0gQXV0b3NjYWxpbmcgRU1SIENsdXN0ZXJzIGFuZCBLaW5lc2lzIFN0\ncmVhbXMgb24gQVdTCgpUaGVtaXMgaXMgYSBmcmFtZXdvcmsgZm9yIGF1dG9z\nY2FsaW5nIENsb3VkIGluZnJhc3RydWN0dXJlIG9uIEFtYXpvbiBXZWIgU2Vy\ndmljZXMgKEFXUykuCgpJdCBjdXJyZW50bHkgc3VwcG9ydHMgYXV0b3NjYWxp\nbmcgZm9yIHRoZSBmb2xsb3dpbmcgc2VydmljZXM6CiogRWxhc3RpYyBNYXAg\nUmVkdWNlIChFTVIpIGNsdXN0ZXJzCiogS2luZXNpcyBzdHJlYW1zCgpUaGVt\naXMgaW4gR3JlZWsgbXl0aG9sb2d5IGlzIHRoZSBnb2RkZXNzIG9mIGRpdmlu\nZSBvcmRlciwganVzdGljZSwgYW5kIGZhaXJuZXNzLCBqdXN0IGxpa2UKdGhl\nIFRoZW1pcyBhdXRvc2NhbGVyIHdob3NlIGpvYiBpcyB0byBjb250aW51b3Vz\nbHkgbWFpbnRhaW4gYSB0cmFkZW9mZiBiZXR3ZWVuIGNvc3RzIGFuZApwZXJm\nb3JtYW5jZS4KCiFbVGhlbWlzXShodHRwczovL3VwbG9hZC53aWtpbWVkaWEu\nb3JnL3dpa2lwZWRpYS9jb21tb25zL3RodW1iLzMvM2IvSnVzdGl0aWElMkNf\nSm9zdF9BbW1hbi5wbmcvMjAwcHgtSnVzdGl0aWElMkNfSm9zdF9BbW1hbi5w\nbmcpCgojIyBCYWNrZ3JvdW5kCgpFbGFzdGljIE1hcCBSZWR1Y2UgKEVNUikg\naXMgYSBtYW5hZ2VkIEhhZG9vcCBlbnZpcm9ubWVudCBmb3IgQmlnIERhdGEg\nYW5hbHl0aWNzIG9mZmVyZWQgYnkgQW1hem9uIFdlYiBTZXJ2aWNlcyAoQVdT\nKS4KVGhlIGFyY2hpdGVjdHVyZSBvZiBFTVIgY2x1c3RlcnMgaXMgYnVpbHQg\nZm9yIHNjYWxhYmlsaXR5LCB3aXRoIGEgc2luZ2xlIG1hc3RlciBub2RlIGFu\nZCBtdWx0aXBsZSB3b3JrZXIgbm9kZXMgdGhhdApjYW4gYmUgZHluYW1pY2Fs\nbHkgYWRkZWQgYW5kIHJlbW92ZWQgdmlhIEFtYXpvbidzIEFQSS4KCkR1ZSB0\nbyBkaWZmZXJlbnQgdXNhZ2UgcGF0dGVybnMgKGUuZy4sIGhpZ2ggbG9hZCBk\ndXJpbmcgd29yayBob3Vycywgbm8gbG9hZCBvdmVyIG5pZ2h0KSwgdGhlIGNs\ndXN0ZXIgbWF5IGJlY29tZSBlaXRoZXIKdW5kZXJwcm92aXNpb25lZCAodXNl\ncnMgZXhwZXJpZW5jZSBiYWQgcGVyZm9ybWFuY2UpIG9yIG92ZXJwcm92aXNp\nb25lZCAoY2x1c3RlciBpcyBpZGxlLCBjYXVzaW5nIGEgd2FzdGUgb2YgcmVz\nb3VyY2VzCmFuZCB1bm5lY2Vzc2FyeSBjb3N0cykuCgpIb3dldmVyLCB3aGls\nZSBhdXRvc2NhbGluZyBoYXMgYmVjb21lIHN0YXRlLW9mLXRoZS1hcnQgZm9y\nIGFwcGxpY2F0aW9ucyBpbiBBbWF6b24ncyBFbGFzdGljIENvbXB1dGUgQ2xv\ndWQgKEVDMiksCmN1cnJlbnRseSB0aGVyZSBleGlzdHMgbm8gb3V0LW9mLXRo\nZS1ib3ggc29sdXRpb24gZm9yIGF1dG9zY2FsaW5nIGFuYWx5dGljcyBjbHVz\ndGVycyBvbiBFTVIuCgpUaGUgIlRoZW1pcyIgYXV0b3NjYWxpbmcgdG9vbCBh\nY3RpdmVseSBtb25pdG9ycyB0aGUgcGVyZm9ybWFuY2Ugb2YgYSB1c2VyJ3Mg\nRU1SIGNsdXN0ZXJzIGFuZCBhdXRvbWF0aWNhbGx5IHNjYWxlcyB0aGUKY2x1\nc3RlciB1cCBhbmQgZG93biB3aGVyZSBhcHByb3ByaWF0ZS4gVGhlbWlzIHN1\ncHBvcnRzCnR3byBtb2RlczoKKiAqKlJlYWN0aXZlIGF1dG9zY2FsaW5nKio6\nIEFkZCBhbmQgcmVtb3ZlIG5vZGVzIGJhc2VkIG9uIHRoZSBjdXJyZW50IGxv\nYWQgb2YgdGhlIGNsdXN0ZXIKKiAqKlByb2FjdGl2ZSBhdXRvc2NhbGluZyoq\nOiBEZWZpbmUgbWluaW11bSBudW1iZXIgb2Ygbm9kZXMgYmFzZWQgb24gYSBz\nY2hlZHVsZSAoZS5nLiwgMTArIG5vZGVzIGR1cmluZyB3b3JraW5nIGhvdXJz\nLCBidXQgb25seSAyIG5vZGVzIG92ZXIgbmlnaHQpCgpBIFdlYiB1c2VyIGlu\ndGVyZmFjZSAoVUkpIGlzIGF2YWlsYWJsZSB0byBkaXNwbGF5IHRoZSBrZXkg\nZGF0YS4gVGhlIHJ1bGVzIGZvciBhdXRvc2NhbGluZyBjYW4gYmUgY3VzdG9t\naXplZCBpbiBhIGNvbmZpZ3VyYXRpb24gZmlsZSBvciB2aWEgdGhlIFdlYiBV\nSS4KCiFbQXV0b3NjYWxpbmcgRXhhbXBsZV0oaHR0cHM6Ly9yYXcuZ2l0aHVi\ndXNlcmNvbnRlbnQuY29tL2F0bGFzc2lhbi90aGVtaXMvbWFzdGVyL3RoZW1p\ncy93ZWIvaW1nL3NjYWxpbmcucG5nKQoKIyMgUnVubmluZyBpbiBEb2NrZXIK\nCklmIHlvdSBzaW1wbHkgd2FudCB0byBzcGluIHVwIGEgVGhlbWlzIGluc3Rh\nbmNlIGluIERvY2tlciwgcnVuIHRoZSBmb2xsb3dpbmcgY29tbWFuZDoKCmBg\nYApkb2NrZXIgcnVuIC1pdCAtcCA4MDgwOjgwODAgLWUgQVdTX0FDQ0VTU19L\nRVlfSUQ9Li4uIC1lIEFXU19TRUNSRVRfQUNDRVNTX0tFWT0uLi4gYXRsYXNz\naWFubGFicy90aGVtaXMKYGBgCgpNYWtlIHN1cmUgdG8gc2V0IHRoZSBgQVdT\nX0FDQ0VTU19LRVlfSURgIGFuZCBgQVdTX1NFQ1JFVF9BQ0NFU1NfS0VZYCBl\nbnZpcm9ubWVudCB2YXJpYWJsZXMgcHJvcGVybHkuIFRoZSBBV1MgcmVnaW9u\nIGRlZmF1bHRzIHRvIGB1cy1lYXN0LTFgLCB5b3UgY2FuIG92ZXJyaWRlIGl0\nIGJ5IHBhc3NpbmcgaW4gdGhlIGBBV1NfREVGQVVMVF9SRUdJT05gIGVudmly\nb25tZW50IHZhcmlhYmxlLgoKIyMgUmVxdWlyZW1lbnRzCgoqIGBtYWtlYAoq\nIGBweXRob25gCiogYHBpcGAgKHB5dGhvbiBwYWNrYWdlIG1hbmFnZXIpCiog\nYG5wbWAgKG5vZGUuanMgcGFja2FnZSBtYW5hZ2VyLCBuZWVkZWQgZm9yIFdl\nYiBVSSBkZXBlbmRlbmNpZXMpCgojIyBJbnN0YWxsaW5nCgpUaGUgc2ltcGxl\nc3Qgd2F5IHRvIGluc3RhbGwgdGhlIGxhdGVzdCB2ZXJzaW9uIG9mIFRoZW1p\ncyBpcyB2aWEgYHBpcGA6CgpgYGAKcGlwIGluc3RhbGwgdGhlbWlzLWF1dG9z\nY2FsZXIKYGBgCgojIyBEZXZlbG9waW5nCgpUbyBpbnN0YWxsIHRoZSB0b29s\nIGRlcGVuZGVuY2llcyBmb3IgbG9jYWwgZGV2ZWxvcG1lbnQsIHJ1biB0aGUg\nZm9sbG93aW5nIGNvbW1hbmQ6CgpgYGAKbWFrZSBidWlsZApgYGAKClRoaXMg\nd2lsbCBpbnN0YWxsIHRoZSByZXF1aXJlZCBwaXAgZGVwZW5kZW5jaWVzIGlu\nIGEgbG9jYWwgUHl0aG9uIHZpcnR1YWxlbnYgZGlyZWN0b3J5IAooLnZlbnYp\nLCBhcyB3ZWxsIGFzIHRoZSBub2RlIG1vZHVsZXMgZm9yIHRoZSBXZWIgVUkg\naW4gYC4vd2ViL25vZGVfbW9kdWxlcy9gLiAKRGVwZW5kaW5nIGluIHlvdXIg\nc3lzdGVtLCBzb21lIHBpcC9ucG0gbW9kdWxlcyBtYXkgcmVxdWlyZSBhZGRp\ndGlvbmFsIG5hdGl2ZSBsaWJzIGluc3RhbGxlZC4KVW5kZXIgUmVkaGF0L0Nl\nbnRPUyBvciBBbWF6b24gTGludXgsIHlvdSBtYXkgZmlyc3QgbmVlZCB0byBy\ndW4gdGhlIGZvbGxvd2luZyBjb21tYW5kOgoKYGBgCnN1ZG8geXVtIC15IGlu\nc3RhbGwgYmxhcy1kZXZlbCBsYXBhY2stZGV2ZWwgbnVtcHktZjJweQpgYGAK\nClVuZGVyIFVidW50dSwgdGhlIGZvbGxvd2luZyBwYWNrYWdlcyBhcmUgcmVx\ndWlyZWQgKHRlc3RlZCB1bmRlciBVYnVudHUgMTUuMDQpOgoKYGBgCnN1ZG8g\nYXB0LWdldCAteSBpbnN0YWxsIGxpYmJsYXMtZGV2IGxpYmxhcGFjay1kZXYg\ncHl0aG9uLW51bXB5IGdmb3J0cmFuCmBgYAoKIyMgVGVzdGluZwoKVGhlIHBy\nb2plY3QgY29tZXMgd2l0aCBhIHNldCBvZiB1bml0IGFuZCBpbnRlZ3JhdGlv\nbiB0ZXN0cyB3aGljaCBjYW4gYmUga2lja2VkIG9mZiB2aWEgYSBtYWtlCnRh\ncmdldDoKCmBgYAptYWtlIHRlc3QKYGBgCgpUaGUgdGVzdCBmcmFtZXdvcmsg\nYXV0b21hdGljYWxseSBjb2xsZWN0cyBhbmQgcmVwb3J0cyB0ZXN0IGNvdmVy\nYWdlIG1ldHJpY3MgKGxpbmUgY292ZXJhZ2UpOgoKYGBgCk5hbWUgICAgICAg\nICAgICAgICAgICAgICAgICAgU3RtdHMgICBNaXNzICBDb3ZlciAgIE1pc3Np\nbmcKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdGhlbWlzL2NvbmZpZy5w\neSAgICAgICAgICAgICAgICAgICAgICAgICAgICAxNjUgICAgIDIxICAgIDg3\nJSAgIDIxNywgMjMxLTI0MCwgMjQyLCAyNjAtMjcwCnRoZW1pcy9tb2RlbC9h\nd3NfbW9kZWwucHkgICAgICAgICAgICAgICAgICAgIDQ2ICAgICAgMyAgICA5\nMyUgICA1MCwgNzQsIDc3CnRoZW1pcy9tb2RlbC9lbXJfbW9kZWwucHkgICAg\nICAgICAgICAgICAgICAgIDI1ICAgICAgMyAgICA4OCUgICAxNy0xOCwgMjIK\ndGhlbWlzL21vZGVsL2tpbmVzaXNfbW9kZWwucHkgICAgICAgICAgICAgICAg\nNjUgICAgIDI3ICAgIDU4JSAgIDE1LTE3LCAyMC0yMiwgMjUsIDQ2LTQ4LCA1\nNC01NSwgNjgtNzMsIDc2LTc3CnRoZW1pcy9tb2RlbC9yZXNvdXJjZXNfbW9k\nZWwucHkgICAgICAgICAgICAgIDE3ICAgICAgNCAgICA3NiUgICAyMS0yNAp0\naGVtaXMvbW9uaXRvcmluZy9kYXRhYmFzZS5weSAgICAgICAgICAgICAgICA0\nNCAgICAgMzAgICAgMzIlICAgMTUtMTksIDIzLTI3LCAyOS0zNywgNDEtNDcs\nIDUyLTYwCnRoZW1pcy9tb25pdG9yaW5nL2tpbmVzaXNfbW9uaXRvcmluZy5w\neSAgICAgMTE5ICAgICAzMSAgICA3NCUgICAxOC0zMCwgNDEsIDU5LTYwLCA2\nNCwgNjYtNjcsIDExMS0xMTUsIDE0Mgp0aGVtaXMvbW9uaXRvcmluZy9yZXNv\ndXJjZXMucHkgICAgICAgICAgICAgICA0NSAgICAgMTcgICAgNjIlICAgMjMt\nMjQsIDMwLCAzNS0zOSwgNDYsIDUxLTYxCnRoZW1pcy9zY2FsaW5nL2Vtcl9z\nY2FsaW5nLnB5ICAgICAgICAgICAgICAgMTczICAgICA1NyAgICA2NyUgICAy\nNywgMTQ1LCAxNTAsIDE2Mi0xNzAsIDE3NC0xNzUsIDE3OS0xODgKdGhlbWlz\nL3NjYWxpbmcva2luZXNpc19zY2FsaW5nLnB5ICAgICAgICAgICAgOTAgICAg\nIDQzICAgIDUyJSAgIDE0LTE1LCAxOSwgMjMsIDI1LTI4LCAzMC0zOSwgNDQs\nIDYyLTY2LCA2OC02OQouLi4KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K\nVE9UQUwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE4\nMzMgICAgMzY3ICAgIDgwJSAgIAotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t\nClJhbiAxMyB0ZXN0cyBpbiAxNi41MjJzCgpPSwpgYGAKCldlIHNlZWsgdG8g\nZnVydGhlciBpbXByb3ZlIHRoZSB0ZXN0IGNvdmVyYWdlIGFzIHRoZSBmcmFt\nZXdvcmsgZXZvbHZlcy4KCiMjIENvbmZpZ3VyYXRpb24KClRoZW1pcyBhdXRv\nc2NhbGVyIHJlbGllcyBvbiB0aGUgYGF3c2AgY29tbWFuZCBsaW5lIGludGVy\nZmFjZSAoQVdTIENMSSkgdG8gYmUgaW5zdGFsbGVkIGFuZApjb25maWd1cmVk\nIHdpdGggeW91ciBBV1MgYWNjb3VudCBjcmVkZW50aWFscy4gSWYgeW91IGhh\ndmUgbm90IHlldCBkb25lIHNvLCBydW4gdGhpcyBjb21tYW5kIGFuZApmb2xs\nb3cgdGhlIGluc3RydWN0aW9uczoKCmBgYAphd3MgY29uZmlndXJlCmBgYAoK\nRm9yIHRoZSBjb25maWd1cmF0aW9uIG9mIHRoZSBhdXRvc2NhbGVyIGl0c2Vs\nZiwgdGhlcmUgYXJlIGEgbnVtYmVyIG9mIHNldHRpbmdzIHRoYXQgeW91IGNh\nbgpjb25maWd1cmUgZGlyZWN0bHkgaW4gdGhlIFdlYiBVSS4KCiMjIyBHbG9i\nYWwgY29uZmlndXJhdGlvbiBzZXR0aW5ncwoKQ29uZmlndXJhdGlvbiBLZXkJ\nCQkJCXwgCURlc2NyaXB0aW9uCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpg\nYXV0b3NjYWxpbmdfY2x1c3RlcnNgCQkJCXwJQ29tbWEtc2VwYXJhdGVkIGxp\nc3Qgb2YgY2x1c3RlciBJRHMgdG8gYXV0by1zY2FsZQpgbG9vcF9pbnRlcnZh\nbF9zZWNzYAkJCQl8CUxvb3AgaW50ZXJ2YWwgc2Vjb25kcwpgbW9uaXRvcmlu\nZ19pbnRlcnZhbF9zZWNzYAkJCXwJVGltZSBwZXJpb2QgKHNlY29uZHMpIG9m\nIGhpc3RvcmljYWwgbW9uaXRvcmluZyBkYXRhIHRvIGNvbnNpZGVyIGZvciBz\nY2FsaW5nIGRlY2lzaW9ucwpgc3NoX2tleXNgCQkJCQkJCXwJQ29tbWEtc2Vw\nYXJhdGVkIGxpc3Qgb2YgU1NIIHB1YmxpYyBrZXkgZmlsZXMgdG8gdXNlIGZv\nciBjb25uZWN0aW5nIHRvIHRoZSBjbHVzdGVycy4KCgojIyMgRU1SIGNvbmZp\nZ3VyYXRpb24gKHBlciBjbHVzdGVyKQoKQ29uZmlndXJhdGlvbiBLZXkJCQkJ\nCXwgCURlc2NyaXB0aW9uCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpgYmFz\nZWxpbmVfbm9kZXNgCQkJCQl8CU51bWJlciBvZiBiYXNlbGluZSBub2RlcyB0\nbyB1c2UgZm9yIGNvbXBhcmluZyBjb3N0cyBhbmQgY2FsY3VsYXRpbmcgc2F2\naW5ncwpgY3VzdG9tX2RvbWFpbl9uYW1lYAkJCQl8CUN1c3RvbSBkb21haW4g\nbmFtZSB0byBhcHBseSB0byBhbGwgbm9kZXMgaW4gY2x1c3RlciAob3ZlcnJp\nZGUgYXdzLWNsaSByZXN1bHQpCmBkb3duc2NhbGVfZXhwcmAJCQkJCXwJVHJp\nZ2dlciBjbHVzdGVyIGRvd25zY2FsaW5nIGJ5IHRoZSBudW1iZXIgb2Ygbm9k\nZXMgdGhpcyBleHByZXNzaW9uIGV2YWx1YXRlcyB0bwpgbW9uaXRvcmluZ19p\nbnRlcnZhbF9zZWNzYAkJCXwJVGltZSBwZXJpb2QgKHNlY29uZHMpIG9mIGhp\nc3RvcmljYWwgbW9uaXRvcmluZyBkYXRhIHRvIGNvbnNpZGVyIGZvciBzY2Fs\naW5nIGRlY2lzaW9ucwpgZ3JvdXBfb3JfcHJlZmVycmVkX21hcmtldGAJCQl8\nCUNvbW1hIHNlcGFyYXRlZCBsaXN0IG9mIHRhc2sgaW5zdGFuY2UgZ3JvdXBz\nIGFuZC9vciBpbnN0YW5jZSBtYXJrZXRzIHRvIGluY3JlYXNlL2RlY3JlYXNl\nIGRlcGVuZGluZyBvbiBvcmRlciwgZS5nLiwgImlnLTEyMzQ1LFNQT1QsT05f\nREVNQU5EIiBtZWFucyB0byBhdXRvc2NhbGUgdGFzayBncm91cCBpZy0xMjM0\nNSBpZiBhdmFpbGFibGUsIG90aGVyd2lzZSBhbnkgU1BPVCBncm91cCwgb3Ig\naWYgbmVjZXNzYXJ5IE9OX0RFTUFORCBncm91cHMKYHRpbWVfYmFzZWRfc2Nh\nbGluZ2AJCQkJfAlBIEpTT04gc3RyaW5nIHRoYXQgbWFwcyBkYXRlIHJlZ3Vs\nYXIgZXhwcmVzc2lvbnMgdG8gbWluaW11bSBudW1iZXIgb2Ygbm9kZXMuIERh\ndGVzIHRvIG1hdGNoIGFnYWluc3QgYXJlIGZvcm1hdHRlZCBhcyAiJWEgJVkt\nJW0tJWQgJUg6JU06JVMiLiBFeGFtcGxlIGNvbmZpZzogeyIoTW9ufFR1ZXxX\nZWR8VGh1fEZyaSkuKjAxOi4qOi4qIjogMX0KYHVwc2NhbGVfZXhwcmAJCQkJ\nCQl8CVRyaWdnZXIgY2x1c3RlciB1cHNjYWxpbmcgYnkgdGhlIG51bWJlciBv\nZiBub2RlcyB0aGlzIGV4cHJlc3Npb24gZXZhbHVhdGVzIHRvCgojIyMgS2lu\nZXNpcyBjb25maWd1cmF0aW9uIChwZXIgc3RyZWFtKQoKQ29uZmlndXJhdGlv\nbiBLZXkJCQkJCXwgCURlc2NyaXB0aW9uCi0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLQpgZW5hYmxlX2VuaGFuY2VkX21vbml0b3JpbmdgCQl8CUVuYWJsZSBl\nbmhhbmNlZCBtb25pdG9yaW5nLiBBIHZhbHVlIG9mICJ0cnVlIiBlbmFibGVz\nIHBlci1zaGFyZCBtb25pdG9yaW5nIHdpdGggU2hhcmRMZXZlbE1ldHJpY3M9\nQUxMCmBzdHJlYW1fdXBzY2FsZV9leHByYAkJCQl8CVRyaWdnZXIgc3RyZWFt\nIHVwc2NhbGluZyBieSB0aGUgbnVtYmVyIG9mIHNoYXJkcyB0aGlzIGV4cHJl\nc3Npb24gZXZhbHVhdGVzIHRvCmBzdHJlYW1fZG93bnNjYWxlX2V4cHJgCQkJ\nCXwJVHJpZ2dlciBzdHJlYW0gZG93bnNjYWxpbmcgYnkgdGhlIG51bWJlciBv\nZiBzaGFyZHMgdGhpcyBleHByZXNzaW9uIGV2YWx1YXRlcyB0bwoKIyMgUnVu\nbmluZwoKVGhlIE1ha2VmaWxlIGNvbnRhaW5zIGEgdGFyZ2V0IHRvIGNvbnZl\nbmllbnRseSBydW4gdGhlIHNlcnZlciBhcHBsaWNhdGlvbi4gUHJpb3IgdG8g\ndGhhdCwgbWFrZQpzdXJlIHRoYXQgc3NoIGFnZW50IGZvcndhcmRpbmcgaXMg\nZW5hYmxlZCBpbiB0aGUgc2hlbGwgdGhhdCBleGVjdXRlcyB0aGUgc2VydmVy\nLgoKYGBgCiMgZW5hYmxlIHNzaCBhZ2VudCBmb3J3YXJkaW5nCmV2YWwgYHNz\naC1hZ2VudCAtc2AKIyBzdGFydCB0aGUgc2VydmVyIG9uIHBvcnQgOTA5MApt\nYWtlIHNlcnZlcgpgYGAKCiMjIENoYW5nZSBMb2cKCiogdjAuMi45OiBBZGQg\nc3lzdGVtIGxvYWQgdG8gbW9uaXRvcmluZyBtZXRyaWNzIGZvciBFTVIgY2x1\nc3RlcnMKKiB2MC4yLjg6IEZpeCBzaGFyZC1sZXZlbCBtZXRyaWNzIGZvciBL\naW5lc2lzLCBhZGQgbWluL21heC9hdmcgdG8gVUkKKiB2MC4yLjc6IEV4dGVu\nZGVkIG1vbml0b3JpbmcgbWV0cmljcyBmb3IgS2luZXNpcwoqIHYwLjIuNjog\nRml4IG1lcmdpbmcgb2YgYWRqYWNlbnQgS2luZXNpcyBzaGFyZHMuIEZpeCBk\ndXBsaWNhdGVzIGluIEVNUiBkb3duc2NhbGUgY2FuZGlkYXRlcwoqIHYwLjIu\nNTogQWRkIFNRTEFsY2hlbXkgYW5kIHN0b3JlIGNvbmZpZyBhbmQgbW9uaXRv\ncmluZyBkYXRhIGluIGEgcHJvcGVyIGRhdGFiYXNlCiogdjAuMi40OiBTdXBw\nb3J0IHRlbXBvcmFyeSBTVFMgdG9rZW5zIHZpYSBhc3N1bWVkIElBTSByb2xl\ncwoqIHYwLjIuMzogVXNlIGJvdG8zIGZvciBBV1MgQVBJIGNhbGxzCiogdjAu\nMi4xOiBBZGQgRG9ja2VyZmlsZSwgcHVibGlzaCBpbWFnZSB0byBEb2NrZXIg\naHViCiogdjAuMi4wOiBLaW5lc2lzIGF1dG9zY2FsaW5nOyBzb21lIGZpeGVz\nIGluIFVJOyBleHRlbmQgdGVzdHM7IHVwZGF0ZSBkb2N1bWVudGF0aW9uCiog\ndjAuMS4xNTogSW5pdGlhbCB2ZXJzaW9uIG9mIGF1dG8tc2NhbGluZyBLaW5l\nc2lzIHN0cmVhbXM7IGZpcnN0IHJlbGVhc2UgdGFnCiogdjAuMS4xNDogQWRk\nIERTTCBzdXBwb3J0IGZvciBtYXgsbWluLHN1bSBvZiBDUFUgYW5kIFJBTSBp\nbiBFTVIgYXV0b3NjYWxpbmcKKiB2MC4xLjEyOiBBZGQgRFNMIHN1cHBvcnQg\nZm9yIHByZWZlcnJlZCBpbnN0YW5jZSBtYXJrZXQgY29uZmlnOyBhbGxvdyB0\nbyBjb25maWd1cmUgc3BlY2lmaWMgdGFzayBncm91cAoqIHYwLjEuOTogQWRk\nIGNvdmVyYWxscyBiYWRnZSB0byBSRUFETUUKKiB2MC4xLjg6IFJld29yayBj\nb2RlLCBhZGQgbW9kZWwgY2xhc3NlcywgbWFrZSBtb2RlbCBhbmQgY29uZmln\ndXJhdGlvbiBnZW5lcmljLCBwcmVwYXJlIGZvciBhZGRpbmcgS2luZXNpcyBh\ndXRvc2NhbGluZwoqIHYwLjEuNzogQWRkIHN1cHBvcnQgZm9yIGN1c3RvbSBk\nb21haW4gbmFtZXMKKiB2MC4xLjQ6IEZpcnN0IGZ1bmN0aW9uYWwgcGFja2Fn\nZSBwdWJsaXNoZWQgb24gUHlQaQoqIHYwLjEuMDogSW5pdGlhbCByZWxlYXNl\nCgojIyBDb250cmlidXRvcnMKClRoZSBmb2xsb3dpbmcgZGV2ZWxvcGVycyBo\nYXZlIGFjdGl2ZWx5IGNvbnRyaWJ1dGVkIHRvIFRoZW1pcyAoaW4gb3JkZXIg\nb2YgYXBwZWFyYW5jZSBvZiB0aGVpciBmaXJzdCBjb250cmlidXRpb24pOgoK\nKiBbd2h1bW1lcl0oaHR0cHM6Ly9naXRodWIuY29tL3dodW1tZXIpIChXYWxk\nZW1hciBIdW1tZXIpCiogW0ZKSy1OWl0oaHR0cHM6Ly9naXRodWIuY29tL0ZK\nSy1OWikgKEZlbGlrcyBLcmF3Y3p5aykKKiBbaHllMV0oaHR0cHM6Ly9naXRo\ndWIuY29tL2h5ZTEpIChIYW8gWWUpCiogW3RkYXdiZXJdKGh0dHBzOi8vZ2l0\naHViLmNvbS90ZGF3YmVyKSAoVGhvbWFzIERhd2JlcikKKiBbcGF0YW5hY2hh\naV0oaHR0cHM6Ly9naXRodWIuY29tL3BhdGFuYWNoYWkpIChQYXRhbmFjaGFp\nIFRhbmdjaGFpc2luKQoKIyMgQ29udHJpYnV0aW5nCgpXZSB3ZWxjb21lIGZl\nZWRiYWNrLCBidWcgcmVwb3J0cywgYW5kIHB1bGwgcmVxdWVzdHMhCgpGb3Ig\ncHVsbCByZXF1ZXN0cywgcGxlYXNlIHN0aWNrIHRvIHRoZSBmb2xsb3dpbmcg\nZ3VpZGVsaW5lczoKCiogQWRkIHRlc3RzIGZvciBhbnkgbmV3IGZlYXR1cmVz\nIGFuZCBidWcgZml4ZXMuIElkZWFsbHksIGVhY2ggUFIgc2hvdWxkIGluY3Jl\nYXNlIHRoZSB0ZXN0IGNvdmVyYWdlLgoqIEZvbGxvdyB0aGUgZXhpc3Rpbmcg\nc3R5bGUgKGUuZy4sIHRhYiBpbmRlbnRzKS4KKiBQdXQgYSByZWFzb25hYmxl\nIGFtb3VudCBvZiBjb21tZW50cyBpbnRvIHRoZSBjb2RlLgoqIFNlcGFyYXRl\nIHVucmVsYXRlZCBjaGFuZ2VzIGludG8gbXVsdGlwbGUgcHVsbCByZXF1ZXN0\ncy4KClBsZWFzZSBub3RlIHRoYXQgd2UgbmVlZCB0byBjb2xsZWN0IGEgc2ln\nbmVkICoqQ29udHJpYnV0b3JzIExpY2Vuc2UgQWdyZWVtZW50KiogZnJvbSBl\nYWNoCmluZGl2aWR1YWwgZGV2ZWxvcGVyIHdobyBjb250cmlidXRlcyBjb2Rl\nIHRvIHRoaXMgcmVwb3NpdG9yeS4gUGxlYXNlIHJlZmVyIHRvIHRoZSBmb2xs\nb3dpbmcgbGlua3M6CgoqIFtodHRwczovL2RldmVsb3Blci5hdGxhc3NpYW4u\nY29tL29wZW5zb3VyY2UvXShodHRwczovL2RldmVsb3Blci5hdGxhc3NpYW4u\nY29tL29wZW5zb3VyY2UvKQoqIFtodHRwczovL25hMi5kb2N1c2lnbi5uZXQv\nTWVtYmVyL1Bvd2VyRm9ybVNpZ25pbmcuYXNweD9Qb3dlckZvcm1JZD0zZjk0\nZmJkYy0yZmJlLTQ2YWMtYjE0Yy01ZDE1MjcwMGFlNWRdKGh0dHBzOi8vbmEy\nLmRvY3VzaWduLm5ldC9NZW1iZXIvUG93ZXJGb3JtU2lnbmluZy5hc3B4P1Bv\nd2VyRm9ybUlkPTNmOTRmYmRjLTJmYmUtNDZhYy1iMTRjLTVkMTUyNzAwYWU1\nZCkKCiMjIExpY2Vuc2UKCkNvcHlyaWdodCAoYykgMjAxNiBBdGxhc3NpYW4g\nYW5kIG90aGVycy4KClRoZW1pcyBpcyByZWxlYXNlZCB1bmRlciB0aGUgQXBh\nY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wIChzZWUgTElDRU5TRS50eHQpLgoK\nV2UgYnVpbGQgb24gYSBudW1iZXIgb2YgdGhpcmQtcGFydHkgc29mdHdhcmUg\ndG9vbHMsIHdpdGggdGhlIGZvbGxvd2luZyBsaWNlbnNlczoKClRoaXJkLVBh\ncnR5IHNvZnR3YXJlCQl8IAlMaWNlbnNlCi0tLS0tLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KKipQeXRob24vcGlw\nIG1vZHVsZXM6KioJCXwKYXdzY2xpCQkJCQkJfAlBcGFjaGUgTGljZW5zZSAy\nLjAKY292ZXJhZ2UgCQkJCQl8CUFwYWNoZSBMaWNlbnNlIDIuMApjc3NzZWxl\nY3QJCQkJCXwJQlNEIExpY2Vuc2UKZG9jb3B0CQkJCQkJfAlNSVQgTGljZW5z\nZQpmbGFzawkJCQkJCXwJQlNEIExpY2Vuc2UKZmxhc2stc3dhZ2dlcgkJCQl8\nCU1JVCBMaWNlbnNlCm5vc2UJCQkJCQl8CUdOVSBMR1BMCnB5aGl2ZQkJCQkJ\nCXwJQXBhY2hlIExpY2Vuc2UgMi4wCnNjaXB5CQkJCQkJfAlCU0QgTGljZW5z\nZQoqKk5vZGUuanMvbnBtIG1vZHVsZXM6KioJfApzd2FnZ2VyLWNsaWVudAkJ\nCQl8CUFwYWNoZSBMaWNlbnNlIDIuMApqcXVlcnkJCQkJCQl8CU1JVCBMaWNl\nbnNlCmFuZ3VsYXItdGFibGVzb3J0CQkJfAlNSVQgTGljZW5zZQphbG1vbmQJ\nCQkJCQl8CU1JVCBMaWNlbnNlCmFuZ3VsYXIJCQkJCQl8CU1JVCBMaWNlbnNl\nCmFuZ3VsYXItdWktcm91dGVyCQkJfAlNSVQgTGljZW5zZQphbmd1bGFyLXJl\nc291cmNlCQkJfAlNSVQgTGljZW5zZQphbmd1bGFyLXNhbml0aXplCQkJfAlN\nSVQgTGljZW5zZQpzaG93ZG93bgkJCQkJfAlCU0QgMy1DbGF1c2UgTGljZW5z\nZQphbmd1bGFyLWF1aQkJCQkJfAlBdGxhc3NpYW4gRGVzaWduIEd1aWRlbGlu\nZXMgTGljZW5zZQo=\n", 
+                "download_url": "https://raw.githubusercontent.com/atlassian/themis/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/atlassian/themis/git/blobs/861816dcafcd87e70a7b53ced134e8107bc18472", 
+                "html_url": "https://github.com/atlassian/themis/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "861816dcafcd87e70a7b53ced134e8107bc18472", 
+                "size": 11936, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/atlassian/themis/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2016-07-17T23:49:24Z", 
+                "language": "JavaScript", 
+                "owner": {
+                    "avatar_url": "https://avatars0.githubusercontent.com/u/168166?v=3", 
+                    "events_url": "https://api.github.com/users/atlassian/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/atlassian/followers", 
+                    "following_url": "https://api.github.com/users/atlassian/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/atlassian/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/atlassian", 
+                    "id": 168166, 
+                    "login": "atlassian", 
+                    "organizations_url": "https://api.github.com/users/atlassian/orgs", 
+                    "received_events_url": "https://api.github.com/users/atlassian/received_events", 
+                    "repos_url": "https://api.github.com/users/atlassian/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/atlassian/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/atlassian/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/atlassian"
+                }, 
+                "pushed_at": "2017-01-23T05:54:35Z", 
+                "stargazers_count": 27, 
+                "updated_at": "2017-04-25T21:51:21Z", 
+                "watchers_count": 27
+            }
+        }, 
+        "awslabs/amazon-kinesis-scaling-utils": {
+            "dockerfile": {
+                "/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        "pom.xml .", 
+                        ". ."
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"java\", \"-cp\", \"/dist/KinesisScalingUtils-.9.5.4-complete.jar\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "mvn dependency:go-offline", 
+                        "mvn install -DskipTests=true -Dlicense.skip=true"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/awslabs/amazon-kinesis-scaling-utils/git/blobs/41b0c9b1e4d588a1fbccee859fab8ff334ba80b3", 
+                    "html": "https://github.com/awslabs/amazon-kinesis-scaling-utils/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/awslabs/amazon-kinesis-scaling-utils/contents/README.md?ref=master"
+                }, 
+                "content": "YW1hem9uLWtpbmVzaXMtc2NhbGluZy11dGlscwo9PT09PT09PT09PT09PT09\nPT09PT09PT09PT09CgpUaGUgS2luZXNpcyBTY2FsaW5nIFV0aWxpdHkgaXMg\nZGVzaWduZWQgdG8gZ2l2ZSB5b3UgdGhlIGFiaWxpdHkgdG8gc2NhbGUgQW1h\nem9uIEtpbmVzaXMgU3RyZWFtcyBpbiB0aGUgc2FtZSB3YXkgdGhhdCB5b3Ug\nc2NhbGUgRUMyIEF1dG8gU2NhbGluZyBncm91cHMg4oCTIHVwIG9yIGRvd24g\nYnkgYSBjb3VudCBvciBhcyBhIHBlcmNlbnRhZ2Ugb2YgdGhlIHRvdGFsIGZs\nZWV0LiBZb3UgY2FuIGFsc28gc2ltcGx5IHNjYWxlIHRvIGFuIGV4YWN0IG51\nbWJlciBvZiBTaGFyZHMuIFRoZXJlIGlzIG5vIHJlcXVpcmVtZW50IGZvciB5\nb3UgdG8gbWFuYWdlIHRoZSBhbGxvY2F0aW9uIG9mIHRoZSBrZXlzcGFjZSB0\nbyBTaGFyZHMgd2hlbiB1c2luZyB0aGlzIEFQSSwgYXMgaXQgaXMgZG9uZSBh\ndXRvbWF0aWNhbGx5LgoKWW91IGNhbiBhbHNvIGRlcGxveSB0aGUgV2ViIEFy\nY2hpdmUgdG8gYSBKYXZhIEFwcGxpY2F0aW9uIFNlcnZlciwgYW5kIGFsbG93\nIFNjYWxpbmcgVXRpbHMgdG8gYXV0b21hdGljYWxseSBtYW5hZ2UgdGhlIG51\nbWJlciBvZiBTaGFyZHMgaW4gdGhlIFN0cmVhbSBiYXNlZCBvbiB0aGUgb2Jz\nZXJ2ZWQgUFVUIG9yIEdFVCByYXRlIG9mIHRoZSBzdHJlYW0uIAoKIyNNYW51\nYWxseSBNYW5hZ2luZyB5b3VyIFN0cmVhbSMjCgpZb3UgY2FuIG1hbnVhbGx5\nIHJ1biB0aGUgU2NhbGluZyBVdGlsaXR5IGZyb20gdGhlIGNvbW1hbmQgbGlu\nZSBieSBjYWxsaW5nIHRoZSBTY2FsaW5nQ2xpZW50IHdpdGggdGhlIGZvbGxv\nd2luZyBzeW50YXguCgpgYGAKamF2YSAtY3AgS2luZXNpc1NjYWxpbmdVdGls\ncy1jb21wbGV0ZS5qYXIgLURzdHJlYW0tbmFtZT1NeVN0cmVhbSAtRHNjYWxp\nbmctYWN0aW9uPXNjYWxlVXAgLURjb3VudD0xMCAtRHJlZ2lvbj1ldS13ZXN0\nLTEgU2NhbGluZ0NsaWVudAoKT3B0aW9uczogCnN0cmVhbS1uYW1lIC0gVGhl\nIG5hbWUgb2YgdGhlIFN0cmVhbSB0byBiZSBzY2FsZWQKc2NhbGluZy1hY3Rp\nb24gLSBUaGUgYWN0aW9uIHRvIGJlIHRha2VuIHRvIHNjYWxlLiBNdXN0IGJl\nIG9uZSBvZiAic2NhbGVVcCIsICJzY2FsZURvd24iLCAicmVzaXplIiwgb3Ig\nInJlcG9ydCIKY291bnQgLSBOdW1iZXIgb2Ygc2hhcmRzIGJ5IHdoaWNoIHRv\nIGFic29sdXRlbHkgc2NhbGUgdXAgb3IgZG93biwgb3IgcmVzaXplIHRvIG9y\nOgpwY3QgLSBQZXJjZW50YWdlIG9mIHRoZSBleGlzdGluZyBudW1iZXIgb2Yg\nc2hhcmRzIGJ5IHdoaWNoIHRvIHNjYWxlIHVwIG9yIGRvd24KbWluLXNoYXJk\ncyAtIFRoZSBtaW5pbXVtIG51bWJlciBvZiBzaGFyZHMgdG8gbWFpbnRhaW4K\nbWF4LXNoYXJkcyAtIFRoZSBtYXhpbXVtIG51bWJlciBvZiBzaGFyZHMgd2hp\nY2ggd2lsbCBjYXAgdGhlIHNjYWxpbmcgb3BlcmF0aW9uCnJlZ2lvbiAtIFRo\nZSBSZWdpb24gd2hlcmUgdGhlIFN0cmVhbSBleGlzdHMsIHN1Y2ggYXMgdXMt\nZWFzdC0xIG9yIGV1LXdlc3QtMSAoZGVmYXVsdCB1cy1lYXN0LTEpCnNoYXJk\nLWlkIC0gVGhlIFNoYXJkIHdoaWNoIHlvdSB3YW50IHRvIHRhcmdldCBmb3Ig\nU2NhbGluZy4gTk9URTogVGhpcyB3aWxsIGNyZWF0ZSBpbWJhbGFuY2VkIHBh\ncnRpdGlvbmluZyBvZiB0aGUgS2V5c3BhY2UKYGBgCgpZb3UgY2FuIGFsc28g\naW50ZWdyYXRlIHRoZSBTdHJlYW1TY2FsZXIgY2xhc3Mgd2l0aCBleGlzdGlu\nZyBjb250cm9sIHN5c3RlbXMuCgpIZXJlIGFyZSBzb21lIHVzZWZ1bCBzaG9y\ndGN1dHM6CgojIyMgU2NhbGUgYSBTdHJlYW0gdXAgYnkgMTAgU2hhcmRzCgpg\nYGBqYXZhIC1jcCBkaXN0L0tpbmVzaXNTY2FsaW5nVXRpbHMtY29tcGxldGUu\namFyIC1Ec3RyZWFtLW5hbWU9TXlTdHJlYW0gLURzY2FsaW5nLWFjdGlvbj1z\nY2FsZVVwIC1EY291bnQ9MTAgLURyZWdpb249ZXUtd2VzdC0xIFNjYWxpbmdD\nbGllbnRgYGAKCiMjIyBHZW5lcmF0ZSBhIHJlcG9ydCBvZiBTaGFyZCBLZXlz\ncGFjZSBTaXppbmcKCmBgYGphdmEgLWNwIGRpc3QvS2luZXNpc1NjYWxpbmdV\ndGlscy1jb21wbGV0ZS5qYXIgLURzdHJlYW0tbmFtZT1NeVN0cmVhbSAtRHNj\nYWxpbmctYWN0aW9uPXJlcG9ydCAtRHJlZ2lvbj1ldS13ZXN0LTEgU2NhbGlu\nZ0NsaWVudGBgYAoKIyMjIFNjYWxlIHVwIGEgc3BlY2lmaWMgU2hhcmQgYnkg\nbWFraW5nIGl0IGludG8gMyBlcXVhbGx5IHNpemVkIFNoYXJkcwoKYGBgamF2\nYSAtY3AgZGlzdC9LaW5lc2lzU2NhbGluZ1V0aWxzLWNvbXBsZXRlLmphciAt\nRHN0cmVhbS1uYW1lPU15U3RyZWFtIC1Ec2NhbGluZy1hY3Rpb249c2NhbGVV\ncCAtRGNvdW50PTMgLURzaGFyZC1pZD1zaGFyZC0wMDAwMDAwMDAwIC1EcmVn\naW9uPWV1LXdlc3QtMSBTY2FsaW5nQ2xpZW50YGBgCgojI0tpbmVzaXMgQXV0\nb3NjYWxpbmcjIwoKVGhlIEtpbmVzaXMgQXV0b3NjYWxpbmcgV0FSIGNhbiBi\nZSBkZXBsb3llZCBhcyBhbiBFbGFzdGljIEJlYW5zdGFsayBhcHBsaWNhdGlv\nbiwgb3IgdG8gYW55IEphdmEgYXBwbGljYXRpb24gc2VydmVyLCBhbmQgb25j\nZSBjb25maWd1cmVkIHdpbGwgbW9uaXRvciB0aGUgQ2xvdWRXYXRjaCBzdGF0\naXN0aWNzIGZvciB5b3VyIFN0cmVhbSBhbmQgc2NhbGUgdXAgYW5kIGRvd24g\nYXMgeW91IGNvbmZpZ3VyZSBpdC4gQmVsb3cgeW91IGNhbiBzZWUgYSBncmFw\naCBvZiBob3cgQXV0b3NjYWxpbmcgd2lsbCBrZWVwIGFkZXF1YXRlIFNoYXJk\nIGNhcGFjaXR5IHRvIGRlYWwgd2l0aCBQVVQgb3IgR0VUIGRlbWFuZDoKCiFb\nQXV0b3NjYWxpbmdHcmFwaF0oaHR0cHM6Ly9zMy1ldS13ZXN0LTEuYW1hem9u\nYXdzLmNvbS9tZXllcnNpLWlyZS1hd3MvS2luZXNpc1NjYWxpbmdVdGlsaXR5\nL2ltZy9LaW5lc2lzQXV0b3NjYWxpbmdHcmFwaC5wbmcpCgpUbyBnZXQgc3Rh\ncnRlZCwgY3JlYXRlIGEgbmV3IEVsYXN0aWMgQmVhbnN0YWxrIGFwcGxpY2F0\naW9uIHdoaWNoIGlzIGEgV2ViIFNlcnZlciB3aXRoIGEgVG9tY2F0IHByZWRl\nZmluZWQgY29uZmlndXJhdGlvbi4gRGVwbG95IHRoZSBXQVIgYnkgdXBsb2Fk\naW5nIGZyb20geW91ciBsb2NhbCBHaXRIdWIgY29weSBvZiBbZGlzdC9LaW5l\nc2lzQXV0b3NjYWxpbmctLjkuNS4xLndhcl0oZGlzdC9LaW5lc2lzQXV0b3Nj\nYWxpbmctLjkuNS4xLndhcikuCgpPbmNlIGRlcGxveWVkLCB5b3UgbXVzdCBj\nb25maWd1cmUgdGhlIEF1dG9zY2FsaW5nIGVuZ2luZSBieSBwcm92aWRpbmcg\nYSBKU09OIGNvbmZpZ3VyYXRpb24gZmlsZSBvbiBhbiBIVFRQIG9yIFMzIFVS\nTC4gVGhlIHN0cnVjdHVyZSBvZiB0aGlzIGNvbmZpZ3VyYXRpb24gZmlsZSBp\ncyBhcyBmb2xsb3dzOgoKYGBgCltzdHJlYW1Nb25pdG9yMSwgc3RyZWFtTW9u\naXRvcjIuLi5zdHJlYW1Nb25pdG9yTl0KYGBgCgphIHN0cmVhbU1vbml0b3Ig\nb2JqZWN0IGlzIGEgZGVmaW5pdGlvbiBvZiBhbiBBdXRvc2NhbGluZyBQb2xp\nY3kgYXBwbGllZCB0byBhIEtpbmVzaXMgU3RyZWFtLCBhbmQgdGhpcyBhcnJh\neSBhbGxvd3MgYSBzaW5nbGUgQXV0b3NjYWxpbmcgV2ViIEFwcCB0byBtb25p\ndG9yIG11bHRpcGxlIHN0cmVhbXMuIEEgc3RyZWFtTW9uaXRvciBvYmplY3Qg\naXMgY29uZmlndXJlZCBieToKCmBgYAp7InN0cmVhbU5hbWUiOiJTdHJpbmcg\nLSBuYW1lIG9mIHRoZSBTdHJlYW0gdG8gYmUgTW9uaXRvcmVkIiwKICJyZWdp\nb24iOiJTdHJpbmcgLSBhIFZhbGlkIEFXUyBSZWdpb24gQ29kZSwgc3VjaCBh\ncyB1cy1lYXN0LTEgb3IgZXUtd2VzdC0xIiwKICJzY2FsZU9uT3BlcmF0aW9u\nIjoiTGlzdDxTdHJpbmc+IC0gdGhlIHR5cGVzIG9mIG1ldHJpYyB0byBiZSBt\nb25pdG9yZWQsIGluY2x1ZGluZyBQVVQgb3IgR0VULiBCb3RoIFB1dFJlY29y\nZCBhbmQgUHV0UmVjb3JkcyBhcmUgbW9uaXRvcmVkIHdpdGggUFVUIiwKICJt\naW5TaGFyZHMiOiJJbnRlZ2VyIC0gdGhlIG1pbmltdW0gbnVtYmVyIG9mIFNo\nYXJkcyB0byBtYWludGFpbiBpbiB0aGUgU3RyZWFtIGF0IGFsbCB0aW1lcyIs\nCiAibWF4U2hhcmRzIjoiSW50ZWdlciAtIHRoZSBtYXhpbXVtIG51bWJlciBv\nZiBTaGFyZHMgdG8gaGF2ZSBpbiB0aGUgU3RyZWFtIHJlZ2FyZGxlc3Mgb2Yg\nY2FwYWNpdHkgdXNlZCIsCiAicmVmcmVzaFNoYXJkc051bWJlckFmdGVyTWlu\nIjoiSW50ZWdlciAtIG1pbnV0ZXMgaW50ZXJ2YWwgYWZ0ZXIgd2hpY2ggdGhl\nIFN0cmVhbSBNb25pdG9yIHNob3VsZCByZWZyZXNoIHRoZSBTaGFyZCBjb3Vu\ndCBvbiB0aGUgc3RyZWFtLCB0byBhY2NvbW9kYXRlIG1hbnVhbCBzY2FsaW5n\nIGFjdGl2aXRpZXMuIElmIHVuc2V0LCBkZWZhdWx0cyB0byAxMCBtaW51dGVz\nIgogInNjYWxlVXAiOiB7CiAgICAgInNjYWxlVGhyZXNob2xkUGN0IjpJbnRl\nZ2VyIC0gYXQgd2hhdCB0aHJlc2hvbGQgd2Ugc2hvdWxkIHNjYWxlIHVwLAog\nICAgICJzY2FsZUFmdGVyTWlucyI6SW50ZWdlciAtIGhvdyBtYW55IG1pbnV0\nZXMgYWJvdmUgdGhlIHNjYWxlVGhyZXNob2xkUGN0IHdlIHNob3VsZCB3YWl0\nIGJlZm9yZSBzY2FsaW5nIHVwLAogICAgICJzY2FsZUNvdW50IjpJbnRlZ2Vy\nIC0gbnVtYmVyIG9mIFNoYXJkcyB0byBzY2FsZSB1cCBieSAocHJldmFpbHMg\nb3ZlciBzY2FsZVBjdCksCiAgICAgInNjYWxlUGN0IjpJbnRlZ2VyIC0gJSBv\nZiBjdXJyZW50IFN0cmVhbSBjYXBhY2l0eSB0byBzY2FsZSB1cCBieSwKICAg\nICAibm90aWZpY2F0aW9uQVJOIiA6IFN0cmluZyAtIHRoZSBBUk4gb2YgYW4g\nU05TIFRvcGljIHRvIHNlbmQgbm90aWZpY2F0aW9ucyB0byBhZnRlciBhIHNj\nYWxlVXAgYWN0aW9uIGhhcyBiZWVuIHRha2VuCiB9LAogInNjYWxlRG93biI6\newogICAgICJzY2FsZVRocmVzaG9sZFBjdCI6SW50ZWdlciAtIGF0IHdoYXQg\ndGhyZXNob2xkIHdlIHNob3VsZCBzY2FsZSBkb3duLAogICAgICJzY2FsZUFm\ndGVyTWlucyI6SW50ZWdlciAtIGhvdyBtYW55IG1pbnV0ZXMgYmVsb3cgdGhl\nIHNjYWxlVGhyZXNob2xkUGN0IHdlIHNob3VsZCB3YWl0IGJlZm9yZSBzY2Fs\naW5nIGRvd24sCiAgICAgInNjYWxlQ291bnQiOkludGVnZXIgLSBudW1iZXIg\nb2YgU2hhcmRzIHRvIHNjYWxlIGRvd24gYnkgKHByZXZhaWxzIG92ZXIgc2Nh\nbGVQY3QpLAogICAgICJzY2FsZVBjdCI6SW50ZWdlciAtICUgb2YgY3VycmVu\ndCBTdHJlYW0gY2FwYWNpdHkgdG8gc2NhbGUgZG93biBieSwKICAgICAiY29v\nbE9mZk1pbnMiOkludGVnZXIgLSBudW1iZXIgb2YgbWludXRlcyB0byB3YWl0\nIGFmdGVyIGEgU3RyZWFtIHNjYWxlIGRvd24gYmVmb3JlIHdlIHNjYWxlIGRv\nd24gYWdhaW4sCiAgICAgIm5vdGlmaWNhdGlvbkFSTiIgOiBTdHJpbmcgLSB0\naGUgQVJOIG9mIGFuIFNOUyBUb3BpYyB0byBzZW5kIG5vdGlmaWNhdGlvbnMg\ndG8gYWZ0ZXIgYSBzY2FsZURvd24gYWN0aW9uIGhhcyBiZWVuIHRha2VuCiB9\nCn0KYGBgCgpvbmNlIHlvdSd2ZSBidWlsdCB0aGUgQXV0b3NjYWxpbmcgY29u\nZmlndXJhdGlvbiByZXF1aXJlZCwgc2F2ZSBpdCB0byBhbiBIVFRQIGZpbGUg\nc2VydmVyIG9yIHRvIEFtYXpvbiBTMy4gVGhlbiwgYWNjZXNzIHlvdXIgRWxh\nc3RpYyBCZWFuc3RhbGsgYXBwbGljYXRpb24sIGFuZCBzZWxlY3QgJ0NvbmZp\nZ3VyYXRpb24nIGZyb20gdGhlIGxlZnQgaGFuZCBOYXZpZ2F0aW9uIE1lbnUu\nIFRoZW4gc2VsZWN0IHRoZSAnU29mdHdhcmUgQ29uZmlndXJhdGlvbicgcGFu\nZWwsIGFuZCBhZGQgYSBuZXcgY29uZmlndXJhdGlvbiBpdGVtIGNhbGxlZCAn\nY29uZmlnLWZpbGUtdXJsJyB0aGF0IHBvaW50cyB0byB0aGUgVVJMIG9mIHRo\nZSBjb25maWd1cmF0aW9uIGZpbGUuIEFjY2VwdGFibGUgZm9ybWF0cyBhcmUg\nJ2h0dHA6Ly9wYXRoIHRvIGZpbGUnIG9yICdzMzovL2J1Y2tldC9wYXRoIHRv\nIGZpbGUnLiBTYXZlIHRoZSBjb25maWd1cmF0aW9uLCBhbmQgdGhlbiBjaGVj\nayB0aGUgYXBwbGljYXRpb24gbG9ncyBmb3IgY29ycmVjdCBvcGVyYXRpb24u\nCgojIyBBdXRvc2NhbGluZyBCZWhhdmlvdXIgIyMKCkluIHZlcnNpb24gLjku\nNS4wLCBBdXRvc2NhbGluZyBhZGRlZCB0aGUgYWJpbGl0eSB0byBzY2FsZSBv\nbiB0aGUgYmFzaXMgb2YgUFVUIF9fX2FuZF9fXyBHRVQgdXRpbGlzYXRpb24u\nIFRoaXMgY2hhbmdlIG1lYW5zIHRoYXQgeW91IGNhcmVmdWxseSBoYXZlIHRv\nIGNvbnNpZGVyIHlvdXIgYWN0dWFsIHV0aWxpc2F0aW9uIG9mIGVhY2ggbWV0\ncmljIHByaW9yIHRvIGNvbmZpZ3VyaW5nIGF1dG9zY2FsaW5nIHdpdGggYm90\naCBtZXRyaWNzLiBGb3IgaW5mb3JtYXRpb24gb24gaG93IHRoZSBBdXRvU2Nh\nbGluZyBtb2R1bGUgd2lsbCByZWFjdCB3aXRoIGJvdGggbWV0cmljcywgY29u\nc2lkZXIgdGhlIGZvbGxvd2luZyB0YWJsZToKCnwgfCB8IFBVVCB8IHwgfAp8\nIDotLSB8IDotLSB8IDotLTogfCA6LS06IHwgOi0tOiB8CnwgfCBfX1Jhbmdl\nX18gfCBCZWxvdyB8IEluIHwgQWJvdmUgfAp8X19HRVRfXyB8IEJlbG93IHwg\nRG93biB8IERvd24gfCBVcCB8CnwgfCBJbiB8IERvd24gfCBEbyBOb3RoaW5n\nIHwgVXAgfAp8IHwgQWJvdmUgfCBVcCB8IFVwIHwgVXAK\n", 
+                "download_url": "https://raw.githubusercontent.com/awslabs/amazon-kinesis-scaling-utils/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/awslabs/amazon-kinesis-scaling-utils/git/blobs/41b0c9b1e4d588a1fbccee859fab8ff334ba80b3", 
+                "html_url": "https://github.com/awslabs/amazon-kinesis-scaling-utils/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "41b0c9b1e4d588a1fbccee859fab8ff334ba80b3", 
+                "size": 6468, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/awslabs/amazon-kinesis-scaling-utils/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2014-10-22T07:32:12Z", 
+                "language": "Java", 
+                "owner": {
+                    "avatar_url": "https://avatars3.githubusercontent.com/u/3299148?v=3", 
+                    "events_url": "https://api.github.com/users/awslabs/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/awslabs/followers", 
+                    "following_url": "https://api.github.com/users/awslabs/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/awslabs/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/awslabs", 
+                    "id": 3299148, 
+                    "login": "awslabs", 
+                    "organizations_url": "https://api.github.com/users/awslabs/orgs", 
+                    "received_events_url": "https://api.github.com/users/awslabs/received_events", 
+                    "repos_url": "https://api.github.com/users/awslabs/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/awslabs/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/awslabs/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/awslabs"
+                }, 
+                "pushed_at": "2017-04-21T15:01:24Z", 
+                "stargazers_count": 178, 
+                "updated_at": "2017-04-11T14:59:21Z", 
+                "watchers_count": 178
+            }
+        }, 
+        "caskdata/cdap": {
+            "dockerfile": {
+                "/cdap-distributions/src/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[\"cdap\",\"sdk\",\"start\",\"--foreground\"]"
+                    ], 
+                    "COPY": [
+                        "packer/scripts /tmp/scripts", 
+                        "packer/files /tmp/files", 
+                        "docker-entrypoint.sh /"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/docker-entrypoint.sh\"]"
+                    ], 
+                    "ENV": [
+                        "GOSU_VERSION 1.7", 
+                        "PATH /opt/cdap/sdk/bin:${PATH}"
+                    ], 
+                    "EXPOSE": [
+                        "11011 11015"
+                    ], 
+                    "FROM": [
+                        "ubuntu:16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Cask Data <ops@cask.co>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get dist-upgrade -y && apt-get install -y curl", 
+                        "apt-get install -y --no-install-recommends git && curl -vL \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)\" > /usr/local/bin/gosu && curl -vL \"https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc\" > /usr/local/bin/gosu.asc && export GNUPGHOME=\"$(mktemp -d)\" && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && rm -r \"$GNUPGHOME\" /usr/local/bin/gosu.asc && chmod +x /usr/local/bin/gosu && gosu nobody true", 
+                        "curl -vL http://chef.io/chef/install.sh | bash -s -- -v 12.19.36 && for i in apt-setup.sh cookbook-dir.sh cookbook-setup.sh ; do /tmp/scripts/$i ; done && chef-solo -o cdap::sdk -j /tmp/files/cdap-sdk.json && for i in remove-chef.sh sdk-cleanup.sh apt-cleanup.sh ; do /tmp/scripts/$i ; done && rm -rf /root/.m2 /var/cache/debconf/*-old /usr/share/{doc,man} /tmp/scripts /tmp/files /var/lib/apt/lists/* /usr/share/locale/{a,b,c,d,e{l,o,s,t,u},f,g,h,i,j,k,lt,lv,m,n,o,p,r,s,t,u,v,w,x,z}*"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/caskdata/cdap/git/blobs/db1a9ebf8dd61871c68ae9a8b7d4a682e774f316", 
+                    "html": "https://github.com/caskdata/cdap/blob/develop/README.rst", 
+                    "self": "https://api.github.com/repos/caskdata/cdap/contents/README.rst?ref=develop"
+                }, 
+                "content": "Li4gbWV0YTo6CiAgICA6YXV0aG9yOiBDYXNrIERhdGEsIEluYy4KICAgIDpj\nb3B5cmlnaHQ6IENvcHlyaWdodCDCqSAyMDE1LTIwMTcgQ2FzayBEYXRhLCBJ\nbmMuCgo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CkNh\nc2sgRGF0YSBBcHBsaWNhdGlvbiBQbGF0Zm9ybSAtIENEQVAKPT09PT09PT09\nPT09PT09PT09PT09PT09PT09PT09PT09PT09PQouLiBpbWFnZTo6IGNkYXAt\nZG9jcy9kZXZlbG9wZXJzLW1hbnVhbC9zb3VyY2UvX2ltYWdlcy9DREFQLnBu\nZwoKLi4gaW1hZ2U6OiBodHRwczovL2NkYXAtdXNlcnMuaGVyb2t1YXBwLmNv\nbS9iYWRnZS5zdmc/dD0xCiAgICA6dGFyZ2V0OiBodHRwczovL2NkYXAtdXNl\ncnMuaGVyb2t1YXBwLmNvbQogCi4uIGltYWdlOjogaHR0cHM6Ly9pbWcuc2hp\nZWxkcy5pby9iYWRnZS9MaWNlbnNlLUFwYWNoZSUyMDIuMC1ibHVlLnN2Zwog\nICAgOnRhcmdldDogaHR0cHM6Ly9vcGVuc291cmNlLm9yZy9saWNlbnNlcy9B\ncGFjaGUtMi4wCgouLiBpbWFnZTo6IGh0dHBzOi8vdHJhdmlzLWNpLm9yZy9j\nYXNrZGF0YS9jZGFwLnN2Zz9icmFuY2g9cmVsZWFzZS80LjEKICAgIDp0YXJn\nZXQ6IGh0dHBzOi8vdHJhdmlzLWNpLm9yZy9jYXNrZGF0YS9jZGFwCiAgICAK\nCkludHJvZHVjdGlvbgo9PT09PT09PT09PT0KClRoZSBDYXNr4oSiIERhdGEg\nQXBwbGljYXRpb24gUGxhdGZvcm0gKENEQVApaXMgYW4gaW50ZWdyYXRlZCwg\nb3BlbiBzb3VyY2UgYXBwbGljYXRpb24KZGV2ZWxvcG1lbnQgcGxhdGZvcm0g\nZm9yIHRoZSBIYWRvb3AgZWNvc3lzdGVtIHRoYXQgcHJvdmlkZXMgZGV2ZWxv\ncGVycyB3aXRoIGRhdGEgYW5kCmFwcGxpY2F0aW9uIGFic3RyYWN0aW9ucyB0\nbyBzaW1wbGlmeSBhbmQgYWNjZWxlcmF0ZSBhcHBsaWNhdGlvbiBkZXZlbG9w\nbWVudCwgYWRkcmVzcyBhCmJyb2FkZXIgcmFuZ2Ugb2YgcmVhbC10aW1lIGFu\nZCBiYXRjaCB1c2UgY2FzZXMsIGFuZCBkZXBsb3kgYXBwbGljYXRpb25zIGlu\ndG8gcHJvZHVjdGlvbgp3aGlsZSBzYXRpc2Z5aW5nIGVudGVycHJpc2UgcmVx\ndWlyZW1lbnRzLgoKQ0RBUCBpcyBhIGxheWVyIG9mIHNvZnR3YXJlIHJ1bm5p\nbmcgb24gdG9wIG9mIEFwYWNoZSBIYWRvb3DCriBwbGF0Zm9ybXMgc3VjaCBh\ncyB0aGUKQ2xvdWRlcmEgRW50ZXJwcmlzZSBEYXRhIEh1YiBvciB0aGUgSG9y\ndG9ud29ya3PCriBEYXRhIFBsYXRmb3JtLiBDREFQIHByb3ZpZGVzIHRoZXNl\nCmVzc2VudGlhbCBjYXBhYmlsaXRpZXM6CgotIEFic3RyYWN0aW9uIG9mIGRh\ndGEgaW4gdGhlIEhhZG9vcCBlbnZpcm9ubWVudCB0aHJvdWdoIGxvZ2ljYWwg\ncmVwcmVzZW50YXRpb25zIG9mIHVuZGVybHlpbmcgZGF0YTsKLSBQb3J0YWJp\nbGl0eSBvZiBhcHBsaWNhdGlvbnMgdGhyb3VnaCBkZWNvdXBsaW5nIHVuZGVy\nbHlpbmcgaW5mcmFzdHJ1Y3R1cmVzOwotIFNlcnZpY2VzIGFuZCB0b29scyB0\naGF0IGVuYWJsZSBmYXN0ZXIgYXBwbGljYXRpb24gY3JlYXRpb24gaW4gZGV2\nZWxvcG1lbnQ7Ci0gSW50ZWdyYXRpb24gb2YgdGhlIGNvbXBvbmVudHMgb2Yg\ndGhlIEhhZG9vcCBlY29zeXN0ZW0gaW50byBhIHNpbmdsZSBwbGF0Zm9ybTsK\nLSBNZXRhZGF0YSBtYW5hZ2VtZW50IHRoYXQgYXV0b21hdGljYWxseSBjYXB0\ndXJlcyBtZXRhZGF0YSBhbmQgbGluZWFnZTsKLSBDREFQIHBpcGVsaW5lcyB3\naXRoIGFuIGludGVncmF0ZWQgVUkgZm9yIGNsaWNrLWFuZC1kcmFnIGRldmVs\nb3BtZW50OyBhbmQKLSBIaWdoZXIgZGVncmVlcyBvZiBvcGVyYXRpb25hbCBj\nb250cm9sIGluIHByb2R1Y3Rpb24gdGhyb3VnaCBlbnRlcnByaXNlIGJlc3Qt\ncHJhY3RpY2VzLgoKQ0RBUCBleHBvc2VzIGRldmVsb3BlciBBUElzIChBcHBs\naWNhdGlvbiBQcm9ncmFtbWluZyBJbnRlcmZhY2VzKSBmb3IgY3JlYXRpbmcg\nYXBwbGljYXRpb25zCmFuZCBhY2Nlc3NpbmcgY29yZSBDREFQIHNlcnZpY2Vz\nLiBDREFQIGRlZmluZXMgYW5kIGltcGxlbWVudHMgYSBkaXZlcnNlIGNvbGxl\nY3Rpb24gb2YKc2VydmljZXMgdGhhdCBsYW5kIGFwcGxpY2F0aW9ucyBhbmQg\nZGF0YSBvbiBleGlzdGluZyBIYWRvb3AgaW5mcmFzdHJ1Y3R1cmUgc3VjaCBh\ncyBIQmFzZSwKSERGUywgWUFSTiwgTWFwUmVkdWNlLCBIaXZlLCBhbmQgU3Bh\ncmsuCgpZb3UgY2FuIHJ1biBhcHBsaWNhdGlvbnMgcmFuZ2luZyBmcm9tIHNp\nbXBsZSBNYXBSZWR1Y2UgSm9icyBhbmQgY29tcGxldGUgRVRMIChleHRyYWN0\nLAp0cmFuc2Zvcm0sIGFuZCBsb2FkKSBwaXBlbGluZXMgYWxsIHRoZSB3YXkg\ndXAgdG8gY29tcGxleCwgZW50ZXJwcmlzZS1zY2FsZSBkYXRhLWludGVuc2l2\nZQphcHBsaWNhdGlvbnMuCgpEZXZlbG9wZXJzIGNhbiBidWlsZCBhbmQgdGVz\ndCB0aGVpciBhcHBsaWNhdGlvbnMgZW5kLXRvLWVuZCBpbiBhIGZ1bGwtc3Rh\nY2ssIHNpbmdsZS1ub2RlCmluc3RhbGxhdGlvbi4gQ0RBUCBjYW4gYmUgcnVu\nIGVpdGhlciBzdGFuZGFsb25lLCBkZXBsb3llZCB3aXRoaW4gdGhlIEVudGVy\ncHJpc2Ugb3IgaG9zdGVkCmluIHRoZSBDbG91ZC4KCkZvciBtb3JlIGluZm9y\nbWF0aW9uLCBzZWUgb3VyIGNvbGxlY3Rpb24gb2YgYERldmVsb3BlcnMnIE1h\nbnVhbCBhbmQgb3RoZXIgZG9jdW1lbnRhdGlvbgo8aHR0cDovL2RvY3MuY2Fz\nay5jby9jZGFwL2N1cnJlbnQvZW4vZGV2ZWxvcGVycy1tYW51YWwvaW5kZXgu\naHRtbD5gX18uCgoKR2V0dGluZyBTdGFydGVkCj09PT09PT09PT09PT09PQoK\nUHJlcmVxdWlzaXRlcwotLS0tLS0tLS0tLS0tCgpUbyBpbnN0YWxsIGFuZCB1\nc2UgQ0RBUCBhbmQgaXRzIGluY2x1ZGVkIGV4YW1wbGVzLCB0aGVyZSBhcmUg\nYSBmZXcgc2ltcGxlIHByZXJlcXVpc2l0ZXM6CgoxLiBKREsgNysgKHJlcXVp\ncmVkIHRvIHJ1biBDREFQOyBub3RlIHRoYXQgJEpBVkFfSE9NRSBzaG91bGQg\nYmUgc2V0KQojLiBgTm9kZS5qcyA8aHR0cHM6Ly9ub2RlanMub3JnLz5gX18g\nKHJlcXVpcmVkIHRvIHJ1biB0aGUgQ0RBUCBVSTsgd2UgcmVjb21tZW5kIGFu\neSB2ZXJzaW9uIGdyZWF0ZXIgdGhhbiB2NC41LjApCiMuIEFwYWNoZSBNYXZl\nbiAzLjArIChyZXF1aXJlZCB0byBidWlsZCB0aGUgZXhhbXBsZSBhcHBsaWNh\ndGlvbnM7IDMuMSsgdG8gYnVpbGQgQ0RBUCBpdHNlbGYpCgpCdWlsZAotLS0t\nLQoKWW91IGNhbiBnZXQgc3RhcnRlZCB3aXRoIENEQVAgYnkgYnVpbGRpbmcg\nZGlyZWN0bHkgZnJvbSB0aGUgbGF0ZXN0IHNvdXJjZSBjb2RlOjoKCiAgZ2l0\nIGNsb25lIGh0dHBzOi8vZ2l0aHViLmNvbS9jYXNrZGF0YS9jZGFwLmdpdAog\nIGNkIGNkYXAKICBtdm4gY2xlYW4gcGFja2FnZQoKQWZ0ZXIgdGhlIGJ1aWxk\nIGNvbXBsZXRlcywgeW91IHdpbGwgaGF2ZSBidWlsdCBhbGwgbW9kdWxlcyBm\nb3IgQ0RBUC4KCkZvciBtb3JlIGJ1aWxkIG9wdGlvbnMsIHBsZWFzZSByZWZl\nciB0byB0aGUgYGJ1aWxkIGluc3RydWN0aW9ucyA8QlVJTEQucnN0PmBfXy4g\nICAgCgoKSW50cm9kdWN0b3J5IFR1dG9yaWFsCj09PT09PT09PT09PT09PT09\nPT09PQoKVmlzaXQgb3VyIHdlYiBzaXRlIGZvciBhbiBgaW50cm9kdWN0b3J5\nIHR1dG9yaWFsIGZvciBkZXZlbG9wZXJzCjxodHRwOi8vZG9jcy5jYXNrLmNv\nL2NkYXAvY3VycmVudC9lbi9kZXZlbG9wZXJzLW1hbnVhbC9nZXR0aW5nLXN0\nYXJ0ZWQvaW5kZXguaHRtbD5gX18gdGhhdAp3aWxsIGd1aWRlIHlvdSB0aHJv\ndWdoIGluc3RhbGxpbmcgQ0RBUCBhbmQgcnVubmluZyBhbiBleGFtcGxlIGFw\ncGxpY2F0aW9uLiAgCgoKV2hlcmUgdG8gR28gTmV4dAo9PT09PT09PT09PT09\nPT09CgpOb3cgdGhhdCB5b3UndmUgaGFkIGEgbG9vayBhdCB0aGUgQ0RBUCBT\nREssIHRha2UgYSBsb29rIGF0OgoKLSBFeGFtcGxlcywgbG9jYXRlZCBpbiB0\naGUgYGBjZGFwLWV4YW1wbGVzYGAgZGlyZWN0b3J5IG9mIHRoZSBDREFQIFNE\nSzsKLSBgU2VsZWN0ZWQgRXhhbXBsZXMgPGh0dHA6Ly9kb2NzLmNhc2suY28v\nY2RhcC9jdXJyZW50L2VuL2V4YW1wbGVzLW1hbnVhbC9leGFtcGxlcy9pbmRl\neC5odG1sPmBfXyAKICAoZGVtb25zdHJhdGluZyBiYXNpYyBmZWF0dXJlcyBv\nZiB0aGUgQ0RBUCkgYXJlIGxvY2F0ZWQgb24tbGluZTsgYW5kCi0gRGV2ZWxv\ncGVycycgTWFudWFsLCBsb2NhdGVkIGluIHRoZSBzb3VyY2UgZGlzdHJpYnV0\naW9uIGluIGBgY2RhcC1kb2NzL2RldmVsb3BlcnMtbWFudWFsL3NvdXJjZWBg\nCiAgb3IgYG9ubGluZSA8aHR0cDovL2RvY3MuY2Fzay5jby9jZGFwL2N1cnJl\nbnQvZW4vZGV2ZWxvcGVycy1tYW51YWwvaW5kZXguaHRtbD5gX18uCi0gYENE\nQVAgUmVsZWFzZXMgYW5kIHRpbWVsaW5lIDxodHRwOi8vZG9jcy5jYXNrLmNv\nL2NkYXAvaW5kZXguaHRtbD5gX18KCgpIb3cgdG8gQ29udHJpYnV0ZQo9PT09\nPT09PT09PT09PT09PQoKSW50ZXJlc3RlZCBpbiBoZWxwaW5nIHRvIGltcHJv\ndmUgQ0RBUD8gV2Ugd2VsY29tZSBhbGwgY29udHJpYnV0aW9ucywgd2hldGhl\nciBpbiBmaWxpbmcKZGV0YWlsZWQgYnVnIHJlcG9ydHMsIHN1Ym1pdHRpbmcg\ncHVsbCByZXF1ZXN0cyBmb3IgY29kZSBjaGFuZ2VzIGFuZCBpbXByb3ZlbWVu\ndHMsIG9yIGJ5CmFza2luZyBxdWVzdGlvbnMgYW5kIGFzc2lzdGluZyBvdGhl\ncnMgb24gdGhlIG1haWxpbmcgbGlzdC4KCkZvciBxdWljayBndWlkZSB0byBn\nZXR0aW5nIHlvdXIgc3lzdGVtIHNldHVwIHRvIGNvbnRyaWJ1dGUgdG8gQ0RB\nUCwgdGFrZSBhIGxvb2sgYXQgb3VyCmBDb250cmlidXRvciBRdWlja3N0YXJ0\nIEd1aWRlIDxERVZFTE9QRVJTLnJzdD5gX18uCgpGaWxpbmcgSXNzdWVzOiBC\ndWcgUmVwb3J0cyAmIEZlYXR1cmUgUmVxdWVzdHMKLS0tLS0tLS0tLS0tLS0t\nLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCkJ1Z3MgYW5kIHN1Z2dl\nc3Rpb25zIHNob3VsZCBiZSBtYWRlIGJ5IGBmaWxpbmcgYW4gaXNzdWUgPGh0\ndHBzOi8vaXNzdWVzLmNhc2suY28vYnJvd3NlL2NkYXA+YF9fLgoKRXhpc3Rp\nbmcgaXNzdWVzIGNhbiBiZSBicm93c2VkIGF0IGB0aGUgQ0RBUCBwcm9qZWN0\nIGlzc3VlcyAKPGh0dHBzOi8vaXNzdWVzLmNhc2suY28vYnJvd3NlL0NEQVAt\nODM3Mz9qcWw9cHJvamVjdCUyMCUzRCUyMENEQVA+YF9fLgoKUHVsbCBSZXF1\nZXN0cwotLS0tLS0tLS0tLS0tCgpXZSBoYXZlIGEgc2ltcGxlIHB1bGwtYmFz\nZWQgZGV2ZWxvcG1lbnQgbW9kZWwgd2l0aCBhIGNvbnNlbnN1cy1idWlsZGlu\nZyBwaGFzZSwgc2ltaWxhciB0bwpBcGFjaGUncyB2b3RpbmcgcHJvY2Vzcy4g\nSWYgeW914oCZZCBsaWtlIHRvIGhlbHAgbWFrZSBDREFQIGJldHRlciBieSBh\nZGRpbmcgbmV3IGZlYXR1cmVzLAplbmhhbmNpbmcgZXhpc3RpbmcgZmVhdHVy\nZXMsIG9yIGZpeGluZyBidWdzLCBoZXJlJ3MgaG93IHRvIGRvIGl0OgoKMS4g\nSWYgeW91IGFyZSBwbGFubmluZyBhIGxhcmdlIGNoYW5nZSBvciBjb250cmli\ndXRpb24sIGRpc2N1c3MgeW91ciBwbGFucyBvbiB0aGUgCiAgIGBjZGFwLWRl\ndkBnb29nbGVncm91cHMuY29tIDxodHRwczovL2dyb3Vwcy5nb29nbGUuY29t\nL2QvZm9ydW0vY2RhcC1kZXY+YF9fIG1haWxpbmcgbGlzdCBmaXJzdC4KICAg\nVGhpcyB3aWxsIGhlbHAgdXMgdW5kZXJzdGFuZCB5b3VyIG5lZWRzIGFuZCBi\nZXN0IGd1aWRlIHlvdXIgc29sdXRpb24gaW4gYSB3YXkgdGhhdCBmaXRzIHRo\nZSBwcm9qZWN0LgoyLiBGb3JrIENEQVAgaW50byB5b3VyIG93biBHaXRIdWIg\ncmVwb3NpdG9yeS4KMy4gQ3JlYXRlIGEgdG9waWMgYnJhbmNoIHdpdGggYW4g\nYXBwcm9wcmlhdGUgbmFtZS4KNC4gV29yayBvbiB0aGUgY29kZSB0byB5b3Vy\nIGhlYXJ0J3MgY29udGVudC4KNS4gT25jZSB5b3XigJlyZSBzYXRpc2ZpZWQs\nIGNyZWF0ZSBhIHB1bGwgcmVxdWVzdCBmcm9tIHlvdXIgR2l0SHViIHJlcG8g\nKGl04oCZcyBoZWxwZnVsIGlmIHlvdSBmaWxsIGluCiAgIGFsbCBvZiB0aGUg\nZGVzY3JpcHRpb24gZmllbGRzKS4KNi4gQWZ0ZXIgd2UgcmV2aWV3IGFuZCBh\nY2NlcHQgeW91ciByZXF1ZXN0LCB3ZeKAmWxsIGNvbW1pdCB5b3VyIGNvZGUg\ndG8gdGhlIGNhc2tkYXRhL2NkYXAgcmVwb3NpdG9yeS4KClRoYW5rcyBmb3Ig\naGVscGluZyB0byBpbXByb3ZlIENEQVAhCgpNYWlsaW5nIExpc3RzCi0tLS0t\nLS0tLS0tLS0KCkNEQVAgVXNlciBHcm91cCBhbmQgRGV2ZWxvcG1lbnQgRGlz\nY3Vzc2lvbnM6CgotIGBjZGFwLXVzZXJAZ29vZ2xlZ3JvdXBzLmNvbSA8aHR0\ncHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9kL2ZvcnVtL2NkYXAtdXNlcj5gX18K\nClRoZSAqY2RhcC11c2VyKiBtYWlsaW5nIGxpc3QgaXMgcHJpbWFyaWx5IGZv\nciB1c2VycyB1c2luZyB0aGUgcHJvZHVjdCB0byBkZXZlbG9wCmFwcGxpY2F0\naW9ucy4gWW91IGNhbiBleHBlY3QgcXVlc3Rpb25zIGZyb20gdXNlcnMsIHJl\nbGVhc2UgYW5ub3VuY2VtZW50cywgYW5kIGFueSBvdGhlcgpkaXNjdXNzaW9u\ncyB0aGF0IHdlIHRoaW5rIHdpbGwgYmUgaGVscGZ1bCB0byB0aGUgdXNlcnMu\nCgotIGBjZGFwLWRldkBnb29nbGVncm91cHMuY29tIDxodHRwczovL2dyb3Vw\ncy5nb29nbGUuY29tL2QvZm9ydW0vY2RhcC1kZXY+YF9fCgpUaGUgKmNkYXAt\nZGV2KiBtYWlsaW5nIGxpc3QgaXMgZXNzZW50aWFsbHkgZm9yIGRldmVsb3Bl\ncnMgYWN0aXZlbHkgd29ya2luZwpvbiB0aGUgcHJvZHVjdCwgYW5kIHNob3Vs\nZCBiZSB1c2VkIGZvciBhbGwgb3VyIGRlc2lnbiwgYXJjaGl0ZWN0dXJlIGFu\nZCB0ZWNobmljYWwKZGlzY3Vzc2lvbnMgbW92aW5nIGZvcndhcmQuIFRoaXMg\nbWFpbGluZyBsaXN0IHdpbGwgYWxzbyByZWNlaXZlIGFsbCBKSVJBIGFuZCBH\naXRIdWIKbm90aWZpY2F0aW9ucy4KCgpMaWNlbnNlIGFuZCBUcmFkZW1hcmtz\nCj09PT09PT09PT09PT09PT09PT09PT0KCkNvcHlyaWdodCDCqSAyMDE0LTIw\nMTcgQ2FzayBEYXRhLCBJbmMuCgpMaWNlbnNlZCB1bmRlciB0aGUgQXBhY2hl\nIExpY2Vuc2UsIFZlcnNpb24gMi4wICh0aGUgIkxpY2Vuc2UiKTsgeW91IG1h\neSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQKaW4gY29tcGxpYW5jZSB3aXRo\nIHRoZSBMaWNlbnNlLiBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExp\nY2Vuc2UgYXQKCmh0dHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNF\nTlNFLTIuMAoKVW5sZXNzIHJlcXVpcmVkIGJ5IGFwcGxpY2FibGUgbGF3IG9y\nIGFncmVlZCB0byBpbiB3cml0aW5nLCBzb2Z0d2FyZSBkaXN0cmlidXRlZCB1\nbmRlciB0aGUgCkxpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElT\nIiBCQVNJUywgV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0Yg\nQU5ZIEtJTkQsIAplaXRoZXIgZXhwcmVzcyBvciBpbXBsaWVkLiBTZWUgdGhl\nIExpY2Vuc2UgZm9yIHRoZSBzcGVjaWZpYyBsYW5ndWFnZSBnb3Zlcm5pbmcg\ncGVybWlzc2lvbnMgCmFuZCBsaW1pdGF0aW9ucyB1bmRlciB0aGUgTGljZW5z\nZS4KCkNhc2sgaXMgYSB0cmFkZW1hcmsgb2YgQ2FzayBEYXRhLCBJbmMuIEFs\nbCByaWdodHMgcmVzZXJ2ZWQuCgpBcGFjaGUsIEFwYWNoZSBIQmFzZSwgYW5k\nIEhCYXNlIGFyZSB0cmFkZW1hcmtzIG9mIFRoZSBBcGFjaGUgU29mdHdhcmUg\nRm91bmRhdGlvbi4gVXNlZCB3aXRoCnBlcm1pc3Npb24uIE5vIGVuZG9yc2Vt\nZW50IGJ5IFRoZSBBcGFjaGUgU29mdHdhcmUgRm91bmRhdGlvbiBpcyBpbXBs\naWVkIGJ5IHRoZSB1c2Ugb2YgdGhlc2UgbWFya3MuCg==\n", 
+                "download_url": "https://raw.githubusercontent.com/caskdata/cdap/develop/README.rst", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/caskdata/cdap/git/blobs/db1a9ebf8dd61871c68ae9a8b7d4a682e774f316", 
+                "html_url": "https://github.com/caskdata/cdap/blob/develop/README.rst", 
+                "name": "README.rst", 
+                "path": "README.rst", 
+                "sha": "db1a9ebf8dd61871c68ae9a8b7d4a682e774f316", 
+                "size": 7591, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/caskdata/cdap/contents/README.rst?ref=develop"
+            }, 
+            "repo": {
+                "created_at": "2014-08-02T09:00:10Z", 
+                "language": "Java", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/8123023?v=3", 
+                    "events_url": "https://api.github.com/users/caskdata/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/caskdata/followers", 
+                    "following_url": "https://api.github.com/users/caskdata/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/caskdata/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/caskdata", 
+                    "id": 8123023, 
+                    "login": "caskdata", 
+                    "organizations_url": "https://api.github.com/users/caskdata/orgs", 
+                    "received_events_url": "https://api.github.com/users/caskdata/received_events", 
+                    "repos_url": "https://api.github.com/users/caskdata/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/caskdata/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/caskdata/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/caskdata"
+                }, 
+                "pushed_at": "2017-04-27T01:47:20Z", 
+                "stargazers_count": 172, 
+                "updated_at": "2017-04-26T05:53:02Z", 
+                "watchers_count": 172
+            }
+        }, 
+        "chrislusf/glow": {
+            "dockerfile": {
+                "/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[\"\"]"
+                    ], 
+                    "COPY": [
+                        "glow /"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/glow\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [
+                        "8930"
+                    ], 
+                    "FROM": [
+                        "scratch"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/examples/invert_file/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[\"\"]"
+                    ], 
+                    "COPY": [
+                        "invert_file /"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/invert_file\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "scratch"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/examples/stack_analysis/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[\"\"]"
+                    ], 
+                    "COPY": [
+                        "stack_analysis /"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/stack_analysis\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "scratch"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/examples/word_count/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[\"\"]"
+                    ], 
+                    "COPY": [
+                        "word_count /"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/word_count\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "scratch"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/chrislusf/glow/git/blobs/4a60a4ec66882a1b52b74e248a15f1ca69bf6ff7", 
+                    "html": "https://github.com/chrislusf/glow/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/chrislusf/glow/contents/README.md?ref=master"
+                }, 
+                "content": "IyBnbG93ClshW0J1aWxkIFN0YXR1c10oaHR0cHM6Ly90cmF2aXMtY2kub3Jn\nL2NocmlzbHVzZi9nbG93LnN2Zz9icmFuY2g9bWFzdGVyKV0oaHR0cHM6Ly90\ncmF2aXMtY2kub3JnL2NocmlzbHVzZi9nbG93KQpbIVtHb0RvY10oaHR0cHM6\nLy9nb2RvYy5vcmcvZ2l0aHViLmNvbS9jaHJpc2x1c2YvZ2xvdz9zdGF0dXMu\nc3ZnKV0oaHR0cHM6Ly9nb2RvYy5vcmcvZ2l0aHViLmNvbS9jaHJpc2x1c2Yv\nZ2xvdykKCiMgUHVycG9zZQoKR2xvdyBpcyBwcm92aWRpbmcgYSBsaWJyYXJ5\nIHRvIGVhc2lseSBjb21wdXRlIGluIHBhcmFsbGVsIHRocmVhZHMgb3IgZGlz\ndHJpYnV0ZWQgdG8gY2x1c3RlcnMgb2YgbWFjaGluZXMuIFRoaXMgaXMgd3Jp\ndHRlbiBpbiBwdXJlIEdvLgoKSSBhbSBhbHNvIHdvcmtpbmcgb24gYSBHbytM\ndWFqaXQgc3lzdGVtLCBodHRwczovL2dpdGh1Yi5jb20vY2hyaXNsdXNmL2ds\nZWFtICwgd2hpY2ggaXMgbW9yZSBmbGV4aWJsZSBhbmQgbW9yZSBwZXJmb3Jt\nYW50LgoKIyBJbnN0YWxsYXRpb24KYGBgCiQgZ28gZ2V0IGdpdGh1Yi5jb20v\nY2hyaXNsdXNmL2dsb3cKJCBnbyBnZXQgZ2l0aHViLmNvbS9jaHJpc2x1c2Yv\nZ2xvdy9mbG93CmBgYAoKIyBPbmUgbWludXRlIHR1dG9yaWFsCgojIyBTaW1w\nbGUgU3RhcnQKCkhlcmUgaXMgYSBzaW1wbGUgZnVsbCBleGFtcGxlOgoKYGBg\nZ28KcGFja2FnZSBtYWluCgppbXBvcnQgKAoJImZsYWciCgkic3RyaW5ncyIK\nCgkiZ2l0aHViLmNvbS9jaHJpc2x1c2YvZ2xvdy9mbG93IgopCgpmdW5jIG1h\naW4oKSB7CglmbGFnLlBhcnNlKCkKCglmbG93Lk5ldygpLlRleHRGaWxlKAoJ\nCSIvZXRjL3Bhc3N3ZCIsIDMsCgkpLkZpbHRlcihmdW5jKGxpbmUgc3RyaW5n\nKSBib29sIHsKCQlyZXR1cm4gIXN0cmluZ3MuSGFzUHJlZml4KGxpbmUsICIj\nIikKCX0pLk1hcChmdW5jKGxpbmUgc3RyaW5nLCBjaCBjaGFuIHN0cmluZykg\newoJCWZvciBfLCB0b2tlbiA6PSByYW5nZSBzdHJpbmdzLlNwbGl0KGxpbmUs\nICI6IikgewoJCQljaCA8LSB0b2tlbgoJCX0KCX0pLk1hcChmdW5jKGtleSBz\ndHJpbmcpIGludCB7CgkJcmV0dXJuIDEKCX0pLlJlZHVjZShmdW5jKHggaW50\nLCB5IGludCkgaW50IHsKCQlyZXR1cm4geCArIHkKCX0pLk1hcChmdW5jKHgg\naW50KSB7CgkJcHJpbnRsbigiY291bnQ6IiwgeCkKCX0pLlJ1bigpCn0KCmBg\nYAoKVHJ5IGl0LgpgYGAKICAkIC4vd29yZF9jb3VudApgYGAKCkl0IHdpbGwg\ncnVuIHRoZSBpbnB1dCB0ZXh0IGZpbGUsICcvZXRjL3Bhc3N3ZCcsIGluIDMg\nZ28gcm91dGluZXMsIGZpbHRlci9tYXAvbWFwLCBhbmQgdGhlbiByZWR1Y2Vk\nIHRvIG9uZSBudW1iZXIgaW4gb25lIGdvcm91dGluZSAobm90IGV4YWN0bHkg\nb25lIGdvcm91dGluZSwgYnV0IGxldCdzIHNraXAgdGhlIGRldGFpbHMgZm9y\nIG5vdy4pIGFuZCBwcmludCBpdCBvdXQuCgpUaGlzIGlzIHVzZWZ1bCBhbHJl\nYWR5LCBzYXZpbmcgbG90cyBvZiBpZGlvbWF0aWMgYnV0IHJlcGV0aXRpdmUg\nY29kZSBvbiBjaGFubmVscywgc3luYyB3YWl0LCBldGMsIHRvIGZ1bGx5IHV0\naWxpemUgbW9yZSBDUFUgY29yZXMuCgpIb3dldmVyLCB0aGVyZSBpcyBvbmUg\nbW9yZSB0aGluZyEgSXQgY2FuIHJ1biBhY3Jvc3MgYSBHbG93IGNsdXN0ZXIs\nIHdoaWNoIGNhbiBiZSBydW4gbXVsdGlwbGUgc2VydmVycy9yYWNrcy9kYXRh\nIGNlbnRlcnMhCgojIyBTY2FsZSBpdCBvdXQKVG8gc2V0dXAgdGhlIEdsb3cg\nY2x1c3Rlciwgd2UgZG8gbm90IG5lZWQgZXhwZXJ0cyBvbiBab29rZWVwZXIv\nSERGUy9NZXNvcy9ZQVJOIGV0Yy4gSnVzdCBidWlsZCBvciBkb3dubG9hZCBv\nbmUgYmluYXJ5IGZpbGUuCgojIyMgU2V0dXAgdGhlIGNsdXN0ZXIKYGBgc2hl\nbGwKICAjIEZldGNoIGFuZCBpbnN0YWxsIHZpYSBnbywgb3IganVzdCBkb3du\nbG9hZCBpdCBmcm9tIHNvbWV3aGVyZS4KICAkIGdvIGdldCBnaXRodWIuY29t\nL2NocmlzbHVzZi9nbG93CiAgIyBSdW4gYSBzY3JpcHQgZnJvbSB0aGUgcm9v\ndCBkaXJlY3Rvcnkgb2YgdGhlIHJlcG8gdG8gc3RhcnQgYSB0ZXN0IGNsdXN0\nZXIuCiAgJCBldGMvc3RhcnRfbG9jYWxfZ2xvd19jbHVzdGVyLnNoCmBgYApH\nbG93IE1hc3RlciBhbmQgR2xvdyBBZ2VudCBydW4gdmVyeSBlZmZpY2llbnRs\neS4gVGhleSB0YWtlIGFib3V0IDYuNU1CIGFuZCA1LjVNQiBtZW1vcnkgcmVz\ncGVjdGl2ZWx5IGluIG15IGVudmlyb25tZW50cy4gSSB3b3VsZCByZWNvbW1l\nbmQgc2V0IHVwIGFnZW50cyBvbiBhbnkgc2VydmVyIHlvdSBjYW4gZmluZC4g\nWW91IGNhbiB0YXAgaW50byB0aGUgY29tcHV0aW5nIHBvd2VyIHdoZW5ldmVy\nIHlvdSBuZWVkIHRvLgoKIyMjIFN0YXJ0IHRoZSBkcml2ZXIgcHJvZ3JhbQpU\nbyBsZWFwIGZyb20gb25lIGNvbXB1dGVyIHRvIGNsdXN0ZXJzIG9mIGNvbXB1\ndGVycywgYWRkIHRoaXMgbGluZSB0byB0aGUgaW1wb3J0IGxpc3Q6CgpgYGBn\nbwoJXyAiZ2l0aHViLmNvbS9jaHJpc2x1c2YvZ2xvdy9kcml2ZXIiCmBgYAoK\nQW5kIHB1dCB0aGlzIGxpbmUgYXMgdGhlIGZpcnN0IHN0YXRlbWVudCBpbiB0\naGUgbWFpbigpIGZ1bmN0aW9uOgoKYGBgZ28KCWZsYWcuUGFyc2UoKQpgYGAK\nClRoaXMgd2lsbCAic3Rlcm9pZGl6ZSIgdGhlIGNvZGUgdG8gcnVuIGluIGNs\ndXN0ZXIgbW9kZSEKCmBgYAokIC4vd29yZF9jb3VudCAtZ2xvdyAtZ2xvdy5s\nZWFkZXI9ImxvY2FsaG9zdDo4OTMwIgpgYGAKVGhlIHdvcmRfY291bnQgcHJv\nZ3JhbSB3aWxsIGJlY29tZSBhIGRyaXZlciBwcm9ncmFtLCBkaXZpZGluZyB0\naGUgZXhlY3V0aW9uIGludG8gYSBkaXJlY3RlZCBhY3ljbGljIGdyYXBoKERB\nRyksIGFuZCBzZW5kIHRhc2tzIHRvIGFnZW50cy4KCiMjIyBWaXN1YWxpemUg\ndGhlIGZsb3cKClRvIHVuZGVyc3RhbmQgaG93IGVhY2ggZXhlY3V0b3Igd29y\na3MsIHlvdSBjYW4gdmlzdWFsaXplIHRoZSBmbG93IGJ5IGdlbmVyYXRpbmcg\nYSBkb3QgZmlsZSBvZiB0aGUgZmxvdywgYW5kIHJlbmRlciBpdCB0byBwbmcg\nZmlsZSB2aWEgImRvdCIgY29tbWFuZCBwcm92aWRlZCBmcm9tIGdyYXBodml6\nLgpgYGAKJCAuL3dvcmRfY291bnQgLWdsb3cgLWdsb3cuZmxvdy5wbG90ID4g\neC5kb3QKJCBkb3QgLVRwbmcgLW90ZXN0U2VsZkpvaW4ucG5nIHguZG90CmBg\nYAoKIVtHbG93IEhlbGxvIFdvcmxkIEV4ZWN1dGlvbiBQbGFuXShodHRwczov\nL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vY2hyaXNsdXNmL2dsb3cvbWFz\ndGVyL2V0Yy9oZWxsb3dvcmxkLnBuZykKCiMgUmVhZCBNb3JlCgoxLiBXaWtp\nIHBhZ2U6IGh0dHBzOi8vZ2l0aHViLmNvbS9jaHJpc2x1c2YvZ2xvdy93aWtp\nCjIuIE1haWxpbmcgbGlzdDogaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9m\nb3J1bS8jIWZvcnVtL2dsb3ctdXNlci1kaXNjdXNzaW9uCjMuIEV4YW1wbGVz\nOiBodHRwczovL2dpdGh1Yi5jb20vY2hyaXNsdXNmL2dsb3cvdHJlZS9tYXN0\nZXIvZXhhbXBsZXMvCgoKIyMgRG9ja2VyIGNvbnRhaW5lcgpEb2NrZXIgaXMg\nbm90IHJlcXVpcmVkLiBCdXQgaWYgeW91IGxpa2UgZG9ja2VyLCBoZXJlIGFy\nZSBpbnN0cnVjdGlvbnMuCgpgYGAKIyBDcm9zcyBjb21waWxlIGFydGVmYWN0\nIGZvciBkb2NrZXIKJCBHT09TPWxpbnV4IEdPQVJDSD1hbWQ2NCBDR09fRU5B\nQkxFRD0wIGdvIGJ1aWxkIC4KIyBidWlsZCBjb250YWluZXIKJCBkb2NrZXIg\nYnVpbGQgLXQgZ2xvdyAuCmBgYApTZWUgYGV4YW1wbGVzL2AgZGlyZWN0b3J5\nIGZvciBkb2NrZXItY29tcG9zZSBzZXR1cHMuCgojIENvbnRyaWJ1dGlvbgpT\ndGFydCB1c2luZyBpdCEgQW5kIHJlcG9ydCBvciBmaXggYW55IGlzc3VlIHlv\ndSBoYXZlIHNlZW4sIGFkZCBhbnkgZmVhdHVyZSB5b3Ugd2FudC4KCkZvcmsg\naXQsIGNvZGUgaXQsIGFuZCBzZW5kIHB1bGwgcmVxdWVzdHMuIEJldHRlciBm\naXJzdCBkaXNjdXNzIGFib3V0IHRoZSBmZWF0dXJlIHlvdSB3YW50IG9uIHRo\nZSBtYWlsaW5nIGxpc3QuCmh0dHBzOi8vZ3JvdXBzLmdvb2dsZS5jb20vZm9y\ndW0vIyFmb3J1bS9nbG93LXVzZXItZGlzY3Vzc2lvbgoKIyBMaWNlbnNlCmh0\ndHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNFTlNFLTIuMAo=\n", 
+                "download_url": "https://raw.githubusercontent.com/chrislusf/glow/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/chrislusf/glow/git/blobs/4a60a4ec66882a1b52b74e248a15f1ca69bf6ff7", 
+                "html_url": "https://github.com/chrislusf/glow/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "4a60a4ec66882a1b52b74e248a15f1ca69bf6ff7", 
+                "size": 4046, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/chrislusf/glow/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-06-14T00:33:48Z", 
+                "language": "Go", 
+                "owner": {
+                    "avatar_url": "https://avatars0.githubusercontent.com/u/1543151?v=3", 
+                    "events_url": "https://api.github.com/users/chrislusf/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/chrislusf/followers", 
+                    "following_url": "https://api.github.com/users/chrislusf/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/chrislusf/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/chrislusf", 
+                    "id": 1543151, 
+                    "login": "chrislusf", 
+                    "organizations_url": "https://api.github.com/users/chrislusf/orgs", 
+                    "received_events_url": "https://api.github.com/users/chrislusf/received_events", 
+                    "repos_url": "https://api.github.com/users/chrislusf/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/chrislusf/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/chrislusf/subscriptions", 
+                    "type": "User", 
+                    "url": "https://api.github.com/users/chrislusf"
+                }, 
+                "pushed_at": "2016-10-06T03:36:04Z", 
+                "stargazers_count": 1583, 
+                "updated_at": "2017-04-26T14:45:37Z", 
+                "watchers_count": 1583
+            }
+        }, 
+        "hortonworks/registry": {
+            "dockerfile": {
+                "/docker/images/registry/Dockerfile": {
+                    "ADD": [
+                        "hortonworks-registry-$REGISTRY_VERSION.tar.gz /"
+                    ], 
+                    "ARG": [
+                        "REGISTRY_VERSION"
+                    ], 
+                    "CMD": [
+                        "hortonworks-registry-$REGISTRY_VERSION/bin/registry-server-start.sh hortonworks-registry-$REGISTRY_VERSION/conf/registry-dev.yaml"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "JAVA_HOME /opt/jdk1.8.0_111/"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "centos:7.2.1511"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "yum install -y wget", 
+                        "wget --no-cookies --no-check-certificate --header \"Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie\" \"http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.tar.gz\" && tar xzf jdk-8u111-linux-x64.tar.gz && mv jdk1.8.0_111 /opt && cd /opt/jdk1.8.0_111/ && alternatives --install /usr/bin/java java /opt/jdk1.8.0_111/bin/java 1"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/hortonworks/registry/git/blobs/247b47b597a646228b7f99834b7450a08a560e53", 
+                    "html": "https://github.com/hortonworks/registry/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/hortonworks/registry/contents/README.md?ref=master"
+                }, 
+                "content": "IyBSZWdpc3RyeQoKUmVnaXN0cnkgaXMgYSBmcmFtZXdvcmsgdG8gYnVpbGQg\nbWV0YWRhdGEgcmVwb3NpdG9yaWVzLiBBcyBwYXJ0IG9mIFJlZ2lzdHksIHdl\nIGN1cnJlbnRseSBoYXZlIFNjaGVtYVJlZ2lzdHJ5IGFuZCBNTFJlZ2lzdHJ5\nIHJlcG9zaXRvcmllcy4KCkZvbGxvdyBbQHNjaGVtYXJlZ2lzdHJ5XShodHRw\nczovL3R3aXR0ZXIuY29tL3NjaGVtYXJlZ2lzdHJ5KSBvbiBUd2l0dGVyIGZv\nciB1cGRhdGVzIG9uIHRoZSBwcm9qZWN0LgoKIyMgRG9jdW1lbnRhdGlvbgpE\nb2N1bWVudGF0aW9uIGFuZCB0dXRvcmlhbHMgY2FuIGJlIGZvdW5kIG9uIHRo\nZSBbUmVnaXN0cnkgZG9jc10oaHR0cDovL3JlZ2lzdHJ5LXByb2plY3QucmVh\nZHRoZWRvY3MuaW8vZW4vbGF0ZXN0LykKCgojIyBHZXR0aW5nIEhlbHAKClJl\nZ2lzdHJ5IHVzZXJzIG9yIGRldnMgc2hvdWxkIHNlbmQgYSBtZXNzYWdlIHRv\nIFtSZWdpc3RyeSBHb29nbGUgR3JvdXBdKGh0dHBzOi8vZ3JvdXBzLmdvb2ds\nZS5jb20vZm9ydW0vIyFmb3J1bS9yZWdpc3RyeSkKCiMjIExpY2Vuc2UKCkNv\ncHlyaWdodCAyMDE2IEhvcnRvbndvcmtzLgogCkxpY2Vuc2VkIHVuZGVyIHRo\nZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lvbiAyLjAgKHRoZSAiTGljZW5zZSIp\nOwp5b3UgbWF5IG5vdCB1c2UgdGhpcyBmaWxlIGV4Y2VwdCBpbiBjb21wbGlh\nbmNlIHdpdGggdGhlIExpY2Vuc2UuCllvdSBtYXkgb2J0YWluIGEgY29weSBv\nZiB0aGUgTGljZW5zZSBhdAogIApodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGlj\nZW5zZXMvTElDRU5TRS0yLjAKIApVbmxlc3MgcmVxdWlyZWQgYnkgYXBwbGlj\nYWJsZSBsYXcgb3IgYWdyZWVkIHRvIGluIHdyaXRpbmcsIHNvZnR3YXJlCmRp\nc3RyaWJ1dGVkIHVuZGVyIHRoZSBMaWNlbnNlIGlzIGRpc3RyaWJ1dGVkIG9u\nIGFuICJBUyBJUyIgQkFTSVMsCldJVEhPVVQgV0FSUkFOVElFUyBPUiBDT05E\nSVRJT05TIE9GIEFOWSBLSU5ELCBlaXRoZXIgZXhwcmVzcyBvciBpbXBsaWVk\nLgpTZWUgdGhlIExpY2Vuc2UgZm9yIHRoZSBzcGVjaWZpYyBsYW5ndWFnZSBn\nb3Zlcm5pbmcgcGVybWlzc2lvbnMgYW5kCmxpbWl0YXRpb25zIHVuZGVyIHRo\nZSBMaWNlbnNlLgo=\n", 
+                "download_url": "https://raw.githubusercontent.com/hortonworks/registry/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/hortonworks/registry/git/blobs/247b47b597a646228b7f99834b7450a08a560e53", 
+                "html_url": "https://github.com/hortonworks/registry/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "247b47b597a646228b7f99834b7450a08a560e53", 
+                "size": 1091, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/hortonworks/registry/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2016-10-26T08:28:53Z", 
+                "language": "Java", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/898785?v=3", 
+                    "events_url": "https://api.github.com/users/hortonworks/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/hortonworks/followers", 
+                    "following_url": "https://api.github.com/users/hortonworks/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/hortonworks/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/hortonworks", 
+                    "id": 898785, 
+                    "login": "hortonworks", 
+                    "organizations_url": "https://api.github.com/users/hortonworks/orgs", 
+                    "received_events_url": "https://api.github.com/users/hortonworks/received_events", 
+                    "repos_url": "https://api.github.com/users/hortonworks/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/hortonworks/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/hortonworks/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/hortonworks"
+                }, 
+                "pushed_at": "2017-04-26T20:08:46Z", 
+                "stargazers_count": 14, 
+                "updated_at": "2017-04-22T01:36:35Z", 
+                "watchers_count": 14
+            }
+        }, 
+        "hortonworks/streamline": {
+            "dockerfile": {
+                "/docker/images/streamline/Dockerfile": {
+                    "ADD": [
+                        "hortonworks-streamline-$STREAMLINE_VERSION.tar.gz /", 
+                        "hortonworks-streamline-$STREAMLINE_VERSION.tar.gz /"
+                    ], 
+                    "ARG": [
+                        "STREAMLINE_VERSION"
+                    ], 
+                    "CMD": [
+                        "hortonworks-streamline-$STREAMLINE_VERSION/bin/streamline-server-start.sh hortonworks-streamline-$STREAMLINE_VERSION/conf/streamline-dev.yaml"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "JAVA_HOME /opt/jdk1.8.0_111/"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "centos:7.2.1511"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "yum install -y wget", 
+                        "wget --no-cookies --no-check-certificate --header \"Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie\" \"http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.tar.gz\" && tar xzf jdk-8u111-linux-x64.tar.gz && mv jdk1.8.0_111 /opt && cd /opt/jdk1.8.0_111/ && alternatives --install /usr/bin/java java /opt/jdk1.8.0_111/bin/java 1"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/hortonworks/streamline/git/blobs/c091fbd726e5ab0a95ed3eb6e7f63876d7694333", 
+                    "html": "https://github.com/hortonworks/streamline/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/hortonworks/streamline/contents/README.md?ref=master"
+                }, 
+                "content": "IyBTdHJlYW1pbmcgQW5hbHl0aWNzIE1hbmFnZXIKRGV2ZWxvcCBhbmQgZGVw\nbG95IFN0cmVhbWluZyBBbmFseXRpY3MgYXBwbGljYXRpb25zIHZpc3VhbGx5\nIHdpdGggYmluZGluZ3MgZm9yIHN0cmVhbWluZyBlbmdpbmUgYW5kIG11bHRp\ncGxlIHNvdXJjZS9zaW5rcywgcmljaCBzZXQgb2Ygc3RyZWFtaW5nIG9wZXJh\ndG9ycyBhbmQgb3BlcmF0aW9uYWwgbGlmZWN5Y2xlIG1hbmFnZW1lbnQuIFN0\ncmVhbWluZyBBbmFseXRpY3MgTWFuYWdlciBtYWtlcyBpdCBlYXN5IHRvIGRl\ndmVsb3AsIG1vbml0b3Igc3RyZWFtaW5nIGFwcGxpY2F0aW9ucyBhbmQgYWxz\nbyBwcm92aWRlcyBhbmFseXRpY3Mgb2YgZGF0YSB0aGF0cyBiZWluZyBwcm9j\nZXNzZWQgYnkgc3RyZWFtaW5nIGFwcGxpY2F0aW9uLgoKIyMgRG9jdW1lbnRh\ndGlvbgpEb2N1bWVudGF0aW9uIGFuZCB0dXRvcmlhbHMgY2FuIGJlIGZvdW5k\nIG9uIHRoZSBTdHJlYW1pbmcgQW5hbHl0aWNzIE1hbmFnZXIgZG9jcyBbUmVh\nZE1lRG9jc10gKGh0dHA6Ly9zdHJlYW1saW5lLnJlYWR0aGVkb2NzLmlvL2Vu\nL2xhdGVzdC8JKQoKIyMgR2V0dGluZyBIZWxwCgpTQU0gdXNlcnMgb3IgZGV2\ncyBzaG91bGQgc2VuZCBhIG1lc3NhZ2UgdG8gW1JlZ2lzdHJ5IEdvb2dsZSBH\ncm91cF0gKGh0dHBzOi8vZ3JvdXBzLmdvb2dsZS5jb20vZm9ydW0vIyFmb3J1\nbS9zdHJlYW1saW5lLXVzZXJzKQoKIyMgTGljZW5zZQoKQ29weXJpZ2h0IDIw\nMTYgSG9ydG9ud29ya3MuCiAKTGljZW5zZWQgdW5kZXIgdGhlIEFwYWNoZSBM\naWNlbnNlLCBWZXJzaW9uIDIuMCAodGhlICJMaWNlbnNlIik7CnlvdSBtYXkg\nbm90IHVzZSB0aGlzIGZpbGUgZXhjZXB0IGluIGNvbXBsaWFuY2Ugd2l0aCB0\naGUgTGljZW5zZS4KWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNl\nbnNlIGF0CiAgCmh0dHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNF\nTlNFLTIuMAogClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBv\nciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQg\ndW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElT\nIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0Yg\nQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUg\nTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBw\nZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2Uu\nCgoKCg==\n", 
+                "download_url": "https://raw.githubusercontent.com/hortonworks/streamline/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/hortonworks/streamline/git/blobs/c091fbd726e5ab0a95ed3eb6e7f63876d7694333", 
+                "html_url": "https://github.com/hortonworks/streamline/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "c091fbd726e5ab0a95ed3eb6e7f63876d7694333", 
+                "size": 1264, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/hortonworks/streamline/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-05-14T17:56:13Z", 
+                "language": "Java", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/898785?v=3", 
+                    "events_url": "https://api.github.com/users/hortonworks/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/hortonworks/followers", 
+                    "following_url": "https://api.github.com/users/hortonworks/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/hortonworks/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/hortonworks", 
+                    "id": 898785, 
+                    "login": "hortonworks", 
+                    "organizations_url": "https://api.github.com/users/hortonworks/orgs", 
+                    "received_events_url": "https://api.github.com/users/hortonworks/received_events", 
+                    "repos_url": "https://api.github.com/users/hortonworks/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/hortonworks/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/hortonworks/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/hortonworks"
+                }, 
+                "pushed_at": "2017-04-26T23:50:33Z", 
+                "stargazers_count": 22, 
+                "updated_at": "2017-04-25T01:17:47Z", 
+                "watchers_count": 22
+            }
+        }, 
+        "ippontech/metrics-spark-receiver": {
+            "dockerfile": {
+                "/sample/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "java -cp metrics-spark/target/metrics-spark-1.0-SNAPSHOT.jar fr.ippontech.MetricsToConsole"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Antoine Hars <ahars@ippon.fr>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "echo \"deb http://archive.ubuntu.com/ubuntu trusty main universe\" > /etc/apt/sources.list", 
+                        "apt-get -y update", 
+                        "DEBIAN_FRONTEND=noninteractive apt-get install -y -q python-software-properties software-properties-common", 
+                        "add-apt-repository ppa:webupd8team/java -y", 
+                        "echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections", 
+                        "apt-get update && apt-get install -y sudo git maven oracle-java8-installer && apt-get clean", 
+                        "update-java-alternatives -s java-8-oracle", 
+                        "echo \"export JAVA_HOME=/usr/lib/jvm/java-8-oracle\" >> ~/.bashrc", 
+                        "git clone https://github.com/ahars/metrics-spark.git", 
+                        "cd metrics-spark/ && mvn package"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/ippontech/metrics-spark-receiver/git/blobs/6472557fb3ce307e05a043e396399c8e374112ad", 
+                    "html": "https://github.com/ippontech/metrics-spark-receiver/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/ippontech/metrics-spark-receiver/contents/README.md?ref=master"
+                }, 
+                "content": "bWV0cmljcy1zcGFyay1yZWNlaXZlcgo9PT09PT09PT09PT09CgojIyBBcGFj\naGUgU3BhcmsgU3RyZWFtaW5nIHJlY2VpdmVyIGZvciBtZXRyaWNzLXNwYXJr\nLXJlcG9ydGVyCgpBIGphdmEgY3VzdG9tIHJlY2VpdmVyIG9mIEFwYWNoZSBT\ncGFyayBTdHJlYW1pbmcKZm9yIHRoZSByZXBvIFttZXRyaWNzLXNwYXJrLXJl\ncG9ydGVyXSAoaHR0cHM6Ly9naXRodWIuY29tL2lwcG9udGVjaC9tZXRyaWNz\nLXNwYXJrLXJlcG9ydGVyKS4KCiMjIENvbmZpZ3VyYXRpb24KCkluIG9yZGVy\nIHRvIHJlY2VpdmUgc29tZSBtZXRyaWNzIGluIHlvdXIgU3BhcmsgYXBwbGlj\nYXRpb24sIHlvdSBuZWVkIHRvIGFkZCB0aGUgZGVwZW5kZW5jeSA6CmBgYAo8\nZGVwZW5kZW5jeT4KICA8Z3JvdXBJZD5mci5pcHBvbi5zcGFyay5tZXRyaWNz\nPC9ncm91cElkPgogIDxhcnRpZmFjdElkPm1ldHJpY3Mtc3BhcmstcmVjZWl2\nZXI8L2FydGlmYWN0SWQ+CiAgPHZlcnNpb24+MS4xPC92ZXJzaW9uPgo8L2Rl\ncGVuZGVuY3k+CmBgYAoKVGhlbiB5b3UgY2FuIHJlYWQgdGhlIHN0cmVhbSBv\nZiBtZXRyaWNzIGJ5IHVzaW5nCnRoZSBtZXRob2QgYEphdmFTdHJlYW1pbmdD\nb250ZXh0LnJlY2VpdmVyU3RyZWFtKClgIHdpdGggdGhlIGN1c3RvbSByZWNl\naXZlciBjcmVhdGVkIDoKYGBgCnNzYy5yZWNlaXZlclN0cmVhbShuZXcgTWV0\ncmljc1JlY2VpdmVyKDk5OTkpKTsKYGBgCgojIyBUZXN0CgpUaGVyZSBpcyB0\nd28gd2F5cyB0byB0ZXN0IHRoaXMgUmVjZWl2ZXIgOgoKKiBXaXRoIGEgc2Ft\ncGxlIFttZXRyaWNzLXNwYXJrXSAoaHR0cHM6Ly9naXRodWIuY29tL2FoYXJz\nL21ldHJpY3Mtc3BhcmspCiogV2l0aCBEb2NrZXIgKGluIHNhbXBsZS8pLgoK\nQSBbSkhpcHN0ZXJdIChodHRwOi8vamhpcHN0ZXIuZ2l0aHViLmlvLykgYXBw\nCmlzIGF2YWlsYWJsZSBpbiB0aGUgW21ldHJpY3Mtc3BhcmstcmVwb3J0ZXJd\nIChodHRwczovL2dpdGh1Yi5jb20vaXBwb250ZWNoL21ldHJpY3Mtc3Bhcmst\ncmVwb3J0ZXIpIHJlcG8Kd2hpY2ggcmVwb3J0IHRvIHRoZSBtZXRyaWNzLXNw\nYXJrIGFwcC4KClNlbmQgZGF0YSBieSBsYXVuY2hpbmcgdGhlIEpIaXBzdGVy\nIHNhbXBsZSB3aXRoIHRoZSBNYXZlbiBjb21tYW5kIDoKYGBgCiQgbXZuIHNw\ncmluZy1ib290OnJ1bgpgYGAKCkRpc3BsYXkgbWV0cmljcyByZWNlaXZlZCBi\neSBsYXVuY2hpbmcgb25lIG9mIHRob3NlIHR3byBjbGFzc2VzIG9mIG1ldHJp\nY3Mtc3BhcmsgOgoqIGBNZXRyaWNzVG9Db25zb2xlYCB0byBkaXNwbGF5IGRh\ndGEgaW4gdGhlIGNvbnNvbGUuCiogYE1ldHJpY3NUb0VTYCB0byBzZW5kIGRh\ndGEgdG8gYW4gRWxhc3RpY1NlYXJjaCBzZXJ2ZXIgdmlhIFNwYXJrIGluIG9y\nZGVyIHRvIHVzZSBLaWJhbmEuCgo=\n", 
+                "download_url": "https://raw.githubusercontent.com/ippontech/metrics-spark-receiver/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/ippontech/metrics-spark-receiver/git/blobs/6472557fb3ce307e05a043e396399c8e374112ad", 
+                "html_url": "https://github.com/ippontech/metrics-spark-receiver/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "6472557fb3ce307e05a043e396399c8e374112ad", 
+                "size": 1370, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/ippontech/metrics-spark-receiver/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2014-12-03T09:55:19Z", 
+                "language": "Java", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/503415?v=3", 
+                    "events_url": "https://api.github.com/users/ippontech/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/ippontech/followers", 
+                    "following_url": "https://api.github.com/users/ippontech/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/ippontech/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/ippontech", 
+                    "id": 503415, 
+                    "login": "ippontech", 
+                    "organizations_url": "https://api.github.com/users/ippontech/orgs", 
+                    "received_events_url": "https://api.github.com/users/ippontech/received_events", 
+                    "repos_url": "https://api.github.com/users/ippontech/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/ippontech/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/ippontech/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/ippontech"
+                }, 
+                "pushed_at": "2014-12-22T17:06:40Z", 
+                "stargazers_count": 12, 
+                "updated_at": "2016-06-05T02:50:34Z", 
+                "watchers_count": 12
+            }
+        }, 
+        "keenlabs/capillary": {
+            "dockerfile": {
+                "/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[]"
+                    ], 
+                    "COPY": [
+                        "target/universal/capillary-*.tgz ./"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/capillary/current/bin/capillary\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [
+                        "8086"
+                    ], 
+                    "FROM": [
+                        "openjdk:8"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Terry Horner <community@keen.io>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "tar zxvf *.tgz && rm -f *.tgz && ln -s `ls` current"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/capillary"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/keenlabs/capillary/git/blobs/499451bd849733051740879de5e582de82c52141", 
+                    "html": "https://github.com/keenlabs/capillary/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/keenlabs/capillary/contents/README.md?ref=master"
+                }, 
+                "content": "Q2FwaWxsYXJ5IGlzIGEgc21hbGwgd2ViIGFwcGxpY2F0aW9uIHRoYXQgZGlz\ncGxheXMgdGhlIHN0YXRlIGFuZApkZWx0YXMgb2YgS2Fma2EtYmFzZWQgc3Rv\ncm0gdG9wb2xvZ2llcyB3aXRoIGEgS2Fma2EgPj0gMC44LiBJdCBhbHNvIHBy\nb3ZpZGVzCmFuIEFQSSBmb3IgZmV0Y2hpbmcgdGhpcyBpbmZvcm1hdGlvbiBm\nb3IgbW9uaXRvcmluZyBwdXJwb3Nlcy4KCiMgT3ZlcnZpZXcKCiFbQ2FwaWxs\nYXJ5XSgvc2hvdC5wbmc/cmF3PXRydWUpCgpDYXBpbGxhcnkgZG9lcyB0aGUg\nZm9sbG93aW5nOgoqIEZldGNoZXMgaW5mb3JtYXRpb24gYWJvdXQgcnVubmlu\nZyB0b3BvbG9naWVzIGZyb20gWm9va2VlcGVyCiogRmV0Y2hlcyBpbmZvcm1h\ndGlvbiBhYm91dCB0aGUgdG9waWMncyBwYXJ0aXRpb25zIGFuZCBvZmZzZXRz\nIGZyb20gdGhlIFN0b3JtIHNwb3V0IHN0YXRlIGluIFpvb2tlZXBlcgoqIEZl\ndGNoZXMgaW5mb3JtYXRpb24gYWJvdXQgdGhlIHBhcnRpdGlvbidzIGxlYWRl\ncnMgZnJvbSBab29rZWVwZXIKKiBGZXRjaGVzIGluZm9ybWF0aW9uIGZyb20g\nS2Fma2EgYWJvdXQgdGhlIGxhdGVzdCBvZmZzZXQgZnJvbSB0aGUgcGFydGl0\naW9ucyBsZWFkZXJzCiogT3B0aW9uYWxseSBkaXNwbGF5cyBtZXNzYWdlcyBm\ncm9tIEthZmthLgoKIyBBUEkKCllvdSBjYW4gaGl0IGAvYXBpL3N0YXR1cz90\nb3Bvcm9vdD0kVE9QT1JPT1QmdG9waWM9JFRPUElDYCB0byBnZXQgYSBKU09O\nIG91dHB1dC4KCiMgTmFtZQoKQXQgW0tlZW4gSU9dKGh0dHA6Ly9rZWVuLmlv\nKSB3ZSBuYW1lIG91ciBwcm9qZWN0cyBhZnRlciBwbGFudHMuIFNlcnZpY2Vz\nIG9mdGVuIHVzZSB0cmVlIG9yIGxhcmdlIHBsYW50IG5hbWVzIGFuZCBsYXJn\nZSBpbmZyYXN0cnVjdHVyZSBwcm9qZWN0cyBtYXkgdXNlIG1vcmUgZ2VuZXJh\nbCBuYW1lcy4KCltDYXBpbGxhcnkgYWN0aW9uXShodHRwOi8vZW4ud2lraXBl\nZGlhLm9yZy93aWtpL0NhcGlsbGFyeV9hY3Rpb24pIG1vdmVzIHdhdGVyIHRo\ncm91Z2ggYSBwbGFudCdzIFt4eWxlbV0oaHR0cDovL2VuLndpa2lwZWRpYS5v\ncmcvd2lraS9YeWxlbSkuClNpbmNlIEthZmthIGFuZCBTdG9ybSBoYW5kbGUg\ndGhlIGZsb3cgb2YgZGF0YSAod2F0ZXIpIHRocm91Z2ggb3VyIGluZnJhc3Ry\ndWN0dXJlIHRoaXMgc2VlbXMgYSBmaXR0aW5nIG5hbWUhCgojIFJ1bm5pbmcg\nSXQKCldhbm5hIHJ1biBpdD8gQXdlc29tZSEgVGhpcyBpcyBhIFtQbGF5IEZy\nYW1ld29ya10oaHR0cDovL3d3dy5wbGF5ZnJhbWV3b3JrLmNvbS8pIGFwcCBz\nbyBpdCB3b3JrcyB0aGUgd2F5IGFsbCBvdGhlciBQbGF5IGFwcHMgZG86Cgpg\nYGAKJCBzYnQgdW5pdmVyc2FsOnBhY2thZ2UtemlwLXRhcmJhbGwK4oCmIGxv\ndHMgb2YgY3JhenkgY29tcHV0ZXIgdGFsayDigKYKW3N1Y2Nlc3NdIFRvdGFs\nIHRpbWU6IDQgcywgY29tcGxldGVkIEF1ZyA4LCAyMDE0IDI6MDQ6MDYgUE0K\nYGBgCllvdSBzaG91bGQgZmluZCBhIHRhcmJhbGwgYXQgYHRhcmdldC91bml2\nZXJzYWwvY2FwaWxsYXJ5LVZFUlNJT04udGd6YC4KClRoYXQgdGhlcmUgdGd6\nIGZpbGUgY2FuIGJlIHVudGFyYmFsbGVyYXRlZCAob3Igd2hhdGV2ZXIgdGhl\nIHRlY2huaWNhbCB0ZXJtIGlzIGZvciB0aGF0KSBhbmQgcnVuIGxpa2Ugc286\nCmBgYAp0YXIgeHpmIGNhcGlsbGFyeS0xLjIudGd6CmNkIGNhcGlsbGFyeS0x\nLjIKYmluL2NhcGlsbGFyeQpQbGF5IHNlcnZlciBwcm9jZXNzIElEIGlzIDI0\nMjIzCltpbmZvXSBwbGF5IC0gQXBwbGljYXRpb24gc3RhcnRlZCAoUHJvZCkK\nW2luZm9dIHBsYXkgLSBMaXN0ZW5pbmcgZm9yIEhUVFAgb24gLzA6MDowOjA6\nMDowOjA6MDo5MDAwCmBgYAoKVGhlbiB5b3UgY2FuIGhpdCB0aGF0IFVSTCB2\naWEgeW91ciB3ZWIgYnJvd3NlciB3aXRoIHNvbWUgYXJnczoKCmBodHRwOi8v\nMTI3LjAuMC4xOjkwMDBgCgpDYXBpbGxhcnkgd2lsbCB0cnkgYW5kIGRpZyBp\nbmZvcm1hdGlvbiBvdXQgb2YgWm9va2VlcGVyIHRvIHNob3cgd2hhdCB0b3Bv\nbG9naWVzIHlvdSBoYXZlIHJ1bm5pbmcuCgojIyBDb25maWd1cmF0aW9uCgpC\neSB3YXkgb2YgW1BsYXldKGh0dHA6Ly93d3cucGxheWZyYW1ld29yay5jb20v\nKSBDYXBpbGxhcnkgdXNlcyBbVHlwZXNhZmUgQ29uZmlnXShodHRwczovL2dp\ndGh1Yi5jb20vdHlwZXNhZmVodWIvY29uZmlnKSBzbyB5b3UgaGF2ZSBsb3Rz\nIG9mIG9wdGlvbnMuCgpNb3N0IHNpbXBseSB5b3UgY2FuIHNwZWNpZnkgcHJv\ncGVydGllcyB3aGVuIHN0YXJ0aW5nIHRoZSBhcHAgb3IgaW5jbHVkZSBgY29u\nZi9hcHBsaWNhdGlvbi1sb2NhbC5jb25mYCBhdCBydW50aW1lLiBIZXJlJ3Mg\nb3VyIHJ1bnRpbWUgcHJvcGVydGllczoKCmBgYApiaW4vY2FwaWxsYXJ5IC1E\nY2FwaWxsYXJ5Lnpvb2tlZXBlcnM9c2owMS1wcm9kLXprLTAwMDA6MjE4MSxz\najAxLXByb2QtemstMDAwMToyMTgxLHNqMDEtcHJvZC16ay0wMDAyOjIxODEg\nLURjYXBpbGxhcnkua2Fma2Euemtyb290PWthZmthOCAtRGNhcGlsbGFyeS5z\ndG9ybS56a3Jvb3Q9a2Vlbl9zdG9ybQpgYGAKCkhlcmUgYXJlIHRoZSBjb25m\naWd1cmF0aW9uIG9wdGlvbnM6CgojIyMgY2FwaWxsYXJ5Lnpvb2tlZXBlcnMK\nClNldCB0aGlzIHRvIGEgbGlzdCBvZiB5b3VyIFpLcyBsaWtlIGV2ZXJ5IG90\naGVyIFpLIHRoaW5naWUgaXQgdXNlcyBzb21ldGhpbmcgbGlrZSBgaG9zdDE6\nMjE4MSxob3N0MjoyMTgxYC4KCiMjIyBjYXBpbGxhcnkua2Fma2Euemtyb290\nCgpJZiB5b3VyIEthZmthIGNocm9vdHMgdG8gYSBzdWJkaXJlY3RvcnkgKG9y\nIHdoYXRldmVyIGl0J3MgY2FsbGVkKSBpbiBab29rZWVwZXIgdGhlbiB5b3Un\nbGwgd2FudCB0byBzZXQgdGhpcy4gV2UgdXNlICdrYWZrYTgnIGFmdGVyIHVw\nZ3JhZGluZyBmcm9tIDAuNy4KCiMjIyBjYXBpbGxhcnkuc3Rvcm0uemtyb290\nCgpJZiB5b3VyIFN0b3JtIGNocm9vdHMgdG8gYSBzdWJkaXJlY3RvcnkgKG9y\nIHdoYXRldmVyIGl0J3MgY2FsbGVkKSBpbiBab29rZWVwZXIgdGhlbiB5b3Un\nbGwgd2FudCB0byBzZXQgdGhpcy4gV2UgdXNlICdrZWVuLXN0b3JtJy4KCiMj\nIyBjYXBpbGxhcnkua2Fma2FzCgpTZXQgdGhpcyB0byBhIGxpc3Qgb2YgeW91\nciBLYWZrYXMgKGxvb2tzIGxpa2U6IGBzamMwMS1zdGFnaW5nLWthZmthLTAw\nMDA6OTA5MixzamMwMS1zdGFnaW5nLWthZmthLTAwMDE6OTA5MixzamMwMS1z\ndGFnaW5nLWthZmthLTAwMDI6OTA5MixzamMwMS1zdGFnaW5nLWthZmthLTAw\nMDM6OTA5MixzamMwMS1zdGFnaW5nLWthZmthLTAwMDQ6OTA5MmApCgojIyMK\nCiMgT3RoZXIgTm90ZXMKCiogVXNlcyBTY2FsYSAyLjEwLjQgYmVjYXVzZSBL\nYWZrYSAoYXQgdGhlIHRpbWUgb2YgdGhpcyB3cml0aW5nKSBkb2Vzbid0IGhh\ndmUgMi4xMSBhcnRpZmFjdHMgYW5kIGV4cGxvZGVzCiogRG9lc24ndCB1c2Ug\nd2F0Y2hlcywgc28gdXBkYXRlcyBldmVyeSB0aW1lIHlvdSByZWZyZXNoIHRo\nZSBwYWdlCgojIFN0cnVjdHVyZQoKU3Rvcm0ncyBLYWZrYSBzcG91dCBzdG9y\nZXMgaXQncyBjb21taXR0ZWQgc3RhdGUgaW4gYSBaSyBzdHJ1Y3R1cmUgbGlr\nZSB0aGlzOgoKYC8kU1BPVVRfUk9PVC8kQ09OU1VNRVJfSUQvJFBBUlRJVElP\nTl9JRGAKCkVhY2ggYCRQQVJUSVRJT05fSURgIHN0b3JlcyBzdGF0ZSBhcyBh\nIEpTT04gb2JqZWN0IHRoYXQgbG9va3MgbGlrZToKCmBgYGpzb24KewogICJ0\nb3BvbG9neSI6IHsKICAgICJpZCI6ICIkU09NRV9VTklRVUVfSUQiLAogICAg\nIm5hbWUiOiAiJFRPUE9MT0dZX05BTUUiCiAgfSwKICAib2Zmc2V0IjogJENV\nUlJFTlRfT0ZGU0VULAogICJwYXJ0aXRpb24iOiAkUEFSVElUSU9OX05VTUJF\nUiwKICAiYnJva2VyIjogewogICAgImhvc3QiOiAiJEhPU1RfQUREUkVTUyIs\nCiAgICAicG9ydCI6IDkwOTIKICB9LAogICJ0b3BpYyI6ICIkVE9QSUNfTkFN\nRSIKfQpgYGAKCg==\n", 
+                "download_url": "https://raw.githubusercontent.com/keenlabs/capillary/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/keenlabs/capillary/git/blobs/499451bd849733051740879de5e582de82c52141", 
+                "html_url": "https://github.com/keenlabs/capillary/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "499451bd849733051740879de5e582de82c52141", 
+                "size": 3880, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/keenlabs/capillary/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2014-08-08T17:58:52Z", 
+                "language": "JavaScript", 
+                "owner": {
+                    "avatar_url": "https://avatars3.githubusercontent.com/u/1315418?v=3", 
+                    "events_url": "https://api.github.com/users/keenlabs/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/keenlabs/followers", 
+                    "following_url": "https://api.github.com/users/keenlabs/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/keenlabs/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/keenlabs", 
+                    "id": 1315418, 
+                    "login": "keenlabs", 
+                    "organizations_url": "https://api.github.com/users/keenlabs/orgs", 
+                    "received_events_url": "https://api.github.com/users/keenlabs/received_events", 
+                    "repos_url": "https://api.github.com/users/keenlabs/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/keenlabs/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/keenlabs/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/keenlabs"
+                }, 
+                "pushed_at": "2017-03-08T18:15:37Z", 
+                "stargazers_count": 49, 
+                "updated_at": "2016-11-29T09:36:45Z", 
+                "watchers_count": 49
+            }
+        }, 
+        "lawrence0819/neptune-front": {
+            "dockerfile": {
+                "/Dockerfile": {
+                    "ADD": [
+                        ". /neptune-front"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [
+                        "[\"npm\", \"run\", \"start\"]"
+                    ], 
+                    "ENV": [
+                        "NEPTUNE_BACK_URL=http://neptune-back:3000"
+                    ], 
+                    "EXPOSE": [
+                        "8080"
+                    ], 
+                    "FROM": [
+                        "mhart/alpine-node:4"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "npm run build"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "neptune-front"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/lawrence0819/neptune-front/git/blobs/4156af013d6ef951e40f58ef861c486b7eef02fb", 
+                    "html": "https://github.com/lawrence0819/neptune-front/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/lawrence0819/neptune-front/contents/README.md?ref=master"
+                }, 
+                "content": "I05lcHR1bmUgLSBEb2NrZXIgV2ViIFVJCgpOZXB0dW5lIGlzIGEgRG9ja2Vy\nIHdlYiBVSS4gSXQgY2FuIG1hbmFnZSBEb2NrZXIgbWFjaGluZSwgY29udGFp\nbmVyLCBpbWFnZSBhbmQgdm9sdW1lIGZvciByZW1vdGUgbWFjaGluZSBvciBs\nb2NhbCBtYWNoaW5lLiAKClRoaXMgcHJvamVjdCBpcyBub3QgY29tcGxldGVk\nIGFuZCB1bmRlciBoZWF2eSBkZXZlbG9wbWVudCBub3cuIFBsZWFzZSBkbyBu\nb3QgdXNlIHRoaXMgZm9yIHByb2R1Y3Rpb24gaW4gdGhpcyBzdGFnZS4KCiMj\nIFN1cHBvcnRlZCBGdW5jdGlvbgoKKipNYWNoaW5lKioKCjEuIENyZWF0ZSoK\nMi4gU3RhcnQKMy4gU3RvcAo0LiBSZW1vdmUKCioqTWFjaGluZSBEcml2ZXIq\nKgoKMS4gT3JhY2xlIFZpcnR1YWxCb3gKCioqQ29udGFpbmVyKioKCjEuIENy\nZWF0ZQoyLiBTdGFydAozLiBTdG9wCjQuIFBhdXNlCjUuIFVucGF1c2UKNi4g\nUmVtb3ZlCjcuIEluc3BlY3QKOC4gTG9nIFN0cmVhbQoKKipJbWFnZSoqCgox\nLiBQdWxsCjIuIFJlbW92ZQoKKipEb2NrZXIgUmVnaXN0cnkqKgoKMS4gU2Vh\ncmNoCgojIyBDb250YWluZXIgUXVpY2tzdGFydAoxLiBgZG9ja2VyIHJ1biAt\nZCAtLXByaXZpbGVnZWQgLXYgL3Zhci9ydW4vZG9ja2VyLnNvY2s6L3Zhci9y\ndW4vZG9ja2VyLnNvY2sgLS1uYW1lIG5lcHR1bmUtYmFjayBsYXdyZW5jZTA4\nMTkvbmVwdHVuZS1iYWNrYAoyLiBgZG9ja2VyIHJ1biAtZCAtcCA4MDgwOjgw\nODAgLS1saW5rIG5lcHR1bmUtYmFjazpuZXB0dW5lLWJhY2sgLS1uYW1lIG5l\ncHR1bmUtZnJvbnQgbGF3cmVuY2UwODE5L25lcHR1bmUtZnJvbnRgCgojIyBS\nZXF1aXJlZCBTb2Z0d2FyZQoKMS4gTm9kZS5qcyAoaHR0cHM6Ly9ub2RlanMu\nb3JnL2VuLykKMi4gRG9ja2VyIE1hY2hpbmUgKGh0dHBzOi8vZG9jcy5kb2Nr\nZXIuY29tL21hY2hpbmUvaW5zdGFsbC1tYWNoaW5lLykKCiMjIERldmVsb3Bl\nciBJbnN0YWxsCgpSZWNvbW1lbmQgaW5zdGFsbCAqKk9yYWNsZSBWaXJ0dWFs\nQm94KiogZm9yIGRldmVsb3BtZW50LiAoaHR0cHM6Ly93d3cudmlydHVhbGJv\neC5vcmcvKQoKKipCYWNrZW5kOioqCgoxLiBnaXQgY2xvbmUgaHR0cHM6Ly9n\naXRodWIuY29tL2xhd3JlbmNlMDgxOS9uZXB0dW5lLWJhY2sKMi4gY2QgbmVw\ndHVuZS1iYWNrCjMuIG5wbSBydW4gZGV2CgoqKkZyb250ZW5kOioqCgoxLiBn\naXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL2xhd3JlbmNlMDgxOS9uZXB0\ndW5lLWZyb250CjIuIGNkIG5lcHR1bmUtZnJvbnQKMy4gbnBtIHJ1biBkZXYK\nNC4gQnJvd3NlcjogaHR0cDovL2xvY2FsaG9zdDo4MDgwL3dlYnBhY2stZGV2\nLXNlcnZlci9pbmRleC5odG1sCgojIyBTY3JlZW5zaG90CgohW25lcHR1bmVd\nKGh0dHBzOi8vY2xvdWQuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2Fzc2V0cy8x\nMTYwODM4LzExNjA2MTkxL2ZmZDUyMjEwLTliNTItMTFlNS04ODRjLWI3NjAw\nZGVlYjdlZi5wbmcpCgohW2Rhc2hib2FyZF0oaHR0cHM6Ly9jbG91ZC5naXRo\ndWJ1c2VyY29udGVudC5jb20vYXNzZXRzLzExNjA4MzgvMTE4NjYxMzAvZWM5\nYjgxYzItYTRlMy0xMWU1LTk3N2QtOGIxMjMyNzJlYjhmLnBuZykKCiFbY29u\ndGFpbmVyc10oaHR0cHM6Ly9jbG91ZC5naXRodWJ1c2VyY29udGVudC5jb20v\nYXNzZXRzLzExNjA4MzgvMTE4NjYxMjkvZWM3NjI4YWEtYTRlMy0xMWU1LTgw\nMWQtMDdkZDFiZjFmYTcwLnBuZykKCiFbY29udGFpbmVyLWNyZWF0aW9uLWZv\ncm1dKGh0dHBzOi8vY2xvdWQuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2Fzc2V0\ncy8xMTYwODM4LzExODY2MTIzL2U3ZTA2YzYwLWE0ZTMtMTFlNS05MzQ1LTRh\nNmFmZDI0YTJlOC5wbmcpCgohW2ltYWdlc10oaHR0cHM6Ly9jbG91ZC5naXRo\ndWJ1c2VyY29udGVudC5jb20vYXNzZXRzLzExNjA4MzgvMTE4NjYxMzIvZWNj\nODRkZjYtYTRlMy0xMWU1LTgzZWYtNWE4MWJiNjIzYzlkLnBuZykKCiFbcHVs\nbC1pbWFnZS1mb3JtXShodHRwczovL2Nsb3VkLmdpdGh1YnVzZXJjb250ZW50\nLmNvbS9hc3NldHMvMTE2MDgzOC8xMTg2NjEzMS9lY2M3ZGZkOC1hNGUzLTEx\nZTUtOTE0MC0xNjZlNTY4MGM4YzUucG5nKQoKIyMgVE9ETwoKMS4gVGVzdAoy\nLiBDb250YWluZXIgTGluawozLiBDb250YWluZXIgVm9sdW1lCjQuIFN1cHBv\ncnQgTG9jYWwgRG9ja2VyCjUuIE5ldHdvcmsK\n", 
+                "download_url": "https://raw.githubusercontent.com/lawrence0819/neptune-front/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/lawrence0819/neptune-front/git/blobs/4156af013d6ef951e40f58ef861c486b7eef02fb", 
+                "html_url": "https://github.com/lawrence0819/neptune-front/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "4156af013d6ef951e40f58ef861c486b7eef02fb", 
+                "size": 2142, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/lawrence0819/neptune-front/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-11-15T02:43:01Z", 
+                "language": "TypeScript", 
+                "owner": {
+                    "avatar_url": "https://avatars0.githubusercontent.com/u/1160838?v=3", 
+                    "events_url": "https://api.github.com/users/lawrence0819/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/lawrence0819/followers", 
+                    "following_url": "https://api.github.com/users/lawrence0819/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/lawrence0819/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/lawrence0819", 
+                    "id": 1160838, 
+                    "login": "lawrence0819", 
+                    "organizations_url": "https://api.github.com/users/lawrence0819/orgs", 
+                    "received_events_url": "https://api.github.com/users/lawrence0819/received_events", 
+                    "repos_url": "https://api.github.com/users/lawrence0819/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/lawrence0819/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/lawrence0819/subscriptions", 
+                    "type": "User", 
+                    "url": "https://api.github.com/users/lawrence0819"
+                }, 
+                "pushed_at": "2016-01-06T01:19:11Z", 
+                "stargazers_count": 59, 
+                "updated_at": "2016-11-06T18:58:54Z", 
+                "watchers_count": 59
+            }
+        }, 
+        "mesos/storm": {
+            "dockerfile": {
+                "/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [
+                        "JAVA_PRODUCT_VERSION=''", 
+                        "MESOS_RELEASE=0.28.2", 
+                        "STORM_RELEASE=0.10.1", 
+                        "MIRROR=''", 
+                        "STORM_URL=''", 
+                        "RELEASE=''"
+                    ], 
+                    "CMD": [], 
+                    "COPY": [
+                        ". /tmp"
+                    ], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "TARGET_JAVA_HOME ${JAVA_PRODUCT_VERSION:+/usr/lib/jvm/java-$JAVA_PRODUCT_VERSION-openjdk-amd64}", 
+                        "JAVA_HOME ${TARGET_JAVA_HOME:-/usr/lib/jvm/java-7-openjdk-amd64}", 
+                        "JAVA_PRODUCT_VERSION ${JAVA_PRODUCT_VERSION:-7}", 
+                        "MESOS_RELEASE ${MESOS_RELEASE:-0.28.2}", 
+                        "STORM_RELEASE ${STORM_RELEASE:-0.10.1}", 
+                        "DEBIAN_FRONTEND ${DEBIAN_FRONTEND:-noninteractive}", 
+                        "MESOS_NATIVE_JAVA_LIBRARY ${MESOS_NATIVE_JAVA_LIBRARY:-/usr/lib/libmesos.so}"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Salimane Adjao Moustapha <me@salimane.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "DISTRO=$(lsb_release -is | tr \"[:upper:]\" \"[:lower:]\") && CODENAME=$(lsb_release -cs) && echo \"deb http://repos.mesosphere.com/${DISTRO} ${CODENAME} main\" > /etc/apt/sources.list.d/mesosphere.list && apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && apt-get -y update && apt-get -y install mesos=`apt-cache madison mesos | grep \" ${MESOS_RELEASE}\" | head -1 | awk '{print $3}'` && apt-get clean", 
+                        "cd /tmp && RELEASE=`grep -1 -A 0 -B 0 '<version>' pom.xml | head -n 1 | awk '{print $1}' | sed -e 's/.*<version>//' | sed -e 's/<\\/version>.*//'` && ([ -f storm-mesos-${RELEASE}-storm${STORM_RELEASE}-mesos${MESOS_RELEASE}.tgz ] || (apt-get -y install software-properties-common && add-apt-repository ppa:openjdk-r/ppa && apt-get -y update && apt-get -y install openjdk-${JAVA_PRODUCT_VERSION}-jdk maven wget curl && update-alternatives --install /usr/bin/java java ${JAVA_HOME%/}/bin/java 20000 && update-alternatives --install /usr/bin/javac javac ${JAVA_HOME%/}/bin/javac 20000 && STORM_RELEASE=$STORM_RELEASE MESOS_RELEASE=$MESOS_RELEASE ./bin/build-release.sh main && apt-get -yf autoremove openjdk-${JAVA_PRODUCT_VERSION}-jdk maven ) ) && mkdir -p /opt/storm && tar xf /tmp/storm-mesos-${RELEASE}-storm${STORM_RELEASE}-mesos${MESOS_RELEASE}.tgz -C /opt/storm --strip=1 && rm -rf /tmp/* ~/.m2 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/opt/storm"
+                    ]
+                }, 
+                "/onbuild/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [
+                        "JAVA_PRODUCT_VERSION=''", 
+                        "MESOS_RELEASE=0.28.2", 
+                        "STORM_RELEASE=0.10.1", 
+                        "MIRROR=''", 
+                        "STORM_URL=''", 
+                        "RELEASE=''"
+                    ], 
+                    "CMD": [], 
+                    "COPY": [
+                        ". /tmp"
+                    ], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "TARGET_JAVA_HOME ${JAVA_PRODUCT_VERSION:+/usr/lib/jvm/java-$JAVA_PRODUCT_VERSION-openjdk-amd64}", 
+                        "JAVA_HOME ${TARGET_JAVA_HOME:-/usr/lib/jvm/java-7-openjdk-amd64}", 
+                        "JAVA_PRODUCT_VERSION ${JAVA_PRODUCT_VERSION:-7}", 
+                        "MESOS_RELEASE ${MESOS_RELEASE:-0.28.2}", 
+                        "STORM_RELEASE ${STORM_RELEASE:-0.10.1}", 
+                        "DEBIAN_FRONTEND ${DEBIAN_FRONTEND:-noninteractive}", 
+                        "MESOS_NATIVE_JAVA_LIBRARY ${MESOS_NATIVE_JAVA_LIBRARY:-/usr/lib/libmesos.so}"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Salimane Adjao Moustapha <me@salimane.com>"
+                    ], 
+                    "ONBUILD": [
+                        "ARG JAVA_PRODUCT_VERSION=''", 
+                        "ENV TARGET_JAVA_HOME ${JAVA_PRODUCT_VERSION:+/usr/lib/jvm/java-$JAVA_PRODUCT_VERSION-openjdk-amd64}", 
+                        "ENV JAVA_HOME ${TARGET_JAVA_HOME:-/usr/lib/jvm/java-7-openjdk-amd64}", 
+                        "ENV JAVA_PRODUCT_VERSION ${JAVA_PRODUCT_VERSION:-7}", 
+                        "ARG MESOS_RELEASE=0.28.2", 
+                        "RUN DISTRO=$(lsb_release -is | tr \"[:upper:]\" \"[:lower:]\") && CODENAME=$(lsb_release -cs) && echo \"deb http://repos.mesosphere.com/${DISTRO} ${CODENAME} main\" > /etc/apt/sources.list.d/mesosphere.list && apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && apt-get -y update && apt-get -y install mesos=`apt-cache madison mesos | grep \" ${MESOS_RELEASE}\" | head -1 | awk '{print $3}'` && apt-get clean && rm -rf /var/lib/apt/lists/*", 
+                        "ARG STORM_RELEASE=0.10.1", 
+                        "ARG MIRROR=''", 
+                        "ARG STORM_URL=''", 
+                        "ARG RELEASE=''", 
+                        "RUN cd /tmp && RELEASE=`grep -1 -A 0 -B 0 '<version>' pom.xml | head -n 1 | awk '{print $1}' | sed -e 's/.*<version>//' | sed -e 's/<\\/version>.*//'` && ([ -f storm-mesos-${RELEASE}-storm${STORM_RELEASE}-mesos${MESOS_RELEASE}.tgz ] || (apt-get -y install software-properties-common && add-apt-repository ppa:openjdk-r/ppa && apt-get -y update && apt-get -y install openjdk-${JAVA_PRODUCT_VERSION}-jdk maven wget curl && update-alternatives --install /usr/bin/java java ${JAVA_HOME%/}/bin/java 20000 && update-alternatives --install /usr/bin/javac javac ${JAVA_HOME%/}/bin/javac 20000 && STORM_RELEASE=$STORM_RELEASE MESOS_RELEASE=$MESOS_RELEASE ./bin/build-release.sh main && apt-get -yf autoremove openjdk-${JAVA_PRODUCT_VERSION}-jdk maven ) ) && mkdir -p /opt/storm && tar xf /tmp/storm-mesos-${RELEASE}-storm${STORM_RELEASE}-mesos${MESOS_RELEASE}.tgz -C /opt/storm --strip=1 && rm -rf /tmp/* ~/.m2 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
+                    ], 
+                    "RUN": [
+                        "DISTRO=$(lsb_release -is | tr \"[:upper:]\" \"[:lower:]\") && CODENAME=$(lsb_release -cs) && echo \"deb http://repos.mesosphere.com/${DISTRO} ${CODENAME} main\" > /etc/apt/sources.list.d/mesosphere.list && apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && apt-get -y update && apt-get -y install mesos=`apt-cache madison mesos | grep \" ${MESOS_RELEASE}\" | head -1 | awk '{print $3}'` && apt-get clean && rm -rf /var/lib/apt/lists/*", 
+                        "cd /tmp && RELEASE=`grep -1 -A 0 -B 0 '<version>' pom.xml | head -n 1 | awk '{print $1}' | sed -e 's/.*<version>//' | sed -e 's/<\\/version>.*//'` && ([ -f storm-mesos-${RELEASE}-storm${STORM_RELEASE}-mesos${MESOS_RELEASE}.tgz ] || (apt-get -y install software-properties-common && add-apt-repository ppa:openjdk-r/ppa && apt-get -y update && apt-get -y install openjdk-${JAVA_PRODUCT_VERSION}-jdk maven wget curl && update-alternatives --install /usr/bin/java java ${JAVA_HOME%/}/bin/java 20000 && update-alternatives --install /usr/bin/javac javac ${JAVA_HOME%/}/bin/javac 20000 && STORM_RELEASE=$STORM_RELEASE MESOS_RELEASE=$MESOS_RELEASE ./bin/build-release.sh main && apt-get -yf autoremove openjdk-${JAVA_PRODUCT_VERSION}-jdk maven ) ) && mkdir -p /opt/storm && tar xf /tmp/storm-mesos-${RELEASE}-storm${STORM_RELEASE}-mesos${MESOS_RELEASE}.tgz -C /opt/storm --strip=1 && rm -rf /tmp/* ~/.m2 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/opt/storm"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/mesos/storm/git/blobs/4b550fe5dc74e2b843574b48b7a4f1e5178819e2", 
+                    "html": "https://github.com/mesos/storm/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/mesos/storm/contents/README.md?ref=master"
+                }, 
+                "content": "U3Rvcm0gb24gTWVzb3MKLS0tLS0tLS0tLS0tLS0tCgpbIVtKb2luIHRoZSBj\naGF0IGF0IGh0dHBzOi8vZ2l0dGVyLmltL21lc29zL3N0b3JtXShodHRwczov\nL2JhZGdlcy5naXR0ZXIuaW0vbWVzb3Mvc3Rvcm0uc3ZnKV0oaHR0cHM6Ly9n\naXR0ZXIuaW0vbWVzb3Mvc3Rvcm0/dXRtX3NvdXJjZT1iYWRnZSZ1dG1fbWVk\naXVtPWJhZGdlJnV0bV9jYW1wYWlnbj1wci1iYWRnZSZ1dG1fY29udGVudD1i\nYWRnZSkKClshW0J1aWxkIFN0YXR1c10oaHR0cHM6Ly90cmF2aXMtY2kub3Jn\nL21lc29zL3N0b3JtLnN2Zz9icmFuY2g9bWFzdGVyKV0oaHR0cHM6Ly90cmF2\naXMtY2kub3JnL21lc29zL3N0b3JtKQoKIyBPdmVydmlldwpTdG9ybSBpbnRl\nZ3JhdGlvbiB3aXRoIHRoZSBNZXNvcyBjbHVzdGVyIHJlc291cmNlIG1hbmFn\nZXIuCgpUbyB1c2UgYSByZWxlYXNlLCB5b3UgZmlyc3QgbmVlZCB0byB1bnBh\nY2sgdGhlIGRpc3RyaWJ1dGlvbiwgZmlsbCBpbiBjb25maWd1cmF0aW9ucyBs\naXN0ZWQgYmVsb3cgaW50byB0aGUgYGNvbmYvc3Rvcm0ueWFtbGAgZmlsZSBh\nbmQgc3RhcnQgTmltYnVzIHVzaW5nIGBzdG9ybS1tZXNvcyBuaW1idXNgLgoK\nKipOb3RlOioqIEl0IGlzICoqbm90KiogbmVjZXNzYXJ5IHRvIHJlcGFjayB0\naGUgZGlzdHJpYnV0aW9uIC0gdGhlIGNvbmZpZ3VyYXRpb24gaXMgYXV0b21h\ndGljYWxseSBwdXNoZWQgb3V0IHRvIHRoZSBzbGF2ZXMgZnJvbSBOaW1idXMu\nCgojIEJ1aWxkaW5nCgpSdW4gYnVpbGQtcmVsZWFzZS5zaCB0byBkb3dubG9h\nZCBzdG9ybSBkaXN0cmlidXRpb24gYW5kIGJ1bmRsZSBTdG9ybSB3aXRoIHRo\naXMgZnJhbWV3b3JrIGludG8gb25lIHRhciByZWxlYXNlLgoKYGBgc2hlbGwK\nU1RPUk1fUkVMRUFTRT0wLlguWCBNRVNPU19SRUxFQVNFPTAuWS5ZIGJpbi9i\ndWlsZC1yZWxlYXNlLnNoCmBgYAoKV2hlcmUgMC5YLlggYW5kIDAuWS5ZIGFy\nZSB0aGUgcmVzcGVjdGl2ZSB2ZXJzaW9ucyBvZiBTdG9ybSBhbmQgTWVzb3Mg\neW91IHdpc2ggdG8gYnVpbGQgYWdhaW5zdC4gIFRoaXMgd2lsbCBidWlsZCBh\nIE1lc29zIGV4ZWN1dG9yIHBhY2thZ2UuICBZb3UnbGwgbmVlZCB0byBlZGl0\nIGBzdG9ybS55YW1sYCBhbmQgc3VwcGx5IHRoZSBNZXNvcyBtYXN0ZXIgY29u\nZmlndXJhdGlvbiBhcyB3ZWxsIGFzIHRoZSBleGVjdXRvciBwYWNrYWdlIFVS\nSSAocHJvZHVjZWQgYnkgdGhlIHN0ZXAgYWJvdmUpLgoKIyMgU3ViLWNvbW1h\nbmRzCgpTdWItY29tbWFuZHMgY2FuIGJlIGludm9rZWQgc2ltaWxhciB0byBn\naXQgc3ViLWNvbW1hbmRzLgoKRm9yIGV4YW1wbGUgdGhlIGZvbGxvd2luZyBj\nb21tYW5kIHdpbGwgZG93bmxvYWQgdGhlIFN0b3JtIHJlbGVhc2UgdGFyYmFs\nbCBpbnRvIHRoZSBjdXJyZW50IHdvcmtpbmcgZGlyZWN0b3J5LgpgYGBiYXNo\nCmJpbi9idWlsZC1yZWxlYXNlLnNoIGRvd25sb2FkU3Rvcm1SZWxlYXNlCmBg\nYAoqIGBtYWluYAoKICBCdWlsZCBhIFN0b3JtIHBhY2thZ2Ugd2l0aCB0aGUg\nTWVzb3Mgc2NoZWR1bGVyLiBUaGUgb3V0cHV0IG9mIHRoaXMgY29tbWFuZCBj\nYW4gYmUgdXNlZCBhcyB0aGUgcGFja2FnZSBmb3IgYG1lc29zLmV4ZWN1dG9y\nLnVyaWAuCgoqIGBjbGVhbmAKCiAgQXR0ZW1wdHMgdG8gY2xlYW4gd29ya2lu\nZyBmaWxlcyBhbmQgZGlyZWN0b3JpZXMgY3JlYXRlZCB3aGVuIGJ1aWxkaW5n\nLgoKKiBgZG93bmxvYWRTdG9ybVJlbGVhc2VgCgogIEEgdXRpbGl0eSBmdW5j\ndGlvbiB0byBkb3dubG9hZCB0aGUgU3Rvcm0gcmVsZWFzZSB0YXJiYWxsIGZv\nciB0aGUgdGFyZ2V0ZWQgc3Rvcm0gcmVsZWFzZS4KCiAgX1NldCBgTUlSUk9S\nYCBlbnZpcm9ubWVudCB2YXJpYWJsZSB0byBjb25maWd1cmUgZG93bmxvYWQg\nbWlycm9yLl8KCiogYG12blBhY2thZ2VgCgogIFJ1bnMgdGhlIG1hdmVuIHRh\ncmdldHMgbmVjZXNzYXJ5IHRvIGJ1aWxkIHRoZSBTdG9ybSBNZXNvcyBmcmFt\nZXdvcmsuCgoqIGBwcmVQYWNrYWdlYAoKICBQcmVwYXJlcyB0aGUgd29ya2lu\nZyBkaXJlY3RvcmllcyB0byBiZSBhYmxlIHRvIHBhY2thZ2UgdGhlIFN0b3Jt\nIE1lc29zIGZyYW1ld29yay4KICAqIE9wdGlvbmFsIGFyZ3VtZW50IHNwZWNp\nZnlpbmcgdGhlIFN0b3JtIHJlbGVhc2UgdGFyYmFsbCB0byBwYWNrYWdlIGFn\nYWluc3QuCgoqIGBwYWNrYWdlYAoKICBQYWNrYWdlcyB0aGUgU3Rvcm0gTWVz\nb3MgRnJhbWV3b3JrLgoKKiBgZG9ja2VySW1hZ2VgCgogIEJ1aWxkcyBhIERv\nY2tlciBpbWFnZSBmcm9tIHRoZSBjdXJyZW50IGNvZGUuCgoqIGBoZWxwYAoK\nICBQcmludHMgb3V0IHVzYWdlIGluZm9ybWF0aW9uIGFib3V0IHRoZSBidWls\nZC1yZWxlYXNlLnNoIHNjcmlwdC4KCiMjIERvY2tlciBpbWFnZXMgQnVpbGRp\nbmcKCkluIG9yZGVyIHRvIGJ1aWxkIHRoZSBzdG9ybS1tZXNvcyBkb2NrZXIg\naW1hZ2UsIG9yIGEgZG9ja2VyIGltYWdlIHJlYWR5IHRvIGJlIHVzZWQgYXMg\nYGBtZXNvcy5jb250YWluZXIuZG9ja2VyLmltYWdlYGAgaW4geW91ciBzdG9y\nbSBjb25maWd1cmF0aW9uLCBydW4gdGhlIGZvbGxvd2luZzoKCmBgYHNoZWxs\nCm1ha2UgaGVscAptYWtlIGltYWdlcyBTVE9STV9SRUxFQVNFPTAuWC5YIE1F\nU09TX1JFTEVBU0U9MC5ZLlkgRE9DS0VSX1JFUE89bWVzb3Mvc3Rvcm0KYGBg\nCgpXaGVyZSAwLlguWCBhbmQgMC5ZLlkgYXJlIHRoZSByZXNwZWN0aXZlIHZl\ncnNpb25zIG9mIFN0b3JtIGFuZCBNZXNvcyB5b3Ugd2lzaCB0byBidWlsZCBh\nZ2FpbnN0LiAgVGhpcyB3aWxsIGJ1aWxkIGEgZG9ja2VyIGltYWdlIGNvbnRh\naW5pbmcgYSBNZXNvcyBleGVjdXRvciBwYWNrYWdlLiBUaGUgcmVzdWx0aW5n\nIGRvY2tlciBpbWFnZXMgYXJlIHRoZSBmb2xsb3dpbmc6CgpgYGAKwrEgZG9j\na2VyIGltYWdlcwpSRVBPU0lUT1JZICAgICAgICAgICAgICAgIFRBRyAgICAg\nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIElNQUdFIElEICAgICAg\nICAgICAgQ1JFQVRFRCAKbWVzb3Mvc3Rvcm0gICAgICAgICAgICAgICAwLjEu\nMC0wLlguWC0wLlkuWS1qZGs3ICAgICAgICAgICAgICAgICAxMTk4OWU3YmZh\nMTcgICAgICAgIDQ0IG1pbnV0ZXMgYWdvCm1lc29zL3N0b3JtICAgICAgICAg\nICAgICAgMC4xLjAtMC5YLlgtMC5ZLlktamRrNy1vbmJ1aWxkICAgICAgICAg\nZTdlYjUyYjNlYjlmICAgICAgICA0NCBtaW51dGVzIGFnbwpgYGAKCkluIG9y\nZGVyIHRvIHVzZSBKREsgOCB3aGlsZSBidWlsZGluZyB0aGUgZG9ja2VyIGlt\nYWdlLCBydW4gdGhlIGZvbGxvd2luZzoKCmBgYHNoZWxsCm1ha2UgaW1hZ2Vz\nIFNUT1JNX1JFTEVBU0U9MC5YLlggTUVTT1NfUkVMRUFTRT0wLlkuWSBET0NL\nRVJfUkVQTz1tZXNvcy9zdG9ybSBKQVZBX1BST0RVQ1RfVkVSU0lPTj04CmBg\nYAoKQSBjdXN0b20gaW1hZ2UgY291bGQgYmUgYnVpbHQgZnJvbSB0aGUgb25i\ndWlsZCB0YWdnZWQgZG9ja2VyIGltYWdlLiBJdCBpcyBiYXNlZCBvbiB0aGUg\nZG9ja2VyZmlsZSBgYG9uYnVpbGQvRG9ja2VyZmlsZWBgCgpJbWFnZXMgYXJl\nIGFsc28gcHVibGlzaGVkIHRvIERvY2tlciBIdWIgdW5kZXIgdGhlIGltYWdl\nIGBtZXNvcy9zdG9ybWAgYXQgPGh0dHBzOi8vaHViLmRvY2tlci5jb20vci9t\nZXNvcy9zdG9ybS8+LgoKIyBSZWxlYXNpbmcgTmV3IFZlcnNpb24KCklmIHlv\ndSBhcmUgYSBjb21taXR0ZXIgZm9yIHRoaXMgcmVwbywgdGhlbiB5b3UgbWVy\nZWx5IG5lZWQgdG8gcnVuIHRoZSBmb2xsb3dpbmcgY29tbWFuZCB0byBnZW5l\ncmF0ZSBhIG5ldyByZWxlYXNlOgoKYGBgCm12biByZWxlYXNlOmNsZWFuIHJl\nbGVhc2U6cHJlcGFyZQpgYGAKClRoaXMgd2lsbCBhdXRvbWF0aWNhbGx5IHVw\nZGF0ZSB0aGUgdmVyc2lvbiBmaWVsZHMgYW5kIHB1c2ggdGFncyB0aGF0IGlu\nIHR1cm4ga2ljayBvZmYgYSB0cmF2aXMtY2kgYnVpbGQuICBUaGlzIHRyYXZp\ncy1jaSBidWlsZCBhdXRvbWF0aWNhbGx5IHVwbG9hZHMgdGhlIHJlc3VsdGFu\ndCBhcnRpZmFjdHMgdG8gYm90aCBbR2l0SHViXShodHRwczovL2dpdGh1Yi5j\nb20vbWVzb3Mvc3Rvcm0vcmVsZWFzZXMpIGFuZCBbRG9ja2VySHViXShodHRw\nczovL2h1Yi5kb2NrZXIuY29tL3IvbWVzb3Mvc3Rvcm0vdGFncy8pLgoKTm90\nZSB0aGF0IG5vcm1hbGx5IHlvdXIgbG9jYWwgcmVwbyBzaG91bGQgYmUgc3lu\nY2VkIHRvIHRoZSBIRUFEIG9mIGdpdGh1Yi5jb206bWVzb3Mvc3Rvcm0ncyBt\nYXN0ZXIgYnJhbmNoLiAgSG93ZXZlciBpdCBpcyBwb3NzaWJsZSB0aGF0IHlv\ndSdyZSB3b3JraW5nIGZyb20gYSBkaWZmZXJlbnQgYnJhbmNoIGFuZCBkb2lu\nZyByZWxlYXNlcyBmb3IgYW4gZWFybGllciBudW1iZXJlZCB2ZXJzaW9uLiAg\nW1RoYXQgdmFyaWFudCBwcm9jZXNzXShodHRwczovL2dpdGh1Yi5jb20vbWVz\nb3Mvc3Rvcm0vaXNzdWVzLzEyOCNpc3N1ZWNvbW1lbnQtMjA5MjUxNzYzKSB3\naWxsIHNvb24gZXhpc3QgYXMgcGFydCBvZiBbc3VwcG9ydGluZyBib3RoIHN0\nb3JtLTAueCBhbmQgc3Rvcm0tMS54K10oaHR0cHM6Ly9naXRodWIuY29tL21l\nc29zL3N0b3JtL2lzc3Vlcy8xMjgjaXNzdWVjb21tZW50LTIyMjgzNTY2MCks\nIGJ1dCBuZWVkcyB0byBiZSBpcm9uZWQgb3V0LgoKIyBSdW5uaW5nIFN0b3Jt\nIG9uIE1lc29zCkFsb25nIHdpdGggdGhlIE1lc29zIG1hc3RlciBhbmQgTWVz\nb3MgY2x1c3RlciwgeW91J2xsIG5lZWQgdG8gcnVuIHRoZSBTdG9ybSBtYXN0\nZXIgYXMgd2VsbC4gTGF1bmNoIE5pbWJ1cyB3aXRoIHRoaXMgY29tbWFuZDoK\nCmBgYApiaW4vc3Rvcm0tbWVzb3MgbmltYnVzCmBgYAoKSXQncyByZWNvbW1l\nbmRlZCB0aGF0IHlvdSBhbHNvIHJ1biB0aGUgVUkgb24gdGhlIHNhbWUgbWFj\naGluZSBhcyBOaW1idXMgdmlhIHRoZSBmb2xsb3dpbmcgY29tbWFuZDoKCmBg\nYApiaW4vc3Rvcm0gdWkKYGBgCgpUaGVyZSdzIGEgbWlub3IgYnVnIGluIHRo\nZSBVSSByZWdhcmRpbmcgaG93IGl0IGRpc3BsYXlzIHRoZSBudW1iZXIgb2Yg\nc2xvdHMgaW4gdGhlIGNsdXN0ZXIg4oCTIHlvdSBkb24ndCBuZWVkIHRvIHdv\ncnJ5IGFib3V0IHRoaXMsIGl0J3MgYW4gYXJ0aWZhY3Qgb2YgdGhlcmUgYmVp\nbmcgbm8gcHJlLWV4aXN0aW5nIHNsb3RzIHdoZW4gU3Rvcm0gcnVucyBvbiBN\nZXNvcy4gIFNsb3RzIGFyZSBjcmVhdGVkIGZyb20gYXZhaWxhYmxlIGNsdXN0\nZXIgcmVzb3VyY2VzIHdoZW4gYSB0b3BvbG9neSBuZWVkcyBpdHMgU3Rvcm0g\nd29ya2VyIHByb2Nlc3NlcyB0byBiZSBsYXVuY2hlZC4KClRvcG9sb2dpZXMg\nYXJlIHN1Ym1pdHRlZCB0byBhIFN0b3JtL01lc29zIGNsdXN0ZXIgdGhlIGV4\nYWN0IHNhbWUgd2F5IHRoZXkgYXJlIHN1Ym1pdHRlZCB0byBhIHJlZ3VsYXIg\nU3Rvcm0gY2x1c3Rlci4KClN0b3JtL01lc29zIHByb3ZpZGVzIHJlc291cmNl\nIGlzb2xhdGlvbiBiZXR3ZWVuIHRvcG9sb2dpZXMuIFNvIHlvdSBkb24ndCBu\nZWVkIHRvIHdvcnJ5IGFib3V0IHRvcG9sb2dpZXMgaW50ZXJmZXJpbmcgd2l0\naCBvbmUgYW5vdGhlci4KCiMjIFZhZ3JhbnQgc2V0dXAKCkZvciBsb2NhbCBk\nZXZlbG9wbWVudCBhbmQgZmFtaWxpYXJpemluZyB5b3Vyc2VsZiB3aXRoIFN0\nb3JtL01lc29zLCBwbGVhc2Ugc2VlIHRoZSBbVmFncmFudCBzZXR1cCBkb2Nz\nXShkb2NzL3ZhZ3JhbnQubWQpLgoKIyMgTWFuZGF0b3J5IGNvbmZpZ3VyYXRp\nb24KCjEuIE9uZSBvZiB0aGUgZm9sbG93aW5nIChpZiBib3RoIGFyZSBzcGVj\naWZpZWQsIERvY2tlciBpcyBwcmVmZXJyZWQpOgogICAgKiBgbWVzb3MuZXhl\nY3V0b3IudXJpYDogT25jZSB5b3UgZmlsbCBpbiB0aGUgY29uZmlncyBhbmQg\ncmVwYWNrIHRoZSBkaXN0cmlidXRpb24sIHlvdSBuZWVkIHRvIHBsYWNlIHRo\nZQogICAgICBkaXN0cmlidXRpb24gc29tZXdoZXJlIHdoZXJlIE1lc29zIGV4\nZWN1dG9ycyBjYW4gZmluZCBpdC4gVHlwaWNhbGx5IHRoaXMgaXMgb24gSERG\nUywgYW5kIHRoaXMgY29uZmlnIGlzCiAgICAgIHRoZSBsb2NhdGlvbiBvZiB3\naGVyZSB5b3UgcHV0IHRoZSBkaXN0cmlidXRpb24uCiAgICAqIGBtZXNvcy5j\nb250YWluZXIuZG9ja2VyLmltYWdlYDogWW91IG1heSB1c2UgYSBEb2NrZXIg\naW1hZ2UgaW4gcGxhY2Ugb2YgdGhlIGV4ZWN1dG9yIFVSSS4gVGFrZSBhIGxv\nb2sgYXQgdGhlCiAgICAgIERvY2tlcmZpbGUgaW4gdGhlIHRvcC1sZXZlbCBv\nZiB0aGlzIHJlcG9zaXRvcnkgZm9yIGFuIGV4YW1wbGUgb2YgaG93IHRvIHVz\nZSBpdC4KCjIuIGBtZXNvcy5tYXN0ZXIudXJsYDogVVJMIGZvciB0aGUgTWVz\nb3MgbWFzdGVyLgoKMy4gYHN0b3JtLnpvb2tlZXBlci5zZXJ2ZXJzYDogVGhl\nIGxvY2F0aW9uIG9mIHRoZSBab29LZWVwZXIgc2VydmVycyB0byBiZSB1c2Vk\nIGJ5IHRoZSBTdG9ybSBtYXN0ZXIuCgojIyBPcHRpb25hbCBjb25maWd1cmF0\naW9uCgoqIGBtZXNvcy5zdXBlcnZpc29yLnN1aWNpZGUuaW5hY3RpdmUudGlt\nZW91dC5zZWNzYDogU2Vjb25kcyB0byB3YWl0IGJlZm9yZSBzdXBlcnZpc29y\nIHRvIHN1aWNpZGVzIGlmCiAgc3VwZXJ2aXNvciBoYXMgbm8gdGFzayB0byBy\ndW4uIERlZmF1bHRzIHRvICIxMjAiLgoqIGBtZXNvcy5tYXN0ZXIuZmFpbG92\nZXIudGltZW91dC5zZWNzYDogRnJhbWV3b3JrIGZhaWxvdmVyIHRpbWVvdXQg\naW4gc2Vjb25kLiBEZWZhdWx0cyB0byAiMjQqNyozNjAwIi4KKiBgbWVzb3Mu\nYWxsb3dlZC5ob3N0c2A6IEFsbG93ZWQgaG9zdHMgdG8gcnVuIHRvcG9sb2d5\nLCB3aGljaCB0YWtlcyBob3N0bmFtZSBsaXN0IGFzIGEgd2hpdGUgbGlzdC4K\nKiBgbWVzb3MuZGlzYWxsb3dlZC5ob3N0c2A6IERpc2FsbG93ZWQgaG9zdHMg\ndG8gcnVuIHRvcG9sb2d5LCB3aGljaCB0YWtlcyBob3N0bmFtZSBsaXN0IGFz\nIGEgYmFjayBsaXN0LgoqIGBtZXNvcy5mcmFtZXdvcmsucm9sZWA6IEZyYW1l\nd29yayByb2xlIHRvIHVzZS4gRGVmYXVsdHMgdG8gIioiLgoqIGBtZXNvcy5m\ncmFtZXdvcmsuY2hlY2twb2ludGA6IEVuYWJsZWQgZnJhbWV3b3JrIGNoZWNr\ncG9pbnQgb3Igbm90LiBEZWZhdWx0cyB0byBmYWxzZS4KKiBgbWVzb3Mub2Zm\nZXIubHJ1LmNhY2hlLnNpemVgOiBMUlUgY2FjaGUgc2l6ZS4gRGVmYXVsdHMg\ndG8gIjEwMDAiLgoqIGBtZXNvcy5vZmZlci5maWx0ZXIuc2Vjb25kc2A6IE51\nbWJlciBvZiBzZWNvbmRzIHRvIGZpbHRlciB1bnVzZWQgTWVzb3Mgb2ZmZXJz\nLiBUaGVzZSBvZmZlcnMgbWF5IGJlIHJldml2ZWQgYnkKICB0aGUgZnJhbWV3\nb3JrIHdoZW4gbmVlZGVkLiBEZWZhdWx0cyB0byAiMTIwIi4KKiBgbWVzb3Mu\nb2ZmZXIuZXhwaXJ5Lm11bHRpcGxpZXJgOiBPZmZlciBleHBpcnkgbXVsdGlw\nbGllciBmb3IgYG5pbWJ1cy5tb25pdG9yLmZyZXEuc2Vjc2AuIERlZmF1bHRz\nIHRvICIyLjUiLgoqIGBtZXNvcy5sb2NhbC5maWxlLnNlcnZlci5wb3J0YDog\nUG9ydCBmb3IgdGhlIGxvY2FsIGZpbGUgc2VydmVyIHRvIGJpbmQgdG8uIERl\nZmF1bHRzIHRvIGEgcmFuZG9tIHBvcnQuCiogYG1lc29zLmZyYW1ld29yay5u\nYW1lYDogRnJhbWV3b3JrIG5hbWUuIERlZmF1bHRzIHRvICJTdG9ybSEhISIu\nCiogYG1lc29zLmZyYW1ld29yay51c2VyYDogRnJhbWV3b3JrIHVzZXIgdG8g\ncnVuIHdpdGggTWVzb3MuIERlZmF1bHRzIHRvIHVzZXIgdG8gcnVuIHdpdGgg\nU3Rvcm0gb24gTWVzb3MuCiogYG1lc29zLmZyYW1ld29yay5wcmluY2lwYWxg\nOiBGcmFtZXdvcmsgcHJpbmNpcGFsIHRvIHVzZSB0byByZWdpc3RlciB3aXRo\nIE1lc29zCiogYG1lc29zLmZyYW1ld29yay5zZWNyZXQuZmlsZWA6ICBMb2Nh\ndGlvbiBvZiBmaWxlIHRoYXQgY29udGFpbnMgdGhlIHByaW5jaXBhbCdzIHNl\nY3JldC4gU2VjcmV0IGNhbm5vdCBlbmQgd2l0aCBhIE5MLgoqIGBtZXNvcy5w\ncmVmZXIucmVzZXJ2ZWQucmVzb3VyY2VzYDogUHJlZmVyIHJlc2VydmVkIHJl\nc291cmNlcyBvdmVyIHVucmVzZXJ2ZWQgKGkuZS4sIGAiKiJgIHJvbGUpLiBE\nZWZhdWx0cyB0byAidHJ1ZSIuCiogYHN1cGVydmlzb3IuYXV0b3N0YXJ0Lmxv\nZ3ZpZXdlcmA6IERlZmF1bHQgaXMgdHJ1ZS4gSWYgeW91IGRpc2FibGUgdGhl\nIGxvZ3ZpZXdlciwgeW91IG1heSB3YW50IHRvCiAgc3VidHJhY3QgMTI4KjEu\nMiBmcm9tIGB0b3BvbG9neS5tZXNvcy5leGVjdXRvci5tZW0ubWJgIChkZXBl\nbmRpbmcgb24geW91ciBzZXR0aW5ncykuCgojIyBSZXNvdXJjZSBjb25maWd1\ncmF0aW9uCgoqIGB0b3BvbG9neS5tZXNvcy53b3JrZXIuY3B1YDogQ1BVcyBw\nZXIgd29ya2VyLiBEZWZhdWx0cyB0byAiMSIuCiogYHRvcG9sb2d5Lm1lc29z\nLndvcmtlci5tZW0ubWJgOiBNZW1vcnkgKGluIE1pQikgcGVyIHdvcmtlci4g\nRGVmYXVsdHMgdG8gIjEwMDAiLgogICogYHdvcmtlci5jaGlsZG9wdHNgOiBV\nc2UgdGhpcyBmb3IgSlZNIG9wdHMuICBZb3Ugc2hvdWxkIGhhdmUgYWJvdXQg\nMjAtMjUlIG1lbW9yeSBvdmVyaGVhZCBmb3IgZWFjaCB0YXNrLiAgRm9yCiAg\nICBleGFtcGxlLCB3aXRoIGAtWG14MTAwMG1gLCB5b3Ugc2hvdWxkIHNldCBg\ndG9wb2xvZ3kubWVzb3Mud29ya2VyLm1lbS5tYjogMTIwMGAuIEJ5IGRlZmF1\nbHQgdGhpcyBpcyBwbGF0Zm9ybQogICAgZGVwZW5kZW50LgoqIGB0b3BvbG9n\neS5tZXNvcy5leGVjdXRvci5jcHVgOiBDUFVzIHBlciBleGVjdXRvci4gRGVm\nYXVsdHMgdG8gIjAuMSIuCiogYHRvcG9sb2d5Lm1lc29zLmV4ZWN1dG9yLm1l\nbS5tYmA6IE1lbW9yeSAoaW4gTWlCKSBwZXIgZXhlY3V0b3IuIERlZmF1bHRz\nIHRvICI1MDAiLgogICogYHN1cGVydmlzb3IuY2hpbGRvcHRzYDogVXNlIHRo\naXMgZm9yIGV4ZWN1dG9yIChha2Egc3VwZXJ2aXNvcikgSlZNIG9wdHMuICBZ\nb3Ugc2hvdWxkIGhhdmUgYWJvdXQgMjAtMjUlIG1lbW9yeQogICAgb3Zlcmhl\nYWQgZm9yIGVhY2ggdGFzay4gIEZvciBleGFtcGxlLCB3aXRoIGAtWG14NTAw\nbWAsIHlvdSBzaG91bGQgc2V0IGB0b3BvbG9neS5tZXNvcy5leGVjdXRvci5t\nZW0ubWI6IDYyMGAuIEJ5CiAgICBkZWZhdWx0IHRoaXMgaXMgcGxhdGZvcm0g\nZGVwZW5kZW50LgoKIyMgUnVubmluZyBTdG9ybSBvbiBNYXJhdGhvbgoKVG8g\nZ2V0IHN0YXJ0ZWQgcXVpY2tseSwgeW91IGNhbiBydW4gU3Rvcm0gb24gTWVz\nb3Mgd2l0aCBNYXJhdGhvbiBhbmQgRG9ja2VyLCBwcm92aWRlZCB5b3UgaGF2\nZSBNZXNvcy1ETlMgY29uZmlndXJlZAppbiB5b3VyIGNsdXN0ZXIuIElmIHlv\ndSdyZSBub3QgdXNpbmcgTWVzb3MtRE5TLCBzZXQgdGhlIE1FU09TX01BU1RF\nUl9aSyBlbnZpcm9ubWVudCB2YXJpYWJsZSB0byBwb2ludCB0byB5b3VyClpv\nb0tlZXBlciBjbHVzdGVyLiBJbmNsdWRlZCBpcyBhIHNjcmlwdCAoYGJpbi9y\ndW4td2l0aC1tYXJhdGhvbi5zaGApIHdoaWNoIHNldHMgdGhlIG5lY2Vzc2Fy\neSBjb25maWcgcGFyYW1ldGVycywKYW5kIHN0YXJ0cyB0aGUgVUkgYW5kIE5p\nbWJ1cy4gU2luY2UgU3Rvcm0gd3JpdGVzIHN0YXRlZnVsIGRhdGEgdG8gZGlz\naywgeW91IG1heSB3YW50IHRvIGNvbnNpZGVyIG1vdW50aW5nIGFuCmV4dGVy\nbmFsIHZvbHVtZSBmb3IgdGhlIGBzdG9ybS5sb2NhbC5kaXJgIGNvbmZpZyBw\nYXJhbSwgYW5kIHBpbm5pbmcgTmltYnVzIHRvIGEgcGFydGljdWxhciBob3N0\nLgoKSXQgaXMgYWxzbyBwb3NzaWJsZSB0byBhZGQgIGNvbW1hbmQgbGluZSBw\nYXJhbWV0ZXIgdG8gYm90aCB0aGUgdWkgYW5kIG5pbWJ1cyB0aHJvdWdoIGBT\nVE9STV9VSV9PUFRTYCBhbmQgYFNUT1JNX05JTUJVU19PUFRTYCByZXNwZWN0\nYWRseToKCmBgYFNUT1JNX05JTUJVU19PUFRTPSItYyBzdG9ybS5sb2NhbC5k\naXI9L215L21vdW50ZWQvdm9sdW1lIC1jIHRvcG9sb2d5Lm1lc29zLndvcmtl\nci5jcHU9MS41ImBgYAoKWW91IGNhbiBydW4gdGhpcyBmcm9tIE1hcmF0aG9u\nLCB1c2luZyB0aGUgZXhhbXBsZSBhcHAgSlNPTiBiZWxvdzoKCmBgYGpzb24K\newogICJpZCI6ICJzdG9ybS1uaW1idXMiLAogICJjbWQiOiAiLi9iaW4vcnVu\nLXdpdGgtbWFyYXRob24uc2giLAogICJjcHVzIjogMS4wLAogICJtZW0iOiAx\nMDI0LAogICJwb3J0cyI6IFswLCAxXSwKICAiaW5zdGFuY2VzIjogMSwKICAi\nY29udGFpbmVyIjogewogICAgInR5cGUiOiAiRE9DS0VSIiwKICAgICJkb2Nr\nZXIiOiB7CiAgICAgICJpbWFnZSI6ICJtZXNvcy9zdG9ybSIsCiAgICAgICJu\nZXR3b3JrIjogIkhPU1QiLAogICAgICAiZm9yY2VQdWxsSW1hZ2UiOnRydWUK\nICAgIH0KICB9LAogICJoZWFsdGhDaGVja3MiOiBbCiAgICB7CiAgICAgICJw\ncm90b2NvbCI6ICJIVFRQIiwKICAgICAgInBvcnRJbmRleCI6IDAsCiAgICAg\nICJwYXRoIjogIi8iLAogICAgICAiZ3JhY2VQZXJpb2RTZWNvbmRzIjogMTIw\nLAogICAgICAiaW50ZXJ2YWxTZWNvbmRzIjogMjAsCiAgICAgICJtYXhDb25z\nZWN1dGl2ZUZhaWx1cmVzIjogMwogICAgfQogIF0KfQpgYGAKIyMgUnVubmlu\nZyBhbiBleGFtcGxlIHRvcG9sb2d5CgpPbmNlIE5pbWJ1cyBpcyBydW5uaW5n\nLCB5b3UgY2FuIGxhdW5jaCBvbmUgb2YgdGhlIGBzdG9ybS1zdGFydGVyYCB0\nb3BvbG9naWVzIHRoYXQgaXMgcHJlc2VudCBpbiB0aGUgYGV4YW1wbGVzL2Ag\nZGlyIG9mIHRoZSBbc3Rvcm0gcmVsZWFzZSB0YXJiYWxsc10oaHR0cHM6Ly9z\ndG9ybS5hcGFjaGUub3JnL2Rvd25sb2Fkcy5odG1sKS4KU28geW91J2QgZG93\nbmxvYWQgdGhlIGFwcHJvcHJpYXRlIHZlcnNpb24gb2Ygc3Rvcm0gdG8gYSBt\nYWNoaW5lIHdpdGggYWNjZXNzIHRvIHlvdXIgc3Rvcm0gY2x1c3RlciwgdGhl\nbiBleHBhbmQgdGhlIHRhcmJhbGwKYW5kIGBjZGAgaW50byB0aGUgcmVzdWx0\nYW50IGRpcmVjdG9yeSwgZnJvbSB3aGljaCB5b3Ugd2lsbCBydW4gYSBjb21t\nYW5kIGxpa2UgdGhlIG9uZSBiZWxvdy4KCkhvd2V2ZXIsIGZpcnN0IHlvdSds\nbCBuZWVkIHRvIGtub3cgdGhlIFRocmlmdCBob3N0IGFuZCBBUEkgcG9ydC4g\nSW4gdGhlIE1hcmF0aG9uIGV4YW1wbGUgYWJvdmUsIHRoZSBwb3J0IHdpbGwg\nYmUgdGhlIHNlY29uZApvbmUgYXNzaWduZWQgYnkgTWFyYXRob24uIEZvciBl\neGFtcGxlLCBpZiB0aGUgaG9zdCBpcyBgMTAuMC4wLjFgIGFuZCBzZWNvbmQg\ncG9ydCBpcyBgMzIwMDFgLCBydW46CgpgYGAKJCAuL2Jpbi9zdG9ybSBqYXIg\nLWMgbmltYnVzLmhvc3Q9MTAuMC4wLjEgLWMgbmltYnVzLnRocmlmdC5wb3J0\nPTMyMDAxIGV4YW1wbGVzL3N0b3JtLXN0YXJ0ZXIvc3Rvcm0tc3RhcnRlci10\nb3BvbG9naWVzLTEuMC4yLmphciBvcmcuYXBhY2hlLnN0b3JtLnN0YXJ0ZXIu\nV29yZENvdW50VG9wb2xvZ3kgd29yZC1jb3VudApgYGAKCiMjIFJ1bm5pbmcg\nd2l0aG91dCBNYXJhdGhvbgoKSWYgeW91J2QgbGlrZSB0byBydW4gdGhlIGV4\nYW1wbGUgYWJvdmUgX3dpdGhvdXRfIE1hcmF0aG9uLCB5b3UgY2FuIGRvIHNv\nIGJ5IHNwZWNpZnlpbmcgMiByZXF1aXJlZCBwb3J0cywgdGhlCk1FU09TX1NB\nTkRCT1ggcGF0aCwgYW5kIHJ1bm5pbmcgdGhlIGNvbnRhaW5lci4gRm9yIGV4\nYW1wbGU6CgpgYGAKJCBkb2NrZXIgcnVuIC1pIC0tbmV0PWhvc3QgLWUgUE9S\nVDA9MTAwMDAgLWUgUE9SVDE9MTAwMDEgLWUgTUVTT1NfU0FOREJPWD0vdmFy\nL2xvZy9zdG9ybSAtdCBtZXNvcy9zdG9ybSAuL2Jpbi9ydW4td2l0aC1tYXJh\ndGhvbi5zaApgYGAK\n", 
+                "download_url": "https://raw.githubusercontent.com/mesos/storm/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/mesos/storm/git/blobs/4b550fe5dc74e2b843574b48b7a4f1e5178819e2", 
+                "html_url": "https://github.com/mesos/storm/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "4b550fe5dc74e2b843574b48b7a4f1e5178819e2", 
+                "size": 11442, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/mesos/storm/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2014-06-27T18:51:37Z", 
+                "language": "Java", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/229272?v=3", 
+                    "events_url": "https://api.github.com/users/mesos/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/mesos/followers", 
+                    "following_url": "https://api.github.com/users/mesos/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/mesos/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/mesos", 
+                    "id": 229272, 
+                    "login": "mesos", 
+                    "organizations_url": "https://api.github.com/users/mesos/orgs", 
+                    "received_events_url": "https://api.github.com/users/mesos/received_events", 
+                    "repos_url": "https://api.github.com/users/mesos/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/mesos/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/mesos/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/mesos"
+                }, 
+                "pushed_at": "2017-03-18T08:51:18Z", 
+                "stargazers_count": 129, 
+                "updated_at": "2017-04-05T21:40:08Z", 
+                "watchers_count": 129
+            }
+        }, 
+        "rwalk/straw": {
+            "dockerfile": {
+                "/src/kafka_stream_eater/third_party/kafka-docker-master/Dockerfile": {
+                    "ADD": [
+                        "download-kafka.sh /tmp/download-kafka.sh", 
+                        "start-kafka.sh /usr/bin/start-kafka.sh", 
+                        "broker-list.sh /usr/bin/broker-list.sh"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [
+                        "start-kafka.sh"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "KAFKA_VERSION=\"0.8.2.1\" SCALA_VERSION=\"2.9.2\"", 
+                        "KAFKA_HOME /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION}"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:trusty"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Wurstmeister"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y unzip openjdk-6-jdk wget curl git docker.io jq", 
+                        "/tmp/download-kafka.sh", 
+                        "tar xf /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/rwalk/straw/git/blobs/6651fddf6d57fda4263320321b189db6c836dc7b", 
+                    "html": "https://github.com/rwalk/straw/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/rwalk/straw/contents/README.md?ref=master"
+                }, 
+                "content": "c3RyYXcKPT09PT09PT09PT09PT09PT0KQSBwbGF0Zm9ybSBmb3IgcmVhbC10\naW1lIHN0cmVhbWluZyBzZWFyY2gKCiMjIyMgVGFibGUgb2YgQ29udGVudHMK\nICAqIFtPdmVydmlld10oI292ZXJ2aWV3KQogICogW1doYXQncyBpbmNsdWRl\nZDpdKCN3aGF0cy1pbmNsdWRlZCkKICAqIFtBcmNoaXRlY3R1cmVdKCNhcmNo\naXRlY3R1cmUpCiAgKiBbR2V0dGluZyBzdGFydGVkXSgjZ2V0dGluZy1zdGFy\ndGVkKQogICAgKiBbUnVubmluZyBsb2NhbGx5XSgjcnVubmluZy1sb2NhbGx5\nKQogICAgKiBbRGVwbG95IHRvIEFXU10oI2RlcGxveS10by1hd3MpCiAgICAg\nICogW1ByZXJlcXVpc2l0ZXM6XSgjcHJlcmVxdWlzaXRlcykKICAgICAgKiBb\nU3RlcHM6XSgjc3RlcHMpCiAgICAgICogW1N1Ym1pdHRpbmcgdG9wb2xvZ2ll\nc10oI3N1Ym1pdHRpbmctdG9wb2xvZ2llcykKICAgICogW0NvbmZpZ3VyaW5n\nIFJlZGlzXSgjY29uZmlndXJpbmctcmVkaXMpCiAgKiBbQmVuY2htYXJraW5n\nIGFuZCBzaW11bGF0aW9uXSgjYmVuY2htYXJraW5nLWFuZC1zaW11bGF0aW9u\nKQogICAgKiBbTWVhc3VyaW5nIHRocm91Z2hwdXRdKCNtZWFzdXJpbmctdGhy\nb3VnaHB1dCkKICAgICogW0dlbmVyYXRpbmcvc2ltdWxhdGluZyBkYXRhXSgj\nZ2VuZXJhdGluZ3NpbXVsYXRpbmctZGF0YSkKCgoKCiMjIE92ZXJ2aWV3ClRo\nZSBnb2FsIG9mIHRoaXMgcHJvamVjdCBpcyB0byBwcm92aWRlIGEgY2xlYW4s\nIHNjYWxhYmxlIGFyY2hpdGVjdHVyZSBmb3IgcmVhbC10aW1lIHNlYXJjaCBv\nbiBzdHJlYW1pbmcgZGF0YS4gIEFkZGl0aW9uYWxseSwgdGhlIHByb2plY3Qg\nY29udGFpbnMgdXRpbGl0aWVzIHRvIHByb3ZpZGUgc29tZSB2ZXJ5IHNpbXBs\nZSB0aHJvdWdocHV0IGJlbmNobWFya2luZyBvZiBFbGFzdGljc2VhcmNoIFBl\ncmNvbGF0b3JzIHZzIEx1Y2VuY2UtTHV3YWsuICBBIGZ1bGwgd3JpdGV1cCBv\nZiB0aGUgcHJvamVjdCBjYW4gYmUgZm91bmQgYXQ6CgpodHRwOi8vYmxvZy5y\neWFud2Fsa2VyLnVzLzIwMTUvMTEvYnVpbGRpbmctc3RyZWFtaW5nLXNlYXJj\naC1wbGF0Zm9ybS5odG1sCgpUaGlzIHByb2plY3Qgd2FzIGluc3BpcmVkIGJ5\nIHRoZSBmb2xsb3dpbmcgZXhjZWxsZW50IGJsb2cgcG9zdHMgb24gc3RyZWFt\naW5nIHNlYXJjaDogCi0gaHR0cDovL3d3dy5jb25mbHVlbnQuaW8vYmxvZy9y\nZWFsLXRpbWUtZnVsbC10ZXh0LXNlYXJjaC13aXRoLWx1d2FrLWFuZC1zYW16\nYS8KLSBodHRwOi8vd3d3LmZsYXguY28udWsvYmxvZy8yMDE1LzA3LzI3L2Et\ncGVyZm9ybWFuY2UtY29tcGFyaXNvbi1vZi1zdHJlYW1lZC1zZWFyY2gtaW1w\nbGVtZW50YXRpb25zLwoKSSBjb21wbGV0ZWQgdGhpcyBwcm9qZWN0IGFzIGEg\nRmVsbG93IGluIHRoZSAyMDE1QyBJbnNpZ2h0IERhdGEgRW5naW5lZXJpbmcg\nU2lsaWNvbiBWYWxsZXkgcHJvZ3JhbS4KClRoZSB0eXBpY2FsIHVzZSBjYXNl\nIGZvciBhIHN0cmVhbWluZyBzZWFyY2ggc3lzdGVtIGludm9sdmVzIG1hbnkg\ndXNlcnMgd2hvIGFyZSBpbnRlcmVzdGVkIGluIHJ1bm5pbmcgTHVjZW5lIHN0\neWxlIHF1ZXJpZXMgYWdhaW5zdCBhIHN0cmVhbWluZyBkYXRhIHNvdXJjZSBp\nbiByZWFsLXRpbWUuICBGb3IgZXhhbXBsZSwgaW52ZXN0b3JzIG1pZ2h0IHdh\nbnQgdG8gcmVnaXN0ZXIgcXVlcmllcyBmb3IgcG9zaXRpdmUgb3IgbmVnYXRp\ndmUgbWVudGlvbnMgYWJvdXQgY29tcGFuaWVzIGluIHRoZSB0d2l0dGVyIGZp\ncmVob3NlIGFuZCB0aGVuIHJlY2VpdmUgcmVhbC10aW1lIGFsZXJ0cyBhYm91\ndCBtYXRjaGVzIGZvciB0aGVpciBxdWVyaWVzLiAgVGhpcyBwcm9qZWN0IHBy\nb3ZpZGVzIGEgYmFzZSBhcmNoaXRlY3R1cmUgZm9yIHN1Y2ggYSBzeXN0ZW0u\nICBJbiBwYXJ0aWN1bGFyLCBpdCBhaW1zIHRvIHN1cHBvcnQ6CgotIE1hbnkg\nZGl2ZXJzZSB1c2VycyByZWdpc3RlcmluZyBxdWVyaWVzCi0gRnVsbCBMdWNl\nbmUgcXVlcnkgY2FwYWJpbGl0aWVzIGFnYWluc3Qgc3RyZWFtaW5nIHRleHQg\nc291cmNlcwotIFNjYWxpbmcgaW4gYm90aCB0aGUgdm9sdW1lIG9mIGRhdGEg\nYW5kIGluIHRoZSBudW1iZXIgb2YgcXVlcmllcwoKIyMgV2hhdCdzIGluY2x1\nZGVkOgotIEF1dG9tYXRlZCBBV1MgY2x1c3RlciBkZXBsb3ltZW50IHV0aWxp\ndGllcyB1c2luZyBib3RvMwotIEphdmEgYmFzZWQgU3Rvcm0gaW1wbGVtZW50\nYXRpb246CiAgLSBLYWZrYVNwb3V0IGZvciBxdWVyeSBhbmQgZG9jdW1lbnQg\nc3BvdXRzCiAgLSBUd28gZmxhdm9ycyBvZiBzdHJlYW1pbmcgc2VhcmNoIGJv\nbHRzOgogICAgLSBbRWxhc3RpY3NlYXJjaC1QZXJjb2xhdG9yc10oaHR0cHM6\nLy93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVy\nZW5jZS9jdXJyZW50L3NlYXJjaC1wZXJjb2xhdGUuaHRtbCkKICAgIC0gUHVy\nZSBMdWNlbmUgd2l0aCBbTHV3YWtdKGh0dHBzOi8vZ2l0aHViLmNvbS9mbGF4\nc2VhcmNoL2x1d2FrKQogIC0gU3Rvcm0gdG9wb2xvZ3kgZm9yIHN0cmVhbWlu\nZyBzZWFyY2ggYW5kIGNvbmZpZ3VyYXRpb24gbWFuYWdlbWVudAotIFNjcmlw\ndHMgdG8gcG9wdWxhdGUgZG9jdW1lbnQgc3RyZWFtcywgaW5jbHVkaW5nIHR3\naXR0ZXIgQVBJIHNhbXBsaW5nIHV0aWxpdGllcwotIFNpbXBsZSBQeXRob24g\nZmxhc2sgd2ViIFVJCi0gVGVzdGluZyBhbmQgb3RoZXIgdXRpbGl0aWVzLCBp\nbmNsdWRpbmcgRG9ja2VyIGNvbXBvbmVudHMgc28gdGhhdCB0aGUgZW50aXJl\nIHRvcG9sb2d5IGNhbiBydW4gb24gYSBsb2NhbCBtYWNoaW5lCgojIyBBcmNo\naXRlY3R1cmUKVGhlIGNvcmUgb2YgdGhlIHBsYXRmb3JtIGlzIGFuIEFwYWNo\nZSBTdG9ybSBjbHVzdGVyIHdoaWNoIHBhcmFsbGVsaXplcyB0aGUgd29yayBv\nZiByZWFsLXRpbWUgc3RyZWFtaW5nIHNlYXJjaC4gIEludGVybmFsbHksIHRo\nZSBTdG9ybSBjbHVzdGVyIGNvbnN1bWVzIG1lc3NhZ2VzIGZyb20gYSBLYWZr\nYSBjbHVzdGVyIGFuZCB0aGVzZSBtZXNzYWdlcyBhcmUgZGlzdHJpYnV0ZWQg\ndG8gYm9sdHMgd2hpY2ggZWFjaCBjb250YWluIGEgTHVjZW5lLUx1d2FrIGlu\nZGV4LiAgVGhlIHByb2plY3QgY29udGFpbnMgYSBkZW1vIGZsYXNrIFVJIHdo\naWNoIGhhbmRsZXMgc3Vic2NyaXB0aW9ucyB3aXRoIGEgUmVkaXMgUFVCU1VC\nIHN5c3RlbS4KClRoZSBrZXkgbGF5ZXJzIG9mIHRoZSBzeXN0ZW0gYXJlOgoK\nLSBSZWFsLXRpbWUgaW5nZXN0aW9uIHZpYSBLYWZrYSBmcm9tIGEgc3RyZWFt\naW5nIHNvdXJjZSAoZS5nLiBUd2l0dGVyIGZpcmVob3NlKQotIFN0b3JtIGNs\ndXN0ZXIgdG8gZGlzdHJpYnV0ZSB0d2VldHMgZnJvbSBLYWZrYSB0byB3b3Jr\nZXJzLiAgRWFjaCB3b3JrZXIgY29udGFpbnMgYSBMdWNlbmUgaW5zdGFuY2Ug\nd2l0aCBMdXdhay4KLSBQdWJsaXNoLVN1YnNjcmliZSBzeXN0ZW0gKFJlZGlz\nKSB3aGljaCByZWNlaXZlcyBtYXRjaGVzIGFuZCBkZWxpdmVycyB0aGVtIGJh\nY2sgdG8gdGhlIGFwcGxpY2F0aW9uIHNlcnZlcgotIEFwcGxpY2F0aW9uIHNl\ncnZlciAoUHl0aG9uIEZsYXNrKSB3aG8gcmVnaXN0ZXJzIHF1ZXJpZXMgZnJv\nbSB0aGUgdXNlcnMgYW5kIHNlcnZlcyBtYXRjaGVzCgpNb3JlIGFib3V0IHRo\nZSBhcmNoaXRlY3R1cmUgY2FuIGJlIGZvdW5kIGF0OgpodHRwOi8vc3RyYXcu\ncnlhbndhbGtlci51cy9hYm91dAoKIyMgR2V0dGluZyBzdGFydGVkCgpUaGVy\nZSBhcmUgdHdvIG9wdGlvbnMgZm9yIHJ1bm5pbmcgc3RyYXcuICBGb3IgZGV2\nZWxvcG1lbnQsIHlvdSBjYW4gcnVuIGEgbWluaSB2ZXJzaW9uIG9mIHRoZSBl\nbnRpcmUgcGxhdGZvcm0gb24gYSBzaW5nbGUgbG9jYWwgbWFjaGluZS4gSW4g\nbG9jYWwgbW9kZSwgZGVwZW5kZW50IHNlcnZpY2VzIHJ1biBpbiBEb2NrZXJz\nLiAgRm9yIHByb2R1Y3Rpb24sIHlvdSBjYW4gZGVwbG95IHRoZSBzeXN0ZW0g\ndG8gdGhlIGNsb3VkLiAgVGhlIHByb2plY3Qgc3VwcG9ydHMgYSBmdWxseSBh\ndXRvbWF0ZWQgZGVwbG95bWVudCB0byBBV1Mgd2l0aCBmdWxseSBjdXN0b21p\nemFibGUgY2x1c3RlciBjb25maWd1cmF0aW9ucy4gIAoKIyMjIFJ1bm5pbmcg\nbG9jYWxseQoKTWluaW11bSBzdXBwb3J0ZWQgcmVxdWlyZW1lbnRzOiBVYnVu\ndHUgMTQuMDQgd2l0aCBEb2NrZXIgMS44LjAgb3IgYmV0dGVyCgpVUERBVEU6\nIEkndmUgYWRkZWQgdXRpbGl0eSBzY3JpcHRzIHRvIG1ha2UgbGF1bmNoaW5n\nIHRoZSBkZW1vIG1vZGUgYSBiaXQgc2ltcGxlci4gIE5vdywgeW91IGNhbiBq\ndXN0IGRvIHRoZSBmb2xsb3dpbmcgc3RlcHM6CgoxLiBgY2QgbG9jYWxfZGVt\nb2AKMi4gSW5zdGFsbCB0aGUgcHJlcmVxdWlzaXRlczogYC4vcHJlcmVxdWlz\naXRlcy5zaGAKMy4gcnVuIGAuL2xhdW5jaF9sb2NhbF9jbHVzdGVyLnNoYAo0\nLiBJbiBhIHNlcGFyYXRlIHNoZWxsLCBydW4gYC4vbGF1bmNoX2RlbW9fdWku\nc2hgCjUuIEluIGEgc2VwYXJhdGUgc2hlbGwsIHJ1biBgLi9tb2NrX2ZpcmVo\nb3NlLnNoYAo2LiBPcGVuIGEgd2ViIGJyb3dzZXIgYW5kIHBvaW50IHRvIFto\ndHRwOi8vbG9jYWxob3N0OjUwMDBdKGh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCkK\nNy4gVHlwZSAiSnVzdGluIEJpZWJlciIgb3Igc29tZSBvdGhlciBjb21tb24g\ndHdpdHRlciBxdWVyeSAob25seSAxMDBrIHVuaXF1ZSBkb2N1bWVudHMgY2Fu\nIGJlIGZvdW5kIGluIHRoZSBtb2NrIHN0cmVhbSkuCgpGb3IgcmVmZXJlbmNl\nLCBoZXJlIGFyZSB0aGUgb2xkIHN0ZXA9Ynktc3RlcCBsYXVuY2ggaW5zdHJ1\nY3Rpb25zOgoKMS4gaW5zdGFsbCBbZG9ja2VyLWNvbXBvc2VdKGh0dHA6Ly9k\nb2NzLmRvY2tlci5jb20vY29tcG9zZS9pbnN0YWxsLykgYW5kIHJlZGlzLXNl\ncnZlcgoyLiBydW4gdXRpbC9zdGFnZV9kZW1vX21vZGUuc2ggIFRoaXMgd2ls\nbCBjcmVhdGUgZG9ja2VycyBmb3IgS2Fma2Egd2l0aCBab29rZWVwZXIgYW5k\nIEVsYXN0aWNzZWFyY2ggYW5kIHdpbGwgcG9wdWxhdGUgdGhlc2Ugc2Vydmlj\nZXMgd2l0aCBzb21lIGV4YW1wbGUgZGF0YS4gIFtCVUc6IFlvdSBtYXkgaGF2\nZSB0byBydW4gdGhpcyBzY3JpcHQgdHdpY2UhXQozLiBjZCBzcmMvc3Rvcm1p\nbmdfc2VhcmNoIE9SIHNyYy9sdXdha19zZWFyY2ggZGVwZW5kaW5nIG9uIHdo\naWNoIGZsYXZvciBvZiBzZWFyY2ggeW91IHdhbnQgdG8gYnVpbGQKNC4gcnVu\nIGBtdm4gcGFja2FnZWAKNS4gcnVuIGAuL3J1bl9sdXdha190b3BvbG9neS5z\naGAuICBUaGlzIHdpbGwgc3RhcnQgdGhlIGxvY2FsIHN0b3JtIGNsdXN0ZXIg\nd2l0aCB0aGUgTHV3YWsgdG9wb2xvZ3kuCjYuIEluIGEgc2VwYXJhdGUgdGVy\nbWluYWwsIHN0YXJ0IHRoZSB3ZWJzZXJ2ZXIgZnJvbnRlbmQgYnkgY2FsbGlu\nZyAuL3J1bi5weSBmcm9tIHNyYy9mcm9udGVuZAo3LiBPcGVuIGEgYnJvd3Nl\nciBhbmQgcG9pbnQgdG8gdGhlIGZyb250ZW5kIFVJLiAgQnkgZGVmYXVsdDog\nW2h0dHA6Ly9sb2NhbGhvc3Q6NTAwMF0oaHR0cDovL2xvY2FsaG9zdDo1MDAw\nKQo4LiBFbnRlciBhIHF1ZXJ5IHRoYXQgd2lsbCBsaWtlbHkgZ2VuZXJhdGUg\nbG90cyBvZiBoaXRzIGUuZy4gIkp1c3RpbiBCaWViZXIiLiAgTm90ZTogdGhl\ncmUgYXJlIG9ubHkgMTAwayBzYW1wbGVkIHR3ZWV0cyBpbmNsdWRlZCB3aXRo\nIHRoZSByZXBvIGJ1dCB0aGVyZSBhcmUgdXRpbGl0eSBzY3JpcHRzIGZvciBj\nb2xsZWN0aW5nIG1vcmUuCjkuIFRvIHN0YXJ0IGEgc2ltdWxhdGVkIHR3ZWV0\nIHN0cmVhbSwgYGNkIHV0aWxgIGFuZCBgLi9rYWZrYV9hZGRfZG9jdW1lbnRz\nLnNoYC4KCiMjIyBEZXBsb3kgdG8gQVdTCiMjIyMgUHJlcmVxdWlzaXRlczoK\nCjEuIEluc3RhbGwgdGhlIGF3cyBjbGk6IGBzdWRvIGFwdC1nZXQgaW5zdGFs\nbCBhd3NjbGlgCjIuIEluc3RhbGwgUHl0aG9uIGJvdG8zOiBgc3VkbyBwaXAz\nIGluc3RhbGwgYm90bzNgCjMuIFNldCB5b3VyIGRlZmF1bHQgY29uZmlndXJh\ndGlvbnMgYnkgY2FsbGluZyBgYXdzIGNvbmZpZ3VyZWAKNC4gTW9kaWZ5IHRo\nZSBzZXR0aW5ncyBpbiBgYXdzX2NvbmZpZy9zdHJhd19zZXJ2aWNlX2NvbmZp\nZy5zaGAgdG8geW91ciBvd24gQVdTIGFjY291bnQgaW5mb3JtYXRpb24gYW5k\nIHRoZW4KYGBgCnNvdXJjZSBzdHJhd19zZXJ2aWNlX2NvbmZpZy5zaApgYGAK\nCiMjIyNTdGVwczoKCjEuIGBjZCBhd3NfY29uZmlnYAoyLiBgLi9jcmVhdGVf\nY2x1c3RlcnMucHkgLS1oZWxwYCB0byBnZXQgaW5zdHJ1Y3Rpb25zIGFib3V0\nIHRoaXMgQVdTIGNyZWF0aW9uIHNjcmlwdCBhbmQgZm9sbG93IGluc3RydWN0\naW9ucy4KMy4gT25jZSBhbGwgcmVzb3VyY2VzIGFyZSBjcmVhdGVkLCBgY2Qg\nY29uZmlndXJlYC4gVGhpcyBkaXJlY3RvcnkgY29udGFpbnMgc2NyaXB0cyB0\nbyBjb25maWd1cmUgZWFjaCBvZiB0aGUgaW5kaXZpZHVhbCBzZXJ2aWNlczsg\neW91J2xsIG5lZWQgdG8gcnVuIGVhY2ggb2YgdGhlc2UgdG8gY29uZmlndXJl\nIHRoZSByZXNvdXJjZSwgZS5nLiBgLi9jb25maWd1cmVfZWxhc3RpY3NlYXJj\naGAuCjQuIE9uY2UgcmVzb3VyY2VzIGFyZSBjcmVhdGVkLCBydW4KYGBgCi4v\nZGlzY292ZXIucHkKYGBgCnRvIHNlZSB0aGUgbGlzdCBvZiBzZXJ2aWNlcyBh\nbmQgdGhlaXIgSVBzLgoKIyMjI1N1Ym1pdHRpbmcgdG9wb2xvZ2llcwpUbyBz\ndWJtaXQgb3IgcnVuIHRvcG9sb2dpZXMsIHlvdSBuZWVkIHRvIGluc3RhbGwg\nc3Rvcm0gb24geW91ciBtYWNoaW5lIChvciwgZXZlbiBiZXR0ZXIsIG9uIGEg\nZGVkaWNhdGVkIG1hY2hpbmUgd2l0aGluIHRoZSBzdWJuZXQgb2YgdGhlIFN0\nb3JtIGNsdXN0ZXIpLiAgSW5zdGFsbCBzdG9ybSBhcyBmb2xsb3dzOgpgYGAK\nc3VkbyBhcHQtZ2V0IHVwZGF0ZQpzdWRvIGFwdC1nZXQgaW5zdGFsbCBvcGVu\namRrLTctamRrCndnZXQgaHR0cDovL21pcnJvcnMuZ2lnZW5ldC5jb20vYXBh\nY2hlL3N0b3JtL2FwYWNoZS1zdG9ybS0wLjkuNS9hcGFjaGUtc3Rvcm0tMC45\nLjUudGFyLmd6IC1QIH4vRG93bmxvYWRzCnN1ZG8gdGFyIHp4dmYgfi9Eb3du\nbG9hZHMvYXBhY2hlLXN0b3JtKi5neiAtQyAvdXNyL2xvY2FsCnN1ZG8gbXYg\nL3Vzci9sb2NhbC9hcGFjaGUtc3Rvcm0qIC91c3IvbG9jYWwvc3Rvcm0KYGBg\nClRoZW4gZWRpdCBgL3Vzci9sb2NhbC9zdG9ybS9jb25maWcvc3Rvcm0ueWFt\nbGAgYnkgYWRkaW5nIHRoZSBsaW5lCmBgYG5pbWJ1cy5ob3N0OiAxMC5YLlgu\nWGBgYAp1c2luZyBlaXRoZXIgeW91ciBwcml2YXRlIG9yIHB1YmxpYyBJUCBm\nb3IgdGhlIG5pbWJ1cyBub2RlLiBJZiB5b3UgdXNlIGEgcHVibGljIElQLCB5\nb3UgbmVlZCB0byB1cGRhdGUgdGhlIHNlY3VyaXR5IGdyb3VwLiAgSWYgeW91\nIHVzZSBhIHByaXZhdGUgSVAsIHlvdSBuZWVkIHRvIGJlIHJ1bm5pbmcgZnJv\nbSB3aXRoaW4gdGhlIHN1Ym5ldC4KCk5leHQsIHlvdSBuZWVkIHRvIHRlbGwg\nc3Rvcm0gd2hlcmUgYWxsIG9mIHlvdXIgY2x1c3RlciByZXNvdXJjZXMgcmVz\naWRlLiAgVG8gZG8gdGhpcywKYGBgCnZpIGNvbmZpZy9jb25maWcucHJvcGVy\ndGllcwpgYGAKRW50ZXIgdGhlIHByaXZhdGUgSVBzIG9mIHlvdXIgc3lzdGVt\nIHJlc291cmNlcywgZm9sbG93aW5nIHRoaXMgdGVtcGxhdGUuICBXZSBhcmUg\nYXNzdW1pbmcgdGhhdCBhbGwgb2YgdGhlIHJlc291cmNlcyBsaXZlIG9uIHRo\nZSBzYW1lIHN1Ym5ldCBpbiB0aGUgY2x1c3Rlci4KCllvdSBzaG91bGQgbm93\nIHN3aXRjaCBpbnRvIHRoZSBzb3VyY2UgZGlyZWN0b3J5IG9mIGVpdGhlciB0\naGUgTHV3YWsgb3IgRWxhc3RpY3NlYXJjaCB0b3BvbG9neSBhbmQgYnVpbGQg\ndGhlIHRvcG9sb2d5LCBlLmcuCmBgYApjZCAvaG9tZS91YnVudHUvc3RyYXcv\nc3JjL2x1d2FrX3NlYXJjaAptdm4gY2xlYW4KbXZuIHBhY2thZ2UKYGBgCkZp\nbmFsbHksIHlvdSBjYW4gc3VibWl0IHRoZSB0b3BvbG9neSB0byB0aGUgY2x1\nc3RlciAod2hvc2UgbmltYnVzIG5vZGUgd2FzIHNwZWNpZmllZCBpbiBzdGVw\nIDUpIGJ5IGV4ZWN1dGluZwpgYGAKLi9zdWJtaXRfdG9wb2xvZ3kuc2gKYGBg\nCgoKIyMjIENvbmZpZ3VyaW5nIFJlZGlzClRoZSBpbmNsdWRlZCB3ZWJzZXJ2\nZXIgYW5kIHRoZSBxdWVyeSByZXN1bHQgcGlwZWxpbmUgYm90aCByZWx5IG9u\nIFJlZGlzIGFzIGEgcHVibGlzaC1zdWJzY3JpYmUgc3lzdGVtLiAgUmVkaXMg\nY2FuIGFsc28gYmUgdXNlZCB0byBjb2xsZWN0IHRoZSBiZW5jaG1hcmtpbmcg\nc3RhdGlzdGljcyBmb3IgcHJvZmlsaW5nIEx1d2FrIGFuZCBFbGFzdGljc2Vh\ncmNoLgoKSW5zdGFsbCByZWRpcyBvbiB0aGUgc2FtZSBzZXJ2ZXIgYXMgdGhl\nIHdlYnNlcnZlciBhbmQgbW9kaWZ5IHRoZSBiaW5kIGludGVyZmFjZToKYGBg\nCiMgc2V0IGJpbmQgMC4wLjAuMCBpbiByZWRpcy5jb25mOgpzdWRvIGFwdC1n\nZXQgaW5zdGFsbCByZWRpcy1zZXJ2ZXIKc3VkbyB2aSAvZXRjL3JlZGlzL3Jl\nZGlzLmNvbmYKYGBgCklmIHlvdSB3YW50IHRvIHVzZSBhIHNlcGFyYXRlIHJl\nZGlzIGluc3RhbmNlIGZvciB0aGUgYmVuY2htYXJraW5nLCB5b3Ugc2hvdWxk\nIHJlcGVhdCB0aGUgYWJvdmUgc3RlcCBvbiBhIGRpZmZlcmVudCBBV1MgbWFj\naGluZSBhbmQgdXBkYXRlIHRoZSBnbG9iYWwgY29uZmlndXJhdGlvbiBgY29u\nZmlnL2NvbmZpZy5wcm9wZXJ0aWVzYC4KCiMjIEJlbmNobWFya2luZyBhbmQg\nc2ltdWxhdGlvbgpBIGdvYWwgb2YgdGhlIHN0cmF3IHByb2plY3Qgd2FzIHRv\nIGFsbG93IGZvciBiZW5jaG1hcmtpbmcgb2YgdGhlIEx1Y2VuZS1MdXdhayBw\nYWNrYWdlIGluIGEgZGlzdHJpYnV0ZWQgY29udGV4dC4gIAoKIyMjIE1lYXN1\ncmluZyB0aHJvdWdocHV0CkkgbWVhc3VyZSB0aHJvdWdocHV0IHRocm91Z2gg\ndGhlIHNlYXJjaCBib2x0cyBvZiB0aGUgU3Rvcm0gY2x1c3RlciBpbiBzaW1w\nbGUgd2F5LiAgU3RhcnQgYSBzdG9wd2F0Y2ggaW4gYSBiYWNrZ3JvdW5kIHRo\ncmVhZC4gIEVhY2ggYm9sdCBoYXMgYSBjb3VudGVyIHdoaWNoIGdldCBpbmNy\nZW1lbnRlZCBlYWNoIHRpbWUgYSBkb2N1bWVudCBnZXRzIGNoZWNrZWQgYWdh\naW5zdCB0aGUgc2VhcmNoIGVuZ2luZS4gIFdoZW4gdGhlIHN0b3B3YXRjaCBo\naXRzIDEwIHNlY29uZHMsIGNvbGxlY3QgdGhlIGRhdGEgZnJvbSBlYWNoIGNv\ndW50ZXIsIHB1Ymxpc2ggdGhlIHJlc3VsdCB0byBhIHJlZGlzIERCLCBhbmQg\ncmVzZXQgdGhlIGNvdW50ZXIuCgojIyMgR2VuZXJhdGluZy9zaW11bGF0aW5n\nIGRhdGEKRm9yIGJlbmNobWFya2luZyBhbmQgc2ltdWxhdGlvbnMsIHlvdSds\nbCBuZWVkIGEgd2F5IHRvIGdlbmVyYXRlIHR3ZWV0cyBhbmQgcXVlcmllcy4g\nRm9yIHRoaXMgcHVycG9zZSwgSSd2ZSBhZGRlZCBtYW55IHRvb2xzIHRvIHRo\nZSBgc3RyYXcvdXRpbHNgIGRpcmVjdG9yeS4gIEluIHBhcnRpY3VsYXIsIHRo\nZSBzY3JpcHRzCmBgYAouL2thZmthX2FkZF9kb2N1bWVudHMKLi9rYWZrYV9h\nZGRfcXVlcmllcwpgYGAKY2FuIGJlIHVzZWQgdG8gYWRkIGRvY3VtZW50cyBh\nbmQgcXVlcmllcyBmcm9tIHNhbXBsZSBmaWxlcy4gIFNvbWUgc21hbGwgZXhh\nbXBsZSBkYXRhIGZpbGVzIGFyZSBmb3VuZCBpbiBgYGBzdHJhdy9kYXRhYGBg\nLiAgRm9yIGxvbmcgcnVubmluZyBzaW11bGF0aW9uLCB5b3UgY2FuIHJ1biBg\nYGAuL2thZmthX2FkZF9kb2N1bWVudHMuc2hgYGAgaW4gYSBjcm9uam9iLCB0\nbyBwZXJpb2RpY2FsbHkgcHV0IGRvY3VtZW50cyBpbnRvIHRoZSBLYWZrYSBj\nbHVzdGVyLiAgTk9URTogS2Fma2EgaGFzIGJlZW4gY29uZmlndXJlZCB0byBw\ndXJnZSBkb2N1bWVudHMgYWZ0ZXIgMSBob3VyLgoKWW91IGNhbiBlYXNpbHkg\naGFydmVzdCB5b3VyIG93biB0d2VldCBkYXRhIGZyb20gdGhlIFR3aXR0ZXIg\nYXBpLiBUcnkgdGhlIGZvbGxvd2luZyBoZWxwZXIgc2NyaXB0IHdoaWNoIHVz\nZXMgVHd5dGhvbiB0byByZWFkIGZyb20gdGhlIFR3aXR0ZXIgc3RyZWFtaW5n\nIHNhbXBsZSBBUEk6CmBgYAouL3R3ZWV0X3NhbXBsZXIucHkgLS1oZWxwCmBg\nYApZb3UnbGwgbmVlZCB0byBleHBvcnQgeW91ciB0d2l0dGVyIGNyZWRlbnRp\nYWxzIGFzIGVudmlyb25tZW50IHZhcmlhYmxlcyB0byBydW4gdGhpcyBhbmQg\nb3RoZXIgc2NyaXB0cywgZS5nLgpgYGAKc291cmNlIG15X3R3aXR0ZXJfY3Jl\nZGVudGlhbHMKYGBgCndoZXJlIGBteV90d2l0dGVyX2NyZWRlbnRpYWxzYCBs\nb29rcyBsaWtlCmBgYApleHBvcnQgVFdJVFRFUl9BQ0NFU1NfVE9LRU49Li4u\nCmV4cG9ydCBUV0lUVEVSX1NFQ1JFVF9UT0tFTj0uLi4KZXhwb3J0IFRXSVRU\nRVJfQ09OU1VNRVJfVE9LRU49Li4uCmV4cG9ydCBUV0lUVEVSX0NPTlNVTUVS\nX1NFQ1JFVD0uLi4KCmBgYApUbyBnZW5lcmF0ZSBtYW55IHJlYXNvbmFibHkg\nY29tcGxleCBxdWVyaWVzIGZvciB0aGUgYmVuY2htYXJraW5nIHN0dWRpZXMs\nIHRoZSBpbmNsdWRlZCBxdWVyeSBtYWtlciB1dGlsaXR5IG1pZ2h0IGJlIGhl\nbHBmdWwKYGBgCi4vcXVlcnlfbWFrZXIucHkgLS1oZWxwCmBgYApUaGlzIHNj\ncmlwdCB0YWtlcyBhIHNhbXBsZSBvZiB0d2VldHMgYW5kIHVzZXMgTkxUSyB0\nbyBjb21wdXRlIGJpZ3JhbSBmcmVxdWVuY2llcy4gIFRoZSBtb3N0IGZyZXF1\nZW50IGJpZ3JhbSBhcmUgdGhlbiBjb252ZXJ0ZWQgaW50byBxdWVyaWVzIHRo\nYXQgU3RyYXcgY2FuIHBhcnNlLiAgRm9yIGVhc2Ugb2YgdXNlLCBJJ3ZlIGlu\nY2x1ZGVkIGBkYXRhL3F1ZXJpZXMuYmlncmFtc2AgaW4gIHRoZSByZXBvLiAg\nVGhpcyBpcyBhIGNvbGxlY3Rpb24gb2YgMTAwLDAwMCBnZW5lcmF0ZWQgYmln\ncmFtIHF1ZXJpZXMgY29sbGVjdGVkIGZyb20gYSBzYW1wbGUgb2YgMjAgbWls\nbGlvbiB0d2VldHMuCgo=\n", 
+                "download_url": "https://raw.githubusercontent.com/rwalk/straw/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/rwalk/straw/git/blobs/6651fddf6d57fda4263320321b189db6c836dc7b", 
+                "html_url": "https://github.com/rwalk/straw/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "6651fddf6d57fda4263320321b189db6c836dc7b", 
+                "size": 10634, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/rwalk/straw/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-09-14T17:53:04Z", 
+                "language": "Python", 
+                "owner": {
+                    "avatar_url": "https://avatars2.githubusercontent.com/u/8158888?v=3", 
+                    "events_url": "https://api.github.com/users/rwalk/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/rwalk/followers", 
+                    "following_url": "https://api.github.com/users/rwalk/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/rwalk/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/rwalk", 
+                    "id": 8158888, 
+                    "login": "rwalk", 
+                    "organizations_url": "https://api.github.com/users/rwalk/orgs", 
+                    "received_events_url": "https://api.github.com/users/rwalk/received_events", 
+                    "repos_url": "https://api.github.com/users/rwalk/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/rwalk/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/rwalk/subscriptions", 
+                    "type": "User", 
+                    "url": "https://api.github.com/users/rwalk"
+                }, 
+                "pushed_at": "2016-03-09T23:17:05Z", 
+                "stargazers_count": 67, 
+                "updated_at": "2017-04-25T17:20:27Z", 
+                "watchers_count": 67
+            }
+        }, 
+        "viki-org/storm-docker": {
+            "dockerfile": {
+                "/base-storm/Dockerfile": {
+                    "ADD": [
+                        "cluster.xml $STORM_HOME/logback/cluster.xml", 
+                        "config-supervisord.sh /usr/bin/config-supervisord.sh", 
+                        "run-supervisord.py /usr/bin/run-supervisord.py", 
+                        "storm-setup.yaml $STORM_SETUP_YAML"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "STORM_HOME /usr/share/apache-storm-0.9.2-incubating", 
+                        "STORM_SETUP_YAML /storm-setup.yaml"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "viki-data data@viki.com"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "echo \"deb http://archive.ubuntu.com/ubuntu precise universe\" >> /etc/apt/sources.list", 
+                        "echo \"deb http://mirrors.ccs.neu.edu/ubuntu precise universe\" >> /etc/apt/sources.list", 
+                        "apt-get update", 
+                        "apt-get install -y unzip openjdk-6-jdk wget supervisor python-dev python-pip", 
+                        "pip install PyYAML==3.11", 
+                        "wget -q -N http://mirrors.gigenet.com/apache/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.zip", 
+                        "unzip -o /apache-storm-0.9.2-incubating.zip -d /usr/share/", 
+                        "rm /apache-storm-0.9.2-incubating.zip", 
+                        "echo \"STORM_HOME=/usr/share/apache-storm-0.9.2-incubating\" | tee -a /etc/environment", 
+                        "groupadd storm", 
+                        "useradd --gid storm --home-dir /home/storm --create-home --shell /bin/bash storm", 
+                        "chown -R storm:storm $STORM_HOME", 
+                        "mkdir /var/log/storm", 
+                        "chown -R storm:storm /var/log/storm", 
+                        "ln -s $STORM_HOME/bin/storm /usr/bin/storm", 
+                        "mkdir -v /mnt/storm", 
+                        "chown -R storm:storm /mnt/storm", 
+                        "echo \"STORM_SETUP_YAML=/storm-setup.yaml\" | tee -a /etc/environment", 
+                        "echo [supervisord] | tee -a /etc/supervisor/supervisord.conf", 
+                        "echo nodaemon=true | tee -a /etc/supervisor/supervisord.conf"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/storm-nimbus/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [
+                        "[\"/usr/bin/run-supervisord.py\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "viki_data/base-storm"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "viki-data data@viki.com"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "/usr/bin/config-supervisord.sh nimbus", 
+                        "/usr/bin/config-supervisord.sh drpc"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/storm-supervisor/Dockerfile": {
+                    "ADD": [
+                        "dnsmasq.supervisord.conf /etc/supervisor/conf.d/dnsmasq.conf", 
+                        "ssh.supervisord.conf /etc/supervisor/conf.d/ssh.conf"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [
+                        "[\"/usr/bin/run-supervisord.py\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [
+                        "22"
+                    ], 
+                    "FROM": [
+                        "viki_data/base-storm"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "viki-data data@viki.com"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get install -y dnsmasq", 
+                        "echo 'user=root' | tee -a /etc/dnsmasq.conf", 
+                        "echo 'domain-needed' | tee -a /etc/dnsmasq.conf", 
+                        "echo 'bogus-priv' | tee -a /etc/dnsmasq.conf", 
+                        "echo 'addn-hosts=/etc/dnsmasq-extra-hosts' | tee -a /etc/dnsmasq.conf", 
+                        "mkdir /var/run/sshd", 
+                        "apt-get install -y openssh-server", 
+                        "echo 'root:root' | chpasswd", 
+                        "sed -i 's/^\\(PermitRootLogin\\).*$/\\1 yes/' /etc/ssh/sshd_config", 
+                        "sed -i 's/^\\(.*pam_loginuid\\.so.*\\)$/#\\1/' /etc/pam.d/sshd", 
+                        "/usr/bin/config-supervisord.sh supervisor", 
+                        "/usr/bin/config-supervisord.sh logviewer"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/storm-ui/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [
+                        "[\"/usr/bin/run-supervisord.py\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "viki_data/base-storm"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "viki-data data@viki.com"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "/usr/bin/config-supervisord.sh ui"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/zookeeper/Dockerfile": {
+                    "ADD": [
+                        "zoo.cfg $ZK_CFG", 
+                        "storm-setup.yaml $STORM_SETUP_YAML", 
+                        "zookeeper.supervisord.conf /etc/supervisor/conf.d/zookeeper.conf", 
+                        "ssh.supervisord.conf /etc/supervisor/conf.d/ssh.conf", 
+                        "run-zookeeper.py /usr/bin/run-zookeeper.py"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [
+                        "[\"/usr/bin/run-zookeeper.py\"]"
+                    ], 
+                    "ENV": [
+                        "ZK_DATADIR /var/lib/zookeeper", 
+                        "ZK_CFG /opt/zookeeper-3.4.6/conf/zoo.cfg", 
+                        "ZOO_DATADIR_AUTOCREATE_DISABLE 1", 
+                        "STORM_SETUP_YAML /storm-setup.yaml", 
+                        "JAVA_HOME /usr/lib/jvm/java-6-openjdk-amd64"
+                    ], 
+                    "EXPOSE": [
+                        "22"
+                    ], 
+                    "FROM": [
+                        "ubuntu:14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "viki-data data@viki.com"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "echo \"deb http://archive.ubuntu.com/ubuntu precise universe\" >> /etc/apt/sources.list", 
+                        "echo \"deb http://mirrors.ccs.neu.edu/ubuntu precise universe\" >> /etc/apt/sources.list", 
+                        "apt-get update", 
+                        "apt-get install -y unzip openjdk-6-jre-headless wget supervisor python-dev python-pip", 
+                        "pip install PyYAML==3.11", 
+                        "wget -q -O /opt/zookeeper-3.4.6.tar.gz http://apache.mirrors.pair.com/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz", 
+                        "tar -xzf /opt/zookeeper-3.4.6.tar.gz -C /opt", 
+                        "rm /opt/zookeeper-3.4.6.tar.gz", 
+                        "mkdir -p $ZK_DATADIR", 
+                        "mkdir /zookeeper-transactions", 
+                        "mkdir -p /var/log/supervisor", 
+                        "echo [supervisord] | tee -a /etc/supervisor/supervisord.conf", 
+                        "echo nodaemon=true | tee -a /etc/supervisor/supervisord.conf", 
+                        "mkdir /var/run/sshd", 
+                        "apt-get install -y openssh-server", 
+                        "echo 'root:root' | chpasswd", 
+                        "sed -i 's/^\\(PermitRootLogin\\).*$/\\1 yes/' /etc/ssh/sshd_config", 
+                        "sed -i 's/^\\(.*pam_loginuid\\.so.*\\)$/#\\1/' /etc/pam.d/sshd"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/viki-org/storm-docker/git/blobs/6ec2d9d1e23f62dc33d3986bf6d30a02a5f46a5f", 
+                    "html": "https://github.com/viki-org/storm-docker/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/viki-org/storm-docker/contents/README.md?ref=master"
+                }, 
+                "content": "c3Rvcm0tZG9ja2VyCj09PT09PT09PT09PQoKVGhpcyByZXBvc2l0b3J5IG1h\na2VzIGl0IGVhc3kgdG8gcnVuICoqZGlzdHJpYnV0ZWQsIG11bHRpcGxlIHNl\ncnZlcioqCihtdWx0aXBsZSBab29rZWVwZXIsIG11bHRpcGxlIFN0b3JtIFN1\ncGVydmlzb3IpCltTdG9ybV0oaHR0cDovL3N0b3JtLmluY3ViYXRvci5hcGFj\naGUub3JnLykgdG9wb2xvZ2llcyB3aXRoaW4KW0RvY2tlcl0oaHR0cHM6Ly93\nd3cuZG9ja2VyLmlvLykuCgpSZWFkIG91ciBbc3Rvcm0tZG9ja2VyIGJsb2cg\ncG9zdCBvbiB0aGUgVmlraSBFbmdpbmVlcmluZyBibG9nXShodHRwOi8vZW5n\naW5lZXJpbmcudmlraS5jb20vYmxvZy8yMDE0L2Fubm91bmNpbmctc3Rvcm0t\nZG9ja2VyLW1ha2luZy1kaXN0cmlidXRlZC1tdWx0aXBsZS1zZXJ2ZXItc3Rv\ncm0tc2V0dXBzLWVhc3ktaW4tZG9ja2VyLykKCk1vcmUgZG9jdW1lbnRhdGlv\nbiBvbiBHaXRodWIgcGFnZXM6IGh0dHA6Ly9kZXYudmlraS5jb20vc3Rvcm0t\nZG9ja2VyCgojIyBXaGF0J3MgU3BlY2lhbD8KCklmIHdlIGRvIGEgc2VhcmNo\nIG9mIHRoZSB3b3JkIGBzdG9ybWAgb24gdGhlCltEb2NrZXIgUmVnaXN0cnld\nKGh0dHBzOi8vcmVnaXN0cnkuaHViLmRvY2tlci5jb20vKSwgd2Ugc2VlIHNl\ndmVyYWwgcGFnZXMgb2YKcmVzdWx0cy4gV2hhdCBtYWtlcyBvdXIgc3Rvcm0t\nZG9ja2VyIHNwZWNpYWwgY29tcGFyZWQgdG8gc2ltaWxhciBvZmZlcmluZ3M/\nCgoxLiBTdXBwb3J0cyBtdWx0aXBsZSBzZXJ2ZXIgU3Rvcm0gc2V0dXBzLCBp\nbiBwYXJ0aWN1bGFyIFpvb2tlZXBlciBhbmQKU3Rvcm0gU3VwZXJ2aXNvci4K\nMi4gSGlnaCBsZXZlbCBvZiBjb25maWd1cmFiaWxpdHkgdGhyb3VnaCAqKmRv\nY3VtZW50ZWQqKiBzYW1wbGUgY29uZmlndXJhdGlvbgpmaWxlcwozLiBTYW1l\nIGNvbmZpZ3VyYXRpb24gZmlsZXMgdXNlZCBmb3IgKiphbGwqKiBtYWNoaW5l\ncyBpbiB0aGUgU3Rvcm0gY2x1c3Rlcgo0LiBJbnN0cnVjdGlvbnMgb24gdGhp\ncyBgUkVBRE1FYCBzaG93aW5nIHlvdSBob3cgdG8gc2V0dXAgdGhlIHJlcG9z\naXRvcnkKNS4gSW1wb3J0YW50IHBhcnRzIG9mIGNvZGViYXNlIGlzIGV4dGVu\nc2l2ZWx5IGRvY3VtZW50ZWQgdG8gYWlkIGhhY2tpbmcuCk5vIG5lZWQgdG8g\nZ3Vlc3Mgd2hhdCB0aGUgb3JpZ2luYWwgYXV0aG9yIGlzIHRoaW5raW5nLgo2\nLiBbR2l0aHViIHBhZ2VzXShodHRwOi8vZGV2LnZpa2kuY29tL3N0b3JtLWRv\nY2tlcikgd2l0aCBtb3JlIGRvY3VtZW50YXRpb247CmEgc2xpZ2h0IHJlZGVz\naWduIGFuZCB3YWxrdGhyb3VnaCBpcyBpbiB0aGUgd29ya3MKNy4gVGVzdGVk\nIGFuZCB1c2VkIGluIHByb2R1Y3Rpb24uCgpQb2ludCAxIGlzIHByb2JhYmx5\nIHRoZSBzaW5nbGUgYmlnZ2VzdCByZWFzb24gd2h5IHlvdSBzaG91bGQgdXNl\nIG91cgpzdG9ybS1kb2NrZXIsIGV2ZW4gaWYgeW91J3JlIHJ1bm5pbmcgZXZl\ncnl0aGluZyBvbiBhIHNpbmdsZSBtYWNoaW5lIGluaXRpYWxseQood2hpY2gg\nc3Rvcm0tZG9ja2VyICoqZG9lcyoqIHN1cHBvcnQsIGJ0dykuCldoZW4geW91\nIG5lZWQgdG8gYWRkIG5ldyBtYWNoaW5lcyB0byB5b3VyIFN0b3JtIGNsdXN0\nZXIsIHlvdSdsbCBmaW5kIHRoZQp0cmFuc2l0aW9uIHNtb290aCBhbmQgbGV2\nZXJhZ2Ugb24gdGhlIHdvcmsgd2UgZGlkIGluIGZpZ3VyaW5nIG91dCBob3cg\ndG8gcnVuCm11bHRpcGxlIFpvb2tlZXBlciBhbmQgU3Rvcm0gU3VwZXJ2aXNv\nciBpbiBEb2NrZXIuCgpBdCB0aGlzIHBvaW50IGluIHRpbWUgKDIzIEp1bmUg\nMjAxNCksIG91ciBzdG9ybS1kb2NrZXIgcmVwb3NpdG9yeSBpcyBwcm9iYWJs\neQp0aGUgZmlyc3QgYW5kIG9ubHkgb3BlbiBzb3VyY2UgRG9ja2VyIHNldHVw\nIHRoYXQgc3VwcG9ydHMgZGlzdHJpYnV0ZWQsCm11bHRpLXNlcnZlciBTdG9y\nbSBjbHVzdGVycyBvdXQgb2YgdGhlIGJveC4KCiMjIEltcG9ydGFudCBOb3Rl\nIG9uIG1hY2hpbmVzIGluIHlvdXIgU3Rvcm0gY2x1c3RlcgoKVGhlIHN0b3Jt\nLWRvY2tlciBwcm9qZWN0IGlzIHRlc3RlZCB1c2luZyBBbWF6b24gRUMyIGlu\nc3RhbmNlczsgd2UgbWFrZSB1c2Ugb2YKdGhlIGBjdXJsYCBjb21tYW5kIHRv\nIG9idGFpbiB0aGUgcHVibGljIGFuZCBwcml2YXRlIElQIGFkZHJlc3NlcyBv\nZiB0aGUKbWFjaGluZXMuIFRoaXMgbWF5IGJlIGEgcHJvYmxlbSBmb3IgbWFj\naGluZXMgd2hpY2ggYXJlIG5vdCBBbWF6b24gRUMyIGluc3RhbmNlcwooZXZl\nbiB0aG91Z2ggd2UgaGF2ZSBub3QgZmFjZWQgYW55IHNpbWlsYXIgaXNzdWVz\nIGF0IFZpa2kpLCBhcyBzZWVuIGJ5IHRoaXMKR2l0aHViIGlzc3VlOgoKaHR0\ncHM6Ly9naXRodWIuY29tL3Zpa2ktb3JnL3N0b3JtLWRvY2tlci9pc3N1ZXMv\nMQoKQXMgc3VjaCwgcGxlYXNlIHVzZSBvbmUgb2YgdGhlIGZvbGxvd2luZyAy\nIHNldHVwcyBmb3IgdGhlIG1hY2hpbmVzIGluIHlvdXIKU3Rvcm0gY2x1c3Rl\nciBpZiB5b3UncmUgdXNpbmcgdGhlIHN0b3JtLWRvY2tlciBwcm9qZWN0OgoK\nMS4gTm9uZSBvZiB0aGUgbWFjaGluZXMgaW4geW91ciBTdG9ybSBjbHVzdGVy\nIGFyZSBBbWF6b24gRUMyIGluc3RhbmNlcwoyLiBBTEwgdGhlIG1hY2hpbmVz\nIGluIHlvdXIgU3Rvcm0gY2x1c3RlciBhcmUgQW1hem9uIEVDMiBpbnN0YW5j\nZXMgaW4gdGhlIHNhbWUKc2VjdXJpdHkgZ3JvdXAKClJlZmVyIHRvIHRoZSBk\nb2N1bWVudGF0aW9uIGZvciB0aGUgYGFsbF9tYWNoaW5lc19hcmVfZWMyX2lu\nc3RhbmNlc2Aga2V5IGluIHRoZQpgY29uZmlnL3N0b3JtLXNldHVwLnlhbWwu\nc2FtcGxlYCBmaWxlIGZvciBtb3JlIGluZm9ybWF0aW9uLgoKIyMgU3lzdGVt\nIFJlcXVpcmVtZW50cwoKVGhlIGZvbGxvd2luZyBzb2Z0d2FyZSBpcyByZXF1\naXJlZCBmb3IgcnVubmluZyB0aGUgYHN0b3JtLWRvY2tlcmAgcmVwb3NpdG9y\neS4KSW4gb3RoZXIgd29yZHMsIGZvciBtYWNoaW5lcyB3aGljaCBhcmUgZ29p\nbmcgdG8gZm9ybSB5b3VyIFN0b3JtIGNsdXN0ZXI6CgotIEdOVSBNYWtlCi0g\nRG9ja2VyCi0gcHl0aG9uIDIuNy54Ci0gdmlydHVhbGVudgoKIyMgU29mdHdh\ncmUgU2V0dXAKCioqTk9URToqKiBUaGUgc3RlcHMgaGVyZSBtdXN0IGJlIGNh\ncnJpZWQgb3V0IGZvciAqKmFsbCoqIG1hY2hpbmVzIGluIHlvdXIKU3Rvcm0g\nY2x1c3Rlci4KCiMjIyBQeXRob24gc2V0dXAKCldlIHdpbGwgYmUgbWFraW5n\nIHVzZSBvZiBbdmlydHVhbGVudl0oaHR0cDovL3ZpcnR1YWxlbnYucmVhZHRo\nZWRvY3Mub3JnL2VuL2xhdGVzdC8pCmZvciBzb21lIG9mIHRoZSBQeXRob24g\nc2NyaXB0cyBpbiB0aGlzIHJlcG9zaXRvcnkuIFdlIGFsc28gbWFrZSB1c2Ug\nb2YgdGhlCltQeVlBTUxdKGh0dHA6Ly9weXlhbWwub3JnLykgbGlicmFyeSwg\nYW5kIHRoYXQgcmVxdWlyZXMgc29tZSBQeXRob24gaGVhZGVyCmZpbGVzLgoK\nT24gYSBVYnVudHUtbGlrZSBzeXN0ZW06CgogICAgc3VkbyBhcHQtZ2V0IGlu\nc3RhbGwgcHl0aG9uLXZpcnR1YWxlbnYKICAgIHN1ZG8gYXB0LWdldCBpbnN0\nYWxsIHB5dGhvbi1kZXYKCiMjIyBJbnN0YWxsIERvY2tlcgoKVXNlIHRoZSBm\nb2xsb3dpbmcgY29tbWFuZCBmcm9tIHRoZSB0b3Agb2YgdGhlIHNjcmlwdCBh\ndCBodHRwOi8vZ2V0LmRvY2tlci5pbwp0byBpbnN0YWxsIERvY2tlcgoKICAg\nIHdnZXQgLXFPLSBodHRwczovL2dldC5kb2NrZXIuaW8vIHwgYmFzaAoKVmVy\naWZ5IHlvdXIgRG9ja2VyIGluc3RhbGxhdGlvbjoKCiAgICBkb2NrZXIgaW5m\nbwoKIyMjIENsb25pbmcgdGhpcyByZXBvc2l0b3J5CgpDbG9uZSB0aGlzIHJl\ncG9zaXRvcnksIHByZWZlcnJhYmx5IHRvIGAkSE9NRS93b3Jrc3BhY2Uvc3Rv\ncm0tZG9ja2VyYC4KQXQgYCRIT01FL3dvcmtzcGFjZWA6CgogICAgZ2l0IGNs\nb25lIGh0dHBzOi8vZ2l0aHViLmNvbS92aWtpLW9yZy9zdG9ybS1kb2NrZXIu\nZ2l0CgpUaGUgbmV4dCBmZXcgY29tbWFuZHMgd2lsbCBiZSBydW4gZnJvbSB0\naGUgYHN0b3JtLWRvY2tlcmAgcmVwb3NpdG9yeS4gTGV0IHVzCmdvIHRoZXJl\nOgoKICAgIGNkIHN0b3JtLWRvY2tlcgoKIyMgQ29uZmlndXJhdGlvbgoKKipO\nT1RFOioqIFRoZSBzdGVwcyBoZXJlIG11c3QgYmUgY2FycmllZCBvdXQgZm9y\nICoqYWxsKiogbWFjaGluZXMgb2YgeW91cgpTdG9ybSBjbHVzdGVyIHVubGVz\ncyBvdGhlcndpc2Ugc3RhdGVkLgoKIyMjIENvbmZpZ3VyaW5nIHRoZSBTdG9y\nbSBzZXR1cAoKKipOT1RFOioqIFRoaXMgc3RlcCBpcyAqKmNyaXRpY2FsKiog\ndG8gdGhlIGNvcnJlY3QgZnVuY3Rpb25pbmcgb2YgdGhlIFN0b3JtCnRvcG9s\nb2d5LgoKKipOT1RFOioqIHN0b3JtLWRvY2tlciBhc3N1bWVzIHRoYXQgYWxs\nIG1hY2hpbmVzIGluIHRoZSBTdG9ybSBjbHVzdGVyIG1ha2UgdXNlCm9mIHRo\nZSBzYW1lIGNvbmZpZ3VyYXRpb24gZmlsZXMuCkFzIHN1Y2gsIHlvdSBjYW4g\ncGVyZm9ybSB0aGlzIHN0ZXAgb2YgZWRpdGluZyB0aGUgY29uZmlndXJhdGlv\nbiBmaWxlcyBvbmNlCihvbiBhbnkgbWFjaGluZSkgYW5kIGNvcHkgdGhlIGZp\nbGVzIHRvIGFsbCB0aGUgbWFjaGluZXMgb2YgeW91ciBTdG9ybSBjbHVzdGVy\nLgoKQ29weSB0aGUgc2FtcGxlIGNvbmZpZ3VyYXRpb24gZmlsZXMgdG8gY29u\nY3JldGUgY29uZmlndXJhdGlvbiBmaWxlcyAodGhlCmBjb3B5LXNhbXBsZS1j\nb25maWcuc2hgIHNjcmlwdCAqKmRvZXMgbm90Kiogb3ZlcndyaXRlIGFueSBl\neGlzdGluZyBjb25jcmV0ZQpjb25maWd1cmF0aW9uIGZpbGVzKToKCiAgICAu\nL2NvcHktc2FtcGxlLWNvbmZpZy5zaAoKQ2Fycnkgb24gYnkgZWRpdGluZyB0\naGUgZm9sbG93aW5nIGNvbmNyZXRlIGNvbmZpZ3VyYXRpb24gZmlsZXM6Cgot\nIGBjb25maWcvc3Rvcm0tc2V0dXAueWFtbGAKLSBgY29uZmlnL2NsdXN0ZXIu\neG1sYAotIGBjb25maWcvem9vLmNmZ2AKCkRvY3VtZW50YXRpb24gaXMgYXZh\naWxhYmxlIGluIHRoZSBjb3BpZWQgY29uY3JldGUgY29uZmlndXJhdGlvbiBm\naWxlcywgZXhjZXB0CnRoZSBgY29uZmlnL2NsdXN0ZXIueG1sYCBmaWxlIHVz\nZWQgZm9yIGxvZ2JhY2sgY29uZmlndXJhdGlvbi4KQSBkZWZhdWx0IHNldCBv\nZiBjb25maWd1cmF0aW9uIGhhcyBiZWVuIHNldDsgZm9yIG1vcmUgZmluZS1n\ncmFpbmVkCmNvbmZpZ3VyYXRpb24sIHdlIGhpZ2hseSByZWNvbW1lbmQgcmVh\nZGluZwpbVGhlIGxvZ2JhY2sgbWFudWFsXShodHRwOi8vbG9nYmFjay5xb3Mu\nY2gvbWFudWFsLykuCgpPbmNlIGRvbmUgd2l0aCB5b3VyIGVkaXRzLCB3ZSBj\nYW4gY29udGludWUgd2l0aCBidWlsZGluZyB0aGUgRG9ja2VyIGltYWdlcy4K\nCiMjIyBCdWlsZGluZyB0aGUgRG9ja2VyIGltYWdlcwoKKipOT1RFOioqIFRo\naXMgc3RlcCBpcyBuZWNlc3NhcnkgYWZ0ZXIgbWFraW5nIGNoYW5nZXMgdG8g\nKiphbnkqKiBvZiB0aGUKY29uZmlndXJhdGlvbiBmaWxlcyBpbiB0aGUgYWJv\ndmUgc3Vic2VjdGlvbi4KClJ1biB0aGUgKipHTlUqKiBgbWFrZWAgY29tbWFu\nZC4gVGhlIGRlZmF1bHQgZ29hbCBidWlsZHMgdGhlIERvY2tlciBpbWFnZXM6\nCgogICAgbWFrZQoKSWYgdGhpcyBpcyB0aGUgZmlyc3QgdGltZSB0aGUgRG9j\na2VyIGltYWdlcyBhcmUgYmVpbmcgYnVpbHQsIHRoaXMgc2NyaXB0IHdpbGwK\ndGFrZSBzb21lIHRpbWUgdG8gY29tcGxldGUuCgojIyBSdW5uaW5nIHRoZSBT\ndG9ybSBjb21wb25lbnRzCgojIyMgUnVuIHRoZSBEb2NrZXIgY29udGFpbmVy\ncwoKQmVmb3JlIGFjdHVhbGx5IHJ1bm5pbmcgdGhlIHZhcmlvdXMgRG9ja2Vy\nIGNvbnRhaW5lcnMsIHlvdSBtaWdodCB3YW50IHRvIHZlcmlmeQp0aGF0IGFs\nbCBzZXJ2ZXJzIHVzZWQgaW4gdmFyaW91cyBzZWN0aW9ucyBvZiB0aGUgYGNv\nbmZpZy9zdG9ybS1zZXR1cC55YW1sYCBmaWxlCmFyZSBsaXN0ZWQgdW5kZXIg\ndGhlIGBzZXJ2ZXJzYCBkaWN0aW9uYXJ5IChsb2NhdGVkIGluIHRoZSBzYW1l\nIGZpbGUpIGJ5IHJ1bm5pbmcKdGhlIGBzY3JpcHRzL3ZlcmlmeV9zdG9ybV9z\nZXR1cF95YW1sLnB5YCBzY3JpcHQ6CgogICAgLiB2ZW52L2Jpbi9hY3RpdmF0\nZQogICAgcHl0aG9uIHNjcmlwdHMvdmVyaWZ5X3N0b3JtX3NldHVwX3lhbWwu\ncHkKCldhcm5pbmdzIHdpbGwgYmUgcHJpbnRlZCB0byBzdGRlcnIgc2hvdWxk\nIHNvbWUgc2VydmVycyBiZSBtaXNzaW5nIGZyb20gdGhlCmBzZXJ2ZXJzYCBk\naWN0aW9uYXJ5LgoKQXMgYXQgMjYgRGVjZW1iZXIgMjAxNCwgaXQgaXMgaGln\naGx5IHJlY29tbWVuZGVkIHRvIHJ1biB0aGUgYHNjcmlwdHMvcmVtb3RlLnB5\nYApmaWxlIHRvIGF1dG9tYXRpY2FsbHkgc3BpbiB1cCB0aGUgdmFyaW91cyBE\nb2NrZXIgY29udGFpbmVycyBvbiB5b3VyIFN0b3JtCmNsdXN0ZXIgKGluc3Rl\nYWQgb2YgbWFudWFsbHkgcnVubmluZyB0aGUgYHN0YXJ0LXN0b3JtLnNoYCBz\nY3JpcHQgb24gZWFjaApzZXJ2ZXIpLCBsaWtlIHRoaXM6CgogICAgLiB2ZW52\nL2Jpbi9hY3RpdmF0ZQogICAgcHl0aG9uIHNjcmlwdHMvcmVtb3RlLnB5IC0t\nYWxsCgpbRmFicmljXShodHRwOi8vZmFiZmlsZS5vcmcpIGlzIHVzZWQgdG8g\ncnVuIHRoZSBgc3RhcnQtc3Rvcm0uc2hgIHNjcmlwdCBvbiB0aGUKdmFyaW91\ncyBzZXJ2ZXJzIGFuZCBzcGluIHVwIHRoZSBjb3JyZWN0IERvY2tlciBjb250\nYWluZXJzLCBkZXBlbmRpbmcgb24geW91cgpjb25maWd1cmF0aW9uIGluIHRo\nZSBgY29uZmlnL3N0b3JtLXNldHVwLnlhbWxgIGZpbGUuCgojIyBTdG9wcGlu\nZyBEb2NrZXIgY29udGFpbmVycwoKVG8gc3RvcCBhbGwgcnVubmluZyBEb2Nr\nZXIgY29udGFpbmVyczoKCiAgICAuL2Rlc3Ryb3ktc3Rvcm0uc2gKClRvIHN0\nb3AgaW5kaXZpZHVhbCBjb250YWluZXJzLCBzdXBwbHkgdGhlbSBhcyBhcmd1\nbWVudHMgdG8gdGhlCmBkZXN0cm95LXN0b3JtLnNoYCBzY3JpcHQsIGZvciBp\nbnN0YW5jZSB0byBzdG9wIHRoZSBgdWlgIGFuZCBgem9va2VlcGVyYApjb250\nYWluZXJzOgoKICAgIC4vZGVzdHJveS1zdG9ybS5zaCB1aSB6b29rZWVwZXIK\nCiMjIE1vdGl2YXRpb24KClRoaXMgcHJvamVjdCB3YXMgc3RhcnRlZCB0byBh\nZGRyZXNzIHRoZSBuZWVkIHRvIGluY3JlYXNlIHRoZSBzY2FsYWJpbGl0eSBh\nbmQKZmF1bHQgdG9sZXJhbmNlIG9mIFZpa2kncyBTdG9ybSBjbHVzdGVyLiBB\nIGxvdCBvZiBlZmZvcnQgd2FzIHNwZW50IGZpZ3VyaW5nIG91dApob3cgdG8g\ncnVuIG11bHRpcGxlIFN0b3JtIFN1cGVydmlzb3IgYW5kIFpvb2tlZXBlciBp\nbiBEb2NrZXIuCgpUaGlzIHJlcG9zaXRvcnkgc2hvdWxkIGJlIHZpZXdlZCBt\nb3JlIGFzIGEgZm91bmRhdGlvbiBvbiB3aGljaCB5b3UgY2FuIGJ1aWxkCm9u\nIGZvciBydW5uaW5nIHlvdXIgU3Rvcm0gY2x1c3RlciBpbiBEb2NrZXIsIHJh\ndGhlciB0aGFuIGFzIGEgZGVmYWN0byBzdGFuZGFyZApmb3IgcnVubmluZyBT\ndG9ybSBpbiBEb2NrZXIuCgpUbyBiZXR0ZXIgYWlkIHNvbWVvbmUgbmV3IHRv\nIHRoZSBjb2RlYmFzZSB0byB1bmRlcnN0YW5kaW5nIGFuZCBzdWJzZXF1ZW50\nbHkKbW9kaWZ5aW5nIHRoZSBjb2RlLCBtdWNoIG9mIHRoZSBjb3JlIFB5dGhv\nbiBjb2RlIGNvbnRhaW5zIHJhdGhlciBleHRlbnNpdmUKaW5saW5lIGRvY3Vt\nZW50YXRpb24uCgojIyBDcmVkaXRzCgpUaGlzIHJlcG9zaXRvcnkgd2FzIG9y\naWdpbmFsbHkgYmFzZWQgb24KW3d1cnN0bWVpc3Rlci9zdG9ybS1kb2NrZXJd\nKGh0dHBzOi8vZ2l0aHViLmNvbS93dXJzdG1laXN0ZXIvc3Rvcm0tZG9ja2Vy\nKTsKYmlnIHRoYW5rcyB0byB3dXJzdG1laXN0ZXIgZm9yIG1ha2luZyBoaXMg\ncHJvamVjdCBvcGVuIHNvdXJjZS4K\n", 
+                "download_url": "https://raw.githubusercontent.com/viki-org/storm-docker/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/viki-org/storm-docker/git/blobs/6ec2d9d1e23f62dc33d3986bf6d30a02a5f46a5f", 
+                "html_url": "https://github.com/viki-org/storm-docker/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "6ec2d9d1e23f62dc33d3986bf6d30a02a5f46a5f", 
+                "size": 7671, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/viki-org/storm-docker/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2014-06-13T10:15:50Z", 
+                "language": "Python", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/781509?v=3", 
+                    "events_url": "https://api.github.com/users/viki-org/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/viki-org/followers", 
+                    "following_url": "https://api.github.com/users/viki-org/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/viki-org/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/viki-org", 
+                    "id": 781509, 
+                    "login": "viki-org", 
+                    "organizations_url": "https://api.github.com/users/viki-org/orgs", 
+                    "received_events_url": "https://api.github.com/users/viki-org/received_events", 
+                    "repos_url": "https://api.github.com/users/viki-org/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/viki-org/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/viki-org/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/viki-org"
+                }, 
+                "pushed_at": "2014-12-26T08:36:32Z", 
+                "stargazers_count": 41, 
+                "updated_at": "2016-08-23T12:45:50Z", 
+                "watchers_count": 41
+            }
+        }, 
+        "wurstmeister/storm-docker": {
+            "dockerfile": {
+                "/storm-nimbus/Dockerfile": {
+                    "ADD": [
+                        "start-supervisor.sh /usr/bin/start-supervisor.sh"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [
+                        "/usr/bin/start-supervisor.sh"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [
+                        "6627", 
+                        "3772", 
+                        "3773"
+                    ], 
+                    "FROM": [
+                        "wurstmeister/storm:0.9.4"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Wurstmeister"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "/usr/bin/config-supervisord.sh nimbus", 
+                        "/usr/bin/config-supervisord.sh drpc"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/storm-supervisor/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "/usr/bin/start-supervisor.sh"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [
+                        "6700", 
+                        "6701", 
+                        "6702", 
+                        "6703", 
+                        "8000"
+                    ], 
+                    "FROM": [
+                        "wurstmeister/storm:0.9.4"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Wurstmeister"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "/usr/bin/config-supervisord.sh supervisor", 
+                        "/usr/bin/config-supervisord.sh logviewer"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/storm-ui/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "/usr/bin/start-supervisor.sh"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [
+                        "8080"
+                    ], 
+                    "FROM": [
+                        "wurstmeister/storm:0.9.4"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Wurstmeister"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "/usr/bin/config-supervisord.sh ui"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/storm/Dockerfile": {
+                    "ADD": [
+                        "storm.yaml $STORM_HOME/conf/storm.yaml", 
+                        "cluster.xml $STORM_HOME/logback/cluster.xml", 
+                        "config-supervisord.sh /usr/bin/config-supervisord.sh", 
+                        "start-supervisor.sh /usr/bin/start-supervisor.sh"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "STORM_HOME /opt/apache-storm-0.9.4"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "wurstmeister/base"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Wurstmeister"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "wget -q -O - http://mirrors.sonic.net/apache/storm/apache-storm-0.9.4/apache-storm-0.9.4.tar.gz | tar -xzf - -C /opt", 
+                        "groupadd storm; useradd --gid storm --home-dir /home/storm --create-home --shell /bin/bash storm; chown -R storm:storm $STORM_HOME; mkdir /var/log/storm ; chown -R storm:storm /var/log/storm", 
+                        "ln -s $STORM_HOME/bin/storm /usr/bin/storm", 
+                        "echo [supervisord] | tee -a /etc/supervisor/supervisord.conf ; echo nodaemon=true | tee -a /etc/supervisor/supervisord.conf"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/wurstmeister/storm-docker/git/blobs/b853d953f472926c0c38dd52ad119b01833769ff", 
+                    "html": "https://github.com/wurstmeister/storm-docker/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/wurstmeister/storm-docker/contents/README.md?ref=master"
+                }, 
+                "content": "c3Rvcm0tZG9ja2VyCj09PT09PT09PT09PQoKRG9ja2VyZmlsZXMgZm9yIGJ1\naWxkaW5nIGEgc3Rvcm0gY2x1c3Rlci4gSW5zcGlyZWQgYnkgW2h0dHBzOi8v\nZ2l0aHViLmNvbS9wdGdvZXR6L3N0b3JtLXZhZ3JhbnRdKGh0dHBzOi8vZ2l0\naHViLmNvbS9wdGdvZXR6L3N0b3JtLXZhZ3JhbnQpCgpUaGUgaW1hZ2VzIGFy\nZSBhdmFpbGFibGUgZGlyZWN0bHkgZnJvbSBbaHR0cHM6Ly9pbmRleC5kb2Nr\nZXIuaW9dKGh0dHBzOi8vaW5kZXguZG9ja2VyLmlvKQoKIyNQcmUtUmVxdWlz\naXRlcwoKLSBpbnN0YWxsIGRvY2tlci1jb21wb3NlIFtodHRwOi8vZG9jcy5k\nb2NrZXIuY29tL2NvbXBvc2UvaW5zdGFsbC9dKGh0dHA6Ly9kb2NzLmRvY2tl\nci5jb20vY29tcG9zZS9pbnN0YWxsLykKCiMjVXNhZ2UKClN0YXJ0IGEgY2x1\nc3RlcjoKCi0gYGBgZG9ja2VyLWNvbXBvc2UgdXBgYGAKCkRlc3Ryb3kgYSBj\nbHVzdGVyOgoKLSBgYGBkb2NrZXItY29tcG9zZSBzdG9wYGBgCgpBZGQgbW9y\nZSBzdXBlcnZpc29yczoKCi0gYGBgZG9ja2VyLWNvbXBvc2Ugc2NhbGUgc3Vw\nZXJ2aXNvcj0zYGBgCgojI0J1aWxkaW5nCgotIGBgYHJlYnVpbGQuc2hgYGAK\nCiMjRkFRCiMjIyBIb3cgY2FuIEkgYWNjZXNzIFN0b3JtIFVJIGZyb20gbXkg\naG9zdD8KVGFrZSBhIGxvb2sgYXQgZG9ja2VyLWNvbXBvc2UueW1sOgoKICAg\nIHVpOgogICAgICBpbWFnZTogd3Vyc3RtZWlzdGVyL3N0b3JtLXVpOjAuOS4y\nCgkgICAgICBwb3J0czoKCSAgICAgICAgLSAiNDkwODA6ODA4MCIKClRoaXMg\ndGVsbHMgRG9ja2VyIHRvIGV4cG9zZSB0aGUgRG9ja2VyIFVJIGNvbnRhaW5l\ncidzIHBvcnQgODA4MCBhcyBwb3J0IDQ5MDgwIG9uIHRoZSBob3N0PGJyLz4K\nCklmIHlvdSBhcmUgcnVubmluZyBkb2NrZXIgbmF0aXZlbHkgeW91IGNhbiB1\nc2UgbG9jYWxob3N0LiBJZiB5b3UncmUgdXNpbmcgYm9vdDJkb2NrZXIsIHRo\nZW4gZG86CgogICAgJCBib290MmRvY2tlciBpcAogICAgVGhlIFZNJ3MgSG9z\ndCBvbmx5IGludGVyZmFjZSBJUCBhZGRyZXNzIGlzOiAxOTIuMTY4LjU5LjEw\nMwoKV2hpY2ggcmV0dXJucyB5b3VyIGRvY2tlciBWTSdzIElQLjxici8+ClNv\nLCB0byBvcGVuIHN0b3JtIFVJLCB0eXBlIHRoZSBmb2xsb3dpbmcgaW4geW91\nciBicm93c2VyOgoKICAgIGxvY2FsaG9zdDo0OTA4MAoKb3IKCiAgICAxOTIu\nMTY4LjU5LjEwMzo0OTA4MAoKaW4gbXkgY2FzZS4KCiMjIyBIb3cgY2FuIEkg\nZGVwbG95IGEgdG9wb2xvZ3k/ClNpbmNlIHRoZSBuaW1idXMgaG9zdCBhbmQg\ncG9ydCBhcmUgbm90IGRlZmF1bHQsIHlvdSBuZWVkIHRvIHNwZWNpZnkgd2hl\ncmUgdGhlIG5pbWJ1cyBob3N0IGlzLCBhbmQgd2hhdCBpcyB0aGUgbmltYnVz\nIHBvcnQgbnVtYmVyLjxici8+CkZvbGxvd2luZyB0aGUgZXhhbXBsZSBhYm92\nZSwgYWZ0ZXIgZGlzY292ZXJpbmcgdGhlIG5pbWJ1cyBob3N0IElQIChjb3Vs\nZCBiZSBsb2NhbGhvc3QsIGNvdWxkIGJlIG91ciBkb2NrZXIgVk0gaXAgYXMg\naW4gdGhlIGNhc2Ugb2YgYm9vdDJkb2NrZXIpLCBydW4gdGhlIGZvbGxvd2lu\nZyBjb21tYW5kOgoKICAgIHN0b3JtIGphciB0YXJnZXQveW91ci10b3BvbG9n\neS1mYXQtamFyLmphciBjb20ueW91ci5wYWNrYWdlLkFuZFRvcG9sb2d5IHRv\ncG9sb2d5LW5hbWUgLWMgbmltYnVzLmhvc3Q9MTkyLjE2OC41OS4xMDMgLWMg\nbmltYnVzLnRocmlmdC5wb3J0PTQ5NjI3CgojIyMgSG93IGNhbiBJIGNvbm5l\nY3QgdG8gb25lIG9mIHRoZSBjb250YWluZXJzPwpGaW5kIHRoZSBmb3J3YXJk\nZWQgc3NoIHBvcnQgZm9yIHRoZSBjb250YWluZXIgeW91IHdpc2ggdG8gY29u\nbmVjdCB0byAodXNlIGBkb2NrZXItY29tcG9zZSBwc2ApCgogICAgJCBzc2gg\ncm9vdEBgYm9vdDJkb2NrZXIgaXBgIC1wICRDT05UQUlORVJfUE9SVAoKVGhl\nIHBhc3N3b3JkIGlzICd3dXJzdG1laXN0ZXInIChmcm9tOiBodHRwczovL3Jl\nZ2lzdHJ5Lmh1Yi5kb2NrZXIuY29tL3Uvd3Vyc3RtZWlzdGVyL2Jhc2UvZG9j\na2VyZmlsZS8pLgo=\n", 
+                "download_url": "https://raw.githubusercontent.com/wurstmeister/storm-docker/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/wurstmeister/storm-docker/git/blobs/b853d953f472926c0c38dd52ad119b01833769ff", 
+                "html_url": "https://github.com/wurstmeister/storm-docker/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "b853d953f472926c0c38dd52ad119b01833769ff", 
+                "size": 1991, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/wurstmeister/storm-docker/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2013-12-22T19:21:46Z", 
+                "language": "Shell", 
+                "owner": {
+                    "avatar_url": "https://avatars2.githubusercontent.com/u/4301434?v=3", 
+                    "events_url": "https://api.github.com/users/wurstmeister/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/wurstmeister/followers", 
+                    "following_url": "https://api.github.com/users/wurstmeister/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/wurstmeister/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/wurstmeister", 
+                    "id": 4301434, 
+                    "login": "wurstmeister", 
+                    "organizations_url": "https://api.github.com/users/wurstmeister/orgs", 
+                    "received_events_url": "https://api.github.com/users/wurstmeister/received_events", 
+                    "repos_url": "https://api.github.com/users/wurstmeister/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/wurstmeister/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/wurstmeister/subscriptions", 
+                    "type": "User", 
+                    "url": "https://api.github.com/users/wurstmeister"
+                }, 
+                "pushed_at": "2016-03-05T06:38:16Z", 
+                "stargazers_count": 193, 
+                "updated_at": "2017-04-11T14:05:10Z", 
+                "watchers_count": 193
+            }
+        }
+    }
+}
