@@ -7,6 +7,7 @@ import utils
 import os
 import copy
 from docker_official_images import dockerOfficialImages
+from dpkg import show_depends
 
 class Statistics(object):
 
@@ -194,6 +195,30 @@ class Statistics(object):
 
         return packages_recent_days
 
+    def get_dependencies(self):
+        data = self.raw_data['result']
+
+        # temporary data structure to store dependency per file
+        self.result['dependencies'] = {}
+        for repo_name,v in data.iteritems():
+            for fname, content in v['dockerfile'].iteritems():
+                list_of_run = content['RUN']
+                packages = self.get_package_names(list_of_run)
+                if len(packages) == 0:
+                    continue
+                # noise
+                packages = filter(lambda a: a != "#", packages)
+                packages = filter(lambda a: a != "\\", packages)
+                packages = filter(lambda a: a.find("$") == -1, packages)
+                dps = Counter()
+                for package_name in packages:
+                    dp = show_depends(package_name, "flat")
+                    if len(dp) == 0:
+                        continue
+                    dps += dp
+                self.result['dependencies'][repo_name + fname] = dps
+        return 
+
     def get_rpm_packages(self):
         return self.run_cmd_in_dockerfile()
 
@@ -202,10 +227,7 @@ class Statistics(object):
         packages = []
 
         for k,v in data.iteritems():
-            repo_name = k
-            dockerfiles = v['dockerfile']
-            for k1, v1 in dockerfiles.iteritems():
-                filepath = k1
+            for k1, v1 in v['dockerfile'].iteritems():
                 packages += self.get_package_names(v1['RUN'])
 
         # noise
@@ -229,8 +251,9 @@ class Statistics(object):
                     value = self.remove_options(value)
                     if value[0] == sub_cmd:
                         names += value[1:]
-       
-        return names
+      
+        tmp = set(names)
+        return list(tmp)
 
     def remove_options(self, params):
         """ remove elements start with '-' """
@@ -461,6 +484,10 @@ if __name__ == "__main__":
     elif sys.argv[1] == "rpmsid" or sys.argv[1] == 'packages_in_dockerfile':
         stat.task = 'packages_in_dockerfile'
         c = stat.get_rpm_packages()
+        stat.save_file()
+    elif sys.argv[1] == "dp" or sys.argv[1] == "dependencies":
+        stat.task = "dependencies"
+        c = stat.get_dependencies()
         stat.save_file()
         
 

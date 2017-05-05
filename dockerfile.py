@@ -52,7 +52,6 @@ class searchDockerfileInCode(searchRepo):
                 #with open(tmp, 'w') as file:
                 #        file.write(contents)
                 #continue
-                store_file(full_name, contents)
                 instructions = self.read_dockerfile(contents)
                 key = os.path.abspath("/" + repo_name + "/" + filepath)
                 file_path = os.path.abspath("/" + filepath)
