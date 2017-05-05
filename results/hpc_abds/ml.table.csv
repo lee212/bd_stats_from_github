@@ -1,0 +1,49 @@
+git &  fast, scalable, distributed revision control system &  vcs & 8 & 75 & perl-modules, liberror-perl, libpcre3, libcurl3-gnutls, git-man, zlib1g, libc6, libexpat1 &  2951026 (8563378) &  optional \\ \hline
+build-essential &  Informational list of build-essential packages &  devel & 5 & 32 & dpkg-dev, libc6-dev, gcc, g++, make &  4758 (2705548) &  optional \\ \hline
+wget &  retrieves files from the web &  web & 6 & 106 & libssl1.0.0, libidn11, libpcre3, zlib1g, libc6, libuuid1 &  282338 (6259414) &  standard \\ \hline
+curl &  command line tool for transferring data with URL syntax &  web & 3 & 70 & libcurl3-gnutls, zlib1g, libc6 &  134118 (5022340) &  optional \\ \hline
+cmake &  cross-platform, open-source make system &  devel & 10 & 10 & libgcc1, libarchive13, libstdc++6, libjsoncpp0v5, cmake-data, zlib1g, libcurl3, libc6, libexpat1, procps &  2536288 (7106698) &  optional \\ \hline
+python-numpy &  Numerical Python adds a fast array facility to the Python language &  python & 5 & 259 & python, python2.7:any, libblas3, liblapack3, libc6 &  1638568 (7139876) &  optional \\ \hline
+python-pip &  alternative Python package installer &  universe/python & 10 & 1 & python-setuptools, python-six, python:any, python, python-colorama, python-requests, python-pkg-resources, ca-certificates, python-html5lib, python-distlib &  99464 (1001406) &  optional \\ \hline
+zlib1g-dev &  compression library - development &  libdevel & 2 & 118 & libc6-dev, zlib1g &  167514 (2017880) &  optional \\ \hline
+python &  interactive high-level object-oriented language (default version) &  python & 2 & 3037 & libpython-stdlib, python2.7 &  137338 (217548) &  optional \\ \hline
+pkg-config &  manage compile and link flags for libraries &  devel & 3 & 208 & libglib2.0-0, dpkg-dev, libc6 &  40048 (6479488) &  optional \\ \hline
+liblapacke-dev &  Library of linear algebra routines 3 - Headers &  libdevel & 1 & 0 & liblapacke &  274994 (300910) &  optional \\ \hline
+libjpeg-dev &  Independent JPEG Group's JPEG runtime library (dependency package) &  libdevel & 1 & 44 & libjpeg8-dev &  1546 (1552) &  optional \\ \hline
+python-dev &  header files and a static library for Python (default) &  python & 3 & 19 & python, python2.7-dev, libpython-dev &  1220 (415400) &  optional \\ \hline
+libavcodec-dev &  FFmpeg library with de/encoders for audio/video codecs - development files &  universe/libdevel & 3 & 11 & libswresample-dev, libavcodec-ffmpeg56, libavutil-dev &  4366350 (4251540) &  optional \\ \hline
+libswscale-dev &  FFmpeg library for image scaling and various conversions - development files &  universe/libdevel & 2 & 9 & libswscale-ffmpeg3, libavutil-dev &  144500 (371280) &  optional \\ \hline
+libavformat-dev &  FFmpeg library with (de)muxers for multimedia containers - development files &  universe/libdevel & 4 & 10 & libavformat-ffmpeg56, libswresample-dev, libavcodec-dev, libavutil-dev &  933684 (5448172) &  optional \\ \hline
+gfortran-multilib &  GNU Fortran 95 compiler (multilib files) &  devel & 4 & 0 & cpp, gfortran-5-multilib, gcc-multilib, gfortran &  952 (30766) &  optional \\ \hline
+autotools-dev &  Update infrastructure for config.{guess,sub} files &  devel & 0 & 6 &  &  39560 (0) &  optional \\ \hline
+libjasper-dev &  Development files for the JasPer JPEG-2000 library &  libdevel & 1 & 6 & libjasper1 &  521480 (131370) &  optional \\ \hline
+libgflags-dev &  commandline flags module for C++ (development files) &  libdevel & 1 & 1 & libgflags2v5 &  64812 (54438) &  optional \\ \hline
+software-properties-common &  manage the repositories that you install software from (common) &  admin & 8 & 4 & python3-dbus, python-apt-common, python3-software-properties, gir1.2-glib-2.0, ca-certificates, python3:any, python3-gi, python3 &  9418 (630404) &  optional \\ \hline
+liblmdb-dev &  Lightning Memory-Mapped Database development files &  universe/libdevel & 1 & 0 & liblmdb0 &  55764 (42114) &  optional \\ \hline
+libleveldb-dev &  fast key-value storage library (development files) &  libdevel & 1 & 2 & libleveldb1v5 &  174616 (132092) &  optional \\ \hline
+libprotobuf-dev &  protocol buffers C++ library (development files) &  libdevel & 3 & 8 & libprotobuf9v5, libprotobuf-lite9v5, zlib1g-dev &  473070 (551650) &  extra \\ \hline
+g++ &  GNU C++ compiler &  devel & 4 & 57 & cpp, gcc, g++-5, gcc-5 &  1506 (22034848) &  optional \\ \hline
+libgoogle-glog-dev &  library that implements application-level logging. &  libdevel & 2 & 0 & libgoogle-glog0v5, libgflags-dev &  71326 (114112) &  optional \\ \hline
+libatlas-base-dev &  Automatically Tuned Linear Algebra Software, generic static &  universe/devel & 2 & 8 & libatlas-dev, libatlas3-base &  3337570 (2690424) &  optional \\ \hline
+python-setuptools &  Python Distutils Enhancements &  python & 3 & 39 & python, python:any, python-pkg-resources &  170878 (345354) &  optional \\ \hline
+unzip &  De-archiver for .zip files &  utils & 2 & 50 & libbz2-1.0, libc6 &  159008 (4819068) &  optional \\ \hline
+libopencv-dev &  development files for opencv &  universe/libdevel & 33 & 1 & libgcc1, libopencv-ocl-dev, libopencv-ml2.4v5, libopencv-features2d-dev, libopencv-photo-dev, libopencv-videostab-dev, libopencv-flann-dev, libopencv-superres-dev, libopencv-ts-dev, libopencv-gpu-dev, libopencv-ml-dev, libopencv-highgui2.4v5, libopencv2.4-java, libcv-dev, libopencv-calib3d2.4v5, libopencv-stitching-dev, libopencv-imgproc-dev, libopencv-objdetect2.4v5, libstdc++6, libopencv-calib3d-dev, libopencv2.4-jni, libopencv-core2.4v5, libc6, libopencv-contrib-dev, libopencv-video-dev, libcvaux-dev, libopencv-highgui-dev, libopencv-imgproc2.4v5, libopencv-objdetect-dev, libhighgui-dev, libopencv-core-dev, libopencv-legacy-dev, pkg-config &  167428 (13064320) &  optional \\ \hline
+python-scipy &  scientific tools for Python &  universe/python & 10 & 48 & libgcc1, liblapack3, libblas3, python-numpy-abi9, python, python-decorator, libstdc++6, python-numpy, libgfortran3, libc6 &  8243232 (9268296) &  extra \\ \hline
+libsnappy-dev &  fast compression/decompression library (development files) &  libdevel & 1 & 0 & libsnappy1v5 &  24018 (15992) &  extra \\ \hline
+libhdf5-serial-dev &  transitional dummy package &  universe/libdevel & 1 & 1 & libhdf5-dev &  4410 (5302072) &  optional \\ \hline
+libboost-all-dev &  Boost C++ Libraries development files (ALL) (default version) &  universe/libdevel & 28 & 6 & libboost-test-dev, libboost-date-time-dev, libboost-context-dev, libboost-thread-dev, libboost-math-dev, libboost-python-dev, libboost-system-dev, libboost-mpi-dev, libboost-coroutine-dev, libboost-tools-dev, libboost-iostreams-dev, libboost-dev, libboost-program-options-dev, libboost-exception-dev, libboost-wave-dev, libboost-mpi-python-dev, libboost-filesystem-dev, libboost-random-dev, libboost-atomic-dev, libboost-locale-dev, libboost-serialization-dev, libboost-regex-dev, libboost-log-dev, libboost-graph-parallel-dev, libboost-chrono-dev, libboost-timer-dev, libboost-signals-dev, libboost-graph-dev &  2220 (82792) &  optional \\ \hline
+protobuf-compiler &  compiler for protocol buffer definition files &  devel & 4 & 2 & libgcc1, libstdc++6, libprotoc9v5, libc6 &  20364 (5492124) &  extra \\ \hline
+libcurl4-openssl-dev &  development files and documentation for libcurl (OpenSSL flavour) &  libdevel & 1 & 6 & libcurl3 &  262008 (185802) &  optional \\ \hline
+graphviz &  rich set of graph drawing tools &  graphics & 11 & 24 & libx11-6, libgd3, libxt6, libcgraph6, libxaw7, libgvc6, libcdt5, libgvpr2, libxmu6, libc6, libexpat1 &  672316 (6764594) &  optional \\ \hline
+libfreetype6-dev &  FreeType 2 font engine, development files &  libdevel & 4 & 34 & libc6-dev, zlib1g-dev, libpng-dev, libfreetype6 &  630218 (2446054) &  optional \\ \hline
+libzmq3-dev &  lightweight messaging kernel (development files) &  universe/libdevel & 1 & 6 & libzmq3 &  259454 (133256) &  optional \\ \hline
+rsync &  fast, versatile, remote (and local) file-copying tool &  net & 6 & 55 & lsb-base, libpopt0, libc6, libattr1, libacl1, base-files &  329850 (4913196) &  standard \\ \hline
+make &  utility for directing compilation &  devel & 1 & 96 & libc6 &  148946 (4788234) &  optional \\ \hline
+automake &  Tool for generating GNU Standards-compliant Makefiles &  devel & 2 & 13 & autoconf, autotools-dev &  511386 (360576) &  optional \\ \hline
+libtool &  Generic library support script &  devel & 5 & 14 & cpp, libc6-dev, gcc, autotools-dev, file &  180492 (2059484) &  optional \\ \hline
+libjpeg8-dev &  Independent JPEG Group's JPEG runtime library (dependency package) &  libdevel & 2 & 1 & libjpeg-turbo8-dev, libjpeg8 &  1552 (244490) &  optional \\ \hline
+g++-multilib &  GNU C++ compiler (multilib files) &  devel & 4 & 0 & cpp, gcc-multilib, g++-5-multilib, g++ &  936 (31008) &  optional \\ \hline
+libhdf5-dev &  Hierarchical Data Format 5 (HDF5) - development files - serial version &  universe/libdevel & 5 & 9 & libhdf5-10, zlib1g-dev, libhdf5-cpp-10, hdf5-helpers, libjpeg-dev &  5302072 (1309588) &  optional \\ \hline
+gcc-multilib &  GNU C compiler (multilib files) &  devel & 4 & 5 & cpp, gcc, gcc-5-multilib, linux-libc-dev &  1100 (844394) &  optional \\ \hline
+total number of packages: 135
+Percentage of 1+ used packages: 0.896296296296

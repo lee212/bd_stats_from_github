@@ -1,0 +1,24 @@
+digraph G {
+  "nvidia/cuda" -> "Ubuntu"
+  "Ubuntu" -> "16.04"
+  "Ubuntu" -> "14.04"
+  "nvidia/cuda" -> "CentOS"
+"CentOS" -> "6"
+"CentOS" -> "7"
+"CentOS" -> "8"
+subgraph {
+label="runtime\npackages"
+"16.04" -> "8.0-runtime"
+"8.0-runtime" -> "development \npackages"
+"development \npackages" -> "8.0-devel"
+"8.0-devel" -> "deep neural network\npackages"
+"deep neural network\npackages" -> cudnn6
+"deep neural network\npackages" -> cudnn5
+"14.04" -> "runtime\npackages " 
+"runtime\npackages " [style=filled];
+"runtime\npackages " -> { "8.0-runtime-14.04" [label="8.0-runtime"] }
+"8.0-runtime-14.04"  [style=filled]
+
+
+}
+

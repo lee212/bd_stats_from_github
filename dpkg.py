@@ -175,7 +175,18 @@ def stats_in_csv(file_or_path, option):
                 #sys.exit()
                 for x in ddd:
                     image_stat.append([df_fullpath, x, ddd[x], total_lib_size_in_image])
-            pprint(image_stat)
+            for k,v in package_stat.iteritems():
+                asize = 0
+                for k1 in v:
+                    try:
+                        psize = int(package_info[k1]['Size'])
+                    except:
+                        psize = 0
+                    asize+=psize
+
+                print "%s, %s, %d" % (k, asize, len(v))
+
+            return (image_stat)
             continue
         else:
             packages = res['result']['dockerfiles']['packages']

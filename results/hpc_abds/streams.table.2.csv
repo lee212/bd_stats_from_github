@@ -1,0 +1,26 @@
+wget &  10  &  retrieves files from the web &  web & 6 & 106 & libssl1.0.0, libidn11, libpcre3, zlib1g, libc6, libuuid1 &  282338 (6259414) &  standard \\ \hline
+curl &  7  &  command line tool for transferring data with URL syntax &  web & 3 & 70 & libcurl3-gnutls, zlib1g, libc6 &  134118 (5022340) &  optional \\ \hline
+jq &  4  &  lightweight and flexible command-line JSON processor &  universe/utils & 1 & 2 & libc6 &  102286 (4788234) &  optional \\ \hline
+git &  4  &  fast, scalable, distributed revision control system &  vcs & 8 & 75 & perl-modules, liberror-perl, libpcre3, libcurl3-gnutls, git-man, zlib1g, libc6, libexpat1 &  2951026 (8563378) &  optional \\ \hline
+vim &  3  &  Vi IMproved - enhanced vi editor &  editors & 8 & 21 & vim-runtime, libtinfo5, libpython2.7, libselinux1, libgpm2, libacl1, libc6, vim-common &  1027872 (11106856) &  optional \\ \hline
+default-jre-headless &  3  &  Standard Java or Java compatible Runtime (headless) &  interpreters & 2 & 98 & java-common, openjdk-7-jre-headless &  4086 (39878620) &  optional \\ \hline
+unzip &  3  &  De-archiver for .zip files &  utils & 2 & 50 & libbz2-1.0, libc6 &  159008 (4819068) &  optional \\ \hline
+libcurl4-nss-dev &  3  &  development files and documentation for libcurl (NSS flavour) &  libdevel & 1 & 1 & libcurl3-nss &  266138 (189150) &  optional \\ \hline
+maven &  3  &  Java software project management and comprehension tool &  universe/java & 2 & 5 & default-jre, libmaven3-core-java &  17300 (1441844) &  optional \\ \hline
+libsvn1 &  3  &  Shared libraries used by Apache Subversion &  libs & 9 & 28 & libsasl2-2, libapr1, libserf-1-1, libaprutil1, libsqlite3-0, libdb5.3, libc6, libexpat1, zlib1g &  946574 (6223128) &  optional \\ \hline
+supervisor &  2  &  A system for controlling process state &  universe/admin & 3 & 3 & python, python-meld3, python-pkg-resources &  244194 (238770) &  extra \\ \hline
+python-dev &  2  &  header files and a static library for Python (default) &  python & 3 & 19 & python, python2.7-dev, libpython-dev &  1220 (415400) &  optional \\ \hline
+openssh-server &  2  &  secure shell (SSH) server, for secure access from remote machines &  net & 22 & 24 & debconf, libssl1.0.0, lsb-base, libdbus-1-3, libck-connector0, init-system-helpers, openssh-client, libselinux1, adduser, libaudit1, libwrap0, libkrb5-3, dpkg, openssh-sftp-server, libpam-runtime, libpam-modules, zlib1g, libc6, libcomerr2, libpam0g, libgssapi-krb5-2, procps &  348150 (10303266) &  optional \\ \hline
+openjdk-6-jdk &  2  &  OpenJDK Development Kit (JDK) &  universe/devel & 2 & 1 & libc6, openjdk-6-jre &  15111116 (4980420) &  extra \\ \hline
+grep &  2  &  GNU grep, egrep and fgrep &  utils & 1 & 3 & dpkg &  148594 (2084160) &  required \\ \hline
+python-pip &  2  &  alternative Python package installer &  universe/python & 10 & 1 & python-setuptools, python-six, python:any, python, python-colorama, python-requests, python-pkg-resources, ca-certificates, python-html5lib, python-distlib &  99464 (1001406) &  optional \\ \hline
+sudo &  1  &  Provide limited super user privileges to specific users &  admin & 5 & 32 & libselinux1, libpam-modules, libpam0g, libaudit1, libc6 &  355764 (5186262) &  important \\ \hline
+docker.io &  1  &  Linux container runtime &  universe/admin & 9 & 1 & iptables, libdevmapper1.02.1, lsb-base, adduser, libapparmor1, perl, libsqlite3-0, libc6, init-system-helpers &  5027258 (8391280) &  optional \\ \hline
+openjdk-6-jre-headless &  1  &  OpenJDK Java runtime, using Hotspot JIT (headless) &  universe/interpreters & 15 & 8 & libgcc1, java-common, liblcms2-2, ca-certificates-java, libpcsclite1, tzdata-java, libstdc++6, libnss3, libkrb5-3, libcups2, zlib1g, libc6, openjdk-6-jre-lib, libfreetype6, libjpeg8 &  31107386 (13559012) &  extra \\ \hline
+gcc &  1  &  GNU C compiler &  devel & 2 & 57 & cpp, gcc-5 &  5204 (6735366) &  optional \\ \hline
+make &  1  &  utility for directing compilation &  devel & 1 & 96 & libc6 &  148946 (4788234) &  optional \\ \hline
+npm &  1  &  package manager for Node.js &  universe/web & 33 & 1 & node-retry, node-semver, nodejs, node-underscore, node-fstream, node-archy, node-ansi-color-table, node-npmlog, node-github-url-from-git, node-once, node-inherits, node-read-package-json, node-tar, node-minimatch, node-block-stream, node-slide, node-ini, node-which, node-mkdirp, node-abbrev, node-ansi, node-read, node-nopt, node-glob, node-request, node-lockfile, node-osenv, node-fstream-ignore, node-sha, node-gyp, node-graceful-fs, node-rimraf, node-lru-cache &  352566 (926278) &  extra \\ \hline
+dnsmasq &  1  &  Small caching DNS proxy and DHCP/TFTP server &  universe/net & 3 & 2 & init-system-helpers, netbase, dnsmasq-base &  15954 (321976) &  optional \\ \hline
+docker &  1  &  System tray for KDE3/GNOME2 docklet applications &  universe/x11 & 3 & 0 & libglib2.0-0, libx11-6, libc6 &  12206 (6467134) &  optional \\ \hline
+total number of packages: 84
+Percentage of 1+ used packages: 0.892857142857

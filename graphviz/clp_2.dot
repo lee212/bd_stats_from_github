@@ -1,0 +1,65 @@
+digraph G {
+
+  { "common" [label="common\nlibraries"]} -> "master x"  [constraint=false,label="merge"];
+"master x" -> { a1 [label="*"] }
+"master x" -> { a2 [label="*"] }
+"master x" -> { a3 [label="..."] }
+subgraph cluster_1 {
+		node [style=filled];
+		a1;
+a1 [style=filled, color=dodgerblue1];
+		label = "Image #1";
+		color=dodgerblue1
+	}
+subgraph cluster_2 {
+		node [style=filled];
+		a2;
+a2 [style=filled, color=darkseagreen];
+		label = "Image #2";
+		color=darkseagreen
+	}
+subgraph cluster_2a {
+		graph[style=dotted];
+		a3;
+		label = "Image #n";
+
+	}
+
+  {"common1" [label="common\nlibraries"]} -> { "master y" [label="master y"]} [label="merge",constraint=false];
+subgraph cluster_xx {
+		graph[style=rounded];
+		common;
+		label = "domain x";
+
+	}
+subgraph cluster_x {
+		graph[style=rounded];
+		common1;
+		label = "domain y";
+
+	}
+"master y" -> { b1 [label="*"] }
+"master y" -> { b2 [label="*"] }
+"master y" -> { b3 [label="*"] }
+subgraph cluster_3 {
+		node [style=filled];
+		b1;
+b1 [style=filled, color=dodgerblue1];
+		label = "Image #1'";
+		color=dodgerblue1
+	}
+subgraph cluster_4 {
+		node [style=filled];
+		b2;
+b2 [style=filled, color=darkseagreen];
+		label = "Image #2'";
+		color=darkseagreen
+	}
+subgraph cluster_4a {
+		graph[style=dotted];
+		b3;
+		label = "Image #n'";
+
+	}
+}
+

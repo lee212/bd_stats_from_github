@@ -1,0 +1,43 @@
+unzip &  17  &  De-archiver for .zip files &  utils & 2 & 50 & libbz2-1.0, libc6 &  159008 (4819068) &  optional \\ \hline
+curl &  17  &  command line tool for transferring data with URL syntax &  web & 3 & 70 & libcurl3-gnutls, zlib1g, libc6 &  134118 (5022340) &  optional \\ \hline
+wget &  15  &  retrieves files from the web &  web & 6 & 106 & libssl1.0.0, libidn11, libpcre3, zlib1g, libc6, libuuid1 &  282338 (6259414) &  standard \\ \hline
+git &  13  &  fast, scalable, distributed revision control system &  vcs & 8 & 75 & perl-modules, liberror-perl, libpcre3, libcurl3-gnutls, git-man, zlib1g, libc6, libexpat1 &  2951026 (8563378) &  optional \\ \hline
+openssh-server &  9  &  secure shell (SSH) server, for secure access from remote machines &  net & 22 & 24 & debconf, libssl1.0.0, lsb-base, libdbus-1-3, libck-connector0, init-system-helpers, openssh-client, libselinux1, adduser, libaudit1, libwrap0, libkrb5-3, dpkg, openssh-sftp-server, libpam-runtime, libpam-modules, zlib1g, libc6, libcomerr2, libpam0g, libgssapi-krb5-2, procps &  348150 (10303266) &  optional \\ \hline
+make &  9  &  utility for directing compilation &  devel & 1 & 96 & libc6 &  148946 (4788234) &  optional \\ \hline
+openjdk-7-jre-headless &  7  &  OpenJDK Java runtime, using Hotspot JIT (headless) &  java & 18 & 10 & libgcc1, java-common, liblcms2-2, libpulse0, ca-certificates-java, libpcsclite1, libstdc++6, libnss3, libsctp1, libkrb5-3, libcups2, zlib1g, libc6, tzdata-java, libglib2.0-0, libfreetype6, libjpeg8, libfontconfig1 &  39747944 (9045678) &  optional \\ \hline
+build-essential &  7  &  Informational list of build-essential packages &  devel & 5 & 32 & dpkg-dev, libc6-dev, gcc, g++, make &  4758 (2705548) &  optional \\ \hline
+tar &  7  &  GNU version of the tar archiving utility &  utils & 0 & 9 &  &  195948 (0) &  required \\ \hline
+python &  6  &  interactive high-level object-oriented language (default version) &  python & 2 & 3037 & libpython-stdlib, python2.7 &  137338 (217548) &  optional \\ \hline
+net-tools &  6  &  NET-3 networking toolkit &  net & 1 & 51 & libc6 &  174894 (4788234) &  important \\ \hline
+vim &  6  &  Vi IMproved - enhanced vi editor &  editors & 8 & 21 & vim-runtime, libtinfo5, libpython2.7, libselinux1, libgpm2, libacl1, libc6, vim-common &  1027872 (11106856) &  optional \\ \hline
+sudo &  6  &  Provide limited super user privileges to specific users &  admin & 5 & 32 & libselinux1, libpam-modules, libpam0g, libaudit1, libc6 &  355764 (5186262) &  important \\ \hline
+software-properties-common &  5  &  manage the repositories that you install software from (common) &  admin & 8 & 4 & python3-dbus, python-apt-common, python3-software-properties, gir1.2-glib-2.0, ca-certificates, python3:any, python3-gi, python3 &  9418 (630404) &  optional \\ \hline
+python-setuptools &  5  &  Python Distutils Enhancements &  python & 3 & 39 & python, python:any, python-pkg-resources &  170878 (345354) &  optional \\ \hline
+maven &  5  &  Java software project management and comprehension tool &  universe/java & 2 & 5 & default-jre, libmaven3-core-java &  17300 (1441844) &  optional \\ \hline
+gcc &  5  &  GNU C compiler &  devel & 2 & 57 & cpp, gcc-5 &  5204 (6735366) &  optional \\ \hline
+python-pip &  4  &  alternative Python package installer &  universe/python & 10 & 1 & python-setuptools, python-six, python:any, python, python-colorama, python-requests, python-pkg-resources, ca-certificates, python-html5lib, python-distlib &  99464 (1001406) &  optional \\ \hline
+g++ &  4  &  GNU C++ compiler &  devel & 4 & 57 & cpp, gcc, g++-5, gcc-5 &  1506 (22034848) &  optional \\ \hline
+python-dev &  4  &  header files and a static library for Python (default) &  python & 3 & 19 & python, python2.7-dev, libpython-dev &  1220 (415400) &  optional \\ \hline
+less &  3  &  pager program similar to more &  text & 3 & 13 & libtinfo5, debianutils, libc6 &  108240 (4949380) &  important \\ \hline
+libssl-dev &  3  &  Secure Sockets Layer toolkit - development files &  libdevel & 2 & 70 & libssl1.0.0, zlib1g-dev &  1347070 (1258956) &  optional \\ \hline
+expect &  3  &  Automates interactive applications &  interpreters & 3 & 8 & tcl-expect, libtcl8.6, libc6 &  137356 (5770692) &  optional \\ \hline
+sysstat &  3  &  system performance tools for Linux &  admin & 6 & 3 & debconf, bzip2, lsb-base, ucf, libc6, libsensors4 &  223946 (5053654) &  optional \\ \hline
+zip &  3  &  Archiver for .zip files &  utils & 2 & 33 & libbz2-1.0, libc6 &  158164 (4819068) &  optional \\ \hline
+hostname &  3  &  utility to set/show the host name or domain name &  admin & 0 & 2 &  &  11680 (0) &  required \\ \hline
+vim-tiny &  3  &  Vi IMproved - enhanced vi editor - compact version &  editors & 5 & 5 & libselinux1, libacl1, vim-common, libtinfo5, libc6 &  425576 (5042842) &  important \\ \hline
+htop &  2  &  interactive processes viewer &  universe/utils & 3 & 2 & libncursesw5, libtinfo5, libc6 &  65350 (4986650) &  optional \\ \hline
+libsnappy-dev &  2  &  fast compression/decompression library (development files) &  libdevel & 1 & 0 & libsnappy1v5 &  24018 (15992) &  extra \\ \hline
+gem &  2  &  Graphics Environment for Multimedia - Pure Data library &  universe/graphics & 9 & 12 & libgcc1, puredata-core, libglu1-mesa, libxxf86vm1, libgl1-mesa-glx, libstdc++6, libftgl2, libglew1.10, libc6 &  1173450 (6262508) &  optional \\ \hline
+ethtool &  2  &  display or change Ethernet device settings &  utils & 1 & 6 & libc6 &  94382 (4788234) &  optional \\ \hline
+pkg-config &  2  &  manage compile and link flags for libraries &  devel & 3 & 208 & libglib2.0-0, dpkg-dev, libc6 &  40048 (6479488) &  optional \\ \hline
+libnss3 &  2  &  Network Security Service libraries &  libs & 5 & 85 & libnspr4, libsqlite3-0, libnss3-nssdb, zlib1g, libc6 &  1132950 (5345634) &  optional \\ \hline
+byobu &  2  &  text window manager, shell multiplexer, integrated DevOps environment &  misc & 6 & 1 & debconf, gawk, python3-newt, tmux, gettext-base, python3 &  106010 (824224) &  optional \\ \hline
+openjdk-7-jdk &  2  &  OpenJDK Development Kit (JDK) &  java & 2 & 5 & openjdk-7-jre, libc6 &  16286618 (4961506) &  optional \\ \hline
+ruby &  2  &  Interpreter of object-oriented scripting language Ruby (default version) &  interpreters & 1 & 987 & ruby2.1 &  6026 (73880) &  optional \\ \hline
+groovy &  2  &  Agile dynamic language for the Java Virtual Machine &  universe/devel & 14 & 10 & libbsf-java, libservlet2.5-java, antlr, libxstream-java, libcommons-logging-java, libjline-java, libasm3-java, libjansi-java, libregexp-java, libmockobjects-java, junit4, default-jre-headless, ivy, libcommons-cli-java &  9729202 (3257906) &  optional \\ \hline
+libpostgresql-jdbc-java &  2  &  Java database (JDBC) driver for PostgreSQL &  universe/java & 0 & 6 &  &  1072656 (0) &  optional \\ \hline
+bzip2 &  2  &  high-quality block-sorting file compressor - utilities &  utils & 2 & 57 & libbz2-1.0, libc6 &  32678 (4819068) &  important \\ \hline
+ruby-dev &  2  &  Header files for compiling extension modules for Ruby (default version) &  devel & 1 & 3 & ruby2.1-dev &  4694 (896184) &  optional \\ \hline
+libtool &  2  &  Generic library support script &  devel & 5 & 14 & cpp, libc6-dev, gcc, autotools-dev, file &  180492 (2059484) &  optional \\ \hline
+total number of packages: 326
+Percentage of 1+ used packages: 0.711656441718
