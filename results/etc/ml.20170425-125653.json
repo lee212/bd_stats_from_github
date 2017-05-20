@@ -1,0 +1,908 @@
+{
+    "recent": {
+        "merged_items": {
+            "actual_count": 0, 
+            "items": {}, 
+            "language_in": {
+                "all": {}
+            }
+        }, 
+        "search_keywords": {}, 
+        "searched_at": "2017-04-25 12:56:45.695595"
+    }, 
+    "result": {
+        "BVLC/caffe": {
+            "dockerfile": {
+                "/docker/cpu/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [
+                        "instead of ENV once DockerHub supports this"
+                    ], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "CAFFE_ROOT=/opt/caffe", 
+                        "once DockerHub supports this", 
+                        "CLONE_TAG=1.0", 
+                        "PYCAFFE_ROOT $CAFFE_ROOT/python", 
+                        "PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH", 
+                        "PATH $CAFFE_ROOT/build/tools:$PYCAFFE_ROOT:$PATH"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [
+                        "maintainer caffe-maint@googlegroups.com"
+                    ], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y --no-install-recommends build-essential cmake git wget libatlas-base-dev libboost-all-dev libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libleveldb-dev liblmdb-dev libopencv-dev libprotobuf-dev libsnappy-dev protobuf-compiler python-dev python-numpy python-pip python-setuptools python-scipy && rm -rf /var/lib/apt/lists/*", 
+                        "git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && pip install --upgrade pip && cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && mkdir build && cd build && cmake -DCPU_ONLY=1 .. && make -j\"$(nproc)\"", 
+                        "echo \"$CAFFE_ROOT/build/lib\" >> /etc/ld.so.conf.d/caffe.conf && ldconfig"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "$CAFFE_ROOT", 
+                        "/workspace"
+                    ]
+                }, 
+                "/docker/gpu/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [
+                        "instead of ENV once DockerHub supports this"
+                    ], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "CAFFE_ROOT=/opt/caffe", 
+                        "once DockerHub supports this", 
+                        "CLONE_TAG=1.0", 
+                        "PYCAFFE_ROOT $CAFFE_ROOT/python", 
+                        "PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH", 
+                        "PATH $CAFFE_ROOT/build/tools:$PYCAFFE_ROOT:$PATH"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [
+                        "maintainer caffe-maint@googlegroups.com"
+                    ], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y --no-install-recommends build-essential cmake git wget libatlas-base-dev libboost-all-dev libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libleveldb-dev liblmdb-dev libopencv-dev libprotobuf-dev libsnappy-dev protobuf-compiler python-dev python-numpy python-pip python-setuptools python-scipy && rm -rf /var/lib/apt/lists/*", 
+                        "git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && pip install --upgrade pip && cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && git clone https://github.com/NVIDIA/nccl.git && cd nccl && make -j install && cd .. && rm -rf nccl && mkdir build && cd build && cmake -DUSE_CUDNN=1 -DUSE_NCCL=1 .. && make -j\"$(nproc)\"", 
+                        "echo \"$CAFFE_ROOT/build/lib\" >> /etc/ld.so.conf.d/caffe.conf && ldconfig"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "$CAFFE_ROOT", 
+                        "/workspace"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/BVLC/caffe/git/blobs/0ae3616b4a68eb226df9791f552763f40dbd2486", 
+                    "html": "https://github.com/BVLC/caffe/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/BVLC/caffe/contents/README.md?ref=master"
+                }, 
+                "content": "IyBDYWZmZQoKWyFbQnVpbGQgU3RhdHVzXShodHRwczovL3RyYXZpcy1jaS5v\ncmcvQlZMQy9jYWZmZS5zdmc/YnJhbmNoPW1hc3RlcildKGh0dHBzOi8vdHJh\ndmlzLWNpLm9yZy9CVkxDL2NhZmZlKQpbIVtMaWNlbnNlXShodHRwczovL2lt\nZy5zaGllbGRzLmlvL2JhZGdlL2xpY2Vuc2UtQlNELWJsdWUuc3ZnKV0oTElD\nRU5TRSkKCkNhZmZlIGlzIGEgZGVlcCBsZWFybmluZyBmcmFtZXdvcmsgbWFk\nZSB3aXRoIGV4cHJlc3Npb24sIHNwZWVkLCBhbmQgbW9kdWxhcml0eSBpbiBt\naW5kLgpJdCBpcyBkZXZlbG9wZWQgYnkgQmVya2VsZXkgQUkgUmVzZWFyY2gg\nKFtCQUlSXShodHRwOi8vYmFpci5iZXJrZWxleS5lZHUpKS9UaGUgQmVya2Vs\nZXkgVmlzaW9uIGFuZCBMZWFybmluZyBDZW50ZXIgKEJWTEMpIGFuZCBjb21t\ndW5pdHkgY29udHJpYnV0b3JzLgoKQ2hlY2sgb3V0IHRoZSBbcHJvamVjdCBz\naXRlXShodHRwOi8vY2FmZmUuYmVya2VsZXl2aXNpb24ub3JnKSBmb3IgYWxs\nIHRoZSBkZXRhaWxzIGxpa2UKCi0gW0RJWSBEZWVwIExlYXJuaW5nIGZvciBW\naXNpb24gd2l0aCBDYWZmZV0oaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vcHJl\nc2VudGF0aW9uL2QvMVVlS1hWZ1J2dnhnOU9VZGhfVWlDNUc3MVVNc2NOUGx2\nQXJzV0VSNDFQc1UvZWRpdCNzbGlkZT1pZC5wKQotIFtUdXRvcmlhbCBEb2N1\nbWVudGF0aW9uXShodHRwOi8vY2FmZmUuYmVya2VsZXl2aXNpb24ub3JnL3R1\ndG9yaWFsLykKLSBbQkFJUiByZWZlcmVuY2UgbW9kZWxzXShodHRwOi8vY2Fm\nZmUuYmVya2VsZXl2aXNpb24ub3JnL21vZGVsX3pvby5odG1sKSBhbmQgdGhl\nIFtjb21tdW5pdHkgbW9kZWwgem9vXShodHRwczovL2dpdGh1Yi5jb20vQlZM\nQy9jYWZmZS93aWtpL01vZGVsLVpvbykKLSBbSW5zdGFsbGF0aW9uIGluc3Ry\ndWN0aW9uc10oaHR0cDovL2NhZmZlLmJlcmtlbGV5dmlzaW9uLm9yZy9pbnN0\nYWxsYXRpb24uaHRtbCkKCmFuZCBzdGVwLWJ5LXN0ZXAgZXhhbXBsZXMuCgpb\nIVtKb2luIHRoZSBjaGF0IGF0IGh0dHBzOi8vZ2l0dGVyLmltL0JWTEMvY2Fm\nZmVdKGh0dHBzOi8vYmFkZ2VzLmdpdHRlci5pbS9Kb2luJTIwQ2hhdC5zdmcp\nXShodHRwczovL2dpdHRlci5pbS9CVkxDL2NhZmZlP3V0bV9zb3VyY2U9YmFk\nZ2UmdXRtX21lZGl1bT1iYWRnZSZ1dG1fY2FtcGFpZ249cHItYmFkZ2UmdXRt\nX2NvbnRlbnQ9YmFkZ2UpCgpQbGVhc2Ugam9pbiB0aGUgW2NhZmZlLXVzZXJz\nIGdyb3VwXShodHRwczovL2dyb3Vwcy5nb29nbGUuY29tL2ZvcnVtLyMhZm9y\ndW0vY2FmZmUtdXNlcnMpIG9yIFtnaXR0ZXIgY2hhdF0oaHR0cHM6Ly9naXR0\nZXIuaW0vQlZMQy9jYWZmZSkgdG8gYXNrIHF1ZXN0aW9ucyBhbmQgdGFsayBh\nYm91dCBtZXRob2RzIGFuZCBtb2RlbHMuCkZyYW1ld29yayBkZXZlbG9wbWVu\ndCBkaXNjdXNzaW9ucyBhbmQgdGhvcm91Z2ggYnVnIHJlcG9ydHMgYXJlIGNv\nbGxlY3RlZCBvbiBbSXNzdWVzXShodHRwczovL2dpdGh1Yi5jb20vQlZMQy9j\nYWZmZS9pc3N1ZXMpLgoKSGFwcHkgYnJld2luZyEKCiMjIExpY2Vuc2UgYW5k\nIENpdGF0aW9uCgpDYWZmZSBpcyByZWxlYXNlZCB1bmRlciB0aGUgW0JTRCAy\nLUNsYXVzZSBsaWNlbnNlXShodHRwczovL2dpdGh1Yi5jb20vQlZMQy9jYWZm\nZS9ibG9iL21hc3Rlci9MSUNFTlNFKS4KVGhlIEJBSVIvQlZMQyByZWZlcmVu\nY2UgbW9kZWxzIGFyZSByZWxlYXNlZCBmb3IgdW5yZXN0cmljdGVkIHVzZS4K\nClBsZWFzZSBjaXRlIENhZmZlIGluIHlvdXIgcHVibGljYXRpb25zIGlmIGl0\nIGhlbHBzIHlvdXIgcmVzZWFyY2g6CgogICAgQGFydGljbGV7amlhMjAxNGNh\nZmZlLAogICAgICBBdXRob3IgPSB7SmlhLCBZYW5ncWluZyBhbmQgU2hlbGhh\nbWVyLCBFdmFuIGFuZCBEb25haHVlLCBKZWZmIGFuZCBLYXJheWV2LCBTZXJn\nZXkgYW5kIExvbmcsIEpvbmF0aGFuIGFuZCBHaXJzaGljaywgUm9zcyBhbmQg\nR3VhZGFycmFtYSwgU2VyZ2lvIGFuZCBEYXJyZWxsLCBUcmV2b3J9LAogICAg\nICBKb3VybmFsID0ge2FyWGl2IHByZXByaW50IGFyWGl2OjE0MDguNTA5M30s\nCiAgICAgIFRpdGxlID0ge0NhZmZlOiBDb252b2x1dGlvbmFsIEFyY2hpdGVj\ndHVyZSBmb3IgRmFzdCBGZWF0dXJlIEVtYmVkZGluZ30sCiAgICAgIFllYXIg\nPSB7MjAxNH0KICAgIH0K\n", 
+                "download_url": "https://raw.githubusercontent.com/BVLC/caffe/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/BVLC/caffe/git/blobs/0ae3616b4a68eb226df9791f552763f40dbd2486", 
+                "html_url": "https://github.com/BVLC/caffe/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "0ae3616b4a68eb226df9791f552763f40dbd2486", 
+                "size": 2130, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/BVLC/caffe/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2013-09-12T18:39:48Z", 
+                "language": "C++", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/6182163?v=3", 
+                    "events_url": "https://api.github.com/users/BVLC/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/BVLC/followers", 
+                    "following_url": "https://api.github.com/users/BVLC/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/BVLC/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/BVLC", 
+                    "id": 6182163, 
+                    "login": "BVLC", 
+                    "organizations_url": "https://api.github.com/users/BVLC/orgs", 
+                    "received_events_url": "https://api.github.com/users/BVLC/received_events", 
+                    "repos_url": "https://api.github.com/users/BVLC/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/BVLC/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/BVLC/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/BVLC"
+                }, 
+                "pushed_at": "2017-04-25T08:57:09Z", 
+                "stargazers_count": 17460, 
+                "updated_at": "2017-04-25T14:32:20Z", 
+                "watchers_count": 17460
+            }
+        }, 
+        "Microsoft/CNTK": {
+            "dockerfile": {
+                "/Tests/Install/windows/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        ". c:/local/"
+                    ], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "microsoft/windowsservercore"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "c:/local"
+                    ]
+                }, 
+                "/Tools/docker/CNTK-CPUOnly-Image/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "PATH /usr/local/mpi/bin:$PATH", 
+                        "LD_LIBRARY_PATH /usr/local/mpi/lib:$LD_LIBRARY_PATH", 
+                        "LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH", 
+                        "LD_LIBRARY_PATH /usr/local/openblas/lib:$LD_LIBRARY_PATH", 
+                        "KALDI_VERSION=c024e8aa", 
+                        "KALDI_PATH /usr/local/kaldi-$KALDI_VERSION", 
+                        "PATH /root/anaconda3/envs/cntk-py35/bin:$PATH", 
+                        "PATH=/cntk/build/cpu/release/bin:$PATH PYTHONPATH=/cntk/bindings/python LD_LIBRARY_PATH=/cntk/bindings/python/cntk/libs:$LD_LIBRARY_PATH"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y --no-install-recommends autotools-dev build-essential cmake git g++-multilib gcc-multilib gfortran-multilib libavcodec-dev libavformat-dev libjasper-dev libjpeg-dev libpng-dev liblapacke-dev libswscale-dev libtiff-dev pkg-config wget zlib1g-dev # Protobuf", 
+                        "OPENMPI_VERSION=1.10.3 && wget -q -O - https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-${OPENMPI_VERSION}.tar.gz | tar -xzf - && cd openmpi-${OPENMPI_VERSION} && ./configure --prefix=/usr/local/mpi && make -j\"$(nproc)\" install && rm -rf /openmpi-${OPENMPI_VERSION}", 
+                        "LIBZIP_VERSION=1.1.2 && wget -q -O - http://nih.at/libzip/libzip-${LIBZIP_VERSION}.tar.gz | tar -xzf - && cd libzip-${LIBZIP_VERSION} && ./configure && make -j\"$(nproc)\" install && rm -rf /libzip-${LIBZIP_VERSION}", 
+                        "OPENCV_VERSION=3.1.0 && wget -q -O - https://github.com/Itseez/opencv/archive/${OPENCV_VERSION}.tar.gz | tar -xzf - && cd opencv-${OPENCV_VERSION} && cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local/opencv-${OPENCV_VERSION} . && make -j\"$(nproc)\" install && rm -rf /opencv-${OPENCV_VERSION}", 
+                        "OPENBLAS_VERSION=0.2.18 && wget -q -O - https://github.com/xianyi/OpenBLAS/archive/v${OPENBLAS_VERSION}.tar.gz | tar -xzf - && cd OpenBLAS-${OPENBLAS_VERSION} && make -j\"$(nproc)\" USE_OPENMP=1 | tee make.log && grep -qF 'OpenBLAS build complete. (BLAS CBLAS LAPACK LAPACKE)' make.log && grep -qF 'Use OpenMP in the multithreading.' make.log && make PREFIX=/usr/local/openblas install && rm -rf /OpenBLAS-${OPENBLAS_VERSION}", 
+                        "BOOST_VERSION=1_60_0 && BOOST_DOTTED_VERSION=$(echo $BOOST_VERSION | tr _ .) && wget -q -O - https://sourceforge.net/projects/boost/files/boost/${BOOST_DOTTED_VERSION}/boost_${BOOST_VERSION}.tar.gz/download | tar -xzf - && cd boost_${BOOST_VERSION} && ./bootstrap.sh --prefix=/usr/local/boost-${BOOST_DOTTED_VERSION} --with-libraries=filesystem,system,test  && ./b2 -d0 -j\"$(nproc)\" install  && rm -rf /boost_${BOOST_VERSION}", 
+                        "PROTOBUF_VERSION=3.1.0 PROTOBUF_STRING=protobuf-$PROTOBUF_VERSION && wget -O - --no-verbose https://github.com/google/protobuf/archive/v${PROTOBUF_VERSION}.tar.gz | tar -xzf - && cd $PROTOBUF_STRING && ./autogen.sh && ./configure CFLAGS=-fPIC CXXFLAGS=-fPIC --disable-shared --prefix=/usr/local/$PROTOBUF_STRING && make -j $(nproc) install && cd .. && rm -rf $PROTOBUF_STRING", 
+                        "CNTK_CUSTOM_MKL_VERSION=3 && mkdir /usr/local/CNTKCustomMKL && wget --no-verbose -O - https://www.cntk.ai/mkl/CNTKCustomMKL-Linux-$CNTK_CUSTOM_MKL_VERSION.tgz | tar -xzf - -C /usr/local/CNTKCustomMKL", 
+                        "mv /bin/sh /bin/sh.orig && ln -s -f /bin/bash /bin/sh && mkdir $KALDI_PATH && wget --no-verbose -O - https://github.com/kaldi-asr/kaldi/archive/$KALDI_VERSION.tar.gz | tar -xzf - --strip-components=1 -C $KALDI_PATH && cd $KALDI_PATH && cd tools && perl -pi -e 's/^# (OPENFST_VERSION = 1.4.1)$/\\1/' Makefile && ./extras/check_dependencies.sh && make -j $(nproc) all && cd ../src && ./configure --openblas-root=/usr/local/openblas --shared && make -j $(nproc) depend && make -j $(nproc) all && \\", 
+                        "cd /root && wget -q http://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz -O - | tar xvfz - && cd swig-3.0.10 && ./configure --without-java --without-perl5 && make -j $(nproc) && make install", 
+                        "wget -q https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh && bash Anaconda3-4.2.0-Linux-x86_64.sh -b && rm Anaconda3-4.2.0-Linux-x86_64.sh", 
+                        "wget -q https://raw.githubusercontent.com/Microsoft/CNTK/master/Scripts/install/linux/conda-linux-cntk-py35-environment.yml -O /tmp/conda-linux-cntk-py35-environment.yml && /root/anaconda3/bin/conda env create -p /root/anaconda3/envs/cntk-py35/ --file /tmp/conda-linux-cntk-py35-environment.yml", 
+                        "git clone --depth=1 -b master https://github.com/Microsoft/CNTK.git . && CONFIGURE_OPTS=\"--with-kaldi=${KALDI_PATH} --with-py35-path=/root/anaconda3/envs/cntk-py35\" && git submodule update --init Source/Multiverso && mkdir -p build/cpu/release && cd build/cpu/release && ../../../configure $CONFIGURE_OPTS --with-openblas=/usr/local/openblas && make -j\"$(nproc)\" all && cd ../../.. && mkdir -p build-mkl/cpu/release && cd build-mkl/cpu/release && ../../../configure $CONFIGURE_OPTS --with-mkl=/usr/local/CNTKCustomMKL && make -j\"$(nproc)\" all", 
+                        "cd Examples/Image/DataSets/CIFAR-10 && python install_cifar10.py && cd ../../../..", 
+                        "cd Examples/Image/DataSets/MNIST && python install_mnist.py && cd ../../../.."
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/cntk"
+                    ]
+                }, 
+                "/Tools/docker/CNTK-GPU-1bit-Image/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [
+                        "ENABLE_1BIT_SGD"
+                    ], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "PATH /usr/local/mpi/bin:$PATH", 
+                        "LD_LIBRARY_PATH /usr/local/mpi/lib:$LD_LIBRARY_PATH", 
+                        "LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH", 
+                        "LD_LIBRARY_PATH /usr/local/openblas/lib:$LD_LIBRARY_PATH", 
+                        "KALDI_VERSION=c024e8aa", 
+                        "KALDI_PATH /usr/local/kaldi-$KALDI_VERSION", 
+                        "PATH /root/anaconda3/envs/cntk-py35/bin:$PATH", 
+                        "NCCL_VERSION=1.3.0-1", 
+                        "NCCL_PATH /usr/local/nccl-${NCCL_VERSION}", 
+                        "PATH=/cntk/build/gpu/release/bin:$PATH PYTHONPATH=/cntk/bindings/python LD_LIBRARY_PATH=/cntk/bindings/python/cntk/libs:$LD_LIBRARY_PATH"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "test \"$ENABLE_1BIT_SGD\" = \"true\" ||  ( echo \"\\033[0;31m\\", 
+                        "apt-get update && apt-get install -y --no-install-recommends autotools-dev build-essential cmake git gfortran-multilib libavcodec-dev libavformat-dev libjasper-dev libjpeg-dev libpng-dev liblapacke-dev libswscale-dev libtiff-dev pkg-config wget zlib1g-dev # Protobuf", 
+                        "OPENMPI_VERSION=1.10.3 && wget -q -O - https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-${OPENMPI_VERSION}.tar.gz | tar -xzf - && cd openmpi-${OPENMPI_VERSION} && ./configure --prefix=/usr/local/mpi && make -j\"$(nproc)\" install && rm -rf /openmpi-${OPENMPI_VERSION}", 
+                        "LIBZIP_VERSION=1.1.2 && wget -q -O - http://nih.at/libzip/libzip-${LIBZIP_VERSION}.tar.gz | tar -xzf - && cd libzip-${LIBZIP_VERSION} && ./configure && make -j\"$(nproc)\" install && rm -rf /libzip-${LIBZIP_VERSION}", 
+                        "wget -q -O - https://github.com/NVlabs/cub/archive/1.4.1.tar.gz | tar -C /usr/local -xzf -", 
+                        "OPENCV_VERSION=3.1.0 && wget -q -O - https://github.com/Itseez/opencv/archive/${OPENCV_VERSION}.tar.gz | tar -xzf - && cd opencv-${OPENCV_VERSION} && cmake -DWITH_CUDA=OFF -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local/opencv-${OPENCV_VERSION} . && make -j\"$(nproc)\" install && rm -rf /opencv-${OPENCV_VERSION}", 
+                        "OPENBLAS_VERSION=0.2.18 && wget -q -O - https://github.com/xianyi/OpenBLAS/archive/v${OPENBLAS_VERSION}.tar.gz | tar -xzf - && cd OpenBLAS-${OPENBLAS_VERSION} && make -j\"$(nproc)\" USE_OPENMP=1 | tee make.log && grep -qF 'OpenBLAS build complete. (BLAS CBLAS LAPACK LAPACKE)' make.log && grep -qF 'Use OpenMP in the multithreading.' make.log && make PREFIX=/usr/local/openblas install && rm -rf /OpenBLAS-${OPENBLAS_VERSION}", 
+                        "BOOST_VERSION=1_60_0 && BOOST_DOTTED_VERSION=$(echo $BOOST_VERSION | tr _ .) && wget -q -O - https://sourceforge.net/projects/boost/files/boost/${BOOST_DOTTED_VERSION}/boost_${BOOST_VERSION}.tar.gz/download | tar -xzf - && cd boost_${BOOST_VERSION} && ./bootstrap.sh --prefix=/usr/local/boost-${BOOST_DOTTED_VERSION} --with-libraries=filesystem,system,test  && ./b2 -d0 -j\"$(nproc)\" install  && rm -rf /boost_${BOOST_VERSION}", 
+                        "PROTOBUF_VERSION=3.1.0 PROTOBUF_STRING=protobuf-$PROTOBUF_VERSION && wget -O - --no-verbose https://github.com/google/protobuf/archive/v${PROTOBUF_VERSION}.tar.gz | tar -xzf - && cd $PROTOBUF_STRING && ./autogen.sh && ./configure CFLAGS=-fPIC CXXFLAGS=-fPIC --disable-shared --prefix=/usr/local/$PROTOBUF_STRING && make -j $(nproc) install && cd .. && rm -rf $PROTOBUF_STRING", 
+                        "CNTK_CUSTOM_MKL_VERSION=3 && mkdir /usr/local/CNTKCustomMKL && wget --no-verbose -O - https://www.cntk.ai/mkl/CNTKCustomMKL-Linux-$CNTK_CUSTOM_MKL_VERSION.tgz | tar -xzf - -C /usr/local/CNTKCustomMKL", 
+                        "mv /bin/sh /bin/sh.orig && ln -s -f /bin/bash /bin/sh && mkdir $KALDI_PATH && wget --no-verbose -O - https://github.com/kaldi-asr/kaldi/archive/$KALDI_VERSION.tar.gz | tar -xzf - --strip-components=1 -C $KALDI_PATH && cd $KALDI_PATH && cd tools && perl -pi -e 's/^# (OPENFST_VERSION = 1.4.1)$/\\1/' Makefile && ./extras/check_dependencies.sh && make -j $(nproc) all && cd ../src && ./configure --openblas-root=/usr/local/openblas --shared && make -j $(nproc) depend && make -j $(nproc) all && \\", 
+                        "cd /root && wget -q http://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz -O - | tar xvfz - && cd swig-3.0.10 && ./configure --without-java --without-perl5 && make -j $(nproc) && make install", 
+                        "wget -q https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh && bash Anaconda3-4.2.0-Linux-x86_64.sh -b && rm Anaconda3-4.2.0-Linux-x86_64.sh", 
+                        "CONDA_ENV_PATH=/tmp/conda-linux-cntk-py35-environment.yml; wget -q https://raw.githubusercontent.com/Microsoft/CNTK/master/Scripts/install/linux/conda-linux-cntk-py35-environment.yml -O \"$CONDA_ENV_PATH\" && /root/anaconda3/bin/conda env create -p /root/anaconda3/envs/cntk-py35 --file \"$CONDA_ENV_PATH\" && rm -f \"$CONDA_ENV_PATH\"", 
+                        "git clone --depth=1 -b v${NCCL_VERSION} https://github.com/NVIDIA/nccl.git && cd nccl && make CUDA_HOME=/usr/local/cuda PREFIX=$NCCL_PATH install && rm -rf /nccl", 
+                        "mkdir -p /usr/local/cudnn/cuda/include && ln -s /usr/include/cudnn.h /usr/local/cudnn/cuda/include/cudnn.h && mkdir -p /usr/local/cudnn/cuda/lib64 && ln -s /etc/alternatives/libcudnn_so /usr/local/cudnn/cuda/lib64/libcudnn.so && ln -s /usr/local/cuda/lib64/stubs/libnvidia-ml.so /usr/local/cuda/lib64/stubs/libnvidia-ml.so.1", 
+                        "git clone --depth=1 --recursive -b master https://github.com/Microsoft/CNTK.git . && CONFIGURE_OPTS=\"--1bitsgd=yes --with-cuda=/usr/local/cuda --with-gdk-include=/usr/local/cuda/include --with-gdk-nvml-lib=/usr/local/cuda/lib64/stubs --with-kaldi=${KALDI_PATH} --with-py35-path=/root/anaconda3/envs/cntk-py35 --with-cudnn=/usr/local/cudnn --with-nccl=${NCCL_PATH}\" && mkdir -p build/gpu/release && cd build/gpu/release && ../../../configure $CONFIGURE_OPTS --with-openblas=/usr/local/openblas && make -j\"$(nproc)\" all && cd ../../.. && mkdir -p build-mkl/gpu/release && cd build-mkl/gpu/release && ../../../configure $CONFIGURE_OPTS --with-mkl=/usr/local/CNTKCustomMKL && make -j\"$(nproc)\" all", 
+                        "cd Examples/Image/DataSets/CIFAR-10 && python install_cifar10.py && cd ../../../..", 
+                        "cd Examples/Image/DataSets/MNIST && python install_mnist.py && cd ../../../.."
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/cntk"
+                    ]
+                }, 
+                "/Tools/docker/CNTK-GPU-Image/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "PATH /usr/local/mpi/bin:$PATH", 
+                        "LD_LIBRARY_PATH /usr/local/mpi/lib:$LD_LIBRARY_PATH", 
+                        "LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH", 
+                        "LD_LIBRARY_PATH /usr/local/openblas/lib:$LD_LIBRARY_PATH", 
+                        "KALDI_VERSION=c024e8aa", 
+                        "KALDI_PATH /usr/local/kaldi-$KALDI_VERSION", 
+                        "PATH /root/anaconda3/envs/cntk-py35/bin:$PATH", 
+                        "NCCL_VERSION=1.3.0-1", 
+                        "NCCL_PATH /usr/local/nccl-${NCCL_VERSION}", 
+                        "PATH=/cntk/build/gpu/release/bin:$PATH PYTHONPATH=/cntk/bindings/python LD_LIBRARY_PATH=/cntk/bindings/python/cntk/libs:$LD_LIBRARY_PATH"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y --no-install-recommends autotools-dev build-essential cmake git gfortran-multilib libavcodec-dev libavformat-dev libjasper-dev libjpeg-dev libpng-dev liblapacke-dev libswscale-dev libtiff-dev pkg-config wget zlib1g-dev # Protobuf", 
+                        "OPENMPI_VERSION=1.10.3 && wget -q -O - https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-${OPENMPI_VERSION}.tar.gz | tar -xzf - && cd openmpi-${OPENMPI_VERSION} && ./configure --prefix=/usr/local/mpi && make -j\"$(nproc)\" install && rm -rf /openmpi-${OPENMPI_VERSION}", 
+                        "LIBZIP_VERSION=1.1.2 && wget -q -O - http://nih.at/libzip/libzip-${LIBZIP_VERSION}.tar.gz | tar -xzf - && cd libzip-${LIBZIP_VERSION} && ./configure && make -j\"$(nproc)\" install && rm -rf /libzip-${LIBZIP_VERSION}", 
+                        "wget -q -O - https://github.com/NVlabs/cub/archive/1.4.1.tar.gz | tar -C /usr/local -xzf -", 
+                        "OPENCV_VERSION=3.1.0 && wget -q -O - https://github.com/Itseez/opencv/archive/${OPENCV_VERSION}.tar.gz | tar -xzf - && cd opencv-${OPENCV_VERSION} && cmake -DWITH_CUDA=OFF -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local/opencv-${OPENCV_VERSION} . && make -j\"$(nproc)\" install && rm -rf /opencv-${OPENCV_VERSION}", 
+                        "OPENBLAS_VERSION=0.2.18 && wget -q -O - https://github.com/xianyi/OpenBLAS/archive/v${OPENBLAS_VERSION}.tar.gz | tar -xzf - && cd OpenBLAS-${OPENBLAS_VERSION} && make -j\"$(nproc)\" USE_OPENMP=1 | tee make.log && grep -qF 'OpenBLAS build complete. (BLAS CBLAS LAPACK LAPACKE)' make.log && grep -qF 'Use OpenMP in the multithreading.' make.log && make PREFIX=/usr/local/openblas install && rm -rf /OpenBLAS-${OPENBLAS_VERSION}", 
+                        "BOOST_VERSION=1_60_0 && BOOST_DOTTED_VERSION=$(echo $BOOST_VERSION | tr _ .) && wget -q -O - https://sourceforge.net/projects/boost/files/boost/${BOOST_DOTTED_VERSION}/boost_${BOOST_VERSION}.tar.gz/download | tar -xzf - && cd boost_${BOOST_VERSION} && ./bootstrap.sh --prefix=/usr/local/boost-${BOOST_DOTTED_VERSION} --with-libraries=filesystem,system,test  && ./b2 -d0 -j\"$(nproc)\" install  && rm -rf /boost_${BOOST_VERSION}", 
+                        "PROTOBUF_VERSION=3.1.0 PROTOBUF_STRING=protobuf-$PROTOBUF_VERSION && wget -O - --no-verbose https://github.com/google/protobuf/archive/v${PROTOBUF_VERSION}.tar.gz | tar -xzf - && cd $PROTOBUF_STRING && ./autogen.sh && ./configure CFLAGS=-fPIC CXXFLAGS=-fPIC --disable-shared --prefix=/usr/local/$PROTOBUF_STRING && make -j $(nproc) install && cd .. && rm -rf $PROTOBUF_STRING", 
+                        "CNTK_CUSTOM_MKL_VERSION=3 && mkdir /usr/local/CNTKCustomMKL && wget --no-verbose -O - https://www.cntk.ai/mkl/CNTKCustomMKL-Linux-$CNTK_CUSTOM_MKL_VERSION.tgz | tar -xzf - -C /usr/local/CNTKCustomMKL", 
+                        "mv /bin/sh /bin/sh.orig && ln -s -f /bin/bash /bin/sh && mkdir $KALDI_PATH && wget --no-verbose -O - https://github.com/kaldi-asr/kaldi/archive/$KALDI_VERSION.tar.gz | tar -xzf - --strip-components=1 -C $KALDI_PATH && cd $KALDI_PATH && cd tools && perl -pi -e 's/^# (OPENFST_VERSION = 1.4.1)$/\\1/' Makefile && ./extras/check_dependencies.sh && make -j $(nproc) all && cd ../src && ./configure --openblas-root=/usr/local/openblas --shared && make -j $(nproc) depend && make -j $(nproc) all && \\", 
+                        "cd /root && wget -q http://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz -O - | tar xvfz - && cd swig-3.0.10 && ./configure --without-java --without-perl5 && make -j $(nproc) && make install", 
+                        "wget -q https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh && bash Anaconda3-4.2.0-Linux-x86_64.sh -b && rm Anaconda3-4.2.0-Linux-x86_64.sh", 
+                        "CONDA_ENV_PATH=/tmp/conda-linux-cntk-py35-environment.yml; wget -q https://raw.githubusercontent.com/Microsoft/CNTK/master/Scripts/install/linux/conda-linux-cntk-py35-environment.yml -O \"$CONDA_ENV_PATH\" && /root/anaconda3/bin/conda env create -p /root/anaconda3/envs/cntk-py35 --file \"$CONDA_ENV_PATH\" && rm -f \"$CONDA_ENV_PATH\"", 
+                        "git clone --depth=1 -b v${NCCL_VERSION} https://github.com/NVIDIA/nccl.git && cd nccl && make CUDA_HOME=/usr/local/cuda PREFIX=$NCCL_PATH install && rm -rf /nccl", 
+                        "mkdir -p /usr/local/cudnn/cuda/include && ln -s /usr/include/cudnn.h /usr/local/cudnn/cuda/include/cudnn.h && mkdir -p /usr/local/cudnn/cuda/lib64 && ln -s /etc/alternatives/libcudnn_so /usr/local/cudnn/cuda/lib64/libcudnn.so && ln -s /usr/local/cuda/lib64/stubs/libnvidia-ml.so /usr/local/cuda/lib64/stubs/libnvidia-ml.so.1", 
+                        "git clone --depth=1 -b master https://github.com/Microsoft/CNTK.git . && CONFIGURE_OPTS=\"--with-cuda=/usr/local/cuda --with-gdk-include=/usr/local/cuda/include --with-gdk-nvml-lib=/usr/local/cuda/lib64/stubs --with-kaldi=${KALDI_PATH} --with-py35-path=/root/anaconda3/envs/cntk-py35 --with-cudnn=/usr/local/cudnn --with-nccl=${NCCL_PATH}\" && git submodule update --init Source/Multiverso && mkdir -p build/gpu/release && cd build/gpu/release && ../../../configure $CONFIGURE_OPTS --with-openblas=/usr/local/openblas && make -j\"$(nproc)\" all && cd ../../.. && mkdir -p build-mkl/gpu/release && cd build-mkl/gpu/release && ../../../configure $CONFIGURE_OPTS --with-mkl=/usr/local/CNTKCustomMKL && make -j\"$(nproc)\" all", 
+                        "cd Examples/Image/DataSets/CIFAR-10 && python install_cifar10.py && cd ../../../..", 
+                        "cd Examples/Image/DataSets/MNIST && python install_mnist.py && cd ../../../.."
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/cntk"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/Microsoft/CNTK/git/blobs/6cfb5a5b7331050fbfe590c4d9499f4e18d6cbc9", 
+                    "html": "https://github.com/Microsoft/CNTK/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/Microsoft/CNTK/contents/README.md?ref=master"
+                }, 
+                "content": "KipUaGUgW0NOVEsgV2lraV0oaHR0cHM6Ly9naXRodWIuY29tL01pY3Jvc29m\ndC9DTlRLL3dpa2kpIGhhcyBhbGwgaW5mb3JtYXRpb24gb24gQ05USyBpbmNs\ndWRpbmcgW3NldHVwXShodHRwczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NO\nVEsvd2lraS9TZXR1cC1DTlRLLW9uLXlvdXItbWFjaGluZSksIFtleGFtcGxl\nc10oaHR0cHM6Ly9naXRodWIuY29tL01pY3Jvc29mdC9DTlRLL3dpa2kvRXhh\nbXBsZXMpLCBldGMuKiogIApHaXZlIHVzIGZlZWRiYWNrIHRocm91Z2ggdGhl\nc2UgW2NoYW5uZWxzXShodHRwczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NO\nVEsvd2lraS9GZWVkYmFjay1DaGFubmVscykuCgojIExhdGVzdCBuZXdzCioq\nKjIwMTctMDQtMjEuKiBDTlRLIDIuMCBSZWxlYXNlIENhbmRpZGF0ZSAyKiog\nIApXaXRoIFJlbGVhc2UgQ2FuZGlkYXRlIDIgd2UgcmVhY3RlZCB0byBjdXN0\nb21lciBmZWVkYmFjayBhbmQgaW1wcm92ZWQvYWRkZWQgZmVhdHVyZXMsIGZ1\nbmN0aW9uYWxpdHksIGFuZCBwZXJmb3JtYW5jZS4KCkhpZ2hsaWdodHM6Ciog\nTmV3IG9wZXJhdG9ycyBsaWtlIGBwb3dgLCBgc2VxdWVuY2UucmVkdWNlX21h\neGAsIGBzZXF1ZW5jZS5zb2Z0bWF4YC4KKiBOZXcgZmVhdHVyZSBmb3IgTGlu\ndXggc291cmNlIGJ1aWxkcyAoR1BVIERpcmVjdCBSRE1BIHN1cHBvcnQgaW4g\nZGlzdHJpYnV0ZWQgZ3JhZGllbnRzIGFnZ3JlZ2F0aW9uLCBOQ0NMIHN1cHBv\ncnQgZm9yIFB5dGhvbiBpbiBWMiBncmFkaWVudHMgYWdncmVnYXRpb24pLgoq\nIFN1cHBvcnQgZm9yIFB5dGhvbiAzLjYgZm9yIHNvdXJjZSBhbmQgYmluYXJ5\nIGluc3RhbGxhdGlvbjsgc2VlIFtoZXJlXShodHRwczovL2dpdGh1Yi5jb20v\nTWljcm9zb2Z0L0NOVEsvd2lraS9TZXR1cC1DTlRLLW9uLXlvdXItbWFjaGlu\nZSkuCiogYFVzZXJNaW5pYmF0Y2hTb3VyY2VgIHRvIHdyaXRlIGN1c3RvbSBt\naW5pYmF0Y2ggc291cmNlczsgc2VlIFtoZXJlXShodHRwczovL2NudGsuYWkv\ncHl0aG9uZG9jcy9leHRlbmQuaHRtbCN1c2VyLWRlZmluZWQtbWluaWJhdGNo\nLXNvdXJjZXMpLgoqIE5ldyBDIyBBUElzOiBgY2xhc3MgTkRBcnJheVZpZXdg\nIGFuZCBtZXRob2RzLCBgU2V0TWF4TnVtQ1BVVGhyZWFkcygpYCwgYEdldE1h\neE51bUNQVVRocmVhZHMoKWAsIGBTZXRUcmFjZUxldmVsKClgLCBgR2V0VHJh\nY2VMZXZlbCgpYAoqIEEgbmV3IHNldCBvZiBOdUdldCBQYWNrYWdlcyBpcyBw\ncm92aWRlZCB3aXRoIHRoaXMgUmVsZWFzZS4gCgpUaGUgW3JlbGVhc2Ugbm90\nZXNdKGh0dHBzOi8vZ2l0aHViLmNvbS9NaWNyb3NvZnQvQ05USy93aWtpL0NO\nVEtfMl8wX1JDXzJfUmVsZWFzZV9Ob3RlcykgY29udGFpbiBhbiBvdmVydmll\ndy4gCkdldCB0aGUgcmVsZWFzZSBmcm9tIHRoZSBbQ05USyBSZWxlYXNlcyBQ\nYWdlXShodHRwczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NOVEsvcmVsZWFz\nZXMpLgoKKioqMjAxNy0wMy0zMS4qIFYgMi4wIFJlbGVhc2UgQ2FuZGlkYXRl\nIDEqKiAgCldpdGggUmVsZWFzZSBDYW5kaWRhdGUgMSB0aGUgTWljcm9zb2Z0\nIENvZ25pdGl2ZSBUb29sa2l0IGVudGVycyB0aGUgZmluYWwgc2V0IG9mIGVu\naGFuY2VtZW50cyBiZWZvcmUgcmVsZWFzZSBvZiB0aGUgcHJvZHVjdGlvbiB2\nZXJzaW9uIG9mIENOVEsgdi4yLjAuIAoKSGlnaGxpZ2h0czoKKiBUaGUgcmVs\nZWFzZSBjYW5kaWRhdGUgY29udGFpbnMgW2FsbCBjaGFuZ2VzIGFuZCBpbXBy\nb3ZlbWVudHMgaW50cm9kdWNlZCBpbiBDTlRLIDIuMCBkdXJpbmcgYmV0YSBw\naGFzZV0oaHR0cHM6Ly9naXRodWIuY29tL01pY3Jvc29mdC9DTlRLL3dpa2kv\nQ05USy0yLjAtQmV0YS1IaWdobGlnaHRzKS4KKiBFbmFibGVzIENhZmZlLWNv\nbnZlcnRlZCBwcmV0cmFpbmVkIG1vZGVscyBvbiBpbWFnZSBjbGFzc2lmaWNh\ndGlvbiBpbmNsdWRpbmcgQWxleE5ldCwgUmVzTmV0LCBWR0cgYW5kIEJOLUlu\nY2VwdGlvbi4gCiogU2xpY2Ugbm93IHN1cHBvcnRzIG11bHRpcGxlLWF4aXMg\nc2xpY2luZy4KKiBJbXByb3ZlcyBwZXJmb3JtYW5jZSBhbmQgbWVtb3J5IGZv\nb3RwcmludAoqIEltcHJvdmVtZW50cyBpbiB0aGUgW2RldmljZSBzZWxlY3Rp\nb24gQVBJXShodHRwczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NOVEsvd2lr\naS9DTlRLXzJfMF9SQ18xX1JlbGVhc2VfTm90ZXMpLgoqIE5ldyBQeXRob24g\nW21vZGVsIGRlYnVnZ2luZyBmdW5jdGlvbnNdKGh0dHBzOi8vd3d3LmNudGsu\nYWkvcHl0aG9uZG9jcy9jbnRrLmRlYnVnZ2luZy5odG1sI21vZHVsZS1jbnRr\nLmRlYnVnZ2luZy5kZWJ1ZykuCiogSW1wcm92ZW1lbnRzIGluIFB5dGhvbiBh\nbmQgQyMgQVBJLiBTZWUgdGhlIFtyZWxlYXNlIG5vdGVzXShodHRwczovL2dp\ndGh1Yi5jb20vTWljcm9zb2Z0L0NOVEsvd2lraS9DTlRLXzJfMF9SQ18xX1Jl\nbGVhc2VfTm90ZXMpIGZvciBkZXRhaWxlZCBkZXNjcmlwdGlvbi4KKiBOZXcg\nZmlsZSBuYW1lcyBmb3IgW0NOVEsgbGlicmFyaWVzIGFuZCBkbGxzXShodHRw\nczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NOVEsvd2lraS9DTlRLLVNoYXJl\nZC1MaWJyYXJpZXMtTmFtaW5nLUZvcm1hdCkuCgpUaGUgW3JlbGVhc2Ugbm90\nZXNdKGh0dHBzOi8vZ2l0aHViLmNvbS9NaWNyb3NvZnQvQ05USy93aWtpL0NO\nVEtfMl8wX1JDXzFfUmVsZWFzZV9Ob3RlcykgY29udGFpbiBhbiBvdmVydmll\ndy4gCkdldCB0aGUgcmVsZWFzZSBmcm9tIHRoZSBbQ05USyBSZWxlYXNlcyBQ\nYWdlXShodHRwczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NOVEsvcmVsZWFz\nZXMpLgoKKioqMjAxNy0wMy0yNC4qIEltcG9ydGFudCBOb3RlIGJyZWFraW5n\nIGNoYW5nZXMqKgpUaGVyZSBhcmUgYnJlYWtpbmcgY2hhbmdlcyBpbiBtYXN0\nZXIgY29tcGFyZWQgdG8gYmV0YTE1LCBjbGljayBbaGVyZV0oaHR0cHM6Ly9n\naXRodWIuY29tL01pY3Jvc29mdC9DTlRLL3dpa2kvQnJlYWtpbmctY2hhbmdl\ncy1pbi1NYXN0ZXItY29tcGFyZWQtdG8tYmV0YTE1KSBmb3IgbW9yZSBpbmZv\ncm1hdGlvbi4KCioqKjIwMTctMDMtMTYuKiBWIDIuMCBCZXRhIDE1IFJlbGVh\nc2UgYXZhaWxhYmxlIGF0IERvY2tlciBIdWIqKiAgCkNOVEsgViAyLjAgQmV0\nYSAxNSBSdW50aW1lIHBhY2thZ2VzIGFyZSBub3cgYXZhaWxhYmxlIGFzIFtQ\ndWJsaWMgSW1hZ2VzIGF0IERvY2tlciBIdWJdKGh0dHBzOi8vaHViLmRvY2tl\nci5jb20vci9taWNyb3NvZnQvY250ay8pLiAgClNlZSBtb3JlIG9uIENOVEsg\nYXMgRG9ja2VyIEltYWdlcyBpbiB0aGlzIFtXaWtpIGFydGljbGVdKGh0dHBz\nOi8vZ2l0aHViLmNvbS9NaWNyb3NvZnQvQ05USy93aWtpL0NOVEstRG9ja2Vy\nLUNvbnRhaW5lcnMpLgoKKioqMjAxNy0wMy0xNS4qIFYgMi4wIEJldGEgMTUg\nUmVsZWFzZSoqICAKSGlnaGxpZ2h0cyBvZiB0aGlzIFJlbGVhc2U6CiogQWRk\nZWQgc3VwcG9ydCBmb3IgVGVuc29yQm9hcmQgb3V0cHV0IGluIEJyYWluU2Ny\naXB0LiBbUmVhZCBtb3JlIGhlcmVdKGh0dHBzOi8vZ2l0aHViLmNvbS9NaWNy\nb3NvZnQvQ05USy93aWtpL1VzaW5nLVRlbnNvckJvYXJkLWZvci1WaXN1YWxp\nemF0aW9uKS4KKiBMZWFybmVycyBjYW4gbm93IGJlIGltcGxlbWVudGVkIGlu\nIHB1cmUgUHl0aG9uIGJ5IG1lYW5zIG9mIGBVc2VyTGVhcm5lcnNgLiBbUmVh\nZCBtb3JlIGhlcmVdKGh0dHBzOi8vd3d3LmNudGsuYWkvcHl0aG9uZG9jcy9l\neHRlbmQuaHRtbCN1c2VyLWxlYXJuZXJzKS4KKiBOZXcgZGVidWdnaW5nIGhl\nbHBlcnM6IGBkdW1wX2Z1bmN0aW9uKClgLCBgZHVtcF9zaWduYXR1cmUoKWAu\nCiogVGVuc29ycyBjYW4gYmUgaW5kZXhlZCB1c2luZyBhZHZhbmNlZCBpbmRl\neGluZy4gRS5nLiBgeFtbMCwyLDNdXWAgd291bGQgcmV0dXJuIGEgdGVuc29y\nIHRoYXQgY29udGFpbnMgdGhlIGZpcnN0LCB0aGlyZCBhbmQgZm91cnRoIGVs\nZW1lbnQgb2YgdGhlIGZpcnN0IGF4aXMuCiogU2lnbmlmaWNhbnQgdXBkYXRl\ncyBpbiB0aGUgW0xheWVycyBMaWJyYXJ5XShodHRwczovL3d3dy5jbnRrLmFp\nL3B5dGhvbmRvY3MvbGF5ZXJyZWYuaHRtbCkgb2YgUHl0aG9uIEFQSS4gU2Vl\nIFtSZWxlYXNlIE5vdGVzXShodHRwczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0\nL0NOVEsvd2lraS9DTlRLXzJfMF9iZXRhXzE1X1JlbGVhc2VfTm90ZXMpIGZv\nciBkZXRhaWxlZCBkZXNjcmlwdGlvbi4KKiBVcGRhdGVzIGFuZCBbbmV3IGV4\nYW1wbGVzXShodHRwczovL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NOVEsvd2lr\naS9DTlRLLUV2YWwtRXhhbXBsZXMjZXhhbXBsZXMtZm9yLWV2YWx1YXRpbmct\nbXVsdGlwbGUtcmVxdWVzdHMtaW4tcGFyYWxsZWwpIGluIEMjIEFQSS4KKiBW\nYXJpb3VzIGJ1ZyBmaXhlcy4KClNlZSBtb3JlIGluIHRoZSBbUmVsZWFzZSBO\nb3Rlc10oaHR0cHM6Ly9naXRodWIuY29tL01pY3Jvc29mdC9DTlRLL3dpa2kv\nQ05US18yXzBfYmV0YV8xNV9SZWxlYXNlX05vdGVzKS4gIApHZXQgdGhlIFJl\nbGVhc2UgZnJvbSB0aGUgW0NOVEsgUmVsZWFzZXMgcGFnZV0oaHR0cHM6Ly9n\naXRodWIuY29tL01pY3Jvc29mdC9DTlRLL3JlbGVhc2VzKS4KCioqKjIwMTct\nMDItMjguKiBWIDIuMCBCZXRhIDEyIFJlbGVhc2UgYXZhaWxhYmxlIGF0IERv\nY2tlciBIdWIqKiAgCkNOVEsgViAyLjAgQmV0YSAxMiBSdW50aW1lIHBhY2th\nZ2VzIGFyZSBub3cgYXZhaWxhYmxlIGFzIFtQdWJsaWMgSW1hZ2VzIGF0IERv\nY2tlciBIdWJdKGh0dHBzOi8vaHViLmRvY2tlci5jb20vci9taWNyb3NvZnQv\nY250ay8pLiAgClNlZSBtb3JlIG9uIENOVEsgYXMgRG9ja2VyIEltYWdlcyBp\nbiB0aGlzIFtXaWtpIGFydGljbGVdKGh0dHBzOi8vZ2l0aHViLmNvbS9NaWNy\nb3NvZnQvQ05USy93aWtpL0NOVEstRG9ja2VyLUNvbnRhaW5lcnMpLgoKU2Vl\nIFthbGwgbmV3c10oaHR0cHM6Ly9naXRodWIuY29tL01pY3Jvc29mdC9DTlRL\nL3dpa2kvTmV3cykuCgojIFdoYXQgaXMgVGhlIE1pY3Jvc29mdCBDb2duaXRp\ndmUgVG9vbGtpdAoKVGhlIE1pY3Jvc29mdCBDb2duaXRpdmUgVG9vbGtpdCAo\naHR0cHM6Ly93d3cubWljcm9zb2Z0LmNvbS9lbi11cy9yZXNlYXJjaC9wcm9k\ndWN0L2NvZ25pdGl2ZS10b29sa2l0LyksIGlzIGEgdW5pZmllZCBkZWVwLWxl\nYXJuaW5nIHRvb2xraXQgdGhhdCBkZXNjcmliZXMgbmV1cmFsIG5ldHdvcmtz\nIGFzIGEgc2VyaWVzIG9mIGNvbXB1dGF0aW9uYWwgc3RlcHMgdmlhIGEgZGly\nZWN0ZWQgZ3JhcGguIEluIHRoaXMgZGlyZWN0ZWQgZ3JhcGgsIGxlYWYgbm9k\nZXMgcmVwcmVzZW50IGlucHV0IHZhbHVlcyBvciBuZXR3b3JrIHBhcmFtZXRl\ncnMsIHdoaWxlIG90aGVyIG5vZGVzIHJlcHJlc2VudCBtYXRyaXggb3BlcmF0\naW9ucyB1cG9uIHRoZWlyIGlucHV0cy4gQ05USyBhbGxvd3MgdG8gZWFzaWx5\nIHJlYWxpemUgYW5kIGNvbWJpbmUgcG9wdWxhciBtb2RlbCB0eXBlcyBzdWNo\nIGFzIGZlZWQtZm9yd2FyZCBETk5zLCBjb252b2x1dGlvbmFsIG5ldHMgKENO\nTnMpLCBhbmQgcmVjdXJyZW50IG5ldHdvcmtzIChSTk5zL0xTVE1zKS4gSXQg\naW1wbGVtZW50cyBzdG9jaGFzdGljIGdyYWRpZW50IGRlc2NlbnQgKFNHRCwg\nZXJyb3IgYmFja3Byb3BhZ2F0aW9uKSBsZWFybmluZyB3aXRoIGF1dG9tYXRp\nYyBkaWZmZXJlbnRpYXRpb24gYW5kIHBhcmFsbGVsaXphdGlvbiBhY3Jvc3Mg\nbXVsdGlwbGUgR1BVcyBhbmQgc2VydmVycy4gQ05USyBoYXMgYmVlbiBhdmFp\nbGFibGUgdW5kZXIgYW4gb3Blbi1zb3VyY2UgbGljZW5zZSBzaW5jZSBBcHJp\nbCAyMDE1LiBJdCBpcyBvdXIgaG9wZSB0aGF0IHRoZSBjb21tdW5pdHkgd2ls\nbCB0YWtlIGFkdmFudGFnZSBvZiBDTlRLIHRvIHNoYXJlIGlkZWFzIG1vcmUg\ncXVpY2tseSB0aHJvdWdoIHRoZSBleGNoYW5nZSBvZiBvcGVuIHNvdXJjZSB3\nb3JraW5nIGNvZGUuCgpXaWtpOiBHbyB0byB0aGUgW0NOVEsgV2lraV0oaHR0\ncHM6Ly9naXRodWIuY29tL01pY3Jvc29mdC9DTlRLL3dpa2kpIGZvciBhbGwg\naW5mb3JtYXRpb24gb24gQ05USyBpbmNsdWRpbmcgW3NldHVwXShodHRwczov\nL2dpdGh1Yi5jb20vTWljcm9zb2Z0L0NOVEsvd2lraS9TZXR1cC1DTlRLLW9u\nLXlvdXItbWFjaGluZSApLCBbZXhhbXBsZXNdKGh0dHBzOi8vZ2l0aHViLmNv\nbS9NaWNyb3NvZnQvQ05USy93aWtpL0V4YW1wbGVzICksIGV0Yy4KCkxpY2Vu\nc2U6IFNlZSBbTElDRU5TRS5tZF0oLi9MSUNFTlNFLm1kKSBpbiB0aGUgcm9v\ndCBvZiB0aGlzIHJlcG9zaXRvcnkgZm9yIHRoZSBmdWxsIGxpY2Vuc2UgaW5m\nb3JtYXRpb24uCgpUdXRvcmlhbDogW01pY3Jvc29mdCBDb21wdXRhdGlvbmFs\nIE5ldHdvcmsgVG9vbGtpdCAoQ05USykgQCBOSVBTIDIwMTUgV29ya3Nob3Bz\nXShodHRwczovL3Jlc2VhcmNoLm1pY3Jvc29mdC5jb20vZW4tdXMvdW0vcGVv\ncGxlL2Rvbmd5dS9DTlRLLVR1dG9yaWFsLU5JUFMyMDE1LnBkZikKCkJsb2dz\nOgoKKiBbTWljcm9zb2Z0IENvbXB1dGF0aW9uYWwgTmV0d29yayBUb29sa2l0\nIG9mZmVycyBtb3N0IGVmZmljaWVudCBkaXN0cmlidXRlZCBkZWVwIGxlYXJu\naW5nIGNvbXB1dGF0aW9uYWwgcGVyZm9ybWFuY2VdKGh0dHBzOi8vYmxvZ3Mu\ndGVjaG5ldC5jb20vYi9pbnNpZGVfbWljcm9zb2Z0X3Jlc2VhcmNoL2FyY2hp\ndmUvMjAxNS8xMi8wNy9taWNyb3NvZnQtY29tcHV0YXRpb25hbC1uZXR3b3Jr\nLXRvb2xraXQtb2ZmZXJzLW1vc3QtZWZmaWNpZW50LWRpc3RyaWJ1dGVkLWRl\nZXAtbGVhcm5pbmctY29tcHV0YXRpb25hbC1wZXJmb3JtYW5jZS5hc3B4KQoq\nIFtNaWNyb3NvZnQgcmVzZWFyY2hlcnMgd2luIEltYWdlTmV0IGNvbXB1dGVy\nIHZpc2lvbiBjaGFsbGVuZ2UgKERlY2VtYmVyIDIwMTUpXShodHRwczovL2Js\nb2dzLm1pY3Jvc29mdC5jb20vbmV4dC8yMDE1LzEyLzEwL21pY3Jvc29mdC1y\nZXNlYXJjaGVycy13aW4taW1hZ2VuZXQtY29tcHV0ZXItdmlzaW9uLWNoYWxs\nZW5nZS8pCgojIyBQZXJmb3JtYW5jZQoKQ29nbml0aXZlIFRvb2xraXQgKENO\nVEspIHByb3ZpZGVzIHNpZ25pZmljYW50IHBlcmZvcm1hbmNlIGdhaW5zIGNv\nbXBhcmVkIHRvIG90aGVyIHRvb2xraXRzIFtjbGljayBoZXJlIGZvciBkZXRh\naWxzXShodHRwczovL2FyeGl2Lm9yZy9wZGYvMTYwOC4wNzI0OS5wZGYpLiBI\nZXJlIGlzIGEgc3VtbWFyeSBvZiBmaW5kaW5ncyBieSByZXNlYXJjaGVycyBh\ndCBIS0JVLgoKPiAqIENOVEvigJlzIExTVE0gcGVyZm9ybWFuY2UgaXMgNS0x\nMHggZmFzdGVyIHRoYW4gdGhlIG90aGVyIHRvb2xraXRzLgo+ICogRm9yIGNv\nbnZvbHV0aW9uIChpbWFnZSB0YXNrcyksIENOVEsgaXMgY29tcGFyYWJsZSwg\nYnV0IG5vdGUgdGhlIGF1dGhvcnMgd2VyZSB1c2luZyBDTlRLIDEuNy4yLCBh\nbmQgY3VycmVudCBDTlRLIDIuMCBiZXRhIDEwIGlzIG92ZXIgMzAlIGZhc3Rl\nciB0aGFuIDEuNy4yLgo+ICogRm9yIGFsbCBuZXR3b3JrcywgQ05USydzIHBl\ncmZvcm1hbmNlIHdhcyBzdXBlcmlvciB0byBUZW5zb3JGbG93IHBlcmZvcm1h\nbmNlLgoKSGlzdG9yaWNhbGx5LCBDTlRLIGhhcyBiZWVuIGEgcGlvbmVlciBp\nbiBvcHRpbWl6aW5nIHBlcmZvcm1hbmNlIG9uIG11bHRpLUdQVSBzeXN0ZW1z\nLiBXZSBjb250aW51ZSB0byBtYWludGFpbiB0aGUgZWRnZSAoW05WaWRpYSBu\nZXdzIGF0IFN1cGVyQ29tcHV0aW5nIDIwMTZdKGh0dHA6Ly9udmlkaWFuZXdz\nLm52aWRpYS5jb20vbmV3cy9udmlkaWEtYW5kLW1pY3Jvc29mdC1hY2NlbGVy\nYXRlLWFpLXRvZ2V0aGVyKSBhbmQgW0NSQVkgYXQgTklQUyAyMDE2XShodHRw\nczovL3d3dy5vbm1zZnQuY29tL25ld3MvbWljcm9zb2Z0LWFuZC1jcmF5LWFu\nbm91bmNlLXBhcnRuZXJzaGlwLXRvLXNwZWVkLXVwLWRlZXAtbGVhcm5pbmct\nb24tc3VwZXJjb21wdXRlcnMpKS4KCiBDTlRLIHdhcyBhIHBpb25lZXIgaW4g\naW50cm9kdWNpbmcgc2NhbGFiaWxpdHkgYWNyb3NzIG11bHRpLXNlcnZlciBt\ndWx0aS1HUFUgc3lzdGVtcy4gVGhlIGZpZ3VyZSBiZWxvdyBjb21wYXJlcyBw\ncm9jZXNzaW5nIHNwZWVkIChmcmFtZXMgcHJvY2Vzc2VkIHBlciBzZWNvbmQp\nIG9mIENOVEsgdG8gdGhhdCBvZiBmb3VyIG90aGVyIHdlbGwta25vd24gdG9v\nbGtpdHMuIFRoZSBjb25maWd1cmF0aW9uIHVzZXMgYSBmdWxseSBjb25uZWN0\nZWQgNC1sYXllciBuZXVyYWwgbmV0d29yayAoc2VlIG91ciBiZW5jaG1hcmsg\nW3NjcmlwdHNdKGh0dHBzOi8vZ2l0aHViLmNvbS9BbGV4ZXktS2FtZW5ldi9C\nZW5jaG1hcmtzKSkgYW5kIGFuIGVmZmVjdGl2ZSBtaW5pIGJhdGNoIHNpemUg\nKDgxOTIpLiBBbGwgcmVzdWx0cyB3ZXJlIG9idGFpbmVkIG9uIHRoZSBzYW1l\nIGhhcmR3YXJlIHdpdGggdGhlIHJlc3BlY3RpdmUgbGF0ZXN0IHB1YmxpYyBz\nb2Z0d2FyZSB2ZXJzaW9ucyBhcyBvZiBEZWMgMywgMjAxNS4KCiFbUGVyZm9y\nbWFuY2UgY2hhcnRdKERvY3VtZW50YXRpb24vRG9jdW1lbnRzL1BlcmZvcm1h\nbmNlQ2hhcnQucG5nKQoKIyMgQ2l0YXRpb24KCklmIHlvdSB1c2VkIHRoaXMg\ndG9vbGtpdCBvciBwYXJ0IG9mIGl0IHRvIGRvIHlvdXIgcmVzZWFyY2gsIHBs\nZWFzZSBjaXRlIHRoZSB3b3JrIGFzOgoKQW1pdCBBZ2Fyd2FsLCBFbGRhciBB\na2NodXJpbiwgQ2hyaXMgQmFzb2dsdSwgR3VvZ3VvIENoZW4sIFNjb3R0IEN5\ncGhlcnMsIEphc2hhIERyb3BwbywgQWRhbSBFdmVyc29sZSwgQnJpYW4gR3Vl\nbnRlciwgTWFyayBIaWxsZWJyYW5kLCBULiBSeWFuIEhvZW5zLCBYdWVkb25n\nIEh1YW5nLCBaaGloZW5nIEh1YW5nLCBWbGFkaW1pciBJdmFub3YsIEFsZXhl\neSBLYW1lbmV2LCBQaGlsaXBwIEtyYW5lbiwgT2xla3NpaSBLdWNoYWlldiwg\nV29sZmdhbmcgTWFub3VzZWssIEF2bmVyIE1heSwgQmhhc2thciBNaXRyYSwg\nT2xpdmllciBOYW5vLCBHYWl6a2EgTmF2YXJybywgQWxleGV5IE9ybG92LCBI\nYXJpIFBhcnRoYXNhcmF0aGksIEJhb2xpbiBQZW5nLCBNYXJrbyBSYWRtaWxh\nYywgQWxleGV5IFJlem5pY2hlbmtvLCBGcmFuayBTZWlkZSwgTWljaGFlbCBM\nLiBTZWx0emVyLCBNYWxjb2xtIFNsYW5leSwgQW5kcmVhcyBTdG9sY2tlLCBI\ndWFtaW5nIFdhbmcsIFlvbmdxaWFuZyBXYW5nLCBLYWlzaGVuZyBZYW8sIERv\nbmcgWXUsIFl1IFpoYW5nLCBHZW9mZnJleSBad2VpZyAoaW4gYWxwaGFiZXRp\nY2FsIG9yZGVyKSwgWyJBbiBJbnRyb2R1Y3Rpb24gdG8gQ29tcHV0YXRpb25h\nbCBOZXR3b3JrcyBhbmQgdGhlIENvbXB1dGF0aW9uYWwgTmV0d29yayBUb29s\na2l0Il0oaHR0cHM6Ly9yZXNlYXJjaC5taWNyb3NvZnQuY29tL2FwcHMvcHVi\ncy8/aWQ9MjI2NjQxKSwgTWljcm9zb2Z0IFRlY2huaWNhbCBSZXBvcnQgTVNS\nLVRSLTIwMTQtMTEyLCAyMDE0LgoKIyMgRGlzY2xhaW1lcgoKQ05USyBpcyBp\nbiBhY3RpdmUgdXNlIGF0IE1pY3Jvc29mdCBhbmQgY29uc3RhbnRseSBldm9s\ndmluZy4gVGhlcmUgd2lsbCBiZSBidWdzLgoKIyMgTWljcm9zb2Z0IE9wZW4g\nU291cmNlIENvZGUgb2YgQ29uZHVjdAoKVGhpcyBwcm9qZWN0IGhhcyBhZG9w\ndGVkIHRoZSBbTWljcm9zb2Z0IE9wZW4gU291cmNlIENvZGUgb2YgQ29uZHVj\ndF0oaHR0cHM6Ly9vcGVuc291cmNlLm1pY3Jvc29mdC5jb20vY29kZW9mY29u\nZHVjdC8pLiBGb3IgbW9yZSBpbmZvcm1hdGlvbiBzZWUgdGhlIFtDb2RlIG9m\nIENvbmR1Y3QgRkFRXShodHRwczovL29wZW5zb3VyY2UubWljcm9zb2Z0LmNv\nbS9jb2Rlb2Zjb25kdWN0L2ZhcS8pIG9yIGNvbnRhY3QgW29wZW5jb2RlQG1p\nY3Jvc29mdC5jb21dKG1haWx0bzpvcGVuY29kZUBtaWNyb3NvZnQuY29tKSB3\naXRoIGFueSBhZGRpdGlvbmFsIHF1ZXN0aW9ucyBvciBjb21tZW50cy4K\n", 
+                "download_url": "https://raw.githubusercontent.com/Microsoft/CNTK/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/Microsoft/CNTK/git/blobs/6cfb5a5b7331050fbfe590c4d9499f4e18d6cbc9", 
+                "html_url": "https://github.com/Microsoft/CNTK/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "6cfb5a5b7331050fbfe590c4d9499f4e18d6cbc9", 
+                "size": 9672, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/Microsoft/CNTK/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-11-26T09:52:06Z", 
+                "language": "C++", 
+                "owner": {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/6154722?v=3", 
+                    "events_url": "https://api.github.com/users/Microsoft/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/Microsoft/followers", 
+                    "following_url": "https://api.github.com/users/Microsoft/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/Microsoft/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/Microsoft", 
+                    "id": 6154722, 
+                    "login": "Microsoft", 
+                    "organizations_url": "https://api.github.com/users/Microsoft/orgs", 
+                    "received_events_url": "https://api.github.com/users/Microsoft/received_events", 
+                    "repos_url": "https://api.github.com/users/Microsoft/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/Microsoft/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/Microsoft/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/Microsoft"
+                }, 
+                "pushed_at": "2017-04-25T16:48:56Z", 
+                "stargazers_count": 10495, 
+                "updated_at": "2017-04-25T15:58:41Z", 
+                "watchers_count": 10495
+            }
+        }, 
+        "apache/incubator-predictionio": {
+            "dockerfile": {
+                "/Dockerfile": {
+                    "ADD": [
+                        ". ${PIO_HOME}"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "PIO_HOME /PredictionIO", 
+                        "PATH ${PIO_HOME}/bin/:${PATH}"
+                    ], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "predictionio/pio-testing-base"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/tests/Dockerfile": {
+                    "ADD": [
+                        "docker-files/${SPARK_ARCHIVE} /vendors"
+                    ], 
+                    "ARG": [
+                        "SPARK_ARCHIVE", 
+                        "SPARK_DIR", 
+                        "PGSQL_JAR", 
+                        "PIO_SCALA_VERSION", 
+                        "PIO_SPARK_VERSION", 
+                        "PIO_HADOOP_VERSION", 
+                        "PIO_ELASTICSEARCH_VERSION"
+                    ], 
+                    "CMD": [
+                        "'bash'"
+                    ], 
+                    "COPY": [
+                        "docker-files/${PGSQL_JAR} /drivers/${PGSQL_JAR}", 
+                        "docker-files/init.sh init.sh", 
+                        "docker-files/env-conf/hbase-site.xml ${PIO_HOME}/conf/hbase-site.xml", 
+                        "docker-files/env-conf/pio-env.sh ${PIO_HOME}/conf/pio-env.sh", 
+                        "docker-files/pgpass /root/.pgpass"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/init.sh\"]"
+                    ], 
+                    "ENV": [
+                        "PIO_SCALA_VERSION=$PIO_SCALA_VERSION", 
+                        "PIO_SPARK_VERSION=$PIO_SPARK_VERSION", 
+                        "PIO_HADOOP_VERSION=$PIO_HADOOP_VERSION", 
+                        "PIO_ELASTICSEARCH_VERSION=$PIO_ELASTICSEARCH_VERSION", 
+                        "PGSQL_JAR=$PGSQL_JAR", 
+                        "SPARK_HOME /vendors/${SPARK_DIR}", 
+                        "PIO_STORAGE_REPOSITORIES_METADATA_SOURCE PGSQL", 
+                        "PIO_STORAGE_REPOSITORIES_EVENTDATA_SOURCE PGSQL", 
+                        "PIO_STORAGE_REPOSITORIES_MODELDATA_SOURCE PGSQL", 
+                        "JVM_OPTS '-Dfile.encoding=UTF8 -Xms2048M -Xmx2048M -Xss8M -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=256M'", 
+                        "SLEEP_TIME 30"
+                    ], 
+                    "EXPOSE": [
+                        "8000", 
+                        "7070"
+                    ], 
+                    "FROM": [
+                        "predictionio/pio"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "echo \"spark.locality.wait.node 0s\" > /vendors/${SPARK_DIR}/conf/spark-defaults.conf", 
+                        "chmod 600 /root/.pgpass", 
+                        "pip install python-dateutil", 
+                        "pip install pytz"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/apache/incubator-predictionio/git/blobs/73f589630ee1ed94184239d9b84d5995e1613c6b", 
+                    "html": "https://github.com/apache/incubator-predictionio/blob/develop/README.md", 
+                    "self": "https://api.github.com/repos/apache/incubator-predictionio/contents/README.md?ref=develop"
+                }, 
+                "content": "PCEtLQpMaWNlbnNlZCB0byB0aGUgQXBhY2hlIFNvZnR3YXJlIEZvdW5kYXRp\nb24gKEFTRikgdW5kZXIgb25lIG9yIG1vcmUKY29udHJpYnV0b3IgbGljZW5z\nZSBhZ3JlZW1lbnRzLiAgU2VlIHRoZSBOT1RJQ0UgZmlsZSBkaXN0cmlidXRl\nZCB3aXRoCnRoaXMgd29yayBmb3IgYWRkaXRpb25hbCBpbmZvcm1hdGlvbiBy\nZWdhcmRpbmcgY29weXJpZ2h0IG93bmVyc2hpcC4KVGhlIEFTRiBsaWNlbnNl\ncyB0aGlzIGZpbGUgdG8gWW91IHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwg\nVmVyc2lvbiAyLjAKKHRoZSAiTGljZW5zZSIpOyB5b3UgbWF5IG5vdCB1c2Ug\ndGhpcyBmaWxlIGV4Y2VwdCBpbiBjb21wbGlhbmNlIHdpdGgKdGhlIExpY2Vu\nc2UuICBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExpY2Vuc2UgYXQK\nCiAgICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0y\nLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3Jl\nZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIg\ndGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJ\nUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJ\nTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5z\nZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNz\naW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuCi0tPgoK\nIyBbQXBhY2hlIFByZWRpY3Rpb25JTyAoaW5jdWJhdGluZyldKGh0dHA6Ly9w\ncmVkaWN0aW9uaW8uaW5jdWJhdG9yLmFwYWNoZS5vcmcpCgpbIVtCdWlsZApT\ndGF0dXNdKGh0dHBzOi8vYXBpLnRyYXZpcy1jaS5vcmcvYXBhY2hlL2luY3Vi\nYXRvci1wcmVkaWN0aW9uaW8uc3ZnP2JyYW5jaD1kZXZlbG9wKV0oaHR0cHM6\nLy90cmF2aXMtY2kub3JnL2FwYWNoZS9pbmN1YmF0b3ItcHJlZGljdGlvbmlv\nKQoKQXBhY2hlIFByZWRpY3Rpb25JTyAoaW5jdWJhdGluZykgaXMgYW4gb3Bl\nbiBzb3VyY2UgbWFjaGluZSBsZWFybmluZyBmcmFtZXdvcmsKZm9yIGRldmVs\nb3BlcnMsIGRhdGEgc2NpZW50aXN0cywgYW5kIGVuZCB1c2Vycy4gSXQgc3Vw\ncG9ydHMgZXZlbnQgY29sbGVjdGlvbiwKZGVwbG95bWVudCBvZiBhbGdvcml0\naG1zLCBldmFsdWF0aW9uLCBxdWVyeWluZyBwcmVkaWN0aXZlIHJlc3VsdHMg\ndmlhIFJFU1QgQVBJcy4KSXQgaXMgYmFzZWQgb24gc2NhbGFibGUgb3BlbiBz\nb3VyY2Ugc2VydmljZXMgbGlrZSBIYWRvb3AsIEhCYXNlIChhbmQgb3RoZXIg\nREJzKSwKRWxhc3RpY3NlYXJjaCwgU3BhcmsgYW5kIGltcGxlbWVudHMgd2hh\ndCBpcyBjYWxsZWQgYSBMYW1iZGEgQXJjaGl0ZWN0dXJlLgoKVG8gZ2V0IHN0\nYXJ0ZWQsIGNoZWNrIG91dCBodHRwOi8vcHJlZGljdGlvbmlvLmluY3ViYXRv\nci5hcGFjaGUub3JnIQoKCiMjIFRhYmxlIG9mIGNvbnRlbnRzCi0gW0luc3Rh\nbGxhdGlvbl0oI2luc3RhbGxhdGlvbikKLSBbUXVpY2sgU3RhcnRdKCNxdWlj\nay1zdGFydCkKLSBbQnVncyBhbmQgRmVhdHVyZSBSZXF1ZXN0c10oI2J1Z3Mt\nYW5kLWZlYXR1cmUtcmVxdWVzdHMpCi0gW0RvY3VtZW50YXRpb25dKCNkb2N1\nbWVudGF0aW9uKQotIFtDb250cmlidXRpbmddKCNjb250cmlidXRpbmcpCi0g\nW0NvbW11bml0eV0oI2NvbW11bml0eSkKCgojIyBJbnN0YWxsYXRpb24KCkEg\nZmV3IGluc3RhbGxhdGlvbiBvcHRpb25zIGF2YWlsYWJsZS4KCiogICBbSW5z\ndGFsbGluZyBBcGFjaGUgUHJlZGljdGlvbklPIChpbmN1YmF0aW5nKSBmcm9t\nIFNvdXJjZQogICAgQ29kZV0oaHR0cDovL3ByZWRpY3Rpb25pby5pbmN1YmF0\nb3IuYXBhY2hlLm9yZy9pbnN0YWxsL2luc3RhbGwtc291cmNlY29kZS8pCiog\nICBbSW5zdGFsbGluZyBBcGFjaGUgUHJlZGljdGlvbklPIChpbmN1YmF0aW5n\nKSB3aXRoCiAgICBEb2NrZXJdKGh0dHA6Ly9wcmVkaWN0aW9uaW8uaW5jdWJh\ndG9yLmFwYWNoZS5vcmcvY29tbXVuaXR5L3Byb2plY3RzLyNkb2NrZXItaW5z\ndGFsbGF0aW9uLWZvci1wcmVkaWN0aW9uaW8pCiAgICAoY29tbXVuaXR5IGNv\nbnRyaWJ1dGVkKQoKCiMjIFF1aWNrIFN0YXJ0CgoqICAgW1JlY29tbWVuZGF0\naW9uIEVuZ2luZSBUZW1wbGF0ZSBRdWljawogICAgU3RhcnRdKGh0dHA6Ly9w\ncmVkaWN0aW9uaW8uaW5jdWJhdG9yLmFwYWNoZS5vcmcvdGVtcGxhdGVzL3Jl\nY29tbWVuZGF0aW9uL3F1aWNrc3RhcnQvKQogICAgR3VpZGUKKiAgIFtTaW1p\nbGlhciBQcm9kdWN0IEVuZ2luZSBUZW1wbGF0ZSBRdWljawogICAgU3RhcnRd\nKGh0dHA6Ly9wcmVkaWN0aW9uaW8uaW5jdWJhdG9yLmFwYWNoZS5vcmcvdGVt\ncGxhdGVzL3NpbWlsYXJwcm9kdWN0L3F1aWNrc3RhcnQvKQogICAgR3VpZGUK\nKiAgIFtDbGFzc2lmaWNhdGlvbiBFbmdpbmUgVGVtcGxhdGUgUXVpY2sKICAg\nIFN0YXJ0XShodHRwOi8vcHJlZGljdGlvbmlvLmluY3ViYXRvci5hcGFjaGUu\nb3JnL3RlbXBsYXRlcy9jbGFzc2lmaWNhdGlvbi9xdWlja3N0YXJ0LykKICAg\nIEd1aWRlCgoKIyMgQnVncyBhbmQgRmVhdHVyZSBSZXF1ZXN0cwoKVXNlIFtB\ncGFjaGUgSklSQV0oaHR0cHM6Ly9pc3N1ZXMuYXBhY2hlLm9yZy9qaXJhL2Jy\nb3dzZS9QSU8pIHRvIHJlcG9ydCBidWdzIG9yIHJlcXVlc3QgbmV3IGZlYXR1\ncmVzLgoKIyMgRG9jdW1lbnRhdGlvbgoKRG9jdW1lbnRhdGlvbiwgaW5jbHVk\nZWQgaW4gdGhpcyByZXBvIGluIHRoZSBgZG9jcy9tYW51YWxgIGRpcmVjdG9y\neSwgaXMgYnVpbHQKd2l0aCBbTWlkZGxlbWFuXShodHRwOi8vbWlkZGxlbWFu\nYXBwLmNvbS8pIGFuZCBwdWJsaWNseSBob3N0ZWQgYXQKW3ByZWRpY3Rpb25p\nby5pbmN1YmF0b3IuYXBhY2hlLm9yZ10oaHR0cDovL3ByZWRpY3Rpb25pby5p\nbmN1YmF0b3IuYXBhY2hlLm9yZy8pLgoKSW50ZXJlc3RlZCBpbiBoZWxwaW5n\nIHdpdGggb3VyIGRvY3VtZW50YXRpb24/IFJlYWQgW0NvbnRyaWJ1dGluZwpE\nb2N1bWVudGF0aW9uXShodHRwOi8vcHJlZGljdGlvbmlvLmluY3ViYXRvci5h\ncGFjaGUub3JnL2NvbW11bml0eS9jb250cmlidXRlLWRvY3VtZW50YXRpb24v\nKS4KCgojIyBDb21tdW5pdHkKCktlZXAgdHJhY2sgb2YgZGV2ZWxvcG1lbnQg\nYW5kIGNvbW11bml0eSBuZXdzLgoKKiAgIFN1YnNjcmliZSB0byB0aGUgdXNl\nciBtYWlsaW5nIGxpc3QgPG1haWx0bzp1c2VyLXN1YnNjcmliZUBwcmVkaWN0\naW9uaW8uaW5jdWJhdG9yLmFwYWNoZS5vcmc+CiAgICBhbmQgdGhlIGRldiBt\nYWlsaW5nIGxpc3QgPG1haWx0bzpkZXYtc3Vic2NyaWJlQHByZWRpY3Rpb25p\nby5pbmN1YmF0b3IuYXBhY2hlLm9yZz4KKiAgIEZvbGxvdyBbQHByZWRpY3Rp\nb25pb10oaHR0cHM6Ly90d2l0dGVyLmNvbS9wcmVkaWN0aW9uaW8pIG9uIFR3\naXR0ZXIuCgoKIyMgQ29udHJpYnV0aW5nCgpSZWFkIHRoZSBbQ29udHJpYnV0\nZSBDb2RlXShodHRwOi8vcHJlZGljdGlvbmlvLmluY3ViYXRvci5hcGFjaGUu\nb3JnL2NvbW11bml0eS9jb250cmlidXRlLWNvZGUvKSBwYWdlLgoKWW91IGNh\nbiBhbHNvIGxpc3QgeW91ciBwcm9qZWN0cyBvbiB0aGUgW0NvbW11bml0eSBQ\ncm9qZWN0CnBhZ2VdKGh0dHA6Ly9wcmVkaWN0aW9uaW8uaW5jdWJhdG9yLmFw\nYWNoZS5vcmcvL2NvbW11bml0eS9wcm9qZWN0cy8pLgoKCiMjIExpY2Vuc2UK\nCkFwYWNoZSBQcmVkaWN0aW9uSU8gKGluY3ViYXRpbmcpIGlzIHVuZGVyIFtB\ncGFjaGUgMgpsaWNlbnNlXShodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5z\nZXMvTElDRU5TRS0yLjAuaHRtbCkuCg==\n", 
+                "download_url": "https://raw.githubusercontent.com/apache/incubator-predictionio/develop/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/apache/incubator-predictionio/git/blobs/73f589630ee1ed94184239d9b84d5995e1613c6b", 
+                "html_url": "https://github.com/apache/incubator-predictionio/blob/develop/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "73f589630ee1ed94184239d9b84d5995e1613c6b", 
+                "size": 3757, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/apache/incubator-predictionio/contents/README.md?ref=develop"
+            }, 
+            "repo": {
+                "created_at": "2013-01-25T19:42:32Z", 
+                "language": "Scala", 
+                "owner": {
+                    "avatar_url": "https://avatars3.githubusercontent.com/u/47359?v=3", 
+                    "events_url": "https://api.github.com/users/apache/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/apache/followers", 
+                    "following_url": "https://api.github.com/users/apache/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/apache/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/apache", 
+                    "id": 47359, 
+                    "login": "apache", 
+                    "organizations_url": "https://api.github.com/users/apache/orgs", 
+                    "received_events_url": "https://api.github.com/users/apache/received_events", 
+                    "repos_url": "https://api.github.com/users/apache/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/apache/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/apache/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/apache"
+                }, 
+                "pushed_at": "2017-04-24T17:33:56Z", 
+                "stargazers_count": 10117, 
+                "updated_at": "2017-04-25T14:35:31Z", 
+                "watchers_count": 10117
+            }
+        }, 
+        "fchollet/keras": {
+            "dockerfile": {
+                "/docker/Dockerfile": {
+                    "ADD": [
+                        "theanorc /home/keras/.theanorc"
+                    ], 
+                    "ARG": [
+                        "python_version=3.5"
+                    ], 
+                    "CMD": [
+                        "jupyter notebook --port=8888 --ip=0.0.0.0"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [
+                        "CONDA_DIR /opt/conda", 
+                        "PATH $CONDA_DIR/bin:$PATH", 
+                        "NB_USER keras", 
+                        "NB_UID 1000", 
+                        "PYTHONPATH='/src/:$PYTHONPATH'"
+                    ], 
+                    "EXPOSE": [
+                        "8888"
+                    ], 
+                    "FROM": [
+                        "nvidia/cuda:8.0-cudnn5-devel"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "mkdir -p $CONDA_DIR && echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh && apt-get update && apt-get install -y wget git libhdf5-dev g++ graphviz && wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh && echo \"c59b3dd3cad550ac7596e0d599b91e75d88826db132e4146030ef471bb434e9a *Miniconda3-4.2.12-Linux-x86_64.sh\" | sha256sum -c - && /bin/bash /Miniconda3-4.2.12-Linux-x86_64.sh -f -b -p $CONDA_DIR && rm Miniconda3-4.2.12-Linux-x86_64.sh", 
+                        "useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && mkdir -p $CONDA_DIR && chown keras $CONDA_DIR -R && mkdir -p /src && chown keras /src", 
+                        "conda install -y python=${python_version} && pip install --upgrade pip && pip install tensorflow-gpu && conda install Pillow scikit-learn notebook pandas matplotlib mkl nose pyyaml six h5py && conda install theano pygpu && git clone git://github.com/fchollet/keras.git /src && pip install -e /src[tests] && pip install git+git://github.com/fchollet/keras.git && conda clean -yt"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [
+                        "keras", 
+                        "&& mkdir -p $CONDA_DIR && chown keras $CONDA_DIR -R && mkdir -p /src && chown keras /src", 
+                        "keras"
+                    ], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/src"
+                    ]
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/fchollet/keras/git/blobs/1b45ea5671a9b12dfd794afb70427964c3b27ca8", 
+                    "html": "https://github.com/fchollet/keras/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/fchollet/keras/contents/README.md?ref=master"
+                }, 
+                "content": "IyBLZXJhczogRGVlcCBMZWFybmluZyBsaWJyYXJ5IGZvciBUZW5zb3JGbG93\nIGFuZCBUaGVhbm8KClshW0J1aWxkIFN0YXR1c10oaHR0cHM6Ly90cmF2aXMt\nY2kub3JnL2ZjaG9sbGV0L2tlcmFzLnN2Zz9icmFuY2g9bWFzdGVyKV0oaHR0\ncHM6Ly90cmF2aXMtY2kub3JnL2ZjaG9sbGV0L2tlcmFzKQpbIVtsaWNlbnNl\nXShodHRwczovL2ltZy5zaGllbGRzLmlvL2dpdGh1Yi9saWNlbnNlL21hc2hh\ncGUvYXBpc3RhdHVzLnN2Zz9tYXhBZ2U9MjU5MjAwMCldKGh0dHBzOi8vZ2l0\naHViLmNvbS9mY2hvbGxldC9rZXJhcy9ibG9iL21hc3Rlci9MSUNFTlNFKQoK\nIyMgWW91IGhhdmUganVzdCBmb3VuZCBLZXJhcy4KCktlcmFzIGlzIGEgaGln\naC1sZXZlbCBuZXVyYWwgbmV0d29ya3MgQVBJLCB3cml0dGVuIGluIFB5dGhv\nbiBhbmQgY2FwYWJsZSBvZiBydW5uaW5nIG9uIHRvcCBvZiBlaXRoZXIgW1Rl\nbnNvckZsb3ddKGh0dHBzOi8vZ2l0aHViLmNvbS90ZW5zb3JmbG93L3RlbnNv\ncmZsb3cpIG9yIFtUaGVhbm9dKGh0dHBzOi8vZ2l0aHViLmNvbS9UaGVhbm8v\nVGhlYW5vKS4gSXQgd2FzIGRldmVsb3BlZCB3aXRoIGEgZm9jdXMgb24gZW5h\nYmxpbmcgZmFzdCBleHBlcmltZW50YXRpb24uICpCZWluZyBhYmxlIHRvIGdv\nIGZyb20gaWRlYSB0byByZXN1bHQgd2l0aCB0aGUgbGVhc3QgcG9zc2libGUg\nZGVsYXkgaXMga2V5IHRvIGRvaW5nIGdvb2QgcmVzZWFyY2guKgoKVXNlIEtl\ncmFzIGlmIHlvdSBuZWVkIGEgZGVlcCBsZWFybmluZyBsaWJyYXJ5IHRoYXQ6\nCgotIEFsbG93cyBmb3IgZWFzeSBhbmQgZmFzdCBwcm90b3R5cGluZyAodGhy\nb3VnaCB1c2VyIGZyaWVuZGxpbmVzcywgbW9kdWxhcml0eSwgYW5kIGV4dGVu\nc2liaWxpdHkpLgotIFN1cHBvcnRzIGJvdGggY29udm9sdXRpb25hbCBuZXR3\nb3JrcyBhbmQgcmVjdXJyZW50IG5ldHdvcmtzLCBhcyB3ZWxsIGFzIGNvbWJp\nbmF0aW9ucyBvZiB0aGUgdHdvLgotIFJ1bnMgc2VhbWxlc3NseSBvbiBDUFUg\nYW5kIEdQVS4KClJlYWQgdGhlIGRvY3VtZW50YXRpb24gYXQgW0tlcmFzLmlv\nXShodHRwOi8va2VyYXMuaW8pLgoKS2VyYXMgaXMgY29tcGF0aWJsZSB3aXRo\nOiBfX1B5dGhvbiAyLjctMy41X18uCgoKLS0tLS0tLS0tLS0tLS0tLS0tCgoK\nIyMgR3VpZGluZyBwcmluY2lwbGVzCgotIF9fVXNlciBmcmllbmRsaW5lc3Mu\nX18gS2VyYXMgaXMgYW4gQVBJIGRlc2lnbmVkIGZvciBodW1hbiBiZWluZ3Ms\nIG5vdCBtYWNoaW5lcy4gSXQgcHV0cyB1c2VyIGV4cGVyaWVuY2UgZnJvbnQg\nYW5kIGNlbnRlci4gS2VyYXMgZm9sbG93cyBiZXN0IHByYWN0aWNlcyBmb3Ig\ncmVkdWNpbmcgY29nbml0aXZlIGxvYWQ6IGl0IG9mZmVycyBjb25zaXN0ZW50\nICYgc2ltcGxlIEFQSXMsIGl0IG1pbmltaXplcyB0aGUgbnVtYmVyIG9mIHVz\nZXIgYWN0aW9ucyByZXF1aXJlZCBmb3IgY29tbW9uIHVzZSBjYXNlcywgYW5k\nIGl0IHByb3ZpZGVzIGNsZWFyIGFuZCBhY3Rpb25hYmxlIGZlZWRiYWNrIHVw\nb24gdXNlciBlcnJvci4KCi0gX19Nb2R1bGFyaXR5Ll9fIEEgbW9kZWwgaXMg\ndW5kZXJzdG9vZCBhcyBhIHNlcXVlbmNlIG9yIGEgZ3JhcGggb2Ygc3RhbmRh\nbG9uZSwgZnVsbHktY29uZmlndXJhYmxlIG1vZHVsZXMgdGhhdCBjYW4gYmUg\ncGx1Z2dlZCB0b2dldGhlciB3aXRoIGFzIGxpdHRsZSByZXN0cmljdGlvbnMg\nYXMgcG9zc2libGUuIEluIHBhcnRpY3VsYXIsIG5ldXJhbCBsYXllcnMsIGNv\nc3QgZnVuY3Rpb25zLCBvcHRpbWl6ZXJzLCBpbml0aWFsaXphdGlvbiBzY2hl\nbWVzLCBhY3RpdmF0aW9uIGZ1bmN0aW9ucywgcmVndWxhcml6YXRpb24gc2No\nZW1lcyBhcmUgYWxsIHN0YW5kYWxvbmUgbW9kdWxlcyB0aGF0IHlvdSBjYW4g\nY29tYmluZSB0byBjcmVhdGUgbmV3IG1vZGVscy4KCi0gX19FYXN5IGV4dGVu\nc2liaWxpdHkuX18gTmV3IG1vZHVsZXMgYXJlIHNpbXBsZSB0byBhZGQgKGFz\nIG5ldyBjbGFzc2VzIGFuZCBmdW5jdGlvbnMpLCBhbmQgZXhpc3RpbmcgbW9k\ndWxlcyBwcm92aWRlIGFtcGxlIGV4YW1wbGVzLiBUbyBiZSBhYmxlIHRvIGVh\nc2lseSBjcmVhdGUgbmV3IG1vZHVsZXMgYWxsb3dzIGZvciB0b3RhbCBleHBy\nZXNzaXZlbmVzcywgbWFraW5nIEtlcmFzIHN1aXRhYmxlIGZvciBhZHZhbmNl\nZCByZXNlYXJjaC4KCi0gX19Xb3JrIHdpdGggUHl0aG9uX18uIE5vIHNlcGFy\nYXRlIG1vZGVscyBjb25maWd1cmF0aW9uIGZpbGVzIGluIGEgZGVjbGFyYXRp\ndmUgZm9ybWF0LiBNb2RlbHMgYXJlIGRlc2NyaWJlZCBpbiBQeXRob24gY29k\nZSwgd2hpY2ggaXMgY29tcGFjdCwgZWFzaWVyIHRvIGRlYnVnLCBhbmQgYWxs\nb3dzIGZvciBlYXNlIG9mIGV4dGVuc2liaWxpdHkuCgoKLS0tLS0tLS0tLS0t\nLS0tLS0tCgoKIyMgR2V0dGluZyBzdGFydGVkOiAzMCBzZWNvbmRzIHRvIEtl\ncmFzCgpUaGUgY29yZSBkYXRhIHN0cnVjdHVyZSBvZiBLZXJhcyBpcyBhIF9f\nbW9kZWxfXywgYSB3YXkgdG8gb3JnYW5pemUgbGF5ZXJzLiBUaGUgc2ltcGxl\nc3QgdHlwZSBvZiBtb2RlbCBpcyB0aGUgW2BTZXF1ZW50aWFsYF0oaHR0cDov\nL2tlcmFzLmlvL2dldHRpbmctc3RhcnRlZC9zZXF1ZW50aWFsLW1vZGVsLWd1\naWRlKSBtb2RlbCwgYSBsaW5lYXIgc3RhY2sgb2YgbGF5ZXJzLiBGb3IgbW9y\nZSBjb21wbGV4IGFyY2hpdGVjdHVyZXMsIHlvdSBzaG91bGQgdXNlIHRoZSBb\nS2VyYXMgZnVuY3Rpb25hbCBBUEldKGh0dHA6Ly9rZXJhcy5pby9nZXR0aW5n\nLXN0YXJ0ZWQvZnVuY3Rpb25hbC1hcGktZ3VpZGUpLCB3aGljaCBhbGxvd3Mg\ndG8gYnVpbGQgYXJiaXRyYXJ5IGdyYXBocyBvZiBsYXllcnMuCgpIZXJlIGlz\nIHRoZSBgU2VxdWVudGlhbGAgbW9kZWw6CgpgYGBweXRob24KZnJvbSBrZXJh\ncy5tb2RlbHMgaW1wb3J0IFNlcXVlbnRpYWwKCm1vZGVsID0gU2VxdWVudGlh\nbCgpCmBgYAoKU3RhY2tpbmcgbGF5ZXJzIGlzIGFzIGVhc3kgYXMgYC5hZGQo\nKWA6CgpgYGBweXRob24KZnJvbSBrZXJhcy5sYXllcnMgaW1wb3J0IERlbnNl\nLCBBY3RpdmF0aW9uCgptb2RlbC5hZGQoRGVuc2UodW5pdHM9NjQsIGlucHV0\nX2RpbT0xMDApKQptb2RlbC5hZGQoQWN0aXZhdGlvbigncmVsdScpKQptb2Rl\nbC5hZGQoRGVuc2UodW5pdHM9MTApKQptb2RlbC5hZGQoQWN0aXZhdGlvbign\nc29mdG1heCcpKQpgYGAKCk9uY2UgeW91ciBtb2RlbCBsb29rcyBnb29kLCBj\nb25maWd1cmUgaXRzIGxlYXJuaW5nIHByb2Nlc3Mgd2l0aCBgLmNvbXBpbGUo\nKWA6CgpgYGBweXRob24KbW9kZWwuY29tcGlsZShsb3NzPSdjYXRlZ29yaWNh\nbF9jcm9zc2VudHJvcHknLAogICAgICAgICAgICAgIG9wdGltaXplcj0nc2dk\nJywKICAgICAgICAgICAgICBtZXRyaWNzPVsnYWNjdXJhY3knXSkKYGBgCgpJ\nZiB5b3UgbmVlZCB0bywgeW91IGNhbiBmdXJ0aGVyIGNvbmZpZ3VyZSB5b3Vy\nIG9wdGltaXplci4gQSBjb3JlIHByaW5jaXBsZSBvZiBLZXJhcyBpcyB0byBt\nYWtlIHRoaW5ncyByZWFzb25hYmx5IHNpbXBsZSwgd2hpbGUgYWxsb3dpbmcg\ndGhlIHVzZXIgdG8gYmUgZnVsbHkgaW4gY29udHJvbCB3aGVuIHRoZXkgbmVl\nZCB0byAodGhlIHVsdGltYXRlIGNvbnRyb2wgYmVpbmcgdGhlIGVhc3kgZXh0\nZW5zaWJpbGl0eSBvZiB0aGUgc291cmNlIGNvZGUpLgpgYGBweXRob24KbW9k\nZWwuY29tcGlsZShsb3NzPWtlcmFzLmxvc3Nlcy5jYXRlZ29yaWNhbF9jcm9z\nc2VudHJvcHksCiAgICAgICAgICAgICAgb3B0aW1pemVyPWtlcmFzLm9wdGlt\naXplcnMuU0dEKGxyPTAuMDEsIG1vbWVudHVtPTAuOSwgbmVzdGVyb3Y9VHJ1\nZSkpCmBgYAoKWW91IGNhbiBub3cgaXRlcmF0ZSBvbiB5b3VyIHRyYWluaW5n\nIGRhdGEgaW4gYmF0Y2hlczoKCmBgYHB5dGhvbgojIHhfdHJhaW4gYW5kIHlf\ndHJhaW4gYXJlIE51bXB5IGFycmF5cyAtLWp1c3QgbGlrZSBpbiB0aGUgU2Np\na2l0LUxlYXJuIEFQSS4KbW9kZWwuZml0KHhfdHJhaW4sIHlfdHJhaW4sIGVw\nb2Nocz01LCBiYXRjaF9zaXplPTMyKQpgYGAKCkFsdGVybmF0aXZlbHksIHlv\ndSBjYW4gZmVlZCBiYXRjaGVzIHRvIHlvdXIgbW9kZWwgbWFudWFsbHk6Cgpg\nYGBweXRob24KbW9kZWwudHJhaW5fb25fYmF0Y2goeF9iYXRjaCwgeV9iYXRj\naCkKYGBgCgpFdmFsdWF0ZSB5b3VyIHBlcmZvcm1hbmNlIGluIG9uZSBsaW5l\nOgoKYGBgcHl0aG9uCmxvc3NfYW5kX21ldHJpY3MgPSBtb2RlbC5ldmFsdWF0\nZSh4X3Rlc3QsIHlfdGVzdCwgYmF0Y2hfc2l6ZT0xMjgpCmBgYAoKT3IgZ2Vu\nZXJhdGUgcHJlZGljdGlvbnMgb24gbmV3IGRhdGE6CgpgYGBweXRob24KY2xh\nc3NlcyA9IG1vZGVsLnByZWRpY3QoeF90ZXN0LCBiYXRjaF9zaXplPTEyOCkK\nYGBgCgpCdWlsZGluZyBhIHF1ZXN0aW9uIGFuc3dlcmluZyBzeXN0ZW0sIGFu\nIGltYWdlIGNsYXNzaWZpY2F0aW9uIG1vZGVsLCBhIE5ldXJhbCBUdXJpbmcg\nTWFjaGluZSwgb3IgYW55IG90aGVyIG1vZGVsIGlzIGp1c3QgYXMgZmFzdC4g\nVGhlIGlkZWFzIGJlaGluZCBkZWVwIGxlYXJuaW5nIGFyZSBzaW1wbGUsIHNv\nIHdoeSBzaG91bGQgdGhlaXIgaW1wbGVtZW50YXRpb24gYmUgcGFpbmZ1bD8K\nCkZvciBhIG1vcmUgaW4tZGVwdGggdHV0b3JpYWwgYWJvdXQgS2VyYXMsIHlv\ndSBjYW4gY2hlY2sgb3V0OgoKLSBbR2V0dGluZyBzdGFydGVkIHdpdGggdGhl\nIFNlcXVlbnRpYWwgbW9kZWxdKGh0dHA6Ly9rZXJhcy5pby9nZXR0aW5nLXN0\nYXJ0ZWQvc2VxdWVudGlhbC1tb2RlbC1ndWlkZSkKLSBbR2V0dGluZyBzdGFy\ndGVkIHdpdGggdGhlIGZ1bmN0aW9uYWwgQVBJXShodHRwOi8va2VyYXMuaW8v\nZ2V0dGluZy1zdGFydGVkL2Z1bmN0aW9uYWwtYXBpLWd1aWRlKQoKSW4gdGhl\nIFtleGFtcGxlcyBmb2xkZXJdKGh0dHBzOi8vZ2l0aHViLmNvbS9mY2hvbGxl\ndC9rZXJhcy90cmVlL21hc3Rlci9leGFtcGxlcykgb2YgdGhlIHJlcG9zaXRv\ncnksIHlvdSB3aWxsIGZpbmQgbW9yZSBhZHZhbmNlZCBtb2RlbHM6IHF1ZXN0\naW9uLWFuc3dlcmluZyB3aXRoIG1lbW9yeSBuZXR3b3JrcywgdGV4dCBnZW5l\ncmF0aW9uIHdpdGggc3RhY2tlZCBMU1RNcywgZXRjLgoKCi0tLS0tLS0tLS0t\nLS0tLS0tLQoKCiMjIEluc3RhbGxhdGlvbgoKS2VyYXMgdXNlcyB0aGUgZm9s\nbG93aW5nIGRlcGVuZGVuY2llczoKCi0gbnVtcHksIHNjaXB5Ci0geWFtbAot\nIEhERjUgYW5kIGg1cHkgKG9wdGlvbmFsLCByZXF1aXJlZCBpZiB5b3UgdXNl\nIG1vZGVsIHNhdmluZy9sb2FkaW5nIGZ1bmN0aW9ucykKLSBPcHRpb25hbCBi\ndXQgcmVjb21tZW5kZWQgaWYgeW91IHVzZSBDTk5zOiBjdUROTi4KCgoqV2hl\nbiB1c2luZyB0aGUgVGVuc29yRmxvdyBiYWNrZW5kOioKCi0gVGVuc29yRmxv\ndwogICAgLSBbU2VlIGluc3RhbGxhdGlvbiBpbnN0cnVjdGlvbnNdKGh0dHBz\nOi8vd3d3LnRlbnNvcmZsb3cub3JnL2luc3RhbGwvKS4KCipXaGVuIHVzaW5n\nIHRoZSBUaGVhbm8gYmFja2VuZDoqCgotIFRoZWFubwogICAgLSBbU2VlIGlu\nc3RhbGxhdGlvbiBpbnN0cnVjdGlvbnNdKGh0dHA6Ly9kZWVwbGVhcm5pbmcu\nbmV0L3NvZnR3YXJlL3RoZWFuby9pbnN0YWxsLmh0bWwjaW5zdGFsbCkuCgpU\nbyBpbnN0YWxsIEtlcmFzLCBgY2RgIHRvIHRoZSBLZXJhcyBmb2xkZXIgYW5k\nIHJ1biB0aGUgaW5zdGFsbCBjb21tYW5kOgpgYGBzaApzdWRvIHB5dGhvbiBz\nZXR1cC5weSBpbnN0YWxsCmBgYAoKWW91IGNhbiBhbHNvIGluc3RhbGwgS2Vy\nYXMgZnJvbSBQeVBJOgpgYGBzaApzdWRvIHBpcCBpbnN0YWxsIGtlcmFzCmBg\nYAoKLS0tLS0tLS0tLS0tLS0tLS0tCgoKIyMgU3dpdGNoaW5nIGZyb20gVGVu\nc29yRmxvdyB0byBUaGVhbm8KCkJ5IGRlZmF1bHQsIEtlcmFzIHdpbGwgdXNl\nIFRlbnNvckZsb3cgYXMgaXRzIHRlbnNvciBtYW5pcHVsYXRpb24gbGlicmFy\neS4gW0ZvbGxvdyB0aGVzZSBpbnN0cnVjdGlvbnNdKGh0dHA6Ly9rZXJhcy5p\nby9iYWNrZW5kLykgdG8gY29uZmlndXJlIHRoZSBLZXJhcyBiYWNrZW5kLgoK\nLS0tLS0tLS0tLS0tLS0tLS0tCgoKIyMgU3VwcG9ydAoKWW91IGNhbiBhc2sg\ncXVlc3Rpb25zIGFuZCBqb2luIHRoZSBkZXZlbG9wbWVudCBkaXNjdXNzaW9u\nOgoKLSBPbiB0aGUgW0tlcmFzIEdvb2dsZSBncm91cF0oaHR0cHM6Ly9ncm91\ncHMuZ29vZ2xlLmNvbS9mb3J1bS8jIWZvcnVtL2tlcmFzLXVzZXJzKS4KLSBP\nbiB0aGUgW0tlcmFzIFNsYWNrIGNoYW5uZWxdKGh0dHBzOi8va2VyYXN0ZWFt\nLnNsYWNrLmNvbSkuIFVzZSBbdGhpcyBsaW5rXShodHRwczovL2tlcmFzLXNs\nYWNrLWF1dG9qb2luLmhlcm9rdWFwcC5jb20vKSB0byByZXF1ZXN0IGFuIGlu\ndml0YXRpb24gdG8gdGhlIGNoYW5uZWwuCgpZb3UgY2FuIGFsc28gcG9zdCAq\nKmJ1ZyByZXBvcnRzIGFuZCBmZWF0dXJlIHJlcXVlc3RzKiogKG9ubHkpIGlu\nIFtHaXRodWIgaXNzdWVzXShodHRwczovL2dpdGh1Yi5jb20vZmNob2xsZXQv\na2VyYXMvaXNzdWVzKS4gTWFrZSBzdXJlIHRvIHJlYWQgW291ciBndWlkZWxp\nbmVzXShodHRwczovL2dpdGh1Yi5jb20vZmNob2xsZXQva2VyYXMvYmxvYi9t\nYXN0ZXIvQ09OVFJJQlVUSU5HLm1kKSBmaXJzdC4KCgotLS0tLS0tLS0tLS0t\nLS0tLS0KCgojIyBXaHkgdGhpcyBuYW1lLCBLZXJhcz8KCktlcmFzICjOus6t\nz4HOsc+CKSBtZWFucyBfaG9ybl8gaW4gR3JlZWsuIEl0IGlzIGEgcmVmZXJl\nbmNlIHRvIGEgbGl0ZXJhcnkgaW1hZ2UgZnJvbSBhbmNpZW50IEdyZWVrIGFu\nZCBMYXRpbiBsaXRlcmF0dXJlLCBmaXJzdCBmb3VuZCBpbiB0aGUgX09keXNz\nZXlfLCB3aGVyZSBkcmVhbSBzcGlyaXRzIChfT25laXJvaV8sIHNpbmd1bGFy\nIF9PbmVpcm9zXykgYXJlIGRpdmlkZWQgYmV0d2VlbiB0aG9zZSB3aG8gZGVj\nZWl2ZSBtZW4gd2l0aCBmYWxzZSB2aXNpb25zLCB3aG8gYXJyaXZlIHRvIEVh\ncnRoIHRocm91Z2ggYSBnYXRlIG9mIGl2b3J5LCBhbmQgdGhvc2Ugd2hvIGFu\nbm91bmNlIGEgZnV0dXJlIHRoYXQgd2lsbCBjb21lIHRvIHBhc3MsIHdobyBh\ncnJpdmUgdGhyb3VnaCBhIGdhdGUgb2YgaG9ybi4gSXQncyBhIHBsYXkgb24g\ndGhlIHdvcmRzIM66zq3Pgc6xz4IgKGhvcm4pIC8gzrrPgc6xzq/Ovc+JIChm\ndWxmaWxsKSwgYW5kIOG8kM67zq3Phs6xz4IgKGl2b3J5KSAvIOG8kM67zrXP\nhs6xzq/Pgc6/zrzOsc65IChkZWNlaXZlKS4KCktlcmFzIHdhcyBpbml0aWFs\nbHkgZGV2ZWxvcGVkIGFzIHBhcnQgb2YgdGhlIHJlc2VhcmNoIGVmZm9ydCBv\nZiBwcm9qZWN0IE9ORUlST1MgKE9wZW4tZW5kZWQgTmV1cm8tRWxlY3Ryb25p\nYyBJbnRlbGxpZ2VudCBSb2JvdCBPcGVyYXRpbmcgU3lzdGVtKS4KCj5fIk9u\nZWlyb2kgYXJlIGJleW9uZCBvdXIgdW5yYXZlbGxpbmcgLS13aG8gY2FuIGJl\nIHN1cmUgd2hhdCB0YWxlIHRoZXkgdGVsbD8gTm90IGFsbCB0aGF0IG1lbiBs\nb29rIGZvciBjb21lcyB0byBwYXNzLiBUd28gZ2F0ZXMgdGhlcmUgYXJlIHRo\nYXQgZ2l2ZSBwYXNzYWdlIHRvIGZsZWV0aW5nIE9uZWlyb2k7IG9uZSBpcyBt\nYWRlIG9mIGhvcm4sIG9uZSBvZiBpdm9yeS4gVGhlIE9uZWlyb2kgdGhhdCBw\nYXNzIHRocm91Z2ggc2F3biBpdm9yeSBhcmUgZGVjZWl0ZnVsLCBiZWFyaW5n\nIGEgbWVzc2FnZSB0aGF0IHdpbGwgbm90IGJlIGZ1bGZpbGxlZDsgdGhvc2Ug\ndGhhdCBjb21lIG91dCB0aHJvdWdoIHBvbGlzaGVkIGhvcm4gaGF2ZSB0cnV0\naCBiZWhpbmQgdGhlbSwgdG8gYmUgYWNjb21wbGlzaGVkIGZvciBtZW4gd2hv\nIHNlZSB0aGVtLiJfIEhvbWVyLCBPZHlzc2V5IDE5LiA1NjIgZmYgKFNoZXdy\naW5nIHRyYW5zbGF0aW9uKS4KCi0tLS0tLS0tLS0tLS0tLS0tLQo=\n", 
+                "download_url": "https://raw.githubusercontent.com/fchollet/keras/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/fchollet/keras/git/blobs/1b45ea5671a9b12dfd794afb70427964c3b27ca8", 
+                "html_url": "https://github.com/fchollet/keras/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "1b45ea5671a9b12dfd794afb70427964c3b27ca8", 
+                "size": 7688, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/fchollet/keras/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-03-28T00:35:42Z", 
+                "language": "Python", 
+                "owner": {
+                    "avatar_url": "https://avatars0.githubusercontent.com/u/710255?v=3", 
+                    "events_url": "https://api.github.com/users/fchollet/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/fchollet/followers", 
+                    "following_url": "https://api.github.com/users/fchollet/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/fchollet/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/fchollet", 
+                    "id": 710255, 
+                    "login": "fchollet", 
+                    "organizations_url": "https://api.github.com/users/fchollet/orgs", 
+                    "received_events_url": "https://api.github.com/users/fchollet/received_events", 
+                    "repos_url": "https://api.github.com/users/fchollet/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/fchollet/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/fchollet/subscriptions", 
+                    "type": "User", 
+                    "url": "https://api.github.com/users/fchollet"
+                }, 
+                "pushed_at": "2017-04-25T13:42:57Z", 
+                "stargazers_count": 14959, 
+                "updated_at": "2017-04-25T16:53:52Z", 
+                "watchers_count": 14959
+            }
+        }, 
+        "tensorflow/tensorflow": {
+            "dockerfile": {
+                "/tensorflow/contrib/makefile/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Gunhan Gulsoy <gunan@google.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update", 
+                        "apt-get install -y autoconf automake curl g++ git libtool make python unzip zlib1g-dev"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/tensorflow/examples/udacity/Dockerfile": {
+                    "ADD": [
+                        "*.ipynb /notebooks/"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[\"/run_jupyter.sh\"]"
+                    ], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "gcr.io/tensorflow/tensorflow:latest"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Vincent Vanhoucke <vanhoucke@google.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y --no-install-recommends libjpeg8-dev && apt-get clean && rm -rf /var/lib/apt/lists/*", 
+                        "pip install scikit-learn pyreadline Pillow", 
+                        "rm -rf /notebooks/*"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "/notebooks"
+                    ]
+                }, 
+                "/tensorflow/tools/dist_test/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        "tensorflow-*.whl /", 
+                        "scripts /var/tf-dist-test/scripts", 
+                        "python /var/tf-dist-test/python"
+                    ], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Shanqing Cai <cais@google.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update", 
+                        "apt-get install -y curl python python-numpy python-pip && apt-get clean && rm -rf /var/lib/apt/lists/*", 
+                        "curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/install_google_cloud_sdk.bash", 
+                        "chmod +x install_google_cloud_sdk.bash", 
+                        "./install_google_cloud_sdk.bash --disable-prompts --install-dir=/var/gcloud", 
+                        "/var/gcloud/google-cloud-sdk/bin/gcloud components install kubectl", 
+                        "pip install /tensorflow-*.whl", 
+                        "rm -f /tensorflow-*.whl"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/tensorflow/tools/dist_test/local/Dockerfile": {
+                    "ADD": [
+                        "start_local_k8s_cluster.sh /var/k8s/start_local_k8s_cluster.sh", 
+                        "../scripts /var/k8s/dist_test/scripts", 
+                        "../python /var/k8s/dist_test/python"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "jpetazzo/dind"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Shanqing Cai <cais@google.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update", 
+                        "apt-get install -y --no-install-recommends build-essential git software-properties-common", 
+                        "wget https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz", 
+                        "tar -C /usr/local -xzf go1.4.2.linux-amd64.tar.gz", 
+                        "rm -f go1.4.2.linux-amd64.tar.gz", 
+                        "echo 'PATH=/usr/local/go/bin:${PATH}' >> /root/.bashrc"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/tensorflow/tools/dist_test/server/Dockerfile": {
+                    "ADD": [
+                        ". /var/tf-k8s"
+                    ], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        "tensorflow-*.whl /"
+                    ], 
+                    "ENTRYPOINT": [
+                        "[\"/var/tf-k8s/server/grpc_tensorflow_server.py\"]"
+                    ], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Shanqing Cai <cais@google.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y curl python-numpy python-pip && apt-get clean && rm -rf /var/lib/apt/lists/*", 
+                        "curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip.py", 
+                        "pip install /tensorflow-*.whl && rm -f /tensorflow-*.whl"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }, 
+                "/tensorflow/tools/docker/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [
+                        "[\"/run_jupyter.sh\", \"--allow-root\"]"
+                    ], 
+                    "COPY": [
+                        "_PIP_FILE_ /", 
+                        "jupyter_notebook_config.py /root/.jupyter/", 
+                        "notebooks /notebooks", 
+                        "run_jupyter.sh /"
+                    ], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [
+                        "6006", 
+                        "8888"
+                    ], 
+                    "FROM": [
+                        "ubuntu:16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Craig Citro <craigcitro@google.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update && apt-get install -y --no-install-recommends build-essential curl libfreetype6-dev libpng12-dev libzmq3-dev pkg-config python python-dev rsync software-properties-common unzip && apt-get clean && rm -rf /var/lib/apt/lists/*", 
+                        "curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip.py", 
+                        "pip --no-cache-dir install ipykernel jupyter matplotlib numpy scipy sklearn pandas Pillow && python -m ipykernel.kernelspec", 
+                        "pip --no-cache-dir install /_PIP_FILE_", 
+                        "rm -f /_PIP_FILE_", 
+                        "pip --no-cache-dir install http://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.0.0-cp27-none-linux_x86_64.whl", 
+                        "ln -s /usr/bin/python3 /usr/bin/python#"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": [
+                        "\"/notebooks\""
+                    ]
+                }, 
+                "/tensorflow/tools/gcs_test/Dockerfile": {
+                    "ADD": [], 
+                    "ARG": [], 
+                    "CMD": [], 
+                    "COPY": [
+                        "tensorflow-*.whl /", 
+                        "gcs_smoke_wrapper.sh /gcs-smoke/", 
+                        "python/gcs_smoke.py /gcs-smoke/python/"
+                    ], 
+                    "ENTRYPOINT": [], 
+                    "ENV": [], 
+                    "EXPOSE": [], 
+                    "FROM": [
+                        "ubuntu:16.04"
+                    ], 
+                    "HEALTHCHECK": [], 
+                    "LABEL": [], 
+                    "MAINTAINER": [
+                        "Shanqing Cai <cais@google.com>"
+                    ], 
+                    "ONBUILD": [], 
+                    "RUN": [
+                        "apt-get update", 
+                        "apt-get install -y curl libcurl4-openssl-dev python python-numpy python-pip", 
+                        "curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/install_google_cloud_sdk.bash", 
+                        "chmod +x install_google_cloud_sdk.bash", 
+                        "./install_google_cloud_sdk.bash --disable-prompts --install-dir=/var/gcloud", 
+                        "pip install /tensorflow-*.whl", 
+                        "mkdir -p /gcs-smoke/python"
+                    ], 
+                    "SHELL": [], 
+                    "STOPSIGNAL": [], 
+                    "USER": [], 
+                    "VOLUMN": [], 
+                    "WORKDIR": []
+                }
+            }, 
+            "readme": {
+                "_links": {
+                    "git": "https://api.github.com/repos/tensorflow/tensorflow/git/blobs/951e7c3b9f672b66dbf5f04dfc536ed0b17bb507", 
+                    "html": "https://github.com/tensorflow/tensorflow/blob/master/README.md", 
+                    "self": "https://api.github.com/repos/tensorflow/tensorflow/contents/README.md?ref=master"
+                }, 
+                "content": "PGRpdiBhbGlnbj0iY2VudGVyIj4KICA8aW1nIHNyYz0iaHR0cHM6Ly93d3cu\ndGVuc29yZmxvdy5vcmcvaW1hZ2VzL3RmX2xvZ29fdHJhbnNwLnBuZyI+PGJy\nPjxicj4KPC9kaXY+CgotLS0tLS0tLS0tLS0tLS0tLQoKfCAqKmBMaW51eCBD\nUFVgKiogfCAqKmBMaW51eCBHUFVgKiogfCAqKmBNYWMgT1MgQ1BVYCoqIHwg\nKipgV2luZG93cyBDUFVgKiogfCAqKmBBbmRyb2lkYCoqIHwKfC0tLS0tLS0t\nLS0tLS0tLS0tfC0tLS0tLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0t\nLS0tLS18LS0tLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS18Cnwg\nWyFbQnVpbGQgU3RhdHVzXShodHRwczovL2NpLnRlbnNvcmZsb3cub3JnL2J1\naWxkU3RhdHVzL2ljb24/am9iPXRlbnNvcmZsb3ctbWFzdGVyLWNwdSldKGh0\ndHBzOi8vY2kudGVuc29yZmxvdy5vcmcvam9iL3RlbnNvcmZsb3ctbWFzdGVy\nLWNwdSkgfCBbIVtCdWlsZCBTdGF0dXNdKGh0dHBzOi8vY2kudGVuc29yZmxv\ndy5vcmcvYnVpbGRTdGF0dXMvaWNvbj9qb2I9dGVuc29yZmxvdy1tYXN0ZXIt\nbGludXgtZ3B1KV0oaHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9yZy9qb2IvdGVu\nc29yZmxvdy1tYXN0ZXItbGludXgtZ3B1KSB8IFshW0J1aWxkIFN0YXR1c10o\naHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9yZy9idWlsZFN0YXR1cy9pY29uP2pv\nYj10ZW5zb3JmbG93LW1hc3Rlci1tYWMpXShodHRwczovL2NpLnRlbnNvcmZs\nb3cub3JnL2pvYi90ZW5zb3JmbG93LW1hc3Rlci1tYWMpIHwgWyFbQnVpbGQg\nU3RhdHVzXShodHRwczovL2NpLnRlbnNvcmZsb3cub3JnL2J1aWxkU3RhdHVz\nL2ljb24/am9iPXRlbnNvcmZsb3ctbWFzdGVyLXdpbi1jbWFrZS1weSldKGh0\ndHBzOi8vY2kudGVuc29yZmxvdy5vcmcvam9iL3RlbnNvcmZsb3ctbWFzdGVy\nLXdpbi1jbWFrZS1weSkgfCBbIVtCdWlsZCBTdGF0dXNdKGh0dHBzOi8vY2ku\ndGVuc29yZmxvdy5vcmcvYnVpbGRTdGF0dXMvaWNvbj9qb2I9dGVuc29yZmxv\ndy1tYXN0ZXItYW5kcm9pZCldKGh0dHBzOi8vY2kudGVuc29yZmxvdy5vcmcv\nam9iL3RlbnNvcmZsb3ctbWFzdGVyLWFuZHJvaWQpIHwKCioqVGVuc29yRmxv\ndyoqIGlzIGFuIG9wZW4gc291cmNlIHNvZnR3YXJlIGxpYnJhcnkgZm9yIG51\nbWVyaWNhbCBjb21wdXRhdGlvbiB1c2luZwpkYXRhIGZsb3cgZ3JhcGhzLiAg\nTm9kZXMgaW4gdGhlIGdyYXBoIHJlcHJlc2VudCBtYXRoZW1hdGljYWwgb3Bl\ncmF0aW9ucywgd2hpbGUKdGhlIGdyYXBoIGVkZ2VzIHJlcHJlc2VudCB0aGUg\nbXVsdGlkaW1lbnNpb25hbCBkYXRhIGFycmF5cyAodGVuc29ycykgdGhhdCBm\nbG93CmJldHdlZW4gdGhlbS4gIFRoaXMgZmxleGlibGUgYXJjaGl0ZWN0dXJl\nIGxldHMgeW91IGRlcGxveSBjb21wdXRhdGlvbiB0byBvbmUKb3IgbW9yZSBD\nUFVzIG9yIEdQVXMgaW4gYSBkZXNrdG9wLCBzZXJ2ZXIsIG9yIG1vYmlsZSBk\nZXZpY2Ugd2l0aG91dCByZXdyaXRpbmcKY29kZS4gIFRlbnNvckZsb3cgYWxz\nbyBpbmNsdWRlcyBUZW5zb3JCb2FyZCwgYSBkYXRhIHZpc3VhbGl6YXRpb24g\ndG9vbGtpdC4KClRlbnNvckZsb3cgd2FzIG9yaWdpbmFsbHkgZGV2ZWxvcGVk\nIGJ5IHJlc2VhcmNoZXJzIGFuZCBlbmdpbmVlcnMKd29ya2luZyBvbiB0aGUg\nR29vZ2xlIEJyYWluIHRlYW0gd2l0aGluIEdvb2dsZSdzIE1hY2hpbmUgSW50\nZWxsaWdlbmNlIHJlc2VhcmNoCm9yZ2FuaXphdGlvbiBmb3IgdGhlIHB1cnBv\nc2VzIG9mIGNvbmR1Y3RpbmcgbWFjaGluZSBsZWFybmluZyBhbmQgZGVlcCBu\nZXVyYWwKbmV0d29ya3MgcmVzZWFyY2guICBUaGUgc3lzdGVtIGlzIGdlbmVy\nYWwgZW5vdWdoIHRvIGJlIGFwcGxpY2FibGUgaW4gYSB3aWRlCnZhcmlldHkg\nb2Ygb3RoZXIgZG9tYWlucywgYXMgd2VsbC4KCioqSWYgeW91J2QgbGlrZSB0\nbyBjb250cmlidXRlIHRvIFRlbnNvckZsb3csIGJlIHN1cmUgdG8gcmV2aWV3\nIHRoZSBbY29udHJpYnV0aW9uCmd1aWRlbGluZXNdKENPTlRSSUJVVElORy5t\nZCkuKioKCioqV2UgdXNlIFtHaXRIdWIgaXNzdWVzXShodHRwczovL2dpdGh1\nYi5jb20vdGVuc29yZmxvdy90ZW5zb3JmbG93L2lzc3VlcykgZm9yCnRyYWNr\naW5nIHJlcXVlc3RzIGFuZCBidWdzLCBidXQgcGxlYXNlIHNlZQpbQ29tbXVu\naXR5XSh0ZW5zb3JmbG93L2RvY3Nfc3JjL2Fib3V0L2luZGV4Lm1kI2NvbW11\nbml0eSkgZm9yIGdlbmVyYWwgcXVlc3Rpb25zCmFuZCBkaXNjdXNzaW9uLioq\nCgojIyBJbnN0YWxsYXRpb24KKlNlZSBbSW5zdGFsbGluZyBUZW5zb3JGbG93\nXShodHRwczovL3d3dy50ZW5zb3JmbG93Lm9yZy9pbnN0YWxsLykgZm9yIGlu\nc3RydWN0aW9ucyBvbiBob3cgdG8gaW5zdGFsbCBvdXIgcmVsZWFzZSBiaW5h\ncmllcyBvciBob3cgdG8gYnVpbGQgZnJvbSBzb3VyY2UuKgoKUGVvcGxlIHdo\nbyBhcmUgYSBsaXR0bGUgbW9yZSBhZHZlbnR1cm91cyBjYW4gYWxzbyB0cnkg\nb3VyIG5pZ2h0bHkgYmluYXJpZXM6CgoKKiBMaW51eCBDUFUtb25seTogW1B5\ndGhvbiAyXShodHRwczovL2NpLnRlbnNvcmZsb3cub3JnL3ZpZXcvTmlnaHRs\neS9qb2IvbmlnaHRseS1tYXRyaXgtY3B1L1RGX0JVSUxEX0lTX09QVD1PUFQs\nVEZfQlVJTERfSVNfUElQPVBJUCxURl9CVUlMRF9QWVRIT05fVkVSU0lPTj1Q\nWVRIT04yLGxhYmVsPWNwdS1zbGF2ZS9sYXN0U3VjY2Vzc2Z1bEJ1aWxkL2Fy\ndGlmYWN0L3BpcF90ZXN0L3dobC90ZW5zb3JmbG93LTEuMS4wcmMyLWNwMjct\nbm9uZS1saW51eF94ODZfNjQud2hsKSAoW2J1aWxkIGhpc3RvcnldKGh0dHBz\nOi8vY2kudGVuc29yZmxvdy5vcmcvdmlldy9OaWdodGx5L2pvYi9uaWdodGx5\nLW1hdHJpeC1jcHUvVEZfQlVJTERfSVNfT1BUPU9QVCxURl9CVUlMRF9JU19Q\nSVA9UElQLFRGX0JVSUxEX1BZVEhPTl9WRVJTSU9OPVBZVEhPTjIsbGFiZWw9\nY3B1LXNsYXZlKSkgLyBbUHl0aG9uIDMuNF0oaHR0cHM6Ly9jaS50ZW5zb3Jm\nbG93Lm9yZy92aWV3L05pZ2h0bHkvam9iL25pZ2h0bHktbWF0cml4LWNwdS9U\nRl9CVUlMRF9JU19PUFQ9T1BULFRGX0JVSUxEX0lTX1BJUD1QSVAsVEZfQlVJ\nTERfUFlUSE9OX1ZFUlNJT049UFlUSE9OMyxsYWJlbD1jcHUtc2xhdmUvbGFz\ndFN1Y2Nlc3NmdWxCdWlsZC9hcnRpZmFjdC9waXBfdGVzdC93aGwvdGVuc29y\nZmxvdy0xLjEuMHJjMi1jcDM0LWNwMzRtLWxpbnV4X3g4Nl82NC53aGwpIChb\nYnVpbGQgaGlzdG9yeV0oaHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9yZy92aWV3\nL05pZ2h0bHkvam9iL25pZ2h0bHktbWF0cml4LWNwdS9URl9CVUlMRF9JU19P\nUFQ9T1BULFRGX0JVSUxEX0lTX1BJUD1QSVAsVEZfQlVJTERfUFlUSE9OX1ZF\nUlNJT049UFlUSE9OMyxsYWJlbD1jcHUtc2xhdmUvKSkgLyBbUHl0aG9uIDMu\nNV0oaHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9yZy92aWV3L05pZ2h0bHkvam9i\nL25pZ2h0bHktcHl0aG9uMzUtbGludXgtY3B1L2xhc3RTdWNjZXNzZnVsQnVp\nbGQvYXJ0aWZhY3QvcGlwX3Rlc3Qvd2hsL3RlbnNvcmZsb3ctMS4xLjByYzIt\nY3AzNS1jcDM1bS1saW51eF94ODZfNjQud2hsKSAoW2J1aWxkIGhpc3Rvcnld\nKGh0dHBzOi8vY2kudGVuc29yZmxvdy5vcmcvdmlldy9OaWdodGx5L2pvYi9u\naWdodGx5LXB5dGhvbjM1LWxpbnV4LWNwdS8pKQoqIExpbnV4IEdQVTogW1B5\ndGhvbiAyXShodHRwczovL2NpLnRlbnNvcmZsb3cub3JnL3ZpZXcvTmlnaHRs\neS9qb2IvbmlnaHRseS1tYXRyaXgtbGludXgtZ3B1L1RGX0JVSUxEX0lTX09Q\nVD1PUFQsVEZfQlVJTERfSVNfUElQPVBJUCxURl9CVUlMRF9QWVRIT05fVkVS\nU0lPTj1QWVRIT04yLGxhYmVsPWdwdS1saW51eC9sYXN0U3VjY2Vzc2Z1bEJ1\naWxkL2FydGlmYWN0L3BpcF90ZXN0L3dobC90ZW5zb3JmbG93X2dwdS0xLjEu\nMHJjMi1jcDI3LW5vbmUtbGludXhfeDg2XzY0LndobCkgKFtidWlsZCBoaXN0\nb3J5XShodHRwczovL2NpLnRlbnNvcmZsb3cub3JnL3ZpZXcvTmlnaHRseS9q\nb2IvbmlnaHRseS1tYXRyaXgtbGludXgtZ3B1L1RGX0JVSUxEX0lTX09QVD1P\nUFQsVEZfQlVJTERfSVNfUElQPVBJUCxURl9CVUlMRF9QWVRIT05fVkVSU0lP\nTj1QWVRIT04yLGxhYmVsPWdwdS1saW51eC8pKSAvIFtQeXRob24gMy40XSho\ndHRwczovL2NpLnRlbnNvcmZsb3cub3JnL3ZpZXcvTmlnaHRseS9qb2Ivbmln\naHRseS1tYXRyaXgtbGludXgtZ3B1L1RGX0JVSUxEX0lTX09QVD1PUFQsVEZf\nQlVJTERfSVNfUElQPVBJUCxURl9CVUlMRF9QWVRIT05fVkVSU0lPTj1QWVRI\nT04zLGxhYmVsPWdwdS1saW51eC9sYXN0U3VjY2Vzc2Z1bEJ1aWxkL2FydGlm\nYWN0L3BpcF90ZXN0L3dobC90ZW5zb3JmbG93X2dwdS0xLjEuMHJjMi1jcDM0\nLWNwMzRtLWxpbnV4X3g4Nl82NC53aGwpIChbYnVpbGQgaGlzdG9yeV0oaHR0\ncHM6Ly9jaS50ZW5zb3JmbG93Lm9yZy92aWV3L05pZ2h0bHkvam9iL25pZ2h0\nbHktbWF0cml4LWxpbnV4LWdwdS9URl9CVUlMRF9JU19PUFQ9T1BULFRGX0JV\nSUxEX0lTX1BJUD1QSVAsVEZfQlVJTERfUFlUSE9OX1ZFUlNJT049UFlUSE9O\nMyxsYWJlbD1ncHUtbGludXgvKSkgLyBbUHl0aG9uIDMuNV0oaHR0cHM6Ly9j\naS50ZW5zb3JmbG93Lm9yZy92aWV3L05pZ2h0bHkvam9iL25pZ2h0bHktbWF0\ncml4LWxpbnV4LWdwdS9URl9CVUlMRF9JU19PUFQ9T1BULFRGX0JVSUxEX0lT\nX1BJUD1QSVAsVEZfQlVJTERfUFlUSE9OX1ZFUlNJT049UFlUSE9OMy41LGxh\nYmVsPWdwdS1saW51eC9sYXN0U3VjY2Vzc2Z1bEJ1aWxkL2FydGlmYWN0L3Bp\ncF90ZXN0L3dobC90ZW5zb3JmbG93X2dwdS0xLjEuMHJjMi1jcDM1LWNwMzVt\nLWxpbnV4X3g4Nl82NC53aGwpIChbYnVpbGQgaGlzdG9yeV0oaHR0cHM6Ly9j\naS50ZW5zb3JmbG93Lm9yZy92aWV3L05pZ2h0bHkvam9iL25pZ2h0bHktbWF0\ncml4LWxpbnV4LWdwdS9URl9CVUlMRF9JU19PUFQ9T1BULFRGX0JVSUxEX0lT\nX1BJUD1QSVAsVEZfQlVJTERfUFlUSE9OX1ZFUlNJT049UFlUSE9OMy41LGxh\nYmVsPWdwdS1saW51eC8pKQoqIE1hYyBDUFUtb25seTogW1B5dGhvbiAyXSho\ndHRwczovL2NpLnRlbnNvcmZsb3cub3JnL3ZpZXcvTmlnaHRseS9qb2Ivbmln\naHRseS1tYXRyaXgtY3B1L1RGX0JVSUxEX0lTX09QVD1PUFQsVEZfQlVJTERf\nSVNfUElQPVBJUCxURl9CVUlMRF9QWVRIT05fVkVSU0lPTj1QWVRIT04yLGxh\nYmVsPW1hYy1zbGF2ZS9sYXN0U3VjY2Vzc2Z1bEJ1aWxkL2FydGlmYWN0L3Bp\ncF90ZXN0L3dobC90ZW5zb3JmbG93LTEuMS4wcmMyLXB5Mi1ub25lLWFueS53\naGwpIChbYnVpbGQgaGlzdG9yeV0oaHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9y\nZy92aWV3L05pZ2h0bHkvam9iL25pZ2h0bHktbWF0cml4LWNwdS9URl9CVUlM\nRF9JU19PUFQ9T1BULFRGX0JVSUxEX0lTX1BJUD1QSVAsVEZfQlVJTERfUFlU\nSE9OX1ZFUlNJT049UFlUSE9OMixsYWJlbD1tYWMtc2xhdmUvKSkgLyBbUHl0\naG9uIDNdKGh0dHBzOi8vY2kudGVuc29yZmxvdy5vcmcvdmlldy9OaWdodGx5\nL2pvYi9uaWdodGx5LW1hdHJpeC1jcHUvVEZfQlVJTERfSVNfT1BUPU9QVCxU\nRl9CVUlMRF9JU19QSVA9UElQLFRGX0JVSUxEX1BZVEhPTl9WRVJTSU9OPVBZ\nVEhPTjMsbGFiZWw9bWFjLXNsYXZlL2xhc3RTdWNjZXNzZnVsQnVpbGQvYXJ0\naWZhY3QvcGlwX3Rlc3Qvd2hsL3RlbnNvcmZsb3ctMS4xLjByYzItcHkzLW5v\nbmUtYW55LndobCkgKFtidWlsZCBoaXN0b3J5XShodHRwczovL2NpLnRlbnNv\ncmZsb3cub3JnL3ZpZXcvTmlnaHRseS9qb2IvbmlnaHRseS1tYXRyaXgtY3B1\nL1RGX0JVSUxEX0lTX09QVD1PUFQsVEZfQlVJTERfSVNfUElQPVBJUCxURl9C\nVUlMRF9QWVRIT05fVkVSU0lPTj1QWVRIT04zLGxhYmVsPW1hYy1zbGF2ZS8p\nKQoqIE1hYyBHUFU6IFtQeXRob24gMl0oaHR0cHM6Ly9jaS50ZW5zb3JmbG93\nLm9yZy92aWV3L05pZ2h0bHkvam9iL25pZ2h0bHktbWF0cml4LW1hYy1ncHUv\nVEZfQlVJTERfSVNfT1BUPU9QVCxURl9CVUlMRF9JU19QSVA9UElQLFRGX0JV\nSUxEX1BZVEhPTl9WRVJTSU9OPVBZVEhPTjIsbGFiZWw9Z3B1LW1hYy9sYXN0\nU3VjY2Vzc2Z1bEJ1aWxkL2FydGlmYWN0L3BpcF90ZXN0L3dobC90ZW5zb3Jm\nbG93X2dwdS0xLjEuMHJjMi1weTItbm9uZS1hbnkud2hsKSAoW2J1aWxkIGhp\nc3RvcnldKGh0dHBzOi8vY2kudGVuc29yZmxvdy5vcmcvdmlldy9OaWdodGx5\nL2pvYi9uaWdodGx5LW1hdHJpeC1tYWMtZ3B1L1RGX0JVSUxEX0lTX09QVD1P\nUFQsVEZfQlVJTERfSVNfUElQPVBJUCxURl9CVUlMRF9QWVRIT05fVkVSU0lP\nTj1QWVRIT04yLGxhYmVsPWdwdS1tYWMvKSkgLyBbUHl0aG9uIDNdKGh0dHBz\nOi8vY2kudGVuc29yZmxvdy5vcmcvdmlldy9OaWdodGx5L2pvYi9uaWdodGx5\nLW1hdHJpeC1tYWMtZ3B1L1RGX0JVSUxEX0lTX09QVD1PUFQsVEZfQlVJTERf\nSVNfUElQPVBJUCxURl9CVUlMRF9QWVRIT05fVkVSU0lPTj1QWVRIT04zLGxh\nYmVsPWdwdS1tYWMvbGFzdFN1Y2Nlc3NmdWxCdWlsZC9hcnRpZmFjdC9waXBf\ndGVzdC93aGwvdGVuc29yZmxvd19ncHUtMS4xLjByYzItcHkzLW5vbmUtYW55\nLndobCkgKFtidWlsZCBoaXN0b3J5XShodHRwczovL2NpLnRlbnNvcmZsb3cu\nb3JnL3ZpZXcvTmlnaHRseS9qb2IvbmlnaHRseS1tYXRyaXgtbWFjLWdwdS9U\nRl9CVUlMRF9JU19PUFQ9T1BULFRGX0JVSUxEX0lTX1BJUD1QSVAsVEZfQlVJ\nTERfUFlUSE9OX1ZFUlNJT049UFlUSE9OMyxsYWJlbD1ncHUtbWFjLykpCiog\nV2luZG93cyBDUFUtb25seTogW1B5dGhvbiAzLjUgNjQtYml0XShodHRwczov\nL2NpLnRlbnNvcmZsb3cub3JnL3ZpZXcvTmlnaHRseS9qb2IvbmlnaHRseS13\naW4vREVWSUNFPWNwdSxPUz13aW5kb3dzL2xhc3RTdWNjZXNzZnVsQnVpbGQv\nYXJ0aWZhY3QvY21ha2VfYnVpbGQvdGZfcHl0aG9uL2Rpc3QvdGVuc29yZmxv\ndy0xLjEuMHJjMi1jcDM1LWNwMzVtLXdpbl9hbWQ2NC53aGwpIChbYnVpbGQg\naGlzdG9yeV0oaHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9yZy92aWV3L05pZ2h0\nbHkvam9iL25pZ2h0bHktd2luL0RFVklDRT1jcHUsT1M9d2luZG93cy8pKQoq\nIFdpbmRvd3MgR1BVOiBbUHl0aG9uIDMuNSA2NC1iaXRdKGh0dHBzOi8vY2ku\ndGVuc29yZmxvdy5vcmcvdmlldy9OaWdodGx5L2pvYi9uaWdodGx5LXdpbi9E\nRVZJQ0U9Z3B1LE9TPXdpbmRvd3MvbGFzdFN1Y2Nlc3NmdWxCdWlsZC9hcnRp\nZmFjdC9jbWFrZV9idWlsZC90Zl9weXRob24vZGlzdC90ZW5zb3JmbG93X2dw\ndS0xLjEuMHJjMi1jcDM1LWNwMzVtLXdpbl9hbWQ2NC53aGwpIChbYnVpbGQg\naGlzdG9yeV0oaHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9yZy92aWV3L05pZ2h0\nbHkvam9iL25pZ2h0bHktd2luL0RFVklDRT1ncHUsT1M9d2luZG93cy8pKQoq\nIEFuZHJvaWQ6IFtkZW1vIEFQS10oaHR0cHM6Ly9jaS50ZW5zb3JmbG93Lm9y\nZy92aWV3L05pZ2h0bHkvam9iL25pZ2h0bHktYW5kcm9pZC9sYXN0U3VjY2Vz\nc2Z1bEJ1aWxkL2FydGlmYWN0L291dC90ZW5zb3JmbG93X2RlbW8uYXBrKSwg\nW25hdGl2ZSBsaWJzXShodHRwOi8vY2kudGVuc29yZmxvdy5vcmcvdmlldy9O\naWdodGx5L2pvYi9uaWdodGx5LWFuZHJvaWQvbGFzdFN1Y2Nlc3NmdWxCdWls\nZC9hcnRpZmFjdC9vdXQvbmF0aXZlLykKKFtidWlsZCBoaXN0b3J5XShodHRw\nczovL2NpLnRlbnNvcmZsb3cub3JnL3ZpZXcvTmlnaHRseS9qb2IvbmlnaHRs\neS1hbmRyb2lkLykpCgojIyMjICpUcnkgeW91ciBmaXJzdCBUZW5zb3JGbG93\nIHByb2dyYW0qCmBgYHNoZWxsCiQgcHl0aG9uCmBgYApgYGBweXRob24KPj4+\nIGltcG9ydCB0ZW5zb3JmbG93IGFzIHRmCj4+PiBoZWxsbyA9IHRmLmNvbnN0\nYW50KCdIZWxsbywgVGVuc29yRmxvdyEnKQo+Pj4gc2VzcyA9IHRmLlNlc3Np\nb24oKQo+Pj4gc2Vzcy5ydW4oaGVsbG8pCidIZWxsbywgVGVuc29yRmxvdyEn\nCj4+PiBhID0gdGYuY29uc3RhbnQoMTApCj4+PiBiID0gdGYuY29uc3RhbnQo\nMzIpCj4+PiBzZXNzLnJ1bihhK2IpCjQyCj4+PgpgYGAKCiMjIEZvciBtb3Jl\nIGluZm9ybWF0aW9uCgoqIFtUZW5zb3JGbG93IHdlYnNpdGVdKGh0dHBzOi8v\ndGVuc29yZmxvdy5vcmcpCiogW1RlbnNvckZsb3cgd2hpdGVwYXBlcl0oaHR0\ncDovL2Rvd25sb2FkLnRlbnNvcmZsb3cub3JnL3BhcGVyL3doaXRlcGFwZXIy\nMDE1LnBkZikKKiBbVGVuc29yRmxvdyBNb2RlbCBab29dKGh0dHBzOi8vZ2l0\naHViLmNvbS90ZW5zb3JmbG93L21vZGVscykKKiBbVGVuc29yRmxvdyBNT09D\nIG9uIFVkYWNpdHldKGh0dHBzOi8vd3d3LnVkYWNpdHkuY29tL2NvdXJzZS9k\nZWVwLWxlYXJuaW5nLS11ZDczMCkKClRoZSBUZW5zb3JGbG93IGNvbW11bml0\neSBoYXMgY3JlYXRlZCBhbWF6aW5nIHRoaW5ncyB3aXRoIFRlbnNvckZsb3cs\nIHBsZWFzZSBzZWUgdGhlIFtyZXNvdXJjZXMgc2VjdGlvbiBvZiB0ZW5zb3Jm\nbG93Lm9yZ10oaHR0cHM6Ly93d3cudGVuc29yZmxvdy5vcmcvYWJvdXQvI2Nv\nbW11bml0eSkgZm9yIGFuIGluY29tcGxldGUgbGlzdC4K\n", 
+                "download_url": "https://raw.githubusercontent.com/tensorflow/tensorflow/master/README.md", 
+                "encoding": "base64", 
+                "git_url": "https://api.github.com/repos/tensorflow/tensorflow/git/blobs/951e7c3b9f672b66dbf5f04dfc536ed0b17bb507", 
+                "html_url": "https://github.com/tensorflow/tensorflow/blob/master/README.md", 
+                "name": "README.md", 
+                "path": "README.md", 
+                "sha": "951e7c3b9f672b66dbf5f04dfc536ed0b17bb507", 
+                "size": 8358, 
+                "type": "file", 
+                "url": "https://api.github.com/repos/tensorflow/tensorflow/contents/README.md?ref=master"
+            }, 
+            "repo": {
+                "created_at": "2015-11-07T01:19:20Z", 
+                "language": "C++", 
+                "owner": {
+                    "avatar_url": "https://avatars2.githubusercontent.com/u/15658638?v=3", 
+                    "events_url": "https://api.github.com/users/tensorflow/events{/privacy}", 
+                    "followers_url": "https://api.github.com/users/tensorflow/followers", 
+                    "following_url": "https://api.github.com/users/tensorflow/following{/other_user}", 
+                    "gists_url": "https://api.github.com/users/tensorflow/gists{/gist_id}", 
+                    "gravatar_id": "", 
+                    "html_url": "https://github.com/tensorflow", 
+                    "id": 15658638, 
+                    "login": "tensorflow", 
+                    "organizations_url": "https://api.github.com/users/tensorflow/orgs", 
+                    "received_events_url": "https://api.github.com/users/tensorflow/received_events", 
+                    "repos_url": "https://api.github.com/users/tensorflow/repos", 
+                    "site_admin": false, 
+                    "starred_url": "https://api.github.com/users/tensorflow/starred{/owner}{/repo}", 
+                    "subscriptions_url": "https://api.github.com/users/tensorflow/subscriptions", 
+                    "type": "Organization", 
+                    "url": "https://api.github.com/users/tensorflow"
+                }, 
+                "pushed_at": "2017-04-25T15:59:39Z", 
+                "stargazers_count": 55209, 
+                "updated_at": "2017-04-25T16:51:54Z", 
+                "watchers_count": 55209
+            }
+        }
+    }
+}
