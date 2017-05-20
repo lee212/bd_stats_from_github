@@ -1,0 +1,153 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "dockerfiles": {
+            "baseimages": [
+                [
+                    "ubuntu:14.04", 
+                    5
+                ], 
+                [
+                    "scratch", 
+                    4
+                ], 
+                [
+                    "qa.stratio.com/stratio/spark-krb-dispatcher-support:2.1.0", 
+                    4
+                ], 
+                [
+                    "wurstmeister/storm:0.9.4", 
+                    3
+                ], 
+                [
+                    "viki_data/base-storm", 
+                    3
+                ], 
+                [
+                    "centos:7.2.1511", 
+                    2
+                ], 
+                [
+                    "openjdk:8", 
+                    1
+                ], 
+                [
+                    "python:2", 
+                    1
+                ], 
+                [
+                    "ubuntu:trusty", 
+                    1
+                ], 
+                [
+                    "ubuntu:16.04", 
+                    1
+                ], 
+                [
+                    "wurstmeister/base", 
+                    1
+                ], 
+                [
+                    "mhart/alpine-node:4", 
+                    1
+                ]
+            ], 
+            "baseos": {
+                "alpine": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "busybox": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "centos": {
+                    "total_count": 2, 
+                    "version": {
+                        "7.2.1511": 2
+                    }
+                }, 
+                "debian": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "fedora": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "ubuntu": {
+                    "total_count": 7, 
+                    "version": {
+                        "14.04": 5, 
+                        "16.04": 1, 
+                        "trusty": 1
+                    }
+                }
+            }, 
+            "packages": [], 
+            "total_counts": 14
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }
+    }
+}

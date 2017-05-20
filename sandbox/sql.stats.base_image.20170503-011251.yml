@@ -1,0 +1,197 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "dockerfiles": {
+            "baseimages": [
+                [
+                    "alpine:3.4", 
+                    42
+                ], 
+                [
+                    "debian:jessie", 
+                    8
+                ], 
+                [
+                    "ubuntu:16.04", 
+                    8
+                ], 
+                [
+                    "oraclelinux:latest", 
+                    7
+                ], 
+                [
+                    "ubuntu", 
+                    6
+                ], 
+                [
+                    "ubuntu:14.04", 
+                    5
+                ], 
+                [
+                    "ubuntu:trusty", 
+                    4
+                ], 
+                [
+                    "mysql:latest", 
+                    4
+                ], 
+                [
+                    "oracle/openjdk:latest", 
+                    4
+                ], 
+                [
+                    "oracle/serverjre:8", 
+                    3
+                ], 
+                [
+                    "windowsservercore:10.0.14300.1000", 
+                    3
+                ], 
+                [
+                    "oraclelinux:7-slim", 
+                    2
+                ], 
+                [
+                    "gobblin/gobblin-distributions:ubuntu-gobblin-0.7.0", 
+                    2
+                ], 
+                [
+                    "node:4.5.0", 
+                    2
+                ], 
+                [
+                    "oracle/tuxedo:<VERSION>", 
+                    2
+                ], 
+                [
+                    "oracle/weblogic:12.2.1.2-developer", 
+                    2
+                ], 
+                [
+                    "ubuntu:xenial", 
+                    2
+                ], 
+                [
+                    "oracle/weblogic:12.2.1-developer", 
+                    2
+                ], 
+                [
+                    "ubuntu:12.04", 
+                    2
+                ], 
+                [
+                    "vitess/bootstrap:mysql57", 
+                    2
+                ]
+            ], 
+            "baseos": {
+                "alpine": {
+                    "total_count": 44, 
+                    "version": {
+                        "3.3": 1, 
+                        "3.4": 42, 
+                        "3.5": 1
+                    }
+                }, 
+                "busybox": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "centos": {
+                    "total_count": 1, 
+                    "version": {
+                        "7": 1
+                    }
+                }, 
+                "debian": {
+                    "total_count": 10, 
+                    "version": {
+                        "8": 1, 
+                        "jessie": 8, 
+                        "wheezy": 1
+                    }
+                }, 
+                "fedora": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "ubuntu": {
+                    "total_count": 28, 
+                    "version": {
+                        "12.04": 2, 
+                        "14.04": 5, 
+                        "16.04": 8, 
+                        "default": 6, 
+                        "latest": 1, 
+                        "trusty": 4, 
+                        "xenial": 2
+                    }
+                }
+            }, 
+            "packages": [], 
+            "total_counts": 53
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }
+    }
+}

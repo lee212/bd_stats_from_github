@@ -1,0 +1,209 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "dockerfiles": {
+            "baseimages": [
+                [
+                    "ubuntu:14.04", 
+                    26
+                ], 
+                [
+                    "fluxcapacitor/package-java-openjdk-1.8:master", 
+                    21
+                ], 
+                [
+                    "alpine:latest", 
+                    17
+                ], 
+                [
+                    "centos:centos7", 
+                    15
+                ], 
+                [
+                    "ubuntu", 
+                    12
+                ], 
+                [
+                    "ubuntu:12.04", 
+                    10
+                ], 
+                [
+                    "fluxcapacitor/package-ubuntu-16.04:master", 
+                    9
+                ], 
+                [
+                    "ubuntu:latest", 
+                    8
+                ], 
+                [
+                    "ubuntu:trusty", 
+                    8
+                ], 
+                [
+                    "debian:jessie", 
+                    7
+                ], 
+                [
+                    "ubuntu:xenial", 
+                    6
+                ], 
+                [
+                    "openjdk:8-jre", 
+                    6
+                ], 
+                [
+                    "openjdk:8-jre-alpine", 
+                    6
+                ], 
+                [
+                    "ubuntu:16.04", 
+                    5
+                ], 
+                [
+                    "jboss/wildfly:latest", 
+                    5
+                ], 
+                [
+                    "itzg/ubuntu-openjdk-7", 
+                    5
+                ], 
+                [
+                    "harisekhon/centos-java:jre7", 
+                    4
+                ], 
+                [
+                    "fedora:21", 
+                    4
+                ], 
+                [
+                    "centos:centos6", 
+                    4
+                ], 
+                [
+                    "jboss/wildfly", 
+                    4
+                ]
+            ], 
+            "baseos": {
+                "alpine": {
+                    "total_count": 23, 
+                    "version": {
+                        "3.4": 2, 
+                        "3.5": 1, 
+                        "default": 3, 
+                        "latest": 17
+                    }
+                }, 
+                "busybox": {
+                    "total_count": 5, 
+                    "version": {
+                        "default": 2, 
+                        "latest": 3
+                    }
+                }, 
+                "centos": {
+                    "total_count": 24, 
+                    "version": {
+                        "7": 2, 
+                        "centos6": 4, 
+                        "centos7": 15, 
+                        "default": 1, 
+                        "latest": 2
+                    }
+                }, 
+                "debian": {
+                    "total_count": 11, 
+                    "version": {
+                        "jessie": 7, 
+                        "latest": 2, 
+                        "stretch": 1, 
+                        "wheezy": 1
+                    }
+                }, 
+                "fedora": {
+                    "total_count": 6, 
+                    "version": {
+                        "21": 4, 
+                        "22": 2
+                    }
+                }, 
+                "ubuntu": {
+                    "total_count": 75, 
+                    "version": {
+                        "12.04": 10, 
+                        "14.04": 26, 
+                        "16.04": 5, 
+                        "default": 12, 
+                        "latest": 8, 
+                        "trusty": 8, 
+                        "xenial": 6
+                    }
+                }
+            }, 
+            "packages": [], 
+            "total_counts": 72
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }
+    }
+}

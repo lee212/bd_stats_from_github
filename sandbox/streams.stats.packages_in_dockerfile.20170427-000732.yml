@@ -1,0 +1,107 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": {
+                "\"": 2, 
+                "'{print": 2, 
+                "awk": 2, 
+                "curl": 7, 
+                "default-jre-headless": 3, 
+                "dnsmasq": 1, 
+                "docker": 1, 
+                "docker.io": 1, 
+                "gcc": 1, 
+                "git": 4, 
+                "grep": 2, 
+                "head": 2, 
+                "jq": 4, 
+                "libcurl4-nss-dev": 3, 
+                "libsvn1": 3, 
+                "madison": 2, 
+                "make": 1, 
+                "maven": 3, 
+                "mesos": 2, 
+                "mesos=`apt-cache": 2, 
+                "npm": 1, 
+                "openjdk-6-jdk": 2, 
+                "openjdk-6-jre-headless": 1, 
+                "openssh-server": 2, 
+                "oracle-java8-installer": 1, 
+                "python-dev": 2, 
+                "python-pip": 2, 
+                "sudo": 1, 
+                "supervisor": 2, 
+                "unzip": 3, 
+                "vim": 3, 
+                "wget": 10, 
+                "|": 6
+            }, 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }
+    }
+}

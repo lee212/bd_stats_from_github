@@ -1,0 +1,201 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "dockerfiles": {
+            "baseimages": [
+                [
+                    "alpine:latest", 
+                    17
+                ], 
+                [
+                    "java:8", 
+                    7
+                ], 
+                [
+                    "spark-test-base", 
+                    6
+                ], 
+                [
+                    "java:7", 
+                    6
+                ], 
+                [
+                    "ubuntu", 
+                    5
+                ], 
+                [
+                    "harisekhon/centos-java:jre7", 
+                    4
+                ], 
+                [
+                    "openjdk:8-jre-alpine", 
+                    4
+                ], 
+                [
+                    "harisekhon/nagios-plugins:latest", 
+                    3
+                ], 
+                [
+                    "obaidsalikeen/storm:0.9.3", 
+                    3
+                ], 
+                [
+                    "ubuntu:precise", 
+                    3
+                ], 
+                [
+                    "bde2020/flink-base:1.2.0-hadoop2.7", 
+                    3
+                ], 
+                [
+                    "harisekhon/debian-java:jre7", 
+                    3
+                ], 
+                [
+                    "ubuntu:trusty", 
+                    3
+                ], 
+                [
+                    "harisekhon/alpine-github:latest", 
+                    3
+                ], 
+                [
+                    "busybox:latest", 
+                    3
+                ], 
+                [
+                    "debian:jessie", 
+                    2
+                ], 
+                [
+                    "prasanthj/docker-tez:tez-0.5.2", 
+                    2
+                ], 
+                [
+                    "harisekhon/centos-java:latest", 
+                    2
+                ], 
+                [
+                    "harisekhon/centos-scala:2.11-jdk8", 
+                    2
+                ], 
+                [
+                    "debian:latest", 
+                    2
+                ]
+            ], 
+            "baseos": {
+                "alpine": {
+                    "total_count": 17, 
+                    "version": {
+                        "latest": 17
+                    }
+                }, 
+                "busybox": {
+                    "total_count": 3, 
+                    "version": {
+                        "latest": 3
+                    }
+                }, 
+                "centos": {
+                    "total_count": 4, 
+                    "version": {
+                        "7": 1, 
+                        "centos7": 1, 
+                        "latest": 2
+                    }
+                }, 
+                "debian": {
+                    "total_count": 6, 
+                    "version": {
+                        "jessie": 2, 
+                        "latest": 2, 
+                        "stretch": 1, 
+                        "wheezy": 1
+                    }
+                }, 
+                "fedora": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "ubuntu": {
+                    "total_count": 17, 
+                    "version": {
+                        "14.04": 1, 
+                        "15.10": 1, 
+                        "16.04": 1, 
+                        "16.10": 1, 
+                        "default": 5, 
+                        "latest": 2, 
+                        "precise": 3, 
+                        "trusty": 3
+                    }
+                }
+            }, 
+            "packages": [], 
+            "total_counts": 31
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }
+    }
+}

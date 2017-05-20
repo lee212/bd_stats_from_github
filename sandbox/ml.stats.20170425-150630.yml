@@ -1,0 +1,142 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "dockerfiles": {
+            "baseimages": [
+                [
+                    "ubuntu:16.04", 
+                    6
+                ], 
+                [
+                    "nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04", 
+                    2
+                ], 
+                [
+                    "nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04", 
+                    1
+                ], 
+                [
+                    "jpetazzo/dind", 
+                    1
+                ], 
+                [
+                    "predictionio/pio-testing-base", 
+                    1
+                ], 
+                [
+                    "nvidia/cuda:8.0-cudnn5-devel", 
+                    1
+                ], 
+                [
+                    "microsoft/windowsservercore", 
+                    1
+                ], 
+                [
+                    "gcr.io/tensorflow/tensorflow:latest", 
+                    1
+                ], 
+                [
+                    "ubuntu:14.04", 
+                    1
+                ], 
+                [
+                    "predictionio/pio", 
+                    1
+                ]
+            ], 
+            "baseos": {
+                "alpine": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "busybox": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "centos": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "debian": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "fedora": {
+                    "total_count": 0, 
+                    "version": {}
+                }, 
+                "ubuntu": {
+                    "total_count": 7, 
+                    "version": {
+                        "14.04": 1, 
+                        "16.04": 6
+                    }
+                }
+            }, 
+            "packages": [], 
+            "total_counts": 5
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }
+    }
+}

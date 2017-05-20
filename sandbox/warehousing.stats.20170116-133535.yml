@@ -1,0 +1,165 @@
+{
+    "recent": {
+        "dockerfiles": {
+            "baseimages": [], 
+            "baseos": [], 
+            "packages": [], 
+            "total_counts": 0
+        }, 
+        "examples": [], 
+        "languages": {}, 
+        "packages": {
+            "average": 0.0, 
+            "list": [], 
+            "most_common": [], 
+            "numbers": [], 
+            "total_count": 0
+        }, 
+        "packages_in_days": {
+            "180": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "30": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "365": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "60": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }, 
+            "90": {
+                "average": 0.0, 
+                "list": [], 
+                "most_common": [], 
+                "numbers": [], 
+                "total_count": 0
+            }
+        }
+    }, 
+    "result": {
+        "language_percentage": [
+            [
+                "Python", 
+                0.2713811571999042
+            ], 
+            [
+                "Java", 
+                0.1786929911433205
+            ], 
+            [
+                "R", 
+                0.10500733574179139
+            ], 
+            [
+                "JavaScript", 
+                0.09630304759379572
+            ], 
+            [
+                "Jupyter Notebook", 
+                0.054642574781159525
+            ], 
+            [
+                "HTML", 
+                0.05086617151888949
+            ], 
+            [
+                "Ruby", 
+                0.043814074334273784
+            ], 
+            [
+                "C++", 
+                0.032713545506230804
+            ], 
+            [
+                "C#", 
+                0.02793701593094256
+            ], 
+            [
+                "PHP", 
+                0.02705385658709537
+            ], 
+            [
+                "Matlab", 
+                0.02339986235375086
+            ], 
+            [
+                "TeX", 
+                0.02186472432515103
+            ], 
+            [
+                "CSS", 
+                0.019234438373447144
+            ], 
+            [
+                "Shell", 
+                0.01602843796519686
+            ], 
+            [
+                "PLSQL", 
+                0.014751552795031056
+            ], 
+            [
+                "C", 
+                0.012507593579738168
+            ], 
+            [
+                "Clojure", 
+                0.011111111111111112
+            ], 
+            [
+                "Web Ontology Language", 
+                0.011111111111111112
+            ], 
+            [
+                "Haskell", 
+                0.011111111111111112
+            ], 
+            [
+                "F#", 
+                0.011111111111111112
+            ], 
+            [
+                "Scala", 
+                0.010419350515927312
+            ], 
+            [
+                "Visual Basic", 
+                0.010093167701863354
+            ], 
+            [
+                "Go", 
+                0.008953168044077135
+            ], 
+            [
+                "Perl", 
+                0.006887052341597796
+            ]
+        ], 
+        "total_count": {
+            "all": [
+                90, 
+                1288, 
+                1452, 
+                5812
+            ], 
+            "average": 3435.625
+        }
+    }
+}
