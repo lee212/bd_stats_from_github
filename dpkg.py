@@ -92,7 +92,7 @@ def get_names(depends):
     depends = list(set([ x.split()[0] for x in depends.split(",")]))
     return depends
 
-def stats_in_csv(file_or_path, option):
+def stats_in_csv(file_or_path, option, file4comparison=None):
     a = Counter()
 
     if os.path.isdir(file_or_path):
@@ -147,6 +147,29 @@ def stats_in_csv(file_or_path, option):
                     package_stat[perc].append(x[0])
                 except:
                     package_stat[perc] = [x[0]]
+            # temp code for validation.
+            import csv
+            fcsv = csv.reader(open(file4comparison, "r"))
+            dependency = {}
+            dependency_stat = {}
+
+            for i in fcsv:
+                category = i[0]
+                name = i[1]
+                size = int(i[2] or 0)
+                internal_frequency = i[3]
+                frequency = i[4]
+                dependency[name] = { 'size': size,
+                        'frequency': frequency }
+                perc = round(eval(frequency), 1)
+                while perc > 0.0:
+                    try:
+                        dependency_stat[perc] += size
+                    except KeyError:
+                        dependency_stat[perc] = size
+                    perc -= 0.1
+                    perc = round(perc, 1)
+
             image_stat = []
             for df_fullpath, dps in packages.iteritems():
                 total_lib_size_in_image = 0
@@ -155,6 +178,7 @@ def stats_in_csv(file_or_path, option):
                     do = round(x * 0.1,1)
                     ddd[do] = 0
                 #print (ddd)
+                print df_fullpath, dps
                 for p in dps:
                     #print p
                     try:
@@ -165,8 +189,14 @@ def stats_in_csv(file_or_path, option):
                         continue
                     total_lib_size_in_image += psize
                     #print psize, total_lib_size_in_image
-                    m = frequent_c[p]
-                    perc = round(m/(dockerfile_cnt*1.0),1)
+                    if p in dependency:
+                        perc = round(eval(dependency[p]['frequency']),1)
+                        print ("%s found, %.2f, %d" % (p, perc, psize))
+                    else:
+                        perc = 0
+                        print ("%s not found, %.2f, %d" % (p, perc, psize))
+                    #m = frequent_c[p]
+                    #perc = round(m/(dockerfile_cnt*1.0),1)
                     while perc > 0.0:
                         ddd[perc] += -1 * psize
                         perc-=0.1
@@ -186,6 +216,7 @@ def stats_in_csv(file_or_path, option):
 
                 print "%s, %s, %d" % (k, asize, len(v))
 
+            pprint(dependency_stat)
             return (image_stat)
             continue
         else:
@@ -239,7 +270,10 @@ if __name__ == "__main__":
     opt = None
     if len(sys.argv) == 3:
         opt = sys.argv[2]
-    a = stats_in_csv(mypath, opt)
+    elif len(sys.argv) == 4:
+        opt = sys.argv[2]
+        comp_file = sys.argv[3]
+    a = stats_in_csv(mypath, opt, comp_file)
     for i in a:
         ddd=",".join(str(x) for x in i)
         print (ddd)
