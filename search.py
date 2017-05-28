@@ -11,6 +11,7 @@ import math
 import utils
 import urllib
 import copy
+import subprocess
 
 class searchRepo(object):
 
@@ -390,6 +391,57 @@ class searchRepo(object):
             merged_items['total_count'] = len(merged_items['items'])
         
         return merged_items
+
+    def search_dockerhub(self, column="repo_name_only"):
+        if column == "repo_name_only":
+            column = 0
+        search_keywords = self.result['search_keywords']
+        merged_items = self.result['merged_items']
+        duplicate = 0
+        for keyword in self.inputs['keywords']:
+            try:
+                keyword, option = keyword.split("+")
+            except ValueError:
+                keyword = keyword.split("+")[0]
+
+            # special case for temporal adjustment
+            cmd = ("search --no-trunc -f %s %s"%("stars=1", keyword))
+            ret = self.request_docker_cmd(cmd, column)
+            search_keywords[keyword]['total_count'] = len(ret)
+            search_keywords[keyword]['items'] = ret
+            search_keywords[keyword]['query'] = cmd
+
+            for item in ret:
+                if item in merged_items['items']:
+                    duplicate += 1
+                merged_items['items'][item] = item
+            merged_items['total_count'] = len(merged_items['items'])
+
+        return merged_items
+
+    def request_docker_cmd(self, cmd, column=0):
+
+        FNULL = open(os.devnull, 'w')
+
+        res = subprocess.Popen("./docker %s" % cmd, shell=True,
+                stdout=subprocess.PIPE, stderr=FNULL).stdout.read()
+
+        ret = []
+        tmp = res.split("\n")
+        # Skip head
+        del(tmp[0])
+        for i in tmp:
+            try:
+                if column == "all":
+                    t = i.split()
+                else:
+                    t = i.split()[column]
+            except IndexError:
+                t = []
+            if t:
+                ret.append(t)
+
+        return ret
 
     def run_search(self, query):
         """Obsolete function"""

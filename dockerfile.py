@@ -10,6 +10,7 @@ import urllib
 from pprint import pprint
 from search import searchRepo
 import utils
+import requests
 
 class searchDockerfileInCode(searchRepo):
     """This searches dockerfiles from 'code', not repositories"""
@@ -64,6 +65,45 @@ class searchDockerfileInCode(searchRepo):
 
         return self.result
 
+    def retrieve_dockerhub(self, repos):
+        for repo_name in repos:
+            contents = self.get_dockerfile_from_dockerhub(repo_name)
+            if not contents:
+                continue
+            instructions = self.read_dockerfile(contents)
+            file_path = self.dockerhub_path(repo_name)
+            if not repo_name in self.result:
+                self.result[repo_name] = { 
+                        'dockerfile': { file_path: None }
+                        }
+                self.result[repo_name]['dockerfile'][file_path] = \
+                        instructions
+
+        return self.result
+
+    def dockerhub_path(self, repo_name):
+        if repo_name.find("/") < 0:
+            is_official_repo = True
+            repo_addr = repo_name
+        else:
+            repo_addr = "r/%s" % repo_name
+        repo_addr = ('http://hub.docker.com/%s/~/dockerfile/' % repo_addr)
+        return repo_addr
+
+    def get_dockerfile_from_dockerhub(self, repo_name):
+        repo_addr = self.dockerhub_path(repo_name)
+        raw = requests.get(repo_addr)
+        raw_contents = raw.text
+        raw_contents = raw_contents.encode("ascii","ignore")
+        is_found = raw_contents.find('RepoDetailsDockerfileStore')
+        if is_found > 0:
+            found = \
+                    re.match(".*dockerfile\":\"([^}]*)\".*",raw_contents[is_found:])
+            if found:
+                result = found.group(1)
+                return result
+        return None
+
     def search_all(self):
         res = self.search()
         if self.raw_data['total_count'] > self.conf['per_page']:
@@ -101,6 +141,7 @@ class searchDockerfileInCode(searchRepo):
                 }
 
         # patch for multi lines
+        #content = content.encode("ascii","ignore")
         content = re.sub(r'\\\n\s+', "", content)
         for inst in instructions.keys():
             res = re.findall(inst + " (.*)", content)
@@ -137,6 +178,10 @@ class searchDockerfileInCode(searchRepo):
         repo_names = eval("self.inputs" + func)
         self.inputs['keywords'] = [ "repo:" + x for x in repo_names ]
 
+    def get_repo_names_from_dockerhub(self):
+        ret = self.search_dockerhub()
+        return ret
+
     def is_official_image(self, name):
 
         url = "//api.github.com/repos/docker-library/official-images/contents/library"
@@ -153,6 +198,12 @@ if __name__ == "__main__":
     dockerfiles.get_inputs(sys.argv[1])
     if sys.argv[2] == "from_repo":
         dockerfiles.get_repo_names_as_inputs("['result']['merged_items']['items'].keys()")
+    elif sys.argv[2] == "from_dockerhub":
+        ret = dockerfiles.get_repo_names_from_dockerhub()
+        res = dockerfiles.retrieve_dockerhub(ret['items'])
+        pprint (res)
+
+        sys.exit()
     res = dockerfiles.search_all()
     dockerfiles.get_repo()
     dockerfiles.get_readme()
